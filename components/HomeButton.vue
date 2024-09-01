@@ -1,6 +1,6 @@
 <template>
-    <div>
-        test
+    <div class="button">
+        <span class="i-ph-house-bold size-6" />
     </div>
 </template>
 
