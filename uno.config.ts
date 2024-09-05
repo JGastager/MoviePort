@@ -19,6 +19,6 @@ export default defineConfig({
   shortcuts: {
     'backdrop-blur': 'backdrop-blur-2xl',
     card: 'rounded bg-primary/30 backdrop-blur',
-    button: 'rounded bg-primary/30 backdrop-blur h-11 min-w-11 py-4 inline-flex items-center justify-center gap-2.5 cursor-pointer hover:bg-primary/40 transition-colors',
+    button: 'rounded bg-primary/30 backdrop-blur h-11 min-w-11 inline-flex items-center justify-center gap-2.5 cursor-pointer hover:bg-primary/40 transition-colors duration-300',
   },
 })

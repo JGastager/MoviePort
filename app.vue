@@ -1,8 +1,10 @@
 <template>
-    <div class="bg-[#000711] min-h-screen">
+    <div class="min-h-screen bg-[#000711]">
+        <img src="~/assets/images/wallpaper.jpg" class="fixed top-0 h-screen w-full object-cover" alt="Wallpaper" >
         <NuxtLayout>
             <NuxtPage/>
         </NuxtLayout>
+        <div id="modals" />
     </div>
 </template>
 
