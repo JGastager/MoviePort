@@ -1,6 +1,6 @@
 <template>
     <div class="aspect-2/3 cursor-pointer overflow-hidden card" @click="openModal">
-        <img src="~/assets/images/poster.jpg" alt="Poster" class="h-full w-full object-cover">
+        <img src="~/assets/images/poster.jpg" alt="Poster" class="h-full w-full object-cover transition-transform duration-300 hover:scale-102">
     </div>
     <Teleport to="#modals">
         <Transition name="modal">

@@ -18,5 +18,35 @@ body {
     color: white;
     font-family: Poppins, Arial, Helvetica, sans-serif;
     font-size: 1rem;
+    font-weight: normal;
+}
+
+p {
+    margin: 0;
+    padding: 0;
+    font-size: 16px;
+    font-weight: normal;
+}
+
+h1 {
+    margin: 0;
+    padding: 0;
+    font-size: 40px;
+    font-weight: normal;
+    line-height: 40px;
+}
+
+h2 {
+    margin: 0;
+    padding: 0;
+    font-size: 28px;
+    font-weight: normal;
+}
+
+h3 {
+    margin: 0;
+    padding: 0;
+    font-size: 18px;
+    font-weight: normal;
 }
 </style>
