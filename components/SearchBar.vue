@@ -1,5 +1,5 @@
 <template>
-    <div class="w-103 cursor-text card transition-colors duration-300 hover:bg-primary/40">
+    <div class="w-103 cursor-text card transition-colors duration-300 hover:bg-primary/50">
         <div class="h-11 flex items-center">
             <input type="text" class="h-full w-full rounded b-none bg-transparent px-4 py-0 text-1rem text-white font-sans outline-none" >
             <div class="h-full w-13 flex cursor-pointer items-center justify-center pr-2">

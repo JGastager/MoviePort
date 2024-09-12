@@ -16,9 +16,10 @@
         </section>
         <section class="col-span-6">
             <h1 class="mb-10">Star Trek: Beyond</h1>
-            <p>
-                Lorem ipsum dolor, sit amet consectetur adipisicing elit. Debitis, sed, nemo, sunt aliquid nisi doloremque totam fuga dicta esse hic numquam tempora. Consequatur nostrum vitae blanditiis voluptatibus, veritatis eum obcaecatLorem ipsum dolor, sit amet consectetur adipisicing elit. Debitis, sed, nemo, sunt aliquid nisi doloremque totam fuga dicta esse hic numquam tempora. Consequatur nostrum vitae blanditiis voluptatibus, veritatis eum obcaecati.Lorem ipsum dolor, sit amet consectetur adipisicing elit. Debitis, sed, nemo, sunt aliquid nisi doloremque totam fuga dicta esse hic numquam tempora. Consequatur nostrum vitae blanditiis voluptatibus, veritatis eum obcaecati.Lorem ipsum dolor, sit amet consectetur adipisicing elit. Debitis, sed, nemo, sunt aliquid nisi doloremque totam fuga dicta esse hic numquam tempora. Consequatur nostrum vitae blanditiis voluptatibus, veritatis eum obcaecati.Lorem ipsum dolor, sit amet consectetur adipisicing elit. Debitis, sed, nemo, sunt aliquid nisi doloremque totam fuga dicta esse hic numquam tempora. Consequatur nostrum vitae blanditiis voluptatibus, veritatis eum obcaecati.Lorem ipsum dolor, sit amet consectetur adipisicing elit. Debitis, sed, nemo, sunt aliquid nisi doloremque totam fuga dicta esse hic numquam tempora. Consequatur nostrum vitae blanditiis voluptatibus, veritatis eum obcaecati.Lorem ipsum dolor, sit amet consectetur adipisicing elit. Debitis, sed, nemo, sunt aliquid nisi doloremque totam fuga dicta esse hic numquam tempora. Consequatur nostrum vitae blanditiis voluptatibus, veritatis eum obcaecati.Lorem ipsum dolor, sit amet consectetur adipisicing elit. Debitis, sed, nemo, sunt aliquid nisi doloremque totam fuga dicta esse hic numquam tempora. Consequatur nostrum vitae blanditiis voluptatibus, veritatis eum obcaecati.Lorem ipsum dolor, sit amet consectetur adipisicing elit. Debitis, sed, nemo, sunt aliquid nisi doloremque totam fuga dicta esse hic numquam tempora. Consequatur nostrum vitae blanditiis voluptatibus, veritatis eum obcaecati.Lorem ipsum dolor, sit amet consectetur adipisicing elit. Debitis, sed, nemo, sunt aliquid nisi doloremque totam fuga dicta esse hic numquam tempora. Consequatur nostrum vitae blanditiis voluptatibus, veritatis eum obcaecati.Lorem ipsum dolor, sit amet consectetur adipisicing elit. Debitis, sed, nemo, sunt aliquid nisi doloremque totam fuga dicta esse hic numquam tempora. Consequatur nostrum vitae blanditiis voluptatibus, veritatis eum obcaecati.Lorem ipsum dolor, sit amet consectetur adipisicing elit. Debitis, sed, nemo, sunt aliquid nisi doloremque totam fuga dicta esse hic numquam tempora. Consequatur nostrum vitae blanditiis voluptatibus, veritatis eum obcaecati.Lorem ipsum dolor, sit amet consectetur adipisicing elit. Debitis, sed, nemo, sunt aliquid nisi doloremque totam fuga dicta esse hic numquam tempora. Consequatur nostrum vitae blanditiis voluptatibus, veritatis eum obcaecati.Lorem ipsum dolor, sit amet consectetur adipisicing elit. Debitis, sed, nemo, sunt aliquid nisi doloremque totam fuga dicta esse hic numquam tempora. Consequatur nostrum vitae blanditiis voluptatibus, veritatis eum obcaecati.Lorem ipsum dolor, sit amet consectetur adipisicing elit. Debitis, sed, nemo, sunt aliquid nisi doloremque totam fuga dicta esse hic numquam tempora. Consequatur nostrum vitae blanditiis voluptatibus, veritatis eum obcaecati.Lorem ipsum dolor, sit amet consectetur adipisicing elit. Debitis, sed, nemo, sunt aliquid nisi doloremque totam fuga dicta esse hic numquam tempora. Consequatur nostrum vitae blanditiis voluptatibus, veritatis eum obcaecati.Lorem ipsum dolor, sit amet consectetur adipisicing elit. Debitis, sed, nemo, sunt aliquid nisi doloremque totam fuga dicta esse hic numquam tempora. Consequatur nostrum vitae blanditiis voluptatibus, veritatis eum obcaecati.Lorem ipsum dolor, sit amet consectetur adipisicing elit. Debitis, sed, nemo, sunt aliquid nisi doloremque totam fuga dicta esse hic numquam tempora. Consequatur nostrum vitae blanditiis voluptatibus, veritatis eum obcaecati.Lorem ipsum dolor, sit amet consectetur adipisicing elit. Debitis, sed, nemo, sunt aliquid nisi doloremque totam fuga dicta esse hic numquam tempora. Consequatur nostrum vitae blanditiis voluptatibus, veritatis eum obcaecati.Lorem ipsum dolor, sit amet consectetur adipisicing elit. Debitis, sed, nemo, sunt aliquid nisi doloremque totam fuga dicta esse hic numquam tempora. Consequatur nostrum vitae blanditiis voluptatibus, veritatis eum obcaecati.Lorem ipsum dolor, sit amet consectetur adipisicing elit. Debitis, sed, nemo, sunt aliquid nisi doloremque totam fuga dicta esse hic numquam tempora. Consequatur nostrum vitae blanditiis voluptatibus, veritatis eum obcaecati.Lorem ipsum dolor, sit amet consectetur adipisicing elit. Debitis, sed, nemo, sunt aliquid nisi doloremque totam fuga dicta esse hic numquam tempora. Consequatur nostrum vitae blanditiis voluptatibus, veritatis eum obcaecati.Lorem ipsum dolor, sit amet consectetur adipisicing elit. Debitis, sed, nemo, sunt aliquid nisi doloremque totam fuga dicta esse hic numquam tempora. Consequatur nostrum vitae blanditiis voluptatibus, veritatis eum obcaecati.Lorem ipsum dolor, sit amet consectetur adipisicing elit. Debitis, sed, nemo, sunt aliquid nisi doloremque totam fuga dicta esse hic numquam tempora. Consequatur nostrum vitae blanditiis voluptatibus, veritatis eum obcaecati.Lorem ipsum dolor, sit amet consectetur adipisicing elit. Debitis, sed, nemo, sunt aliquid nisi doloremque totam fuga dicta esse hic numquam tempora. Consequatur nostrum vitae blanditiis voluptatibus, veritatis eum obcaecati.Lorem ipsum dolor, sit amet consectetur adipisicing elit. Debitis, sed, nemo, sunt aliquid nisi doloremque totam fuga dicta esse hic numquam tempora. Consequatur nostrum vitae blanditiis voluptatibus, veritatis eum obcaecati.Lorem ipsum dolor, sit amet consectetur adipisicing elit. Debitis, sed, nemo, sunt aliquid nisi doloremque totam fuga dicta esse hic numquam tempora. Consequatur nostrum vitae blanditiis voluptatibus, veritatis eum obcaecati.Lorem ipsum dolor, sit amet consectetur adipisicing elit. Debitis, sed, nemo, sunt aliquid nisi doloremque totam fuga dicta esse hic numquam tempora. Consequatur nostrum vitae blanditiis voluptatibus, veritatis eum obcaecati.i.
+            <p class="mb-10">
+                Lorem ipsum dolor, sit amet consectetur adipisicing elit. Debitis, sed, nemo, sunt aliquid nisi doloremque totam fuga dicta esse hic numquam tempora. Consequatur nostrum vitae blanditiis voluptatibus, veritatis eum obcaecati.
             </p>
+            <StarsSlider />
         </section>
         <section class="col-span-2 h-full">
             <div class="sticky top-12">
@@ -34,11 +35,11 @@
                 <div class="mb-10">
                     <div class="flex items-center justify-between gap-3">
                         <h3>Duration</h3>
-                        <span class="opacity-50">123 minutes</span>
+                        <span class="text-muted">123 minutes</span>
                     </div>
                     <div class="flex items-center justify-between gap-3">
                         <h3>Release</h3>
-                        <span class="opacity-50">2016</span>
+                        <span class="text-muted">2016</span>
                     </div>
                 </div>
                 <div class="mb-10 flex flex-wrap gap-3">
@@ -54,28 +55,28 @@
                 <div class="mb-10">
                     <div class="flex items-center justify-between gap-3">
                         <h3>Director</h3>
-                        <span class="opacity-50">Justin Lin</span>
+                        <span class="text-muted">Justin Lin</span>
                     </div>
                     <div class="flex items-center justify-between gap-3">
                         <h3>Script</h3>
-                        <span class="opacity-50">Simon Pegg</span>
+                        <span class="text-muted">Simon Pegg</span>
                     </div>
                     <div class="flex items-center justify-between gap-3">
                         <h3>Score</h3>
-                        <span class="opacity-50">Michael Giacchino</span>
+                        <span class="text-muted">Michael Giacchino</span>
                     </div>
                 </div>
                 <div class="flex items-start justify-between gap-3">
                     <h3>Cast</h3>
                     <ul class="m-0 p-0">
                         <li class="flex items-center">
-                            <span class="opacity-50">Chris Pine</span>
+                            <span class="text-muted">Chris Pine</span>
                         </li>
                         <li class="flex items-center">
-                            <span class="opacity-50">Idris Elba</span>
+                            <span class="text-muted">Idris Elba</span>
                         </li>
                         <li class="flex items-center">
-                            <span class="opacity-50">Zachary Quinto</span>
+                            <span class="text-muted">Zachary Quinto</span>
                         </li>
                     </ul>
                 </div>
