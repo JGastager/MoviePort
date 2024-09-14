@@ -1,6 +1,9 @@
 <template>
-    <div class="aspect-2/3 cursor-pointer overflow-hidden card" @click="openModal">
-        <img src="~/assets/images/poster.jpg" alt="Poster" class="h-full w-full object-cover transition-transform duration-300 hover:scale-102">
+    <div class="group relative aspect-2/3 cursor-pointer overflow-hidden card" @click="openModal">
+        <img src="~/assets/images/poster.jpg" alt="Poster" class="h-full w-full object-cover transition-all duration-300 group-hover:scale-102 group-hover:blur-sm">
+        <div class="durtation-300 absolute inset-0 flex items-center justify-center bg-primary/20 opacity-0 transition-opacity group-hover:opacity-100">
+                    <div class="i-ph-arrows-out size-10"/>
+                </div>
     </div>
     <Teleport to="#modals">
         <Transition name="modal">

@@ -49,4 +49,14 @@ h3 {
     font-size: 18px;
     font-weight: normal;
 }
+
+.button:has(span:only-child){
+    padding-left: 0 !important;
+    padding-right: 0 !important;
+}
+
+a {
+    text-decoration: none;
+    color: white;
+}
 </style>

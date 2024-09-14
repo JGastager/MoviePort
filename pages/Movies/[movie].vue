@@ -3,7 +3,7 @@
         <section class="col-span-2 h-full">
             <div class="sticky top-12">
                 <div class="mb-10 flex flex-wrap gap-3">
-                    <div class="px-4 button">
+                    <div class="button">
                         <span class="i-ph-play-bold size-6" />
                         <span>Watch now</span>
                     </div>
@@ -19,12 +19,12 @@
             <p class="mb-10">
                 Lorem ipsum dolor, sit amet consectetur adipisicing elit. Debitis, sed, nemo, sunt aliquid nisi doloremque totam fuga dicta esse hic numquam tempora. Consequatur nostrum vitae blanditiis voluptatibus, veritatis eum obcaecati.
             </p>
-            <StarsSlider />
+            <StarsSlider :stars="stars" />
         </section>
         <section class="col-span-2 h-full">
             <div class="sticky top-12">
                 <div class="mb-10 flex flex-wrap gap-3">
-                    <div class="gap-1 px-4 button">
+                    <div class="gap-1 button">
                         <span class="i-ph-star-fill size-6" />
                         <span class="i-ph-star-fill size-6" />
                         <span class="i-ph-star-fill size-6" />
@@ -43,11 +43,11 @@
                     </div>
                 </div>
                 <div class="mb-10 flex flex-wrap gap-3">
-                    <div class="px-4 button">
+                    <div class="button">
                         <span class="i-ph-monitor-play-bold size-6" />
                         <span>Trailer</span>
                     </div>
-                    <div class="px-4 button">
+                    <div class="button">
                         <span class="i-ph-film-slate-bold size-6" />
                         <span>IMDb</span>
                     </div>
@@ -88,7 +88,48 @@
 <script lang="ts" setup>
 import Poster from '~/components/Poster.vue';
 
-
+const stars = [
+    {
+        name: 'Chris Pine',
+        character: 'Captain James T. Kirk',
+        image: '~/assets/images/chris-pine.jpg'
+    },
+    {
+        name: 'Zachary Quinto',
+        character: 'Commander Spock',
+        image: '~/assets/images/zachary-quinto.jpg'
+    },
+    {
+        name: 'Karl Urban',
+        character: 'Dr. Leonard "Bones" McCoy',
+        image: '~/assets/images/karl-urban.jpg'
+    },
+    {
+        name: 'Simon Pegg',
+        character: 'Montgomery "Scotty" Scott',
+        image: '~/assets/images/simon-pegg.jpg'
+    },
+    {
+        name: 'Zoe Saldana',
+        character: 'Lieutenant Nyota Uhura',
+        image: '~/assets/images/zoe-saldana.jpg'
+    },
+    {
+        name: 'John Cho',
+        character: 'Lieutenant Hikaru Sulu',
+        image: '~/assets/images/john-cho.jpg'
+    },
+    {
+        name: 'Anton Yelchin',
+        character: 'Ensign Pavel Chekov',
+        image: '~/assets/images/anton-yelchin.jpg'
+    },
+    {
+        name: 'Idris Elba',
+        character: 'Krall',
+        image: '~/assets/images/idris-elba.jpg'
+    }
+];
 </script>
 
 <style>
