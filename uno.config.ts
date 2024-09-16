@@ -21,5 +21,6 @@ export default defineConfig({
     card: 'rounded bg-primary/30 backdrop-blur',
     button: 'rounded bg-primary/30 backdrop-blur px-4 h-11 min-w-11 inline-flex items-center justify-center gap-2.5 cursor-pointer hover:bg-primary/50 transition-colors duration-300',
     'text-muted': 'text-white/50',
+    gap: 'gap-7',
   },
 })
