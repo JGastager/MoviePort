@@ -1,7 +1,7 @@
 <template>
     <h2 v-if="title" class="mb-6">{{ title }}</h2>
-    <div class="grid gap grid-cols-7">
-        <div v-for="(movie, index) in movies" :key="index" class="group cursor-pointer">
+    <div class="grid grid-cols-7 gap">
+        <div v-for="(movie, index) in movies" :key="index" class="group relative cursor-pointer rounded">
             <div class="mb-3 aspect-2/3 overflow-hidden card">
                 <img :src="'https://image.tmdb.org/t/p/w300/' + movie.poster_path" :alt="movie.title" class="h-full w-full object-cover transition-all duration-300 group-hover:scale-102 group-hover:blur-sm">
                 <div class="durtation-300 absolute inset-0 flex items-center justify-center bg-primary/20 opacity-0 transition-opacity group-hover:opacity-100">
@@ -12,6 +12,7 @@
             <span v-if="movie.release_date" class="text-muted">{{ movie.release_date}}</span>
             <span v-if="movie.release_date && movie.runtime" class="text-muted"> • </span>
             <span v-if="movie.runtime" class="text-muted">{{ movie.runtime }} min</span>
+            <NuxtLink :to="'/movie/' + movie.id" class="absolute inset-0 z-10"/>
         </div>
     </div>
 </template>
