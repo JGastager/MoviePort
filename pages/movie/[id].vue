@@ -4,7 +4,7 @@
             <section class="col-span-2 h-full">
                 <div class="sticky top-12">
                     <div class="mb-10 flex flex-wrap gap-3">
-                        <div class="button">
+                        <div class="button" @click="play = true">
                             <span class="i-ph-play-bold size-6" />
                             <span>Watch now</span>
                         </div>
@@ -21,7 +21,7 @@
                     {{ details.overview }}
                 </p>
                 <Genres :genres="details.genres" class="mb-10" />
-                <CastSlider :cast="credits.cast" />
+                <CastSlider v-if="credits?.cast" :cast="credits.cast" />
             </section>
             <section class="col-span-2 h-full">
                 <div class="sticky top-12">
@@ -54,7 +54,7 @@
                             <span>IMDb</span>
                         </div>
                     </div>
-                    <div class="mb-3 flex items-start justify-between gap-3">
+                    <div v-if="directors?.length" class="mb-3 flex items-start justify-between gap-3">
                         <h3>Director</h3>
                         <ul class="m-0 p-0">
                             <li v-for="director in directors" :key="director.id" class="list-none text-right text-muted line-height-27px">
@@ -62,7 +62,7 @@
                             </li>
                         </ul>
                     </div>
-                    <div class="mb-3 flex items-start justify-between gap-3">
+                    <div v-if="writers?.length" class="mb-3 flex items-start justify-between gap-3">
                         <h3>Script</h3>
                         <ul class="m-0 p-0">
                             <li v-for="writer in writers" :key="writer.id" class="list-none text-right text-muted line-height-27px">
@@ -70,7 +70,7 @@
                             </li>
                         </ul>
                     </div>
-                    <div class="mb-3 flex items-start justify-between gap-3">
+                    <div v-if="composers?.length" class="mb-3 flex items-start justify-between gap-3">
                         <h3>Score</h3>
                         <ul class="m-0 p-0">
                             <li v-for="composer in composers" :key="composer.id" class="list-none text-right text-muted line-height-27px">
@@ -78,7 +78,7 @@
                             </li>
                         </ul>
                     </div>
-                    <div class="mb-3 flex items-start justify-between gap-3">
+                    <div v-if="details?.production_companies?.length" class="mb-3 flex items-start justify-between gap-3">
                         <h3>Production</h3>
                         <ul class="m-0 p-0">
                             <li v-for="producer in details.production_companies" :key="producer.id" class="list-none text-right text-muted line-height-27px">
@@ -89,7 +89,13 @@
                 </div>
             </section>
         </div>
-        <MovieListings title="Related movies" :movies="similar.results" />
+        <pre>{{ details }}</pre>
+        <MovieListings v-if="similar?.results" title="Related movies" :movies="similar.results" />
+        <Teleport to="#backdrop">
+            <img :src="$getImageUrl(details.backdrop_path, 'backdrop', 'w1280')" alt="Backdrop" class="h-full w-full object-cover">
+            <img :src="$getImageUrl(details.backdrop_path, 'backdrop', 'original')" alt="Backdrop" class="absolute inset-0 h-full w-full object-cover">
+            <Player v-if="play" :tmdb-id="details.id" type="movie" />
+        </Teleport>
     </div>
 </template>
 
@@ -110,6 +116,8 @@ interface Crewmember {
     department: string,
     job: string
 }
+
+const play = ref(false);
 
 const details = ref({});
 const credits = ref({});

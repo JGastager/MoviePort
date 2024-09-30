@@ -5,6 +5,7 @@ export default defineNuxtConfig({
             tmdbAuthToken: process.env.TMDB_AUTH_TOKEN,
         },
     },
+    // ssr: false,
     compatibilityDate: '2024-04-03',
     devtools: { enabled: true },
     modules: ['@unocss/nuxt', '@nuxt/eslint', '@nuxt/fonts'],

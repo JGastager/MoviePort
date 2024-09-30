@@ -1,6 +1,8 @@
 <template>
     <div class="min-h-screen bg-[#000711]">
-        <img src="~/assets/images/wallpaper.jpg" class="fixed top-0 h-screen w-full object-cover" alt="Wallpaper" >
+        <div id="backdrop" class="fixed top-0 h-screen w-full" >
+            <!-- <img src="~/assets/images/backdrop.jpg" class="h-full w-full object-cover" alt="Backdrop" > -->
+        </div>
         <NuxtLayout>
             <NuxtPage/>
         </NuxtLayout>
