@@ -3,7 +3,7 @@
     <div class="relative w-full flex gap-7 overflow-x-auto rounded">
         <div v-for="(actor, index) in cast" :key="index" class="group cursor-pointer">
             <div class="mb-3 aspect-2/3 w-40 overflow-hidden card">
-                <img :src="$getImageUrl(actor.profile_path, 'profile', 'w185')" loading="lazy" :alt="actor.name" class="h-full w-full object-cover transition-all duration-300 group-hover:scale-102 group-hover:blur-sm">
+                <img v-if="actor.profile_path" :src="$getImageUrl(actor.profile_path, 'profile', 'w185')" loading="lazy" :alt="actor.name" class="h-full w-full object-cover transition-all duration-300 group-hover:scale-102 group-hover:blur-sm">
                 <div class="durtation-300 absolute inset-0 flex items-center justify-center bg-primary/20 opacity-0 transition-opacity group-hover:opacity-100">
                     <div class="i-ph-arrow-square-in-bold size-6"/>
                 </div>

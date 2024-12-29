@@ -1,5 +1,5 @@
 <template>
-    <div class="button">
+    <div class="pointer-events-auto button">
         <span class="i-ph-dots-three-bold size-6" />
     </div>
 </template>

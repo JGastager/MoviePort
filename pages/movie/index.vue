@@ -1,7 +1,7 @@
 <template>
     <div>
         <MovieListings title="Popular movies" :movies="movies.results" />
-        <pre>{{ movies }}</pre>
+        <!-- <pre>{{ movies }}</pre> -->
     </div>
 </template>
 
