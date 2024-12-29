@@ -41,7 +41,7 @@
                         </div>
                         <div class="flex items-center justify-between gap-3">
                             <h3>Release</h3>
-                            <span class="text-muted">{{ details.release_date }}</span>
+                            <span class="text-muted">{{ $dayjs(details.release_date).format("YYYY") }}</span>
                         </div>
                     </div>
                     <div class="mb-10 flex flex-wrap gap-3">
