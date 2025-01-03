@@ -6,8 +6,18 @@ export default defineNuxtConfig({
             streamProviderDomain: process.env.STREAM_PROVIDER_DOMAIN,
         },
     },
-    // ssr: false,
+    ssr: false,
     compatibilityDate: '2024-04-03',
     devtools: { enabled: true },
-    modules: ['@unocss/nuxt', '@nuxt/eslint', '@nuxt/fonts'],
+    modules: ['nuxt-electron', '@unocss/nuxt', '@nuxt/eslint', '@nuxt/fonts'],
+    electron: {
+        disableDefaultOptions: true,
+        build: [
+            {
+                // Main-Process entry file of the Electron App.
+                entry: 'electron/main.ts',
+            },
+        ],
+    },
+    // app:{ cdnURL: './'},
 })
