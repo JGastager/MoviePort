@@ -44,21 +44,3 @@ function openModal() {
     modal.value = true;
 }
 </script>
-
-<style lang="scss">
-.modal-enter-active,
-.modal-leave-active {
-  transition: opacity 0.3s;
-  .modal {
-    transition: transform 0.3s;
-  }
-}
-
-.modal-enter-from,
-.modal-leave-to {
-  opacity: 0;
-    .modal {
-        transform: scale(0.5);
-    }
-}
-</style>

@@ -61,4 +61,20 @@ a {
     text-decoration: none;
     color: white;
 }
+
+.modal-enter-active,
+.modal-leave-active {
+  transition: opacity 0.3s;
+  .modal {
+    transition: transform 0.3s;
+  }
+}
+
+.modal-enter-from,
+.modal-leave-to {
+  opacity: 0;
+    .modal {
+        transform: scale(0.5);
+    }
+}
 </style>

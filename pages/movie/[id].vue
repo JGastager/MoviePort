@@ -45,10 +45,7 @@
                         </div>
                     </div>
                     <div class="mb-10 flex flex-wrap gap-3">
-                        <div class="button">
-                            <span class="i-ph-monitor-play-bold size-6" />
-                            <span>Trailer</span>
-                        </div>
+                        <Trailer :movie-id="movieId"/>
                         <div class="button">
                             <span class="i-ph-film-slate-bold size-6" />
                             <span>IMDb</span>
@@ -89,7 +86,7 @@
                 </div>
             </section>
         </div>
-        <!-- <pre>{{ details }}</pre> -->
+        <pre>{{ details }}</pre>
         <MovieListings v-if="similar?.results" title="Related movies" :movies="similar.results" />
         <Teleport to="#backdrop">
             <img v-if="details.backdrop_path" :src="$getImageUrl(details.backdrop_path, 'backdrop', 'w1280')" alt="Backdrop" class="h-full w-full object-cover">
