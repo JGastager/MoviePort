@@ -20,7 +20,7 @@
 </template>
 
 <script lang="ts" setup>
-import { ref, onMounted, computed } from 'vue';
+import {computed, onMounted, ref} from 'vue';
 
 const props = defineProps<{
   movieId: string;
@@ -45,8 +45,7 @@ const { fetchTMDB } = useTMDB();
 
 onMounted(async () => {
     try {
-        const response = await fetchTMDB('/movie/' + props.movieId + '/videos');
-        videos.value = response;
+      videos.value = await fetchTMDB('/movie/' + props.movieId + '/videos');
         console.log('Movie videos:', videos.value);
     } catch (error) {
         console.error('Error loading movie videos:', error);

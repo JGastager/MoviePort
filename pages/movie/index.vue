@@ -6,15 +6,15 @@
 </template>
 
 <script lang="ts" setup>
-import { ref, onMounted } from 'vue';
+import {onMounted, ref} from 'vue';
 
 const movies = ref({ results: [] });
 const { fetchTMDB } = useTMDB();  // Use the composable
 
 onMounted(async () => {
     try {
-        const response = await fetchTMDB('/movie/popular');  // TMDB v3 endpoint for popular movies
-        movies.value = response;
+      // TMDB v3 endpoint for popular movies
+      movies.value = await fetchTMDB('/movie/popular');
         console.log('Popular movies:', movies.value);
     } catch (error) {
         console.error('Error loading popular movies:', error);

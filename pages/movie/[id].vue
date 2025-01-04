@@ -97,8 +97,8 @@
 </template>
 
 <script lang="ts" setup>
-import { ref, onMounted, computed } from 'vue';
-import { useRoute } from 'vue-router'
+import {computed, onMounted, ref} from 'vue';
+import {useRoute} from 'vue-router'
 
 interface Crewmember {
     adult: boolean,
@@ -140,22 +140,19 @@ onMounted(async () => {
     console.log('Movie ID:', movieId);
 
     try {
-        const response = await fetchTMDB('/movie/' + movieId);
-        details.value = response;
+      details.value = await fetchTMDB('/movie/' + movieId);
         console.log('Movie details:', details.value);
     } catch (error) {
         console.error('Error loading movie details:', error);
     }
     try {
-        const response = await fetchTMDB('/movie/' + movieId + '/credits');
-        credits.value = response;
+      credits.value = await fetchTMDB('/movie/' + movieId + '/credits');
         console.log('Movie credits:', credits.value);
     } catch (error) {
         console.error('Error loading movie credits:', error);
     }
     try {
-        const response = await fetchTMDB('/movie/' + movieId + '/similar');
-        similar.value = response;
+      similar.value = await fetchTMDB('/movie/' + movieId + '/similar');
         console.log('Similar movies:', similar.value);
     } catch (error) {
         console.error('Error loading similar movies:', error);

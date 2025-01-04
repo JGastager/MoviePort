@@ -2,7 +2,7 @@
     <div class="group relative aspect-2/3 overflow-hidden card" :class="{'cursor-pointer': posterPath}" @click="openModal">
         <template v-if="posterPath">
             <img :src="$getImageUrl(posterPath, 'poster', 'w500')" alt="Poster" class="h-full w-full object-cover transition-all duration-300 group-hover:scale-102 group-hover:blur-sm">
-            <div class="durtation-300 absolute inset-0 flex items-center justify-center bg-primary/20 opacity-0 transition-opacity group-hover:opacity-100">
+            <div class="duration-300 absolute inset-0 flex items-center justify-center bg-primary/20 opacity-0 transition-opacity group-hover:opacity-100">
                 <div class="i-ph-arrows-out size-10"/>
             </div>
         </template>
