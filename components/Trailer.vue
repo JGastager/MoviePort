@@ -3,7 +3,7 @@
         <span class="i-ph-monitor-play-bold size-6" />
         <span>Trailer</span>
     </div>
-    <Teleport to="#modals">
+    <Teleport v-if="trailer" to="#modals">
         <Transition name="modal">
             <div v-if="modal && trailer" class="fixed left-0 top-0 z-100 h-screen w-screen flex items-center justify-center bg-primary/30 backdrop-blur-md" @click.self="closeModal">
                 <div class="modal relative h-fit w-fit">
