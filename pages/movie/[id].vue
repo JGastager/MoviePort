@@ -88,10 +88,10 @@
         </div>
         <pre>{{ details }}</pre>
         <MovieListings v-if="similar?.results" title="Related movies" :movies="similar.results" />
-        <Teleport to="#backdrop">
-            <img v-if="details.backdrop_path" :src="$getImageUrl(details.backdrop_path, 'backdrop', 'w1280')" alt="Backdrop" class="h-full w-full object-cover">
-            <img v-if="details.backdrop_path" :src="$getImageUrl(details.backdrop_path, 'backdrop', 'original')" alt="Backdrop" class="absolute inset-0 h-full w-full object-cover">
-            <Player v-if="play && details.id" :tmdb-id="details.id" type="movie" />
+        <Teleport v-if="details.backdrop_path" to="#backdrop">
+            <img v-if="details?.backdrop_path" :src="$getImageUrl(details.backdrop_path, 'backdrop', 'w1280')" alt="Backdrop" class="h-full w-full object-cover">
+            <img v-if="details?.backdrop_path" :src="$getImageUrl(details.backdrop_path, 'backdrop', 'original')" alt="Backdrop" class="absolute inset-0 h-full w-full object-cover">
+            <Player v-if="play && details?.id" :tmdb-id="details.id" type="movie" />
         </Teleport>
     </div>
 </template>
