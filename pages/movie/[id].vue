@@ -21,7 +21,8 @@
                     {{ details.overview }}
                 </p>
                 <Genres :genres="details.genres" class="mb-10" />
-                <CastSlider v-if="credits?.cast" :cast="credits.cast" />
+                <CastSlider v-if="credits?.cast" :cast="credits.cast" class="mb-10" />
+                <ImageSlider v-if="movieId" :movie-id="movieId" />
             </section>
             <section class="col-span-2 h-full">
                 <div class="sticky top-12">
@@ -46,10 +47,10 @@
                     </div>
                     <div class="mb-10 flex flex-wrap gap-3">
                         <Trailer :movie-id="movieId"/>
-                        <div class="button">
+                        <NuxtLink :to="`https://www.imdb.com/title/${details.imdb_id}/`" target="_blank" class="button">
                             <span class="i-ph-film-slate-bold size-6" />
                             <span>IMDb</span>
-                        </div>
+                        </NuxtLink>
                     </div>
                     <div v-if="directors?.length" class="mb-3 flex items-start justify-between gap-3">
                         <h3>Director</h3>
@@ -86,7 +87,7 @@
                 </div>
             </section>
         </div>
-        <pre>{{ details }}</pre>
+        <!-- <pre>{{ details }}</pre> -->
         <MovieListings v-if="similar?.results" title="Related movies" :movies="similar.results" />
         <Teleport v-if="details.backdrop_path" to="#backdrop">
             <img v-if="details?.backdrop_path" :src="$getImageUrl(details.backdrop_path, 'backdrop', 'w1280')" alt="Backdrop" class="h-full w-full object-cover">
