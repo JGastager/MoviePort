@@ -23,7 +23,7 @@
             @click="handleResultClick"
             class="h-10 flex cursor-pointer items-center rounded px-4 transition-colors duration-300 -my-1.5 last:mb-0 hover:bg-primary/20"
         >
-          <nuxt-link
+          <NuxtLink
               v-if="result.media_type === 'movie'"
               :to="`/movie/${result.id}`"
               class="w-full"
@@ -39,7 +39,7 @@
                   : null }}
               </span>
             </span>
-          </nuxt-link>
+          </NuxtLink>
           <span v-else class="text-white line-clamp-1">
             {{ result.title || result.name }}
             <span class="!text-muted text-sm">

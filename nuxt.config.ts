@@ -9,8 +9,8 @@ export default defineNuxtConfig({
     ssr: false,
     compatibilityDate: '2024-04-03',
     devtools: { enabled: true },
-    modules: [/*'nuxt-electron',*/ '@unocss/nuxt', '@nuxt/eslint', '@nuxt/fonts'],
-/*    electron: {
+    modules: ['nuxt-electron', '@unocss/nuxt', '@nuxt/eslint', '@nuxt/fonts'],
+    electron: {
         disableDefaultOptions: true,
         build: [
             {
@@ -18,6 +18,6 @@ export default defineNuxtConfig({
                 entry: 'electron/main.ts',
             },
         ],
-    },*/
+    },
     // app:{ cdnURL: './'},
 })

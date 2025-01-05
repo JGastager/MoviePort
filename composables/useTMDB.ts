@@ -2,9 +2,7 @@ export const useTMDB = () => {
     const config = useRuntimeConfig();  // Access server-side config
     const baseUrl = 'https://api.themoviedb.org/3';  // TMDB v3 base URL
 
-/*
     console.log('Bearer Token:', config.public.tmdbAuthToken);
-*/
 
     const fetchTMDB = async (endpoint: string, params = {}) => {
         const url = new URL(`${baseUrl}${endpoint}`);
