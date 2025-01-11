@@ -1,6 +1,6 @@
 <template>
     <h2 v-if="title" class="mb-6">{{ title }}</h2>
-    <div class="grid grid-cols-7 gap">
+    <TransitionSlide appear group tag="div" class="grid grid-cols-7 gap">
         <div v-for="(movie, index) in movies" :key="index" class="group relative cursor-pointer rounded">
             <div class="mb-3 aspect-2/3 overflow-hidden card">
                 <img v-if="movie.poster_path" :src="$getImageUrl(movie.poster_path, 'poster', 'w342')" :alt="movie.title" class="h-full w-full object-cover transition-all duration-300 group-hover:scale-102 group-hover:blur-sm">
@@ -14,7 +14,7 @@
             <span v-if="movie.runtime" class="text-muted">{{ movie.runtime }} min</span>
             <NuxtLink :to="'/movie/' + movie.id" class="absolute inset-0 z-10"/>
         </div>
-    </div>
+    </TransitionSlide>
 </template>
 
 <script lang="ts" setup>

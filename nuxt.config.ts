@@ -9,7 +9,7 @@ export default defineNuxtConfig({
     ssr: false,
     compatibilityDate: '2024-04-03',
     devtools: { enabled: true },
-    modules: ['nuxt-electron', '@unocss/nuxt', '@nuxt/eslint', '@nuxt/fonts'],
+    modules: ['nuxt-electron', '@unocss/nuxt', '@nuxt/eslint', '@nuxt/fonts', '@morev/vue-transitions/nuxt',],
     electron: {
         disableDefaultOptions: true,
         build: [

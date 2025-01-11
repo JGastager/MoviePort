@@ -4,7 +4,7 @@
             <section class="col-span-2 h-full">
                 <div class="sticky top-12">
                     <div class="mb-10 flex flex-wrap gap-3">
-                        <div class="button" @click="play = true">
+                        <div class="button" @click="triggerPlay()">
                             <span class="i-ph-play-bold size-6" />
                             <span>Watch now</span>
                         </div>
@@ -159,6 +159,13 @@ onMounted(async () => {
         console.error('Error loading similar movies:', error);
     }
 });
+
+function triggerPlay() {
+    play.value = true;
+    if(play.value) {
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+}
 </script>
 
 <style>
