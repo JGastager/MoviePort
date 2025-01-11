@@ -1,17 +1,17 @@
 <template>
   <div class="relative">
     <div
-        class="pointer-events-auto w-103 cursor-text card transition-colors duration-300 hover:bg-primary/50 z-10"
+        class="pointer-events-auto z-10 w-103 cursor-text card transition-colors duration-300 hover:bg-primary/50"
         @click.stop="showResults = true"
     >
       <div class="h-11 flex items-center">
         <input
             v-model="searchString"
             type="text"
+            class="h-full w-full rounded b-none bg-transparent px-4 py-0 text-1rem text-white font-sans outline-none"
             @focus="handleFocus"
             @input="handleInput"
-            class="h-full w-full rounded b-none bg-transparent px-4 py-0 text-1rem text-white font-sans outline-none"
-        />
+        >
         <div class="h-full w-13 flex cursor-pointer items-center justify-center pr-2">
           <span class="i-ph-magnifying-glass-bold size-6" />
         </div>
@@ -20,32 +20,32 @@
         <li
             v-for="(result, index) in searchResults.results.slice(0, 6)"
             :key="result.id || index"
+            class="h-10 flex cursor-pointer items-center rounded transition-colors duration-300 -my-1.5 last:mb-0 hover:bg-primary/20"
             @click="handleResultClick"
-            class="h-10 flex cursor-pointer items-center rounded px-4 transition-colors duration-300 -my-1.5 last:mb-0 hover:bg-primary/20"
         >
           <NuxtLink
               v-if="result.media_type === 'movie'"
               :to="`/movie/${result.id}`"
-              class="w-full"
+              class="w-full px-4"
           >
-            <span class="text-white line-clamp-1">
+            <span class="line-clamp-1">
               {{ result.title || result.name }}
-              <span class="!text-muted text-sm">
+              <span class="text-sm text-muted">
                 {{ getMediaType(result.media_type) }}
               </span>
-              <span class="!text-muted text-sm">
+              <span class="text-sm text-muted">
                 {{ result.media_type === 'movie' && result.release_date
                   ? ', ' + $dayjs(result.release_date).get('year')
                   : null }}
               </span>
             </span>
           </NuxtLink>
-          <span v-else class="text-white line-clamp-1">
+          <span v-else class="line-clamp-1 px-4">
             {{ result.title || result.name }}
-            <span class="!text-muted text-sm">
+            <span class="text-sm text-muted">
               {{ getMediaType(result.media_type) }}
             </span>
-            <span class="!text-muted text-sm">
+            <span class="text-sm text-muted">
               {{ result.media_type === 'movie' && result.release_date
                 ? ', ' + $dayjs(result.release_date).get('year')
                 : null }}
@@ -54,13 +54,13 @@
         </li>
         <li
             v-if="searchString.length >= 3 && searchResults.results.length === 0"
-            class="h-10 flex items-center px-4 text-white"
+            class="h-10 flex items-center px-4 text-muted"
         >
           No results found.
         </li>
         <li
             v-if="searchString.length && searchString.length < 3"
-            class="h-10 flex items-center px-4 text-white"
+            class="h-10 flex items-center px-4 text-muted"
         >
           Please enter at least 3 characters to search.
         </li>
@@ -70,7 +70,7 @@
         v-if="showResults"
         class="fixed inset-0 z-0"
         @click="showResults = false"
-    ></div>
+    />
   </div>
 </template>
 
