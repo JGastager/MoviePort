@@ -53,23 +53,29 @@
                                 </span>
                             </span>
                         </NuxtLink>
-                        <span v-else class="line-clamp-1 px-4">
-                            {{ result.title || result.name }}
-                            <span class="text-sm text-muted">
-                                {{ getMediaType(result.media_type) }}
+                        <NuxtLink
+                            v-else
+                            :to="`/tv/${result.id}`"
+                            class="w-full px-4"
+                        >
+                            <span  class="line-clamp-1">
+                                {{ result.title || result.name }}
+                                <span class="text-sm text-muted">
+                                    {{ getMediaType(result.media_type) }}
+                                </span>
+                                <span class="text-sm text-muted">
+                                    {{
+                                        result.media_type === "movie" &&
+                                        result.release_date
+                                            ? ", " +
+                                            $dayjs(result.release_date).get(
+                                                "year"
+                                            )
+                                            : null
+                                    }}
+                                </span>
                             </span>
-                            <span class="text-sm text-muted">
-                                {{
-                                    result.media_type === "movie" &&
-                                    result.release_date
-                                        ? ", " +
-                                          $dayjs(result.release_date).get(
-                                              "year"
-                                          )
-                                        : null
-                                }}
-                            </span>
-                        </span>
+                        </NuxtLink>
                     </li>
                     <li
                         v-if="

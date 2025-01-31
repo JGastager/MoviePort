@@ -1,7 +1,7 @@
 <template>
     <div class="min-h-screen flex flex-col">
-        <header class="relative z-1 h-90 min-h-35 transition-all duration-800">
-            <div class="pointer-events-none sticky top-0 flex items-start justify-between px-22.5 py-12">
+        <header class="pointer-events-none relative z-1 h-90 min-h-35 transition-all duration-800">
+            <div class="sticky top-0 flex items-start justify-between px-22.5 py-12">
                 <Navigation />
                 <div class="flex gap-3">
                     <OptionsButton />

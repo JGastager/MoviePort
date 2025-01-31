@@ -23,7 +23,8 @@
 import {computed, onMounted, ref} from 'vue';
 
 const props = defineProps<{
-  movieId: string;
+    type: "movie" | "tv";
+    tmdbId: string;
 }>();
 
 const modal = ref(false);
@@ -44,11 +45,20 @@ function openModal() {
 const { fetchTMDB } = useTMDB();
 
 onMounted(async () => {
-    try {
-      videos.value = await fetchTMDB('/movie/' + props.movieId + '/videos');
-        console.log('Movie videos:', videos.value);
-    } catch (error) {
-        console.error('Error loading movie videos:', error);
+    if(props.type==='movie') {
+        try {
+        videos.value = await fetchTMDB('/movie/' + props.tmdbId + '/videos');
+            console.log('Movie videos:', videos.value);
+        } catch (error) {
+            console.error('Error loading movie videos:', error);
+        }
+    } else {
+        try {
+            videos.value = await fetchTMDB('/tv/' + props.tmdbId + '/videos');
+            console.log('TV show videos:', videos.value);
+        } catch (error) {
+            console.error('Error loading TV show videos:', error);
+        }
     }
 });
 </script>

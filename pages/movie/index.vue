@@ -1,6 +1,6 @@
 <template>
     <div>
-        <MovieListings title="Popular movies" :movies="movies.results" />
+        <MovieListings title="Trending movies" :movies="movies.results" />
         <!-- <pre>{{ movies }}</pre> -->
     </div>
 </template>
@@ -13,11 +13,11 @@ const { fetchTMDB } = useTMDB();  // Use the composable
 
 onMounted(async () => {
     try {
-      // TMDB v3 endpoint for popular movies
-      movies.value = await fetchTMDB('/movie/popular');
-        console.log('Popular movies:', movies.value);
+        // TMDB v3 endpoint for trending movies
+        movies.value = await fetchTMDB('/trending/movie/day');
+        console.log('Trending movies:', movies.value);
     } catch (error) {
-        console.error('Error loading popular movies:', error);
+        console.error('Error loading trending movies:', error);
     }
 });
 </script>
