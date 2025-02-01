@@ -7,6 +7,10 @@
 
 <script lang="ts" setup>
 
+useHead({
+    title: `MoviePort`,
+})
+
 </script>
 
 <style>

@@ -21,7 +21,7 @@
                     {{ details.overview }}
                 </p>
                 <Genres :genres="details.genres" class="mb-10" />
-                <CastSlider v-if="credits?.cast" :cast="credits.cast" class="mb-10" />
+                <CastSlider v-if="credits?.cast && credits?.cast.length" :cast="credits.cast" class="mb-10" />
                 <ImageSlider v-if="movieId" :movie-id="movieId" />
             </section>
             <section class="col-span-2 h-full">
@@ -145,6 +145,9 @@ onMounted(async () => {
     try {
       details.value = await fetchTMDB('/movie/' + movieId);
         console.log('Movie details:', details.value);
+        useHead({
+            title: `${details.value?.title} | MoviePort`,
+        })
     } catch (error) {
         console.error('Error loading movie details:', error);
     }
@@ -160,6 +163,7 @@ onMounted(async () => {
     } catch (error) {
         console.error('Error loading similar movies:', error);
     }
+    
 });
 
 function triggerPlay() {

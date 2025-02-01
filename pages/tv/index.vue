@@ -8,6 +8,10 @@
 <script lang="ts" setup>
 import {onMounted, ref} from 'vue';
 
+useHead({
+    title: `TV Shows | MoviePort`,
+})
+
 const shows = ref({ results: [] });
 const { fetchTMDB } = useTMDB();  // Use the composable
 

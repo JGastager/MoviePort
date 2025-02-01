@@ -15,18 +15,20 @@ const props = defineProps<{
 const config = useRuntimeConfig();  // Access server-side config
 
 const playerUrl = computed(() => {
+    let url;
     if (props.type === 'tv') {
-    let url = `https://${config.public.streamProviderDomain}/embed/${props.type}?tmdb=${props.tmdbId}`;
+        url = `https://${config.public.streamProviderDomain}/embed/${props.type}?tmdb=${props.tmdbId}`;
         if (props.season) {
             url += `&season=${props.season}`;
         }
         if (props.episode) {
             url += `&episode=${props.episode}`;
         }
-    return url;
     } else {
-        return `https://${config.public.streamProviderDomain}/embed/${props.type}?tmdb=${props.tmdbId}`;
+        url = `https://${config.public.streamProviderDomain}/embed/${props.type}?tmdb=${props.tmdbId}`;
     }
+    console.log('Player type:', props.type, ' url:', url);
+    return url;
 });
 </script>
 

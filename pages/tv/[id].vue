@@ -34,13 +34,13 @@
                     </div>
                 </div>
                 <TransitionScale group tag="div" class="episodes mb-10 flex flex-wrap gap-3">
-                    <div v-for="episode in seasonDetails.episodes" :key="episode.id" class="episode button" @click="activeEpisode = episode.episode_number && triggerPlay()">
+                    <div v-for="episode in seasonDetails.episodes" :key="episode.id" class="episode button" @click="activeEpisode = episode.episode_number, triggerPlay()">
                         <span>Ep. {{ episode.episode_number }}</span>
                         <span class="text-14px text-muted">{{ episode.name }}</span>
                     </div>
                 </TransitionScale>
                 <!-- <pre>{{seasonDetails}}</pre> -->
-                <CastSlider v-if="credits?.cast" :cast="credits.cast" class="mb-10" />
+                <CastSlider v-if="credits?.cast && credits?.cast.length" :cast="credits.cast" class="mb-10" />
                 <ImageSlider v-if="movieId" :movie-id="movieId" />
             </section>
             <section class="col-span-2 h-full">
@@ -176,6 +176,9 @@ onMounted(async () => {
     try {
         details.value = await fetchTMDB('/tv/' + showId);
         console.log('TV Show details:', details.value);
+        useHead({
+            title: `${details.value?.name} | MoviePort`,
+        })
     } catch (error) {
         console.error('Error loading TV show details:', error);
     }
