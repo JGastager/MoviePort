@@ -41,7 +41,7 @@
                 </TransitionScale>
                 <!-- <pre>{{seasonDetails}}</pre> -->
                 <CastSlider v-if="credits?.cast && credits?.cast.length" :cast="credits.cast" class="mb-10" />
-                <ImageSlider v-if="movieId" :movie-id="movieId" />
+                <ImageSlider v-if="showId" :tmdb-id="showId" type="tv" />
             </section>
             <section class="col-span-2 h-full">
                 <div class="sticky top-12">
@@ -56,12 +56,12 @@
                     </div>
                     <div class="mb-10">
                         <div class="flex items-center justify-between gap-3">
-                            <h3>Duration</h3>
-                            <span class="text-muted">{{ details.runtime }} minutes</span>
+                            <h3>First Air Date</h3>
+                            <span class="text-muted">{{ $dayjs(details.first_air_date).get('year') }}</span>
                         </div>
                         <div class="flex items-center justify-between gap-3">
-                            <h3>Release</h3>
-                            <span class="text-muted">{{ $dayjs(details.release_date).get('year') }}</span>
+                            <h3>Status</h3>
+                            <span class="text-muted">{{ details.status }}</span>
                         </div>
                     </div>
                     <div class="mb-10 flex flex-wrap gap-3">
@@ -71,27 +71,11 @@
                             <span>IMDb</span>
                         </NuxtLink> -->
                     </div>
-                    <div v-if="directors?.length" class="mb-3 flex items-start justify-between gap-3">
-                        <h3>Director</h3>
+                    <div v-if="details.created_by?.length" class="mb-3 flex items-start justify-between gap-3">
+                        <h3>Creator</h3>
                         <ul class="m-0 p-0">
-                            <li v-for="director in directors" :key="director.id" class="list-none text-right text-muted line-height-27px">
-                                {{ director.name }}
-                            </li>
-                        </ul>
-                    </div>
-                    <div v-if="writers?.length" class="mb-3 flex items-start justify-between gap-3">
-                        <h3>Script</h3>
-                        <ul class="m-0 p-0">
-                            <li v-for="writer in writers" :key="writer.id" class="list-none text-right text-muted line-height-27px">
-                                {{ writer.name }}
-                            </li>
-                        </ul>
-                    </div>
-                    <div v-if="composers?.length" class="mb-3 flex items-start justify-between gap-3">
-                        <h3>Score</h3>
-                        <ul class="m-0 p-0">
-                            <li v-for="composer in composers" :key="composer.id" class="list-none text-right text-muted line-height-27px">
-                                {{ composer.name }}
+                            <li v-for="creator in details.created_by" :key="creator.id" class="list-none text-right text-muted line-height-27px">
+                                {{ creator.name }}
                             </li>
                         </ul>
                     </div>
@@ -119,22 +103,8 @@
 </template>
 
 <script lang="ts" setup>
-import {computed, onMounted, ref} from 'vue';
+import {onMounted, ref} from 'vue';
 import {useRoute} from 'vue-router'
-
-interface Crewmember {
-    adult: boolean,
-    gender: number,
-    id: number,
-    known_for_department: string,
-    name: string,
-    original_name: string,
-    popularity: number,
-    profile_path: string,
-    credit_id: string,
-    department: string,
-    job: string
-}
 
 const play = ref(false);
 
@@ -144,16 +114,6 @@ const similar = ref([]);
 const activeSeason = ref(1);
 const activeEpisode = ref(1);
 const seasonDetails = ref({});
-
-const directors = computed(() => {
-    return credits.value?.crew?.filter((crewmember: Crewmember) => crewmember.job === 'Director');
-});
-const composers = computed(() => {
-    return credits.value?.crew?.filter((crewmember: Crewmember) => crewmember.job === 'Original Music Composer');
-});
-const writers = computed(() => {
-    return credits.value?.crew?.filter((crewmember: Crewmember) => crewmember.job === 'Writer');
-});
 
 const route = useRoute()
 const { fetchTMDB } = useTMDB();

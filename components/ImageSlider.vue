@@ -1,6 +1,6 @@
 <template>
-    <h2 class="mb-6">Images</h2>
-    <div class="relative w-full flex gap-7 overflow-x-auto rounded">
+    <h2 v-if="images?.backdrops?.length" class="mb-6">Images</h2>
+    <div v-if="images?.backdrops?.length" class="relative w-full flex gap-7 overflow-x-auto rounded">
         <template v-for="(image, index) in images?.backdrops" :key="index">
             <div v-if="image.iso_639_1 == 'en' || image.iso_639_1 == null">
                 <div class="h-120 w-fit overflow-hidden card">
@@ -17,7 +17,8 @@
 <script lang="ts" setup>
 
 const props = defineProps<{
-    movieId: string;
+    tmdbId: string;
+    type: 'movie' | 'tv';
 }>();
 
 const images = ref({});
@@ -26,10 +27,10 @@ const { fetchTMDB } = useTMDB();
 
 onMounted(async () => {
     try {
-        images.value = await fetchTMDB('/movie/' + props.movieId + '/images');
-        console.log('Movie images:', images.value);
+        images.value = await fetchTMDB(`/${props.type}/${props.tmdbId}/images`);
+        console.log(`${props.type == 'tv' ? 'TV show' : 'Movie'} images:`, images.value);
     } catch (error) {
-        console.error('Error loading movie images:', error);
+        console.error(`Error loading ${props.type == 'tv' ? 'TV show' : 'movie'} images:`, error);
     }
 });
 </script>

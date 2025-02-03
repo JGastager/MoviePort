@@ -14,7 +14,7 @@
                     @blur="handleBlur"
                 >
                 <div
-                    class="h-full w-13 flex cursor-pointer items-center justify-center pr-2"
+                    class="h-full w-13 flex items-center justify-center pr-2"
                 >
                     <span class="i-ph-magnifying-glass-bold size-6" />
                 </div>
