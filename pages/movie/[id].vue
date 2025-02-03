@@ -22,7 +22,7 @@
                 </p>
                 <Genres :genres="details.genres" class="mb-10" />
                 <CastSlider v-if="credits?.cast && credits?.cast.length" :cast="credits.cast" class="mb-10" />
-                <ImageSlider v-if="movieId" :movie-id="movieId" />
+                <ImageSlider v-if="movieId" :tmdb-id="movieId" type="movie" />
             </section>
             <section class="col-span-2 h-full">
                 <div class="sticky top-12">
