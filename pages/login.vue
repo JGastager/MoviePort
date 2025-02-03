@@ -8,7 +8,7 @@ import {useTMDB} from "#imports";
 const {fetchTMDB} = useTMDB();
 async function createToken() {
   console.log('create token')
-  await fetchTMDB('https://api.themoviedb.org/3/authentication/token/new', options)
+  await fetchTMDB('/authentication/token/new')
       .then(res => res.json())
       .then(res => console.log(res))
       .catch(err => console.error(err));
