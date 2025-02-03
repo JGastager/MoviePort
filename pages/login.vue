@@ -1,6 +1,6 @@
 <template>
   <h1>Login</h1>
-  <button @click="createToken" class="button">Create Token</button>
+  <div @click="createToken" class="button">Create Token</div>
 </template>
 <script lang="ts" setup>
 import {useTMDB} from "#imports";
@@ -8,13 +8,9 @@ import {useTMDB} from "#imports";
 const {fetchTMDB} = useTMDB();
 async function createToken() {
   console.log('create token')
-  await fetchTMDB('/authentication/token/new')
-      .then(res => console.log(res.request_token))
-      .then(res => useFetch(`https://www.themoviedb.org/authenticate/${res?.request_token}?redirect_to=http://localhost:3000/profile`)
-          .then(res => console.log(res))
-          .catch(err => console.error(err))
-      )
-      .catch(err => console.error(err));
+  const data = await fetchTMDB('/authentication/token/new');
+  await fetchTMDB('/authentication/session/new', {}, 'POST', JSON.stringify({request_token: data.request_token}));
+
 }
 </script>
 <style lang="scss">
