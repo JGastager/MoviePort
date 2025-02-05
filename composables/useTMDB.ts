@@ -2,33 +2,41 @@ export const useTMDB = () => {
     const config = useRuntimeConfig();
     const baseUrl = 'https://api.themoviedb.org/3';
 
-    console.log('Bearer Token:', config.public.tmdbAuthToken);
-
     const fetchTMDB = async (
         endpoint: string,
         params: Record<string, any> = {},
         method: 'GET' | 'POST' | 'PUT' | 'DELETE' = 'GET',
-        body: Record<string, any> | null = null
+        body: Record<string, any> | null = null,
+        authType: 'bearer' | 'session' | 'none' = 'bearer'
     ) => {
         const url = new URL(`${baseUrl}${endpoint}`);
         
-        // Only append params for GET requests
         if (method === 'GET') {
             url.search = new URLSearchParams(params).toString();
+        }
+
+        const sessionId = localStorage.getItem('session_id');
+        const headers: Record<string, string> = {
+            accept: 'application/json',
+        };
+
+        // ✅ Always include the Bearer Token (even for session-based requests)
+        headers.Authorization = `Bearer ${config.public.tmdbAuthToken}`;
+
+        // ✅ Append session ID if needed
+        if (authType === 'session' && sessionId) {
+            url.searchParams.append('session_id', sessionId);
         }
 
         try {
             return await $fetch(url.toString(), {
                 method,
-                headers: {
-                    accept: 'application/json',
-                    Authorization: `Bearer ${config.public.tmdbAuthToken}`,
-                },
+                headers,
                 body: method !== 'GET' ? body : undefined,
             });
         } catch (error) {
-            console.error('TMDB Fetch Error:', error);
-            throw new Error('Failed to fetch data from TMDB.');
+            console.error(`TMDB Fetch Error [${endpoint}]:`, error);
+            throw new Error(`Failed to fetch data from TMDB (${endpoint}).`);
         }
     };
 
