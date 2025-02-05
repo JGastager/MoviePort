@@ -45,15 +45,7 @@
             </section>
             <section class="col-span-2 h-full">
                 <div class="sticky top-12">
-                    <div class="mb-10 flex flex-wrap gap-3">
-                        <div class="gap-1 button">
-                            <span class="i-ph-star-fill size-6" />
-                            <span class="i-ph-star-fill size-6" />
-                            <span class="i-ph-star-fill size-6" />
-                            <span class="i-ph-star-bold size-6" />
-                            <span class="i-ph-star-bold size-6" />
-                        </div>
-                    </div>
+                    <Rating :rating="details.vote_average" :tmdb-id="showId" type="tv" class="mb-10" />
                     <div class="mb-10">
                         <div class="flex items-center justify-between gap-3">
                             <h3>First Air Date</h3>
@@ -105,6 +97,7 @@
 <script lang="ts" setup>
 import {onMounted, ref} from 'vue';
 import {useRoute} from 'vue-router'
+import Rating from '~/components/Rating.vue';
 
 const play = ref(false);
 
