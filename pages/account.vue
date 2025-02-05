@@ -11,29 +11,23 @@
         <img class="rounded-full" v-if="gravatarUrl" :src="gravatarUrl" />
       </div>
       <div class="lists">
-        <div class="favoriteMovies">
-          <h2>Favorite Movies</h2>
-          <pre>{{ favoriteMovies }}</pre>
+        <div class="favoriteMovies" v-if="favoriteMovies && favoriteMovies.results.length">
+          <MovieListings title="Favorite Movies" :movies="favoriteMovies.results" />
         </div>
-        <div class="favoriteTVShows">
-          <h2>Favorite TV Shows</h2>
-          <pre>{{ favoriteTVShows }}</pre>
+        <div class="favoriteTVShows" v-if="favoriteTVShows && favoriteTVShows.results.length">
+          <ShowListings title="Favorite TV Shows" :shows="favoriteTVShows.results" />
         </div>
-        <div class="ratedMovies">
-          <h2>Rated Movies</h2>
-          <pre>{{ ratedMovies }}</pre>
+        <div class="ratedMovies" v-if="ratedMovies && ratedMovies.results.length">
+          <MovieListings title="Rated Movies" :movies="ratedMovies.results" />
         </div>
-        <div class="ratedTVShows">
-          <h2>Rated TV Shows</h2>
-          <pre>{{ ratedTVShows }}</pre>
+        <div class="ratedTVShows" v-if="ratedTVShows && ratedTVShows.results.length">
+          <ShowListings title="Rated TV Shows" :shows="ratedTVShows.results" />
         </div>
-        <div class="watchlistMovies">
-          <h2>Watchlist Movies</h2>
-          <pre>{{ watchlistMovies }}</pre>
+        <div class="watchlistMovies" v-if="watchlistMovies && watchlistMovies.results.length">
+          <MovieListings title="Wacthlist Movies" :movies="watchlistMovies.results" />
         </div>
-        <div class="watchlistTVShows">
-          <h2>Watchlist TV Shows</h2>
-          <pre>{{ watchlistTVShows }}</pre>
+        <div class="watchlistTVShows" v-if="watchlistTVShows && watchlistTVShows.results.length">
+          <ShowListings title="Watchlist TV Shows" :shows="watchlistTVShows.results" />
         </div>
       </div>
     </div>
@@ -43,7 +37,6 @@
 <script setup lang="ts">
 import { useTMDB } from "#imports";
 import { ref, computed, onMounted } from "vue";
-
 const { fetchTMDB } = useTMDB();
 
 const accountData = ref(null);
