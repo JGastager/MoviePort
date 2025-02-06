@@ -1,6 +1,6 @@
 <template>
-    <div class="h-6 flex items-center gap-1.5 text-[#808080]">
-        <div class="relative flex items-center gap-0.5">
+    <div class="h-6 flex items-center gap-1.5">
+        <div class="relative flex items-center gap-0.5 text-muted" :class="{'opacity-50 text-white': !ownRating}">
             <span class="i-ph-star-bold inline-block size-4 transition-colors" :class="{'text-amber-400': ownRating >= 1}" />
             <span class="i-ph-star-bold inline-block size-4 transition-colors" :class="{'text-amber-400': ownRating >= 2}" />
             <span class="i-ph-star-bold inline-block size-4 transition-colors" :class="{'text-amber-400': ownRating >= 3}" />
