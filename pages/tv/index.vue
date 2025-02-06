@@ -1,27 +1,29 @@
 <template>
     <div>
-        <ShowListings title="Trending TV shows" :shows="shows.results" />
-        <!-- <pre>{{ movies }}</pre> -->
+        <ShowListings title="Trending TV shows" :shows="trendingShows" />
     </div>
 </template>
 
 <script lang="ts" setup>
 import {onMounted, ref} from 'vue';
+import { useShowsStore } from '~/store/shows';
+import {storeToRefs} from 'pinia';
+
 
 useHead({
     title: `TV Shows | MoviePort`,
 })
 
-const shows = ref({ results: [] });
-const { fetchTMDB } = useTMDB();  // Use the composable
+const showsStore = useShowsStore();
+const {fetchTrendingShows} = showsStore;
+const {trendingShows} = storeToRefs(showsStore);
+
 
 onMounted(async () => {
     try {
-        // TMDB v3 endpoint for trending TV shows
-        shows.value = await fetchTMDB('/trending/tv/day');
-        console.log('Trending TV shows:', shows.value);
+        await fetchTrendingShows();
     } catch (error) {
-        console.error('Error loading trending TV shows:', error);
+        console.error(error);
     }
 });
 </script>

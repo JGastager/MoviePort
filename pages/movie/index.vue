@@ -1,7 +1,6 @@
 <template>
     <div>
         <MovieListings v-if="trendingMovies" title="Trending movies" :movies="trendingMovies" />
-      <pre v-if="trendingMovies">{{trendingMovies}}</pre>
     </div>
 </template>
 
@@ -12,7 +11,6 @@ import {storeToRefs} from 'pinia';
 useHead({
     title: `Movies | MoviePort`,
 })
-
 
 const moviesStore = useMoviesStore();
 const {fetchTrendingMovies} = moviesStore;

@@ -4,6 +4,7 @@ export default defineNuxtConfig({
         public: {
             tmdbAuthToken: process.env.TMDB_AUTH_TOKEN,
             streamProviderDomain: process.env.STREAM_PROVIDER_DOMAIN,
+            tmdbBaseUrl: process.env.TMDB_BASE_URL,
         },
     },
     ssr: false,
