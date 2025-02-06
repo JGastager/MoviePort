@@ -1,7 +1,7 @@
 <template>
-    <div class="pointer-events-auto button">
+    <NuxtLink to="/account" class="pointer-events-auto button">
         <span class="i-ph-user-bold size-6" />
-    </div>
+    </NuxtLink>
 </template>
 
 <script lang="ts" setup>
