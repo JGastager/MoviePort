@@ -1,29 +1,31 @@
 <template>
     <div>
-        <MovieListings title="Trending movies" :movies="movies.results" />
-        <!-- <pre>{{ movies }}</pre> -->
+        <MovieListings v-if="trendingMovies" title="Trending movies" :movies="trendingMovies" />
+      <pre v-if="trendingMovies">{{trendingMovies}}</pre>
     </div>
 </template>
 
 <script lang="ts" setup>
-import {onMounted, ref} from 'vue';
+import { useMoviesStore } from '~/store/movies';
+import {storeToRefs} from 'pinia';
 
 useHead({
     title: `Movies | MoviePort`,
 })
 
-const movies = ref({ results: [] });
-const { fetchTMDB } = useTMDB();  // Use the composable
+
+const moviesStore = useMoviesStore();
+const {fetchTrendingMovies} = moviesStore;
+const {trendingMovies} = storeToRefs(moviesStore);
 
 onMounted(async () => {
-    try {
-        // TMDB v3 endpoint for trending movies
-        movies.value = await fetchTMDB('/trending/movie/day');
-        console.log('Trending movies:', movies.value);
-    } catch (error) {
-        console.error('Error loading trending movies:', error);
-    }
-});
+  try {
+    await fetchTrendingMovies();
+  }
+  catch (error) {
+    console.error(error);
+  }
+})
 </script>
 
 <style>
