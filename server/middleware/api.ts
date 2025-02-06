@@ -14,7 +14,7 @@ export default defineEventHandler(async (event) => {
     // Remove "/api/" prefix so we get the correct TMDB path
     const tmdbPath = path.replace('/api/', '');
 
-    const method = getMethod(event); // GET, POST, etc.
+    const method = event.method; // GET, POST, etc.
     const body = method === 'GET' ? null : await readBody(event);
 
     const response = await fetch(`${BASEURL}/${tmdbPath}`, {
