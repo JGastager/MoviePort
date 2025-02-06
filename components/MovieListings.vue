@@ -13,6 +13,7 @@
             <span v-if="movie.release_date" class="text-muted">{{ $dayjs(movie.release_date).get('year')}}</span>
             <span v-if="movie.release_date && movie.runtime" class="text-muted"> • </span>
             <span v-if="movie.runtime" class="text-muted">{{ movie.runtime }} min</span>
+            <Rating :tmdb-id="movie.id" type="movie" :rating="movie.vote_average" />
             <NuxtLink :to="'/movie/' + movie.id" class="absolute inset-0 z-10"/>
         </div>
     </TransitionSlide>

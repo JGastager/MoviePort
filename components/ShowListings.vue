@@ -11,6 +11,7 @@
             </div>
             <h3 class="mb-0.5">{{ show.name }}</h3>
             <span v-if="show.first_air_date" class="text-muted">{{ $dayjs(show.first_air_date).get('year')}}</span>
+            <Rating :tmdb-id="show.id" type="tv" :rating="show.vote_average" />
             <NuxtLink :to="'/tv/' + show.id" class="absolute inset-0 z-10"/>
         </div>
     </TransitionSlide>
@@ -29,7 +30,6 @@ const props = defineProps<{
     title?: string;
     shows: Show[];
 }>();
-
 </script>
 
 <style>
