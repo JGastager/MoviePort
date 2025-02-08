@@ -22,7 +22,7 @@ const { login } = accountStore;
 
 async function handleLogin() {
   try {
-    await login({ username: username.value, password: password.value });
+    await login(username.value, password.value);
     router.push('/account');
   } catch (error) {
     console.error(error);

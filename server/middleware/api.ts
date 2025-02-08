@@ -16,28 +16,25 @@ export default defineEventHandler(async (event) => {
     // Extract method and body
     const method = getMethod(event);
     const body = method === 'GET' ? null : await readBody(event);
-
-    console.log("Incoming Request Body:", body);
-
+    
     // Define headers
     const headers: Record<string, string> = {
         accept: 'application/json',
-        Authorization : `Bearer ${BEARER}`,
+        Authorization: `Bearer ${BEARER}`,
     };
 
     // Construct the final TMDB URL
     const url = new URL(`${BASEURL}/${tmdbPath}`);
 
-    // Send request to TMDB API
+    // Perform the request
     const response = await fetch(url.toString(), {
         method,
         headers,
-        body: body ? JSON.stringify(body) : null,  // ✅ Ensure JSON.stringify
+        body: body ? JSON.stringify(body) : null,
     });
 
-    console.log("Final Sent Body:", JSON.stringify(body, null, 2)); // ✅ Log final body before sending
-
     if (!response.ok) {
+        console.error('❌ TMDB API Error:', response.status, response.statusText);
         throw createError({ statusCode: response.status, message: response.statusText });
     }
 
