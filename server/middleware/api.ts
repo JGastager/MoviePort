@@ -3,7 +3,6 @@ export default defineEventHandler(async (event) => {
     const BASEURL = config.public.tmdbBaseUrl as string;
     const BEARER = config.public.tmdbAuthToken as string;
 
-    // Get the request path
     const path = getRequestURL(event).pathname;
 
     // Only intercept requests that start with "/api/"
@@ -11,20 +10,32 @@ export default defineEventHandler(async (event) => {
         return;
     }
 
-    // Remove "/api/" prefix so we get the correct TMDB path
+    // Remove "/api/" prefix
     const tmdbPath = path.replace('/api/', '');
 
-    const method = event.method; // GET, POST, etc.
+    // Extract method and body
+    const method = getMethod(event);
     const body = method === 'GET' ? null : await readBody(event);
 
-    const response = await fetch(`${BASEURL}/${tmdbPath}`, {
+    console.log("Incoming Request Body:", body);
+
+    // Define headers
+    const headers: Record<string, string> = {
+        accept: 'application/json',
+        Authorization : `Bearer ${BEARER}`,
+    };
+
+    // Construct the final TMDB URL
+    const url = new URL(`${BASEURL}/${tmdbPath}`);
+
+    // Send request to TMDB API
+    const response = await fetch(url.toString(), {
         method,
-        headers: {
-            'Authorization': `Bearer ${BEARER}`,
-            'Content-Type': 'application/json',
-        },
-        body: body ? JSON.stringify(body) : null,
+        headers,
+        body: body ? JSON.stringify(body) : null,  // ✅ Ensure JSON.stringify
     });
+
+    console.log("Final Sent Body:", JSON.stringify(body, null, 2)); // ✅ Log final body before sending
 
     if (!response.ok) {
         throw createError({ statusCode: response.status, message: response.statusText });
