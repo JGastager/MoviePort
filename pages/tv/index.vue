@@ -1,11 +1,11 @@
 <template>
     <div>
-        <ShowListings title="Trending TV shows" :shows="trendingShows" />
+        <ShowListings title="Popular TV shows" :shows="popularShows" />
     </div>
 </template>
 
 <script lang="ts" setup>
-import {onMounted, ref} from 'vue';
+import {onMounted} from 'vue';
 import { useShowsStore } from '~/store/shows';
 import {storeToRefs} from 'pinia';
 
@@ -15,13 +15,13 @@ useHead({
 })
 
 const showsStore = useShowsStore();
-const {fetchTrendingShows} = showsStore;
-const {trendingShows} = storeToRefs(showsStore);
+const {fetchPopularShows} = showsStore;
+const {popularShows} = storeToRefs(showsStore);
 
 
 onMounted(async () => {
     try {
-        await fetchTrendingShows();
+        await fetchPopularShows();
     } catch (error) {
         console.error(error);
     }
