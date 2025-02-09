@@ -2,8 +2,8 @@ import { defineStore } from 'pinia';
 
 export const useAccountStore = defineStore('accountStore', {
     state: () => ({
-        request_token: "" as string,
-        user: {} as { session_id?: string },
+        requestToken: "" as string,
+        sessionId: {} as string,
         accountDetails: {} as UserProfile,
         favoriteMovies: null as any,
         favoriteTVShows: null as any,
@@ -27,7 +27,7 @@ export const useAccountStore = defineStore('accountStore', {
 
                 if (!loginResponse.success) throw new Error("Login failed");
 
-                this.request_token = loginResponse.request_token;
+                this.requestToken = loginResponse.request_token;
 
                 // Step 2: Create Session ID
                 const sessionResponse = await $fetch('/api/authentication/session/new', {
@@ -40,7 +40,7 @@ export const useAccountStore = defineStore('accountStore', {
 
                 const sessionId = sessionResponse.session_id;
                 localStorage.setItem('tmdb_session_id', sessionId);
-                this.user = { session_id: sessionId };
+                this.sessionId = sessionId;
 
                 console.log("Session ID:", sessionId);
             } catch (error) {
@@ -68,7 +68,7 @@ export const useAccountStore = defineStore('accountStore', {
                 });
 
                 localStorage.removeItem('tmdb_session_id');
-                this.user = {};
+                this.sessionId = "";
                 this.accountDetails = {};
             } catch (error) {
                 console.error(error);
