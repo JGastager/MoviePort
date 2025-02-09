@@ -62,6 +62,11 @@ a {
     color: white;
 }
 
+header .button,
+header .card {
+    backdrop-filter: blur(40px);
+}
+
 .modal-enter-active,
 .modal-leave-active {
   transition: opacity 0.3s;
