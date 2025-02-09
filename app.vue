@@ -69,6 +69,12 @@ header .card,
     backdrop-filter: blur(40px);
 }
 
+button {
+    border: none;
+    color: unset;
+    font-family: unset;
+}
+
 .modal-enter-active,
 .modal-leave-active {
   transition: opacity 0.3s;
