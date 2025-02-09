@@ -1,32 +1,31 @@
 <template>
   <div>
-    <div class="button" v-if="!accountData" @click="fetchAccountData()">Fetch Account Data</div>
-    <div v-if="accountData">
+    <div v-if="accountDetails">
       <div class="flex gap-8 items-center">
         <div>
-          <h1 v-if="accountData.username">Hallo, {{ accountData.username }}</h1>
-          <small v-if="accountData.id" class="italic">Account-ID: {{ accountData.id }}</small>
-          <small v-if="accountData.iso_3166_1"> | {{ accountData.iso_3166_1 }}</small>
+          <h1 v-if="accountDetails.username">Hallo, {{ accountDetails.username }}</h1>
+          <small v-if="accountDetails.id" class="italic">Account-ID: {{ accountDetails.id }}</small>
+          <small v-if="accountDetails.iso_3166_1"> | {{ accountDetails.iso_3166_1 }}</small>
         </div>
         <img class="rounded-full" v-if="gravatarUrl" :src="gravatarUrl" />
       </div>
       <div class="lists">
-        <div class="favoriteMovies" v-if="favoriteMovies && favoriteMovies.results.length">
+        <div class="favoriteMovies" v-if="favoriteMovies?.results?.length">
           <MovieListings title="Favorite Movies" :movies="favoriteMovies.results" />
         </div>
-        <div class="favoriteTVShows" v-if="favoriteTVShows && favoriteTVShows.results.length">
+        <div class="favoriteTVShows" v-if="favoriteTVShows?.results?.length">
           <ShowListings title="Favorite TV Shows" :shows="favoriteTVShows.results" />
         </div>
-        <div class="ratedMovies" v-if="ratedMovies && ratedMovies.results.length">
+        <div class="ratedMovies" v-if="ratedMovies?.results?.length">
           <MovieListings title="Rated Movies" :movies="ratedMovies.results" />
         </div>
-        <div class="ratedTVShows" v-if="ratedTVShows && ratedTVShows.results.length">
+        <div class="ratedTVShows" v-if="ratedTVShows?.results?.length">
           <ShowListings title="Rated TV Shows" :shows="ratedTVShows.results" />
         </div>
-        <div class="watchlistMovies" v-if="watchlistMovies && watchlistMovies.results.length">
-          <MovieListings title="Wacthlist Movies" :movies="watchlistMovies.results" />
+        <div class="watchlistMovies" v-if="watchlistMovies?.results?.length">
+          <MovieListings title="Watchlist Movies" :movies="watchlistMovies.results" />
         </div>
-        <div class="watchlistTVShows" v-if="watchlistTVShows && watchlistTVShows.results.length">
+        <div class="watchlistTVShows" v-if="watchlistTVShows?.results?.length">
           <ShowListings title="Watchlist TV Shows" :shows="watchlistTVShows.results" />
         </div>
       </div>
@@ -35,66 +34,40 @@
 </template>
 
 <script setup lang="ts">
-import { useTMDB } from "#imports";
-import { ref, computed, onMounted } from "vue";
-const { fetchTMDB } = useTMDB();
+import { computed, onMounted } from "vue";
+import { storeToRefs } from "pinia";
+import { useAccountStore } from "~/store/account";
 
-const accountData = ref(null);
-const favoriteMovies = ref(null);
-const favoriteTVShows = ref(null);
-const ratedMovies = ref(null);
-const ratedTVShows = ref(null);
-const watchlistMovies = ref(null);
-const watchlistTVShows = ref(null);
+const accountStore = useAccountStore();
+const {
+  accountDetails,
+  favoriteMovies,
+  favoriteTVShows,
+  ratedMovies,
+  ratedTVShows,
+  watchlistMovies,
+  watchlistTVShows
+} = storeToRefs(accountStore);
 
-// ✅ Use computed property for Gravatar URL
-const gravatarUrl = computed(() =>
-  accountData.value?.avatar?.gravatar?.hash
-    ? `https://www.gravatar.com/avatar/${accountData.value.avatar.gravatar.hash}`
-    : null
-);
+const { fetchAccountDetails, fetchFavoriteMovies, fetchFavoriteTVShows, fetchRatedMovies, fetchRatedTVShows, fetchWatchlistMovies, fetchWatchlistTVShows } = accountStore;
 
-function loadAccountFromStorage() {
-  const storedAccount = localStorage.getItem("account");
-  if (storedAccount) {
-    accountData.value = JSON.parse(storedAccount);
-    getAccountDetails(accountData.value.id);
-  }
-}
-
-async function fetchAccountData() {
-  const sessionId = localStorage.getItem("session_id");
-  if (!sessionId) {
-    console.error("No session found. Please log in.");
-    return;
-  }
-
+onMounted(async () => {
   try {
-    accountData.value = await fetchTMDB("/account", {}, "GET", null, "session");
-    localStorage.setItem("account", JSON.stringify(accountData.value));
-    getAccountDetails(accountData.value.id);
-  } catch (error) {
-    console.error("Failed to fetch account data:", error);
-  }
-}
-
-async function getAccountDetails(userId: number) {
-  try {
-    favoriteMovies.value = await fetchTMDB(`/account/${userId}/favorite/movies`, {}, "GET", null, "session");
-    favoriteTVShows.value = await fetchTMDB(`/account/${userId}/favorite/tv`, {}, "GET", null, "session");
-    ratedMovies.value = await fetchTMDB(`/account/${userId}/rated/movies`, {}, "GET", null, "session");
-    ratedTVShows.value = await fetchTMDB(`/account/${userId}/rated/tv`, {}, "GET", null, "session");
-    watchlistMovies.value = await fetchTMDB(`/account/${userId}/watchlist/movies`, {}, "GET", null, "session");
-    watchlistTVShows.value = await fetchTMDB(`/account/${userId}/watchlist/tv`, {}, "GET", null, "session");
+    await fetchAccountDetails();
+    await fetchFavoriteMovies();
+    await fetchFavoriteTVShows();
+    await fetchRatedMovies();
+    await fetchRatedTVShows();
+    await fetchWatchlistMovies();
+    await fetchWatchlistTVShows();
   } catch (error) {
     console.error("Failed to fetch account details:", error);
   }
-}
-
-// ✅ Load data from storage on component mount
-onMounted(() => {
-  loadAccountFromStorage();
 });
-</script>
 
-<style lang="scss"></style>
+const gravatarUrl = computed(() =>
+  accountDetails.value?.avatar?.gravatar?.hash
+    ? `https://www.gravatar.com/avatar/${accountDetails.value.avatar.gravatar.hash}`
+    : null
+);
+</script>
