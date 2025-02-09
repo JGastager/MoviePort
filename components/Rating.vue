@@ -20,15 +20,25 @@
 </template>
 
 <script lang="ts" setup>
+import { useAccountStore } from '~/store/account';
+import { storeToRefs } from 'pinia';
+
 const props = defineProps<{
     type: 'movie' | 'tv';
     tmdbId: number;
     rating: number;
 }>();
 
-const ownRating = ref(0);
+const accountStore = useAccountStore();
+const { ratedMovies, ratedTVShows } = storeToRefs(accountStore);
 
-const starRating = computed(() => {
-    return Math.round((props.rating / 2) * 2) / 2;
+const ownRating = computed(() => {
+    if(props.type == 'movie') {
+        const movie = ratedMovies.value.results.find(movie => movie.id === props.tmdbId);
+        return movie ? Number((movie.rating / 2).toFixed(1)) : 0;
+    } else {
+        const show = ratedTVShows.value.results.find(show => show.id === props.tmdbId);
+        return show ? Number((show.rating / 2).toFixed(1)) : 0;
+    }
 });
 </script>

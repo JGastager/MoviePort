@@ -30,11 +30,17 @@
 </template>
 
 <script lang="ts" setup>
+import { useAccountStore } from '~/store/account';
+import { storeToRefs } from 'pinia';
+
 const props = defineProps<{
     type: 'movie' | 'tv';
     tmdbId: number;
     rating: number;
 }>();
+
+const accountStore = useAccountStore();
+const { ratedMovies, ratedTVShows } = storeToRefs(accountStore);
 
 const { fetchTMDB } = useTMDB();
 
@@ -42,7 +48,7 @@ const hovered = ref(false);
 const ownRating = ref(0);
 
 const starRating = computed(() => {
-    return Math.round((props.rating / 2) * 2) / 2;
+    return props.rating ? Math.round((props.rating / 2) * 2) / 2 : 0;
 });
 
 function setOwnRating(rating: number) {
@@ -58,6 +64,21 @@ async function addRating() {
         console.error('Error posting rating:', error);
     }
 }
+
+watch(
+    () => [props.type, props.tmdbId, ratedMovies.value, ratedTVShows.value],
+    () => {
+        if (props.type === 'movie') {
+            const movie = ratedMovies.value?.results.find(movie => movie.id === props.tmdbId);
+            ownRating.value = movie ? Number((movie.rating / 2).toFixed(1)) : 0;
+            console.log('rwar', ratedMovies.value?.results.find(movie => movie.id === props.tmdbId));
+        } else {
+            const show = ratedTVShows.value?.results.find(show => show.id === props.tmdbId);
+            ownRating.value = show ? Number((show.rating / 2).toFixed(1)) : 0;
+        }
+    },
+    { immediate: true }
+);
 </script>
 
 <style lang="scss">
