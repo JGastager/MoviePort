@@ -1,28 +1,28 @@
 import { defineStore } from 'pinia';
-
+import type { AccountDetails, CreateSessionWithLogin, CreateSession, CreateRequestToken, DeleteSession, RatedMovieResponse, RatedTvShowResponse, MovieWatchlistResponse, TvShowWatchlistResponse, FavoriteMoviesResponse, FavoriteTvShowResponse } from '~/types/account';
 export const useAccountStore = defineStore('accountStore', {
     state: () => ({
         requestToken: "" as string,
-        sessionId: {} as string,
-        accountDetails: {} as UserProfile,
-        favoriteMovies: null as any,
-        favoriteTVShows: null as any,
-        ratedMovies: null as any,
-        ratedTVShows: null as any,
-        watchlistMovies: null as any,
-        watchlistTVShows: null as any,
+        sessionId: "" as string,
+        accountDetails: {} as AccountDetails,
+        favoriteMovies: {} as FavoriteMoviesResponse,
+        favoriteTVShows: {} as FavoriteTvShowResponse,
+        ratedMovies: {} as RatedMovieResponse,
+        ratedTVShows: {} as RatedTvShowResponse,
+        watchlistMovies: {} as MovieWatchlistResponse,
+        watchlistTVShows: {} as TvShowWatchlistResponse,
     }),
     actions: {
         async login(username: string, password: string) {
-            const requestToken = await this.createRequestToken();
+            const requestToken: CreateRequestToken = await this.createRequestToken();
             const requestBody = { username, password, request_token: requestToken.request_token };
 
             try {
                 // Step 1: Validate Login
-                const loginResponse = await $fetch('/api/authentication/token/validate_with_login', {
+                const loginResponse: CreateSessionWithLogin = await $fetch('/api/authentication/token/validate_with_login', {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify(requestBody)
+                    body: requestBody
                 });
 
                 if (!loginResponse.success) throw new Error("Login failed");
@@ -30,10 +30,10 @@ export const useAccountStore = defineStore('accountStore', {
                 this.requestToken = loginResponse.request_token;
 
                 // Step 2: Create Session ID
-                const sessionResponse = await $fetch('/api/authentication/session/new', {
+                const sessionResponse: CreateSession = await $fetch('/api/authentication/session/new', {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify({ request_token: loginResponse.request_token })
+                    body: { request_token: loginResponse.request_token }
                 });
 
                 if (!sessionResponse.success) throw new Error("Failed to create session");
@@ -42,7 +42,6 @@ export const useAccountStore = defineStore('accountStore', {
                 localStorage.setItem('tmdb_session_id', sessionId);
                 this.sessionId = sessionId;
 
-                console.log("Session ID:", sessionId);
             } catch (error) {
                 console.error(error);
                 throw new Error("Login process failed");
@@ -50,7 +49,7 @@ export const useAccountStore = defineStore('accountStore', {
         },
         async createRequestToken() {
             try {
-                return await $fetch('/api/authentication/token/new');
+                return await $fetch<CreateRequestToken>('/api/authentication/token/new');
             } catch (error) {
                 console.error(error);
                 throw new Error("Failed to create request token");
@@ -58,18 +57,18 @@ export const useAccountStore = defineStore('accountStore', {
         },
         async logout() {
             try {
-                const sessionId = localStorage.getItem('tmdb_session_id');
+                const sessionId = this.sessionId;
                 if (!sessionId) throw new Error("No session ID found");
 
-                await $fetch('/api/authentication/session', {
+                await $fetch<DeleteSession>('/api/authentication/session', {
                     method: 'DELETE',
                     headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify({ session_id: sessionId })
+                    body: { session_id: sessionId }
                 });
 
                 localStorage.removeItem('tmdb_session_id');
                 this.sessionId = "";
-                this.accountDetails = {};
+                this.accountDetails = {} as AccountDetails;
             } catch (error) {
                 console.error(error);
                 throw new Error("Logout failed");
@@ -77,10 +76,10 @@ export const useAccountStore = defineStore('accountStore', {
         },
         async fetchAccountDetails() {
             try {
-                const sessionId = localStorage.getItem('tmdb_session_id');
+                const sessionId = this.sessionId;
                 if (!sessionId) throw new Error("No session ID found");
 
-                const response = await $fetch('/api/account', { 
+                const response: AccountDetails = await $fetch('/api/account', { 
                     method: 'GET', 
                     headers: { 
                         'Content-Type': 'application/json',
@@ -96,51 +95,54 @@ export const useAccountStore = defineStore('accountStore', {
         },
 
         async fetchFavoriteMovies() {
-            const sessionId = localStorage.getItem('tmdb_session_id');
-            if (!sessionId || !this.accountDetails.id) return;
-            this.favoriteMovies = await $fetch(`/api/account/${this.accountDetails.id}/favorite/movies`, {
+            const sessionId = this.sessionId;
+            if (!sessionId || !this.accountDetails?.id) return;
+            this.favoriteMovies = await $fetch<FavoriteMoviesResponse>(`/api/account/${this.accountDetails.id}/favorite/movies`, {
                 headers: { 'x-tmdb-session-id': sessionId }
             });
         },
 
         async fetchFavoriteTVShows() {
-            const sessionId = localStorage.getItem('tmdb_session_id');
-            if (!sessionId || !this.accountDetails.id) return;
-            this.favoriteTVShows = await $fetch(`/api/account/${this.accountDetails.id}/favorite/tv`, {
+            const sessionId = this.sessionId;
+            if (!sessionId || !this.accountDetails?.id) return;
+            this.favoriteTVShows = await $fetch<FavoriteTvShowResponse>(`/api/account/${this.accountDetails.id}/favorite/tv`, {
                 headers: { 'x-tmdb-session-id': sessionId }
             });
         },
 
         async fetchRatedMovies() {
-            const sessionId = localStorage.getItem('tmdb_session_id');
-            if (!sessionId || !this.accountDetails.id) return;
-            this.ratedMovies = await $fetch(`/api/account/${this.accountDetails.id}/rated/movies`, {
+            const sessionId = this.sessionId;
+            if (!sessionId || !this.accountDetails?.id) return;
+            this.ratedMovies = await $fetch<RatedMovieResponse>(`/api/account/${this.accountDetails.id}/rated/movies`, {
                 headers: { 'x-tmdb-session-id': sessionId }
             });
         },
 
         async fetchRatedTVShows() {
-            const sessionId = localStorage.getItem('tmdb_session_id');
-            if (!sessionId || !this.accountDetails.id) return;
-            this.ratedTVShows = await $fetch(`/api/account/${this.accountDetails.id}/rated/tv`, {
+            const sessionId = this.sessionId;
+            if (!sessionId || !this.accountDetails?.id) return;
+            this.ratedTVShows = await $fetch<RatedTvShowResponse>(`/api/account/${this.accountDetails.id}/rated/tv`, {
                 headers: { 'x-tmdb-session-id': sessionId }
             });
         },
 
         async fetchWatchlistMovies() {
-            const sessionId = localStorage.getItem('tmdb_session_id');
-            if (!sessionId || !this.accountDetails.id) return;
-            this.watchlistMovies = await $fetch(`/api/account/${this.accountDetails.id}/watchlist/movies`, {
+            const sessionId = this.sessionId;
+            if (!sessionId || !this.accountDetails?.id) return;
+            this.watchlistMovies = await $fetch<MovieWatchlistResponse>(`/api/account/${this.accountDetails.id}/watchlist/movies`, {
                 headers: { 'x-tmdb-session-id': sessionId }
             });
         },
 
         async fetchWatchlistTVShows() {
-            const sessionId = localStorage.getItem('tmdb_session_id');
-            if (!sessionId || !this.accountDetails.id) return;
-            this.watchlistTVShows = await $fetch(`/api/account/${this.accountDetails.id}/watchlist/tv`, {
+            const sessionId = this.sessionId;
+            if (!sessionId || !this.accountDetails?.id) return;
+            this.watchlistTVShows = await $fetch<TvShowWatchlistResponse>(`/api/account/${this.accountDetails.id}/watchlist/tv`, {
                 headers: { 'x-tmdb-session-id': sessionId }
             });
         },
-    }
+    },
+    get sessionId(): string | null {
+        return localStorage.getItem('tmdb_session_id');
+    },
 });
