@@ -63,7 +63,9 @@ a {
 }
 
 header .button,
-header .card {
+header .card,
+#modals .button,
+#modals .card {
     backdrop-filter: blur(40px);
 }
 

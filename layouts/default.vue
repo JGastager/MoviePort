@@ -5,7 +5,8 @@
                 <Navigation />
                 <div class="flex gap-3">
                     <OptionsButton />
-                    <AccountButton />
+                    <!-- <AccountButton /> -->
+                    <Login />
                     <SearchBar />
                 </div>
             </div>
