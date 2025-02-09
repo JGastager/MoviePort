@@ -73,6 +73,7 @@ button {
     border: none;
     color: unset;
     font-family: unset;
+    font-size: unset;
 }
 
 .modal-enter-active,

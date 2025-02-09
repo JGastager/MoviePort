@@ -24,6 +24,7 @@
 </template>
 
 <script lang="ts" setup>
+
 interface Movie {
     id: number;
     title: string;
@@ -36,6 +37,8 @@ const props = defineProps<{
     title?: string;
     movies: Movie[];
 }>();
+
+
 
 </script>
 
