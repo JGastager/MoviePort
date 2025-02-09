@@ -19,7 +19,7 @@ export const useAccountStore = defineStore('accountStore', {
             catch (error) {
                 return error;
             }
-        }         
+        },         
         logout() {
             // do something
         },
