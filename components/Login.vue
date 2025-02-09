@@ -8,9 +8,9 @@
                 <div class="modal relative h-fit w-fit">
                     <div class="h-80vh w-50vw flex flex-col items-center justify-center overflow-hidden card">
                         <h2 class="mb-6">Login</h2>
-                        <form class="flex flex-col items-center gap-2.5">
-                            <input class="rounded-md px-3 py-2"  type="text" placeholder="Username" required>
-                            <input class="rounded-md px-3 py-2"  type="password" placeholder="Password" required>
+                        <form class="flex flex-col items-center gap-2.5" @submit.prevent="handleLogin">
+                            <input v-model="username" class="rounded-md px-3 py-2" type="text" placeholder="Username" required>
+                            <input v-model="password" class="rounded-md px-3 py-2"  type="password" placeholder="Password" required>
                             <button class="button" type="submit">Login</button>
                         </form>
                     </div>
@@ -25,6 +25,23 @@
 
 <script lang="ts" setup>
 import { onMounted, ref } from 'vue';
+import { useRouter } from 'vue-router';
+import { useAccountStore } from '~/store/account';
+
+const username = ref('');
+const password = ref('');
+const router = useRouter();
+const accountStore = useAccountStore();
+const { login } = accountStore;
+
+async function handleLogin() {
+    try {
+        await login(username.value, password.value);
+        router.push('/account');
+    } catch (error) {
+        console.error(error);
+    }
+}
 
 const modal = ref(false);
 
