@@ -48,6 +48,14 @@ export const useAccountStore = defineStore('accountStore', {
                 throw new Error("Login process failed");
             }
         },
+        async createRequestToken() {
+            try {
+                return await $fetch('/api/authentication/token/new');
+            } catch (error) {
+                console.error(error);
+                throw new Error("Failed to create request token");
+            }
+        },
         async logout() {
             try {
                 const sessionId = localStorage.getItem('tmdb_session_id');
@@ -77,25 +85,6 @@ export const useAccountStore = defineStore('accountStore', {
                     headers: { 
                         'Content-Type': 'application/json',
                         'x-tmdb-session-id': sessionId, // Send session_id in header
-                    }
-                });
-
-                this.accountDetails = response;
-            } catch (error) {
-                console.error(error);
-                throw new Error("Failed to fetch account details");
-            }
-        },
-        async fetchAccountDetails() {
-            try {
-                const sessionId = localStorage.getItem('tmdb_session_id');
-                if (!sessionId) throw new Error("No session ID found");
-
-                const response = await $fetch('/api/account', { 
-                    method: 'GET', 
-                    headers: { 
-                        'Content-Type': 'application/json',
-                        'x-tmdb-session-id': sessionId,
                     }
                 });
 
