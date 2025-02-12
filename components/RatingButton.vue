@@ -65,20 +65,11 @@ async function addRating() {
     }
 }
 
-watch(
-    () => [props.type, props.tmdbId, ratedMovies.value, ratedTVShows.value],
-    () => {
-        if (props.type === 'movie') {
-            const movie = ratedMovies.value?.results.find(movie => movie.id === props.tmdbId);
-            ownRating.value = movie ? Number((movie.rating / 2).toFixed(1)) : 0;
-            console.log('rwar', ratedMovies.value?.results.find(movie => movie.id === props.tmdbId));
-        } else {
-            const show = ratedTVShows.value?.results.find(show => show.id === props.tmdbId);
-            ownRating.value = show ? Number((show.rating / 2).toFixed(1)) : 0;
-        }
-    },
-    { immediate: true }
-);
+watchEffect(() => {
+    const ratedItems = props.type === 'movie' ? ratedMovies.value?.results : ratedTVShows.value?.results;
+    const item = ratedItems?.find(item => item.id === props.tmdbId);
+    ownRating.value = item ? Math.round((Number(props.rating!) / 2) * 2) / 2 : 0;
+});
 </script>
 
 <style lang="scss">
