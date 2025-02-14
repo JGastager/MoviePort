@@ -1,14 +1,20 @@
 <template>
     <div class="relative">
-        <div v-if="isAuthenticated" class="pointer-events-auto button flex items-center gap-2 relative transition-all duration-300 ease-in-out
-           overflow-hidden cursor-pointer" @click="toggleDropdown"
-            @mouseenter="openDropdown" @mouseleave="closeDropdown"
-            :class="{ 'w-[160px] px-4': dropdownOpen, 'w-[40px] px-2': !dropdownOpen }">
-
-            <span class="i-ph-user-bold size-6 transition-all duration-300" />
-
-            <span class="whitespace-nowrap transition-all duration-300 transform"
-                :class="dropdownOpen ? 'opacity-100 translate-x-0' : 'opacity-0 translate-x-[-10px]'">
+        <div 
+        v-if="isAuthenticated" 
+        class="pointer-events-auto relative cursor-pointer overflow-hidden px-0 transition-all duration-300 ease-in-out button !gap-0"
+        
+        @click="toggleDropdown" 
+        @mouseenter="openDropdown" 
+        @mouseleave="closeDropdown"
+        >
+            <span 
+                class="i-ph-user-bold mx-2.5 size-6 flex-shrink-0 transition-all duration-500" 
+                :class="dropdownOpen ? 'ml-4' : null"
+             />
+            <span 
+                class="transform whitespace-nowrap transition-all duration-500"
+                :class="dropdownOpen ? 'opacity-100 max-w-50 pr-4' : 'opacity-0 max-w-0'">
                 {{ getUserInfo?.username }}
             </span>
         </div>
