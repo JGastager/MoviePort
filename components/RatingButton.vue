@@ -27,9 +27,6 @@
         </div>
         <span v-if="rating" class="text-muted">{{ (rating / 2).toFixed(1) }}</span>
     </div>
-    <pre>{{ ratedMovies.results }}</pre>
-    <pre>{{ tmdbId }}</pre>
-    <pre>{{ myCurrentRating }}</pre>
 </template>
 
 <script lang="ts" setup>

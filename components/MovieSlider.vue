@@ -19,7 +19,7 @@
                 <Rating :tmdb-id="movie.id" type="movie" :rating="movie.vote_average" />
                 <NuxtLink :to="'/movie/' + movie.id" class="absolute inset-0 z-10"/>
             </div>
-            <div  class="w-custom relative flex flex-shrink-0 flex-col cursor-pointer items-center justify-center gap-2.5 card transition-colors duration-300 !aspect-2/3 focus:bg-primary/50 hover:bg-primary/50">
+            <div  class="w-card relative flex flex-shrink-0 flex-col cursor-pointer items-center justify-center gap-2.5 card transition-colors duration-300 !aspect-2/3 focus:bg-primary/50 hover:bg-primary/50">
                 <span class="i-ph-plus-square-bold size-6" />
                     <h3>More</h3>
                 <NuxtLink :to="more" class="absolute inset-0 z-10"/>
