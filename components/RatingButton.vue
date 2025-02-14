@@ -59,9 +59,7 @@ const starRating = computed(() => {
 
 const myCurrentRating = computed(() => {
     const ratedItems = props.type === 'movie' ? ratedMovies.value?.results : ratedTVShows.value?.results;
-    console.log(ratedItems);
-    const item = ratedItems?.find((item) => (Number(item.id) == Number(props.tmdbId), console.log("item", item, typeof item.id, typeof props.tmdbId)));
-    // console.log("item", item, item?.rating);
+    const item = ratedItems?.find((item) => (Number(item.id) === Number(props.tmdbId)));
     return item ? Math.round((Number(item.rating) / 2) * 2) / 2 : 0;
 });
 </script>
