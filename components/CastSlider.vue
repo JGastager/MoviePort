@@ -1,6 +1,6 @@
 <template>
     <h2 class="mb-6">Cast</h2>
-    <TransitionSlide appear group tag="div" class="relative w-full flex gap overflow-x-auto rounded" :class="[$attrs.class, $attrs.staticClass]">
+    <TransitionSlide appear group tag="div" class="relative w-full flex items-start gap overflow-x-auto rounded" :class="[$attrs.class, $attrs.staticClass]">
         <div v-for="(actor, index) in cast" :key="index" class="group cursor-pointer">
             <div class="relative mb-3 aspect-2/3 w-40 overflow-hidden card">
                 <img v-if="actor.profile_path" :src="$getImageUrl(actor.profile_path, 'profile', 'w185')" loading="lazy" :alt="actor.name" class="h-full w-full object-cover transition-all duration-300 group-hover:scale-102 group-hover:blur-sm">

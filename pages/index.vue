@@ -48,7 +48,7 @@
                 <NuxtLink to="/likes" class="absolute inset-0 h-full w-full"/>
             </div>
         </div>
-        <MovieListings v-if="trendingMovies" title="Trending movies (will be slider in future)" :movies="trendingMovies" class="mb-10" />
+        <MovieSlider v-if="trendingMovies" title="Trending movies (will be slider in future)" :movies="trendingMovies" class="mb-10" />
         <ShowListings v-if="trendingShows" title="Trending TV shows (will be slider in future)" :shows="trendingShows" />
     </div>
 </template>
