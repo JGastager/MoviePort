@@ -15,6 +15,9 @@ export default defineConfig({
     fontFamily: {
       sans: ['Poppins', 'sans-serif'],
     },
+    width: {
+      card: 'calc((100vw - 180px - (28px * 6)) / 7)'
+    }
   },
   shortcuts: {
     'backdrop-blur': 'backdrop-blur-2xl',
