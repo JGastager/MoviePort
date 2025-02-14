@@ -113,32 +113,32 @@ const modal = ref(false)
 const mounted = ref(false)
 
 function openModal() {
-  modal.value = true
+    modal.value = true
 }
 
 function closeModal() {
-  modal.value = false
+    modal.value = false
 }
 
 function openDropdown() {
-  dropdownOpen.value = true
+    dropdownOpen.value = true
 }
 
 function closeDropdown() {
-  dropdownOpen.value = false
+    dropdownOpen.value = false
 }
 
 function toggleDropdown() {
-  dropdownOpen.value = !dropdownOpen.value
+    dropdownOpen.value = !dropdownOpen.value
 }
 
 async function handleLogin() {
-  try {
-    await login(username.value, password.value)
-    router.push('/account')
-  }
-  catch (error) {
-    console.error(error)
-  }
+    try {
+        await login(username.value, password.value)
+        router.push('/account')
+    }
+    catch (error) {
+        console.error(error)
+    }
 }
 </script>

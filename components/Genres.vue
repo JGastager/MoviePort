@@ -15,11 +15,11 @@
 
 <script lang="ts" setup>
 const props = defineProps({
-  genres: {
-    type: Array,
-    required: false,
-    default: undefined,
-  },
+    genres: {
+        type: Array,
+        required: false,
+        default: undefined,
+    },
 })
 </script>
 

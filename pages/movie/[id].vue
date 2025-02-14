@@ -193,13 +193,13 @@ const credits = ref({})
 const similar = ref([])
 
 const directors = computed(() => {
-  return credits.value?.crew?.filter((crewmember: Crewmember) => crewmember.job === 'Director')
+    return credits.value?.crew?.filter((crewmember: Crewmember) => crewmember.job === 'Director')
 })
 const composers = computed(() => {
-  return credits.value?.crew?.filter((crewmember: Crewmember) => crewmember.job === 'Original Music Composer')
+    return credits.value?.crew?.filter((crewmember: Crewmember) => crewmember.job === 'Original Music Composer')
 })
 const writers = computed(() => {
-  return credits.value?.crew?.filter((crewmember: Crewmember) => crewmember.job === 'Writer')
+    return credits.value?.crew?.filter((crewmember: Crewmember) => crewmember.job === 'Writer')
 })
 
 const route = useRoute()
@@ -208,39 +208,39 @@ const { fetchTMDB } = useTMDB()
 const movieId = route.params.id
 
 onMounted(async () => {
-  console.log('Movie ID:', movieId)
+    console.log('Movie ID:', movieId)
 
-  try {
-    details.value = await fetchTMDB('/movie/' + movieId)
-    console.log('Movie details:', details.value)
-    useHead({
-      title: `${details.value?.title} | MoviePort`,
-    })
-  }
-  catch (error) {
-    console.error('Error loading movie details:', error)
-  }
-  try {
-    credits.value = await fetchTMDB('/movie/' + movieId + '/credits')
-    console.log('Movie credits:', credits.value)
-  }
-  catch (error) {
-    console.error('Error loading movie credits:', error)
-  }
-  try {
-    similar.value = await fetchTMDB('/movie/' + movieId + '/similar')
-    console.log('Similar movies:', similar.value)
-  }
-  catch (error) {
-    console.error('Error loading similar movies:', error)
-  }
+    try {
+        details.value = await fetchTMDB('/movie/' + movieId)
+        console.log('Movie details:', details.value)
+        useHead({
+            title: `${details.value?.title} | MoviePort`,
+        })
+    }
+    catch (error) {
+        console.error('Error loading movie details:', error)
+    }
+    try {
+        credits.value = await fetchTMDB('/movie/' + movieId + '/credits')
+        console.log('Movie credits:', credits.value)
+    }
+    catch (error) {
+        console.error('Error loading movie credits:', error)
+    }
+    try {
+        similar.value = await fetchTMDB('/movie/' + movieId + '/similar')
+        console.log('Similar movies:', similar.value)
+    }
+    catch (error) {
+        console.error('Error loading similar movies:', error)
+    }
 })
 
 function triggerPlay() {
-  play.value = true
-  if (play.value) {
-    window.scrollTo({ top: 0, behavior: 'smooth' })
-  }
+    play.value = true
+    if (play.value) {
+        window.scrollTo({ top: 0, behavior: 'smooth' })
+    }
 }
 </script>
 

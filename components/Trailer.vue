@@ -53,38 +53,38 @@ const modal = ref(false)
 const videos = ref({})
 
 const trailer = computed(() => {
-  return videos.value?.results?.find((video: any) => video.type === 'Trailer')
+    return videos.value?.results?.find((video: any) => video.type === 'Trailer')
 })
 
 function closeModal() {
-  modal.value = false
+    modal.value = false
 }
 
 function openModal() {
-  modal.value = true
+    modal.value = true
 }
 
 const { fetchTMDB } = useTMDB()
 
 onMounted(async () => {
-  if (props.type === 'movie') {
-    try {
-      videos.value = await fetchTMDB('/movie/' + props.tmdbId + '/videos')
-      console.log('Movie videos:', videos.value)
+    if (props.type === 'movie') {
+        try {
+            videos.value = await fetchTMDB('/movie/' + props.tmdbId + '/videos')
+            console.log('Movie videos:', videos.value)
+        }
+        catch (error) {
+            console.error('Error loading movie videos:', error)
+        }
     }
-    catch (error) {
-      console.error('Error loading movie videos:', error)
+    else {
+        try {
+            videos.value = await fetchTMDB('/tv/' + props.tmdbId + '/videos')
+            console.log('TV show videos:', videos.value)
+        }
+        catch (error) {
+            console.error('Error loading TV show videos:', error)
+        }
     }
-  }
-  else {
-    try {
-      videos.value = await fetchTMDB('/tv/' + props.tmdbId + '/videos')
-      console.log('TV show videos:', videos.value)
-    }
-    catch (error) {
-      console.error('Error loading TV show videos:', error)
-    }
-  }
 })
 </script>
 

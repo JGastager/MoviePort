@@ -49,20 +49,20 @@
 import { ref } from 'vue'
 
 const props = defineProps({
-  posterPath: {
-    type: String,
-    required: false,
-    default: undefined,
-  },
+    posterPath: {
+        type: String,
+        required: false,
+        default: undefined,
+    },
 })
 
 const modal = ref(false)
 
 function closeModal() {
-  modal.value = false
+    modal.value = false
 }
 
 function openModal() {
-  modal.value = true
+    modal.value = true
 }
 </script>

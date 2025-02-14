@@ -1,17 +1,24 @@
-import unocss from '@unocss/eslint-config/flat'
-import withNuxt from './.nuxt/eslint.config.mjs'
+import unocss from '@unocss/eslint-config/flat';
+import prettier from 'eslint-config-prettier';
+import withNuxt from './.nuxt/eslint.config.mjs';
 
 export default withNuxt(
-  unocss,
-
-  // your custom flat configs go here, for example:
-  // {
-  //   files: ['**/*.ts', '**/*.tsx'],
-  //   rules: {
-  //     'no-console': 'off' // allow console.log in TypeScript files
-  //   }
-  // },
-  // {
-  //   ...
-  // }
-)
+    unocss,
+    prettier,
+    {
+        ignores: [
+            'node_modules/',
+            'dist/',
+            '.nuxt/',
+            'coverage/',
+            'public/'
+        ],
+        rules: {
+            'indent': ['error', 4],
+            'vue/max-attributes-per-line': ['error', {
+                'singleline': 5,
+                'multiline': 1
+            }]
+        }
+    }
+);

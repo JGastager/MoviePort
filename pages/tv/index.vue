@@ -13,7 +13,7 @@ import { storeToRefs } from 'pinia'
 import { useShowsStore } from '~/store/shows'
 
 useHead({
-  title: `TV Shows | MoviePort`,
+    title: `TV Shows | MoviePort`,
 })
 
 const showsStore = useShowsStore()
@@ -21,12 +21,12 @@ const { fetchPopularShows } = showsStore
 const { popularShows } = storeToRefs(showsStore)
 
 onMounted(async () => {
-  try {
-    await fetchPopularShows()
-  }
-  catch (error) {
-    console.error(error)
-  }
+    try {
+        await fetchPopularShows()
+    }
+    catch (error) {
+        console.error(error)
+    }
 })
 </script>
 

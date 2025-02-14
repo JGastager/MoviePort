@@ -75,12 +75,12 @@ const accountStore = useAccountStore()
 const { ratedMovies, ratedTVShows } = storeToRefs(accountStore)
 
 const starRating = computed(() => {
-  return Math.round((props.rating / 2) * 2) / 2
+    return Math.round((props.rating / 2) * 2) / 2
 })
 
 const ownRating = computed(() => {
-  const ratedItems = props.type === 'movie' ? ratedMovies.value?.results : ratedTVShows.value?.results
-  const item = ratedItems?.find(item => (Number(item.id) === Number(props.tmdbId)))
-  return item ? Math.round((Number(item.rating) / 2) * 2) / 2 : 0
+    const ratedItems = props.type === 'movie' ? ratedMovies.value?.results : ratedTVShows.value?.results
+    const item = ratedItems?.find(item => (Number(item.id) === Number(props.tmdbId)))
+    return item ? Math.round((Number(item.rating) / 2) * 2) / 2 : 0
 })
 </script>

@@ -1,23 +1,23 @@
 // https://nuxt.com/docs/api/configuration/nuxt-config
 export default defineNuxtConfig({
 
-  modules: [
+    modules: [
     /* 'nuxt-electron', */ '@unocss/nuxt',
-    '@nuxt/eslint',
-    '@nuxt/fonts',
-    '@morev/vue-transitions/nuxt',
-    '@pinia/nuxt',
-  ],
-  ssr: false,
-  devtools: { enabled: true }, runtimeConfig: {
-    public: {
-      tmdbAuthToken: process.env.TMDB_AUTH_TOKEN,
-      streamProviderDomain: process.env.STREAM_PROVIDER_DOMAIN,
-      tmdbBaseUrl: process.env.TMDB_BASE_URL,
+        '@nuxt/eslint',
+        '@nuxt/fonts',
+        '@morev/vue-transitions/nuxt',
+        '@pinia/nuxt',
+    ],
+    ssr: false,
+    devtools: { enabled: true }, runtimeConfig: {
+        public: {
+            tmdbAuthToken: process.env.TMDB_AUTH_TOKEN,
+            streamProviderDomain: process.env.STREAM_PROVIDER_DOMAIN,
+            tmdbBaseUrl: process.env.TMDB_BASE_URL,
+        },
     },
-  },
-  compatibilityDate: '2024-04-03',
-  /*    electron: {
+    compatibilityDate: '2024-04-03',
+    /*    electron: {
         disableDefaultOptions: true,
         build: [
             {
@@ -26,11 +26,8 @@ export default defineNuxtConfig({
             },
         ],
     }, */
-  // app:{ cdnURL: './'},
-  eslint: {
-    checker: true,
-    config: {
-      stylistic: true,
+    // app:{ cdnURL: './'},
+    eslint: {
+        checker: true,
     },
-  },
 })

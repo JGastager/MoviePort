@@ -117,65 +117,65 @@ const route = useRoute()
 
 const searchString = ref('')
 const searchResults = ref({
-  results: [],
+    results: [],
 })
 const showResults = ref(false)
 
 const fetchResults = async () => {
-  if (searchString.value.length < 3) {
-    searchResults.value.results = []
-    return
-  }
+    if (searchString.value.length < 3) {
+        searchResults.value.results = []
+        return
+    }
 
-  searchResults.value = await fetchTMDB('/search/multi', {
-    query: searchString.value,
-  })
+    searchResults.value = await fetchTMDB('/search/multi', {
+        query: searchString.value,
+    })
 }
 
 const debouncedFetchResults = debounce(fetchResults, 300)
 
 watch(
-  () => route.fullPath,
-  () => {
-    showResults.value = false
-  },
+    () => route.fullPath,
+    () => {
+        showResults.value = false
+    },
 )
 
 function handleInput() {
-  if (!searchString.value.trim()) {
-    showResults.value = false
-    searchResults.value.results = []
-  }
-  else {
-    showResults.value = true
-    debouncedFetchResults()
-  }
+    if (!searchString.value.trim()) {
+        showResults.value = false
+        searchResults.value.results = []
+    }
+    else {
+        showResults.value = true
+        debouncedFetchResults()
+    }
 }
 
 function handleFocus() {
-  if (searchString.value.trim()) {
-    showResults.value = true
-  }
+    if (searchString.value.trim()) {
+        showResults.value = true
+    }
 }
 
 function handleBlur() {
-  showResults.value = false
+    showResults.value = false
 }
 
 function handleResultClick() {
-  showResults.value = false
+    showResults.value = false
 }
 
 function getMediaType(mediaType: string) {
-  switch (mediaType) {
+    switch (mediaType) {
     case 'movie':
-      return 'Movie'
+        return 'Movie'
     case 'tv':
-      return 'TV Show'
+        return 'TV Show'
     case 'person':
-      return 'Person'
+        return 'Person'
     default:
-      return null
-  }
+        return null
+    }
 }
 </script>

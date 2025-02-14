@@ -30,6 +30,7 @@
     "@unocss/preset-icons": "^0.62.3",
     "electron": "^33.2.1",
     "electron-builder": "^25.1.8",
+    "eslint-config-prettier": "^10.0.1",
     "nuxt-electron": "^0.7.0",
     "sass": "^1.77.4",
     "typescript": "^5.7.3",

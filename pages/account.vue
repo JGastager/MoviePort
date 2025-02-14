@@ -85,35 +85,35 @@ import { useAccountStore } from '~/store/account'
 
 const accountStore = useAccountStore()
 const {
-  accountDetails,
-  favoriteMovies,
-  favoriteTVShows,
-  ratedMovies,
-  ratedTVShows,
-  watchlistMovies,
-  watchlistTVShows,
+    accountDetails,
+    favoriteMovies,
+    favoriteTVShows,
+    ratedMovies,
+    ratedTVShows,
+    watchlistMovies,
+    watchlistTVShows,
 } = storeToRefs(accountStore)
 
 const { fetchAccountDetails, fetchFavoriteMovies, fetchFavoriteTVShows, fetchRatedMovies, fetchRatedTVShows, fetchWatchlistMovies, fetchWatchlistTVShows } = accountStore
 
 onMounted(async () => {
-  try {
-    await fetchAccountDetails()
-    await fetchFavoriteMovies()
-    await fetchFavoriteTVShows()
-    await fetchRatedMovies()
-    await fetchRatedTVShows()
-    await fetchWatchlistMovies()
-    await fetchWatchlistTVShows()
-  }
-  catch (error) {
-    console.error('Failed to fetch account details:', error)
-  }
+    try {
+        await fetchAccountDetails()
+        await fetchFavoriteMovies()
+        await fetchFavoriteTVShows()
+        await fetchRatedMovies()
+        await fetchRatedTVShows()
+        await fetchWatchlistMovies()
+        await fetchWatchlistTVShows()
+    }
+    catch (error) {
+        console.error('Failed to fetch account details:', error)
+    }
 })
 
 const gravatarUrl = computed(() =>
-  accountDetails.value?.avatar?.gravatar?.hash
-    ? `https://www.gravatar.com/avatar/${accountDetails.value.avatar.gravatar.hash}`
-    : null,
+    accountDetails.value?.avatar?.gravatar?.hash
+        ? `https://www.gravatar.com/avatar/${accountDetails.value.avatar.gravatar.hash}`
+        : null,
 )
 </script>

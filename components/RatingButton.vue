@@ -96,17 +96,17 @@ const hovered = ref(false)
 const myNewRating = ref(0)
 
 const ownRating = computed(() => {
-  return hovered.value ? myNewRating.value : myCurrentRating.value
+    return hovered.value ? myNewRating.value : myCurrentRating.value
 })
 
 const starRating = computed(() => {
-  return props.rating ? Math.round((props.rating / 2) * 2) / 2 : 0
+    return props.rating ? Math.round((props.rating / 2) * 2) / 2 : 0
 })
 
 const myCurrentRating = computed(() => {
-  const ratedItems = props.type === 'movie' ? ratedMovies.value?.results : ratedTVShows.value?.results
-  const item = ratedItems?.find(item => (Number(item.id) === Number(props.tmdbId)))
-  return item ? Math.round((Number(item.rating) / 2) * 2) / 2 : 0
+    const ratedItems = props.type === 'movie' ? ratedMovies.value?.results : ratedTVShows.value?.results
+    const item = ratedItems?.find(item => (Number(item.id) === Number(props.tmdbId)))
+    return item ? Math.round((Number(item.rating) / 2) * 2) / 2 : 0
 })
 </script>
 

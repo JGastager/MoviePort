@@ -118,7 +118,7 @@ import { useShowsStore } from '~/store/shows'
 import { useAccountStore } from '~/store/account'
 
 useHead({
-  title: `MoviePort`,
+    title: `MoviePort`,
 })
 
 const moviesStore = useMoviesStore()
@@ -132,36 +132,36 @@ const { trendingShows, popularShows } = storeToRefs(showsStore)
 const { ratedMovies } = storeToRefs(accountStore)
 
 onMounted(async () => {
-  try {
-    await fetchTrendingMovies()
-  }
-  catch (error) {
-    console.error(error)
-  }
-  try {
-    await fetchTrendingShows()
-  }
-  catch (error) {
-    console.error(error)
-  }
-  try {
-    await fetchPopularMovies()
-  }
-  catch (error) {
-    console.error(error)
-  }
-  try {
-    await fetchPopularShows()
-  }
-  catch (error) {
-    console.error(error)
-  }
-  try {
-    await fetchRatedMovies()
-  }
-  catch (error) {
-    console.error(error)
-  }
+    try {
+        await fetchTrendingMovies()
+    }
+    catch (error) {
+        console.error(error)
+    }
+    try {
+        await fetchTrendingShows()
+    }
+    catch (error) {
+        console.error(error)
+    }
+    try {
+        await fetchPopularMovies()
+    }
+    catch (error) {
+        console.error(error)
+    }
+    try {
+        await fetchPopularShows()
+    }
+    catch (error) {
+        console.error(error)
+    }
+    try {
+        await fetchRatedMovies()
+    }
+    catch (error) {
+        console.error(error)
+    }
 })
 </script>
 

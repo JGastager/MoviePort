@@ -44,13 +44,13 @@ const images = ref({})
 const { fetchTMDB } = useTMDB()
 
 onMounted(async () => {
-  try {
-    images.value = await fetchTMDB(`/${props.type}/${props.tmdbId}/images`)
-    console.log(`${props.type == 'tv' ? 'TV show' : 'Movie'} images:`, images.value)
-  }
-  catch (error) {
-    console.error(`Error loading ${props.type == 'tv' ? 'TV show' : 'movie'} images:`, error)
-  }
+    try {
+        images.value = await fetchTMDB(`/${props.type}/${props.tmdbId}/images`)
+        console.log(`${props.type == 'tv' ? 'TV show' : 'Movie'} images:`, images.value)
+    }
+    catch (error) {
+        console.error(`Error loading ${props.type == 'tv' ? 'TV show' : 'movie'} images:`, error)
+    }
 })
 </script>
 

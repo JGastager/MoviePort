@@ -195,56 +195,56 @@ const { fetchTMDB } = useTMDB()
 const showId = route.params.id
 
 watch(activeSeason, async (newSeason) => {
-  try {
-    seasonDetails.value = await fetchTMDB(`/tv/${showId}/season/${newSeason}`)
-    console.log('Season details:', seasonDetails)
-  }
-  catch (error) {
-    console.error('Error loading season details:', error)
-  }
+    try {
+        seasonDetails.value = await fetchTMDB(`/tv/${showId}/season/${newSeason}`)
+        console.log('Season details:', seasonDetails)
+    }
+    catch (error) {
+        console.error('Error loading season details:', error)
+    }
 })
 
 onMounted(async () => {
-  console.log('TV Show ID:', showId)
+    console.log('TV Show ID:', showId)
 
-  try {
-    details.value = await fetchTMDB('/tv/' + showId)
-    console.log('TV Show details:', details.value)
-    useHead({
-      title: `${details.value?.name} | MoviePort`,
-    })
-  }
-  catch (error) {
-    console.error('Error loading TV show details:', error)
-  }
-  try {
-    credits.value = await fetchTMDB('/tv/' + showId + '/credits')
-    console.log('TV Show credits:', credits.value)
-  }
-  catch (error) {
-    console.error('Error loading TV show credits:', error)
-  }
-  try {
-    seasonDetails.value = await fetchTMDB(`/tv/${showId}/season/${activeSeason.value}`)
-    console.log('Season details:', seasonDetails)
-  }
-  catch (error) {
-    console.error('Error loading season details:', error)
-  }
-  try {
-    similar.value = await fetchTMDB('/tv/' + showId + '/similar')
-    console.log('Similar TV shows:', similar.value)
-  }
-  catch (error) {
-    console.error('Error loading similar TV shows:', error)
-  }
+    try {
+        details.value = await fetchTMDB('/tv/' + showId)
+        console.log('TV Show details:', details.value)
+        useHead({
+            title: `${details.value?.name} | MoviePort`,
+        })
+    }
+    catch (error) {
+        console.error('Error loading TV show details:', error)
+    }
+    try {
+        credits.value = await fetchTMDB('/tv/' + showId + '/credits')
+        console.log('TV Show credits:', credits.value)
+    }
+    catch (error) {
+        console.error('Error loading TV show credits:', error)
+    }
+    try {
+        seasonDetails.value = await fetchTMDB(`/tv/${showId}/season/${activeSeason.value}`)
+        console.log('Season details:', seasonDetails)
+    }
+    catch (error) {
+        console.error('Error loading season details:', error)
+    }
+    try {
+        similar.value = await fetchTMDB('/tv/' + showId + '/similar')
+        console.log('Similar TV shows:', similar.value)
+    }
+    catch (error) {
+        console.error('Error loading similar TV shows:', error)
+    }
 })
 
 function triggerPlay() {
-  play.value = true
-  if (play.value) {
-    window.scrollTo({ top: 0, behavior: 'smooth' })
-  }
+    play.value = true
+    if (play.value) {
+        window.scrollTo({ top: 0, behavior: 'smooth' })
+    }
 }
 </script>
 
