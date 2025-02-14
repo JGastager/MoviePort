@@ -8,11 +8,13 @@
     "dev": "nuxt dev --open",
     "generate": "nuxt generate",
     "preview": "nuxt preview",
-    "postinstall": "nuxt prepare"
+    "postinstall": "nuxt prepare",
+    "lint": "eslint .",
+    "lint:fix": "eslint . --fix"
   },
   "dependencies": {
     "@morev/vue-transitions": "^3.0.5",
-    "@nuxt/eslint": "^0.5.2",
+    "@nuxt/eslint": "^1.0.1",
     "@nuxt/fonts": "^0.7.2",
     "@pinia/nuxt": "^0.9.0",
     "dayjs": "^1.11.13",
@@ -30,9 +32,11 @@
     "electron-builder": "^25.1.8",
     "nuxt-electron": "^0.7.0",
     "sass": "^1.77.4",
+    "typescript": "^5.7.3",
     "unocss": "^0.62.3",
     "vite-plugin-electron": "^0.29.0",
-    "vite-plugin-electron-renderer": "^0.14.6"
+    "vite-plugin-electron-renderer": "^0.14.6",
+    "vite-plugin-eslint2": "^5.0.3"
   },
   "overrides": {
     "vue": "latest"

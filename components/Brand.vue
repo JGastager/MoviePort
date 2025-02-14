@@ -1,5 +1,8 @@
 <template>
-  <div id="brand" class="pointer-events-none absolute left-22.5 top-0 h-18 w-108 transform bg-primary/30 backdrop-blur -translate-y-full" />
+  <div
+    id="brand"
+    class="pointer-events-none absolute left-22.5 top-0 h-18 w-108 transform bg-primary/30 backdrop-blur -translate-y-full"
+  />
 </template>
 
 <script lang="ts" setup>
