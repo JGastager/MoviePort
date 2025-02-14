@@ -5,15 +5,15 @@ export default eventHandler(async (event) => {
 
     const route = event.context.params._ || ``;
     const query = getQuery(event);
-    const method = event.method || 'GET'; // Ensure method is always set
-    const payload = method !== 'GET' ? await readBody(event) : null;
+    const method = event.method || "GET"; // Ensure method is always set
+    const payload = method !== "GET" ? await readBody(event) : null;
 
     // Extract session_id from headers or query params
-    const sessionId = getHeader(event, 'x-tmdb-session-id') || query.session_id;
+    const sessionId = getHeader(event, "x-tmdb-session-id") || query.session_id;
 
     // Set up headers
     const headers: Record<string, string> = {
-        'Content-Type': 'application/json',
+        "Content-Type": "application/json",
         Authorization: `Bearer ${BEARER}`,
     };
 
@@ -21,16 +21,16 @@ export default eventHandler(async (event) => {
     let url = `${BASEURL}/${route}`;
     if (sessionId) {
         const urlObj = new URL(url);
-        urlObj.searchParams.append('session_id', sessionId);
+        urlObj.searchParams.append("session_id", sessionId);
         url = urlObj.toString();
     }
 
     // ✅ Ensure method is allowed by TMDB
-    const allowedMethods = ['GET', 'POST', 'DELETE', 'PUT'];
+    const allowedMethods = ["GET", "POST", "DELETE", "PUT"];
     if (!allowedMethods.includes(method)) {
         throw createError({
             statusCode: 405,
-            statusMessage: 'Method Not Allowed',
+            statusMessage: "Method Not Allowed",
         });
     }
 
@@ -44,6 +44,6 @@ export default eventHandler(async (event) => {
         return res || [];
     } catch (error) {
         console.error(`TMDB Proxy Error [${method} ${route}]:`, error);
-        throw createError({ statusCode: 500, statusMessage: 'TMDB API Error' });
+        throw createError({ statusCode: 500, statusMessage: "TMDB API Error" });
     }
 });
