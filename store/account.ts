@@ -12,6 +12,15 @@ export const useAccountStore = defineStore('accountStore', {
         watchlistMovies: {} as MovieWatchlistResponse,
         watchlistTVShows: {} as TvShowWatchlistResponse,
     }),
+    getters: {
+        isLoggedIn(): boolean {
+            return !!this.sessionId;
+        },
+
+        getUserInfo(): AccountDetails | null {
+            return this.isLoggedIn ? this.accountDetails : null;
+        },
+    },
     actions: {
         async login(username: string, password: string) {
             const requestToken: CreateRequestToken = await this.createRequestToken();
@@ -38,9 +47,9 @@ export const useAccountStore = defineStore('accountStore', {
 
                 if (!sessionResponse.success) throw new Error("Failed to create session");
 
-                const sessionId = sessionResponse.session_id;
-                localStorage.setItem('tmdb_session_id', sessionId);
-                this.sessionId = sessionId;
+                this.sessionId = sessionResponse.session_id;
+                localStorage.setItem('tmdb_session_id', sessionResponse.session_id);
+                await this.fetchAccountDetails();
 
             } catch (error) {
                 console.error(error);
@@ -141,8 +150,23 @@ export const useAccountStore = defineStore('accountStore', {
                 headers: { 'x-tmdb-session-id': sessionId }
             });
         },
-    },
-    get sessionId(): string | null {
-        return localStorage.getItem('tmdb_session_id');
-    },
+        async initializeAccountStore() {
+            console.log("🔄 Checking for existing session...");
+        
+            this.sessionId = localStorage.getItem('tmdb_session_id') || "";
+        
+            if (!this.sessionId) {
+                console.log("❌ No session ID found. User is not logged in.");
+                return;
+            }
+        
+            try {
+                console.log("✅ Session found! Fetching account details...");
+                await this.fetchAccountDetails();
+                console.log("✅ Account details loaded:", this.accountDetails);
+            } catch (error) {
+                console.error("❌ Failed to restore account:", error);
+            }
+        }      
+    }
 });
