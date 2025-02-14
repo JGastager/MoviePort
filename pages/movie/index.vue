@@ -1,12 +1,16 @@
 <template>
     <div>
-        <MovieListings v-if="popularMovies" title="Popular movies" :movies="popularMovies" />
+        <MovieListings
+            v-if="popularMovies"
+            title="Popular movies"
+            :movies="popularMovies"
+        />
     </div>
 </template>
 
 <script lang="ts" setup>
-import { storeToRefs } from "pinia";
-import { useMoviesStore } from "~/store/movies";
+import { storeToRefs } from 'pinia';
+import { useMoviesStore } from '~/store/movies';
 
 useHead({
     title: `Movies | MoviePort`,

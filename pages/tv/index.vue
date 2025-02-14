@@ -5,9 +5,9 @@
 </template>
 
 <script lang="ts" setup>
-import { onMounted } from "vue";
-import { storeToRefs } from "pinia";
-import { useShowsStore } from "~/store/shows";
+import { onMounted } from 'vue';
+import { storeToRefs } from 'pinia';
+import { useShowsStore } from '~/store/shows';
 
 useHead({
     title: `TV Shows | MoviePort`,

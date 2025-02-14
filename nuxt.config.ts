@@ -1,6 +1,12 @@
 // https://nuxt.com/docs/api/configuration/nuxt-config
 export default defineNuxtConfig({
-    modules: [/* 'nuxt-electron', */ "@unocss/nuxt", "@nuxt/eslint", "@nuxt/fonts", "@morev/vue-transitions/nuxt", "@pinia/nuxt"],
+    modules: [
+        /* 'nuxt-electron', */ '@unocss/nuxt',
+        '@nuxt/eslint',
+        '@nuxt/fonts',
+        '@morev/vue-transitions/nuxt',
+        '@pinia/nuxt',
+    ],
     ssr: false,
     devtools: { enabled: true },
     runtimeConfig: {
@@ -10,7 +16,7 @@ export default defineNuxtConfig({
             tmdbBaseUrl: process.env.TMDB_BASE_URL,
         },
     },
-    compatibilityDate: "2024-04-03",
+    compatibilityDate: '2024-04-03',
     /*    electron: {
         disableDefaultOptions: true,
         build: [

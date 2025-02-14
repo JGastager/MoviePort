@@ -29,33 +29,65 @@
                         v-for="season in details.seasons"
                         :key="season.id"
                         class="season gap-0 overflow-hidden button !pl-1"
-                        :class="[activeSeason === season.season_number ? 'active' : null, season.season_number == 0 ? 'order-last' : null]"
+                        :class="[
+                            activeSeason === season.season_number
+                                ? 'active'
+                                : null,
+                            season.season_number == 0 ? 'order-last' : null,
+                        ]"
                         @click="activeSeason = season.season_number"
                     >
-                        <div v-if="season.season_number == 0" class="ml-3">Specials</div>
+                        <div v-if="season.season_number == 0" class="ml-3">
+                            Specials
+                        </div>
                         <template v-else>
                             <span>Season</span>
                             <span class="ml-3">{{ season.season_number }}</span>
                         </template>
                     </div>
                 </div>
-                <TransitionScale group tag="div" class="episodes mb-10 flex flex-wrap gap-3">
-                    <div v-for="episode in seasonDetails.episodes" :key="episode.id" class="episode button" @click="((activeEpisode = episode.episode_number), triggerPlay())">
+                <TransitionScale
+                    group
+                    tag="div"
+                    class="episodes mb-10 flex flex-wrap gap-3"
+                >
+                    <div
+                        v-for="episode in seasonDetails.episodes"
+                        :key="episode.id"
+                        class="episode button"
+                        @click="
+                            ((activeEpisode = episode.episode_number),
+                            triggerPlay())
+                        "
+                    >
                         <span>Ep. {{ episode.episode_number }}</span>
-                        <span class="text-14px text-muted">{{ episode.name }}</span>
+                        <span class="text-14px text-muted">{{
+                            episode.name
+                        }}</span>
                     </div>
                 </TransitionScale>
                 <!-- <pre>{{seasonDetails}}</pre> -->
-                <CastSlider v-if="credits?.cast && credits?.cast.length" :cast="credits.cast" class="mb-10" />
+                <CastSlider
+                    v-if="credits?.cast && credits?.cast.length"
+                    :cast="credits.cast"
+                    class="mb-10"
+                />
                 <ImageSlider v-if="showId" :tmdb-id="showId" type="tv" />
             </section>
             <section class="col-span-2 h-full">
                 <div class="sticky top-12">
-                    <RatingButton :rating="details.vote_average" :tmdb-id="showId" type="tv" class="mb-10" />
+                    <RatingButton
+                        :rating="details.vote_average"
+                        :tmdb-id="showId"
+                        type="tv"
+                        class="mb-10"
+                    />
                     <div class="mb-10">
                         <div class="flex items-center justify-between gap-3">
                             <h3>First Air Date</h3>
-                            <span class="text-muted">{{ $dayjs(details.first_air_date).get("year") }}</span>
+                            <span class="text-muted">{{
+                                $dayjs(details.first_air_date).get('year')
+                            }}</span>
                         </div>
                         <div class="flex items-center justify-between gap-3">
                             <h3>Status</h3>
@@ -69,18 +101,32 @@
                             <span>IMDb</span>
                         </NuxtLink> -->
                     </div>
-                    <div v-if="details.created_by?.length" class="mb-3 flex items-start justify-between gap-3">
+                    <div
+                        v-if="details.created_by?.length"
+                        class="mb-3 flex items-start justify-between gap-3"
+                    >
                         <h3>Creator</h3>
                         <ul class="m-0 p-0">
-                            <li v-for="creator in details.created_by" :key="creator.id" class="list-none text-right text-muted line-height-27px">
+                            <li
+                                v-for="creator in details.created_by"
+                                :key="creator.id"
+                                class="list-none text-right text-muted line-height-27px"
+                            >
                                 {{ creator.name }}
                             </li>
                         </ul>
                     </div>
-                    <div v-if="details?.production_companies?.length" class="mb-3 flex items-start justify-between gap-3">
+                    <div
+                        v-if="details?.production_companies?.length"
+                        class="mb-3 flex items-start justify-between gap-3"
+                    >
                         <h3>Production</h3>
                         <ul class="m-0 p-0">
-                            <li v-for="producer in details.production_companies" :key="producer.id" class="list-none text-right text-muted line-height-27px">
+                            <li
+                                v-for="producer in details.production_companies"
+                                :key="producer.id"
+                                class="list-none text-right text-muted line-height-27px"
+                            >
                                 <span>{{ producer.name }}</span>
                             </li>
                         </ul>
@@ -89,21 +135,43 @@
             </section>
         </div>
         <!-- <pre>{{ details }}</pre> -->
-        <ShowListings v-if="similar?.results" title="Related TV shows" :shows="similar.results" />
+        <ShowListings
+            v-if="similar?.results"
+            title="Related TV shows"
+            :shows="similar.results"
+        />
         <Teleport v-if="details.backdrop_path" to="#backdrop">
-            <img v-if="details?.backdrop_path" :src="$getImageUrl(details.backdrop_path, 'backdrop', 'w1280')" alt="Backdrop" class="h-full w-full object-cover" />
-            <img v-if="details?.backdrop_path" :src="$getImageUrl(details.backdrop_path, 'backdrop', 'original')" alt="Backdrop" class="absolute inset-0 h-full w-full object-cover" />
+            <img
+                v-if="details?.backdrop_path"
+                :src="$getImageUrl(details.backdrop_path, 'backdrop', 'w1280')"
+                alt="Backdrop"
+                class="h-full w-full object-cover"
+            />
+            <img
+                v-if="details?.backdrop_path"
+                :src="
+                    $getImageUrl(details.backdrop_path, 'backdrop', 'original')
+                "
+                alt="Backdrop"
+                class="absolute inset-0 h-full w-full object-cover"
+            />
             <TransitionFade>
-                <Player v-if="play && details?.id" :tmdb-id="details.id" :season="activeSeason" :episode="activeEpisode" type="tv" />
+                <Player
+                    v-if="play && details?.id"
+                    :tmdb-id="details.id"
+                    :season="activeSeason"
+                    :episode="activeEpisode"
+                    type="tv"
+                />
             </TransitionFade>
         </Teleport>
     </div>
 </template>
 
 <script lang="ts" setup>
-import { onMounted, ref } from "vue";
-import { useRoute } from "vue-router";
-import Rating from "~/components/RatingButton.vue";
+import { onMounted, ref } from 'vue';
+import { useRoute } from 'vue-router';
+import Rating from '~/components/RatingButton.vue';
 
 const play = ref(false);
 
@@ -121,49 +189,53 @@ const showId = route.params.id;
 
 watch(activeSeason, async (newSeason) => {
     try {
-        seasonDetails.value = await fetchTMDB(`/tv/${showId}/season/${newSeason}`);
-        console.log("Season details:", seasonDetails);
+        seasonDetails.value = await fetchTMDB(
+            `/tv/${showId}/season/${newSeason}`,
+        );
+        console.log('Season details:', seasonDetails);
     } catch (error) {
-        console.error("Error loading season details:", error);
+        console.error('Error loading season details:', error);
     }
 });
 
 onMounted(async () => {
-    console.log("TV Show ID:", showId);
+    console.log('TV Show ID:', showId);
 
     try {
-        details.value = await fetchTMDB("/tv/" + showId);
-        console.log("TV Show details:", details.value);
+        details.value = await fetchTMDB('/tv/' + showId);
+        console.log('TV Show details:', details.value);
         useHead({
             title: `${details.value?.name} | MoviePort`,
         });
     } catch (error) {
-        console.error("Error loading TV show details:", error);
+        console.error('Error loading TV show details:', error);
     }
     try {
-        credits.value = await fetchTMDB("/tv/" + showId + "/credits");
-        console.log("TV Show credits:", credits.value);
+        credits.value = await fetchTMDB('/tv/' + showId + '/credits');
+        console.log('TV Show credits:', credits.value);
     } catch (error) {
-        console.error("Error loading TV show credits:", error);
+        console.error('Error loading TV show credits:', error);
     }
     try {
-        seasonDetails.value = await fetchTMDB(`/tv/${showId}/season/${activeSeason.value}`);
-        console.log("Season details:", seasonDetails);
+        seasonDetails.value = await fetchTMDB(
+            `/tv/${showId}/season/${activeSeason.value}`,
+        );
+        console.log('Season details:', seasonDetails);
     } catch (error) {
-        console.error("Error loading season details:", error);
+        console.error('Error loading season details:', error);
     }
     try {
-        similar.value = await fetchTMDB("/tv/" + showId + "/similar");
-        console.log("Similar TV shows:", similar.value);
+        similar.value = await fetchTMDB('/tv/' + showId + '/similar');
+        console.log('Similar TV shows:', similar.value);
     } catch (error) {
-        console.error("Error loading similar TV shows:", error);
+        console.error('Error loading similar TV shows:', error);
     }
 });
 
 function triggerPlay() {
     play.value = true;
     if (play.value) {
-        window.scrollTo({ top: 0, behavior: "smooth" });
+        window.scrollTo({ top: 0, behavior: 'smooth' });
     }
 }
 </script>

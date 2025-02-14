@@ -1,10 +1,10 @@
-import { watch } from "vue";
-import { useAccountStore } from "~/store/account";
+import { watch } from 'vue';
+import { useAccountStore } from '~/store/account';
 
 export default defineNuxtPlugin(async () => {
     const accountStore = useAccountStore();
 
-    console.log("🔄 Initializing account store...");
+    console.log('🔄 Initializing account store...');
     await accountStore.initializeAccountStore();
 
     // ✅ Auto-fetch account details when sessionId changes
@@ -12,7 +12,9 @@ export default defineNuxtPlugin(async () => {
         () => accountStore.sessionId,
         async (newSessionId) => {
             if (newSessionId) {
-                console.log("🔄 Session ID changed, reloading account details...");
+                console.log(
+                    '🔄 Session ID changed, reloading account details...',
+                );
                 await accountStore.fetchAccountDetails();
             }
         },
