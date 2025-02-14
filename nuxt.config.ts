@@ -3,6 +3,9 @@ export default defineNuxtConfig({
     modules: [/* 'nuxt-electron', */ "@unocss/nuxt", "@nuxt/eslint", "@nuxt/fonts", "@morev/vue-transitions/nuxt", "@pinia/nuxt"],
     ssr: false,
     devtools: { enabled: true },
+    app: {
+        pageTransition: { name: "page", mode: "out-in" },
+    },
     runtimeConfig: {
         public: {
             tmdbAuthToken: process.env.TMDB_AUTH_TOKEN,
