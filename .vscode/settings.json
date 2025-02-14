@@ -6,5 +6,6 @@
     "editor.defaultFormatter": "esbenp.prettier-vscode", // Ensure Prettier is used
     "prettier.enable": true, // Ensure Prettier runs
     "prettier.configPath": ".prettierrc",
+    "eslint.lintTask.enable": false, // Prevent unnecessary background linting
     "editor.formatOnSave": true // Use your Prettier config
 }

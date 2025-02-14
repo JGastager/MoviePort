@@ -20,4 +20,5 @@ export default withNuxt(unocss, prettier, {
             },
         ],
     },
+    ignores: ["node_modules/", "dist/", "public/", "coverage/", ".nuxt/", ".output/", ".vscode/", "**/*.min.js", "**/vendor/**"],
 });
