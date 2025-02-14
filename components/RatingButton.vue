@@ -22,7 +22,7 @@
                 <span v-if="(starRating >= 3 && !ownRating) || ownRating >= 3" class="i-ph-star-fill size-6" />
                 <span v-if="(starRating >= 4 && !ownRating) || ownRating >= 4" class="i-ph-star-fill size-6" />
                 <span v-if="(starRating == 5 && !ownRating) || ownRating == 5" class="i-ph-star-fill size-6" />
-                <span v-if="starRating % 1 !== 0 && !hovered" class="i-ph-star-half-fill size-6" />
+                <span v-if="starRating % 1 !== 0 && !ownRating" class="i-ph-star-half-fill size-6" />
             </div>
         </div>
         <span v-if="rating" class="text-muted">{{ (rating / 2).toFixed(1) }}</span>
