@@ -1,6 +1,6 @@
 <template>
     <div class="rating button">
-        <div class="relative flex items-center"  @mouseover="hovered = true" @mouseleave="hovered = false" @click="addRating">
+        <div class="relative flex items-center"  @mouseover="hovered = true" @mouseleave="hovered = false" @click="isLoggedIn ? addRating(props.type, props.tmdbId, ownRating) : $router.push('/login')">
             <span class="block h-6 w-7 pr-1" :class="{'text-amber-400': ownRating >= 1}" @mouseover="myNewRating = 1">
                 <span class="i-ph-star-bold inline-block size-6" />
             </span>
@@ -27,6 +27,9 @@
         </div>
         <span v-if="rating" class="text-muted">{{ (rating / 2).toFixed(1) }}</span>
     </div>
+    <pre>{{ ratedMovies.results }}</pre>
+    <pre>{{ tmdbId }}</pre>
+    <pre>{{ myCurrentRating }}</pre>
 </template>
 
 <script lang="ts" setup>
@@ -41,8 +44,7 @@ const props = defineProps<{
 
 const accountStore = useAccountStore();
 const { ratedMovies, ratedTVShows } = storeToRefs(accountStore);
-
-const { fetchTMDB } = useTMDB();
+const { addRating, isLoggedIn } = accountStore;
 
 const hovered = ref(false);
 const myNewRating = ref(0);
@@ -55,20 +57,12 @@ const starRating = computed(() => {
     return props.rating ? Math.round((props.rating / 2) * 2) / 2 : 0;
 });
 
-async function addRating() {
-    const sessionId = localStorage.getItem("session_id");
-    try {
-        await fetchTMDB(`/${props.type}/${props.tmdbId}/rating`, {sessionI: sessionId}, "POST", {"value": (myNewRating.value * 2)}, "session");
-        console.log('Rating posted');
-    } catch (error) {
-        console.error('Error posting rating:', error);
-    }
-}
-
 const myCurrentRating = computed(() => {
     const ratedItems = props.type === 'movie' ? ratedMovies.value?.results : ratedTVShows.value?.results;
-    const item = ratedItems?.find(item => item.id === props.tmdbId);
-    return item ? Math.round((Number(props.rating!) / 2) * 2) / 2 : 0;
+    console.log(ratedItems);
+    const item = ratedItems?.find((item) => (Number(item.id) == Number(props.tmdbId), console.log("item", item, typeof item.id, typeof props.tmdbId)));
+    // console.log("item", item, item?.rating);
+    return item ? Math.round((Number(item.rating) / 2) * 2) / 2 : 0;
 });
 </script>
 

@@ -150,6 +150,22 @@ export const useAccountStore = defineStore('accountStore', {
                 headers: { 'x-tmdb-session-id': sessionId }
             });
         },
+
+        async addRating(type: 'movie' | 'tv', id: number, rating: number) {
+            const sessionId = this.sessionId;
+            if (!sessionId || !this.accountDetails?.id) return;
+            this.watchlistTVShows = await $fetch<TvShowWatchlistResponse>(`/api/${type}/${id}/rating`, {
+                method: 'POST',
+                headers: { 'x-tmdb-session-id': sessionId },
+                body: {"value": (rating * 2)}
+            });
+            if(type === 'movie') {
+                this.fetchRatedMovies();
+            } else {
+                this.fetchRatedTVShows();
+            }
+        },
+
         async initializeAccountStore() {
             console.log("🔄 Checking for existing session...");
         
@@ -163,6 +179,12 @@ export const useAccountStore = defineStore('accountStore', {
             try {
                 console.log("✅ Session found! Fetching account details...");
                 await this.fetchAccountDetails();
+                await this.fetchFavoriteMovies();
+                await this.fetchFavoriteTVShows();
+                await this.fetchRatedMovies();
+                await this.fetchRatedTVShows();
+                await this.fetchWatchlistMovies();
+                await this.fetchWatchlistTVShows();
                 console.log("✅ Account details loaded:", this.accountDetails);
             } catch (error) {
                 console.error("❌ Failed to restore account:", error);
