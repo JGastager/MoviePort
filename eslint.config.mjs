@@ -18,11 +18,20 @@ export default withNuxt(
             'public/',
         ],
         rules: {
-            'vue/max-attributes-per-line': ['error', {
-                singleline: 5, // Allow up to 5 attributes on the same line
-                multiline: 5, // Allow up to 5 attributes before breaking
-            }],
-            'vue/first-attribute-linebreak': 'off', // Prevent forced line breaks
+            'vue/max-attributes-per-line': 'off',
+            'vue/first-attribute-linebreak': 'off',
         },
     },
-)
+).override('nuxt/vue/rules', {
+    rules: {
+        'vue/max-attributes-per-line': 'off',
+        'vue/first-attribute-linebreak': 'off',
+        'vue/html-indent': ['error', 4, {
+            attribute: 1,
+            baseIndent: 1,
+            closeBracket: 0,
+            alignAttributesVertically: false,
+            ignores: [],
+        }],
+    },
+})

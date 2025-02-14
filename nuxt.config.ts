@@ -1,7 +1,7 @@
 // https://nuxt.com/docs/api/configuration/nuxt-config
 export default defineNuxtConfig({
     modules: [
-        /* 'nuxt-electron', */ '@unocss/nuxt',
+    /* 'nuxt-electron', */ '@unocss/nuxt',
         '@nuxt/eslint',
         '@nuxt/fonts',
         '@morev/vue-transitions/nuxt',
@@ -27,4 +27,14 @@ export default defineNuxtConfig({
         ],
     }, */
     // app:{ cdnURL: './'},
+    eslint: {
+        config: {
+            stylistic: {
+                flat: true,
+                indent: 4,
+                semi: false,
+            },
+        },
+        checker: true,
+    },
 })

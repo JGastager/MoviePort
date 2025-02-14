@@ -1,15 +1,15 @@
 <template>
-  <div id="player">
-    <iframe
-      :src="playerUrl"
-      style="width: 100%; height: 100%"
-      frameborder="0"
-      referrerpolicy="origin"
-      allowfullscreen
-      class="pointer-events-auto fixed left-0 top-0 h-full w-full"
-      title="player"
-    />
-  </div>
+    <div id="player">
+        <iframe
+            :src="playerUrl"
+            style="width: 100%; height: 100%"
+            frameborder="0"
+            referrerpolicy="origin"
+            allowfullscreen
+            class="pointer-events-auto fixed left-0 top-0 h-full w-full"
+            title="player"
+        />
+    </div>
 </template>
 
 <script lang="ts" setup>

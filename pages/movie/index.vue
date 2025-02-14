@@ -1,7 +1,7 @@
 <template>
-  <div>
-    <MovieListings v-if="popularMovies" title="Popular movies" :movies="popularMovies" />
-  </div>
+    <div>
+        <MovieListings v-if="popularMovies" title="Popular movies" :movies="popularMovies" />
+    </div>
 </template>
 
 <script lang="ts" setup>

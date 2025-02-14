@@ -1,7 +1,7 @@
 <template>
-  <div>
-    <ShowListings title="Popular TV shows" :shows="popularShows" />
-  </div>
+    <div>
+        <ShowListings title="Popular TV shows" :shows="popularShows" />
+    </div>
 </template>
 
 <script lang="ts" setup>

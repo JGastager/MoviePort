@@ -1,13 +1,13 @@
 <template>
-  <div class="min-h-screen bg-[#000711]">
-    <div id="backdrop" class="fixed top-0 h-screen w-full">
-      <!-- <img src="~/assets/images/backdrop.jpg" class="h-full w-full object-cover" alt="Backdrop" > -->
+    <div class="min-h-screen bg-[#000711]">
+        <div id="backdrop" class="fixed top-0 h-screen w-full">
+            <!-- <img src="~/assets/images/backdrop.jpg" class="h-full w-full object-cover" alt="Backdrop" > -->
+        </div>
+        <NuxtLayout>
+            <NuxtPage />
+        </NuxtLayout>
+        <div id="modals" />
     </div>
-    <NuxtLayout>
-      <NuxtPage />
-    </NuxtLayout>
-    <div id="modals" />
-  </div>
 </template>
 
 <style lang="scss">
