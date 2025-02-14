@@ -9,8 +9,10 @@
     "generate": "nuxt generate",
     "preview": "nuxt preview",
     "postinstall": "nuxt prepare",
-    "lint": "eslint .",
-    "lint:fix": "eslint . --fix"
+    "lint": "eslint . && prettier . --check",
+    "lint:eslint": "eslint .",
+    "lint:prettier": "prettier . --check",
+    "lintfix": "eslint . --fix && prettier --write --list-different ."
   },
   "dependencies": {
     "@morev/vue-transitions": "^3.0.5",
@@ -18,9 +20,13 @@
     "@nuxt/fonts": "^0.7.2",
     "@pinia/nuxt": "^0.9.0",
     "dayjs": "^1.11.13",
+    "eslint": "^9.20.1",
+    "eslint-config-prettier": "^10.0.1",
+    "eslint-plugin-prettier": "^5.2.3",
     "lodash": "^4.17.21",
     "nuxt": "^3.13.0",
     "pinia": "^2.3.1",
+    "prettier": "^3.5.1",
     "vue": "latest"
   },
   "devDependencies": {

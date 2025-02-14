@@ -1,0 +1,10 @@
+{
+    "editor.codeActionsOnSave": {
+        "source.fixAll": true,        // Fix ESLint & Prettier issues on save
+        "source.fixAll.eslint": true  // Ensure ESLint is fixing files
+    },
+    "editor.defaultFormatter": "esbenp.prettier-vscode", // Ensure Prettier is used
+    "prettier.enable": true, // Ensure Prettier runs
+    "prettier.configPath": ".prettierrc",
+    "editor.formatOnSave": true // Use your Prettier config
+}
