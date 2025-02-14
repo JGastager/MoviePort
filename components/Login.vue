@@ -19,20 +19,13 @@
       </span>
     </div>
 
-    <div
-      v-else
-      class="pointer-events-auto button"
-      @click="openModal"
-    >
+    <div v-else class="pointer-events-auto button" @click="openModal">
       <span class="i-ph-sign-in-bold size-6" />
     </div>
   </div>
 
   <!-- Login Modal -->
-  <Teleport
-    v-if="mounted"
-    to="#modals"
-  >
+  <Teleport v-if="mounted" to="#modals">
     <Transition name="modal">
       <div
         v-if="modal"
@@ -44,10 +37,7 @@
             <h2 class="mb-6">
               Login
             </h2>
-            <form
-              class="max-w-100 w-full flex flex-col items-center gap-2.5"
-              @submit.prevent="handleLogin"
-            >
+            <form class="max-w-100 w-full flex flex-col items-center gap-2.5" @submit.prevent="handleLogin">
               <div
                 class="h-11 w-full flex flex-shrink-0 items-center card transition-colors duration-300 focus:bg-primary/50 hover:bg-primary/50"
               >
@@ -73,18 +63,12 @@
                   required
                 >
               </div>
-              <button
-                class="mt-3 button"
-                type="submit"
-              >
+              <button class="mt-3 button" type="submit">
                 Login
               </button>
             </form>
           </div>
-          <div
-            class="absolute top-0 translate-x-full transform -right-3 button"
-            @click="closeModal"
-          >
+          <div class="absolute top-0 translate-x-full transform -right-3 button" @click="closeModal">
             <span class="i-ph-x-bold size-6" />
           </div>
         </div>

@@ -1,18 +1,9 @@
 <template>
-  <h2
-    v-if="images?.backdrops?.length"
-    class="mb-6"
-  >
+  <h2 v-if="images?.backdrops?.length" class="mb-6">
     Images
   </h2>
-  <div
-    v-if="images?.backdrops?.length"
-    class="relative w-full flex gap-7 overflow-x-auto rounded"
-  >
-    <template
-      v-for="(image, index) in images?.backdrops"
-      :key="index"
-    >
+  <div v-if="images?.backdrops?.length" class="relative w-full flex gap-7 overflow-x-auto rounded">
+    <template v-for="(image, index) in images?.backdrops" :key="index">
       <div v-if="image.iso_639_1 == 'en' || image.iso_639_1 == null">
         <div class="h-120 w-fit overflow-hidden card">
           <img
@@ -27,7 +18,9 @@
         </div>
       </div>
     </template>
-    <div class="absolute right-0 top-0 h-full w-19 flex cursor-pointer items-center justify-center card opacity-0 transition-opacity duration-300 hover:opacity-100">
+    <div
+      class="absolute right-0 top-0 h-full w-19 flex cursor-pointer items-center justify-center card opacity-0 transition-opacity duration-300 hover:opacity-100"
+    >
       <span class="i-ph-arrow-right-bold size-6" />
     </div>
   </div>
@@ -35,8 +28,8 @@
 
 <script lang="ts" setup>
 const props = defineProps<{
-  tmdbId: string
-  type: 'movie' | 'tv'
+    tmdbId: string
+    type: 'movie' | 'tv'
 }>()
 
 const images = ref({})
@@ -54,6 +47,4 @@ onMounted(async () => {
 })
 </script>
 
-<style>
-
-</style>
+<style></style>

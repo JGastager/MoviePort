@@ -15,13 +15,10 @@
       <Brand />
       <slot />
       <div class="mt-30 flex items-center gap-4">
-        <img
-          src="~assets/images/TMDB/alt-short.svg"
-          alt="TMDB Logo"
-          class="h-4"
-        >
+        <img src="~assets/images/TMDB/alt-short.svg" alt="TMDB Logo" class="h-4">
         <p class="text-muted">
-          This application uses TMDB and the TMDB APIs but is not endorsed, certified, or otherwise approved by TMDB.
+          This application uses TMDB and the TMDB APIs but is not endorsed, certified, or otherwise approved
+          by TMDB.
         </p>
       </div>
     </main>
@@ -35,6 +32,6 @@ import OptionsButton from '~/components/OptionsButton.vue'
 
 <style lang="scss">
 html:has(#backdrop #player) header {
- height: 100vh;
+    height: 100vh;
 }
 </style>

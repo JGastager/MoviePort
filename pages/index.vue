@@ -7,20 +7,16 @@
           alt="TV Shows"
           class="absolute inset-0 h-full w-full object-cover transition duration-300 group-hover:scale-102"
         >
-        <div class="relative h-full w-full flex flex-col items-center justify-center gap-2.5 bg-primary/30 backdrop-blur transition-colors duration-300 group-hover:bg-primary/50">
+        <div
+          class="relative h-full w-full flex flex-col items-center justify-center gap-2.5 bg-primary/30 backdrop-blur transition-colors duration-300 group-hover:bg-primary/50"
+        >
           <span class="i-ph-bookmark-simple size-9" />
           <h3>Watchlist</h3>
         </div>
-        <NuxtLink
-          to="/saves"
-          class="absolute inset-0 h-full w-full"
-        />
+        <NuxtLink to="/saves" class="absolute inset-0 h-full w-full" />
       </div>
       <div class="group relative col-span-2 aspect-2/1 cursor-pointer overflow-hidden rounded">
-        <Transition
-          name="fade-image"
-          appear
-        >
+        <Transition name="fade-image" appear>
           <img
             v-if="popularMovies?.length && popularMovies[0].poster_path"
             :src="$getImageUrl(popularMovies[0].poster_path, 'poster', 'w342')"
@@ -28,20 +24,16 @@
             class="absolute inset-0 h-full w-full object-cover transition duration-300 group-hover:scale-102"
           >
         </Transition>
-        <div class="relative h-full w-full flex flex-col items-center justify-center gap-2.5 bg-primary/30 backdrop-blur transition-colors duration-300 group-hover:bg-primary/50">
+        <div
+          class="relative h-full w-full flex flex-col items-center justify-center gap-2.5 bg-primary/30 backdrop-blur transition-colors duration-300 group-hover:bg-primary/50"
+        >
           <span class="i-ph-film-strip size-9" />
           <h3>Movies</h3>
         </div>
-        <NuxtLink
-          to="/movie"
-          class="absolute inset-0 h-full w-full"
-        />
+        <NuxtLink to="/movie" class="absolute inset-0 h-full w-full" />
       </div>
       <div class="group relative col-span-2 aspect-2/1 cursor-pointer overflow-hidden rounded">
-        <Transition
-          name="fade-image"
-          appear
-        >
+        <Transition name="fade-image" appear>
           <img
             v-if="popularShows?.length && popularShows[0].poster_path"
             :src="$getImageUrl(popularShows[0].poster_path, 'poster', 'w342')"
@@ -49,20 +41,16 @@
             class="absolute inset-0 h-full w-full object-cover transition duration-300 group-hover:scale-102"
           >
         </Transition>
-        <div class="relative h-full w-full flex flex-col items-center justify-center gap-2.5 bg-primary/30 backdrop-blur transition-colors duration-300 group-hover:bg-primary/50">
+        <div
+          class="relative h-full w-full flex flex-col items-center justify-center gap-2.5 bg-primary/30 backdrop-blur transition-colors duration-300 group-hover:bg-primary/50"
+        >
           <span class="i-ph-television-simple size-9" />
           <h3>TV Shows</h3>
         </div>
-        <NuxtLink
-          to="/tv"
-          class="absolute inset-0 h-full w-full"
-        />
+        <NuxtLink to="/tv" class="absolute inset-0 h-full w-full" />
       </div>
       <div class="group relative col-span-2 aspect-2/1 cursor-pointer overflow-hidden rounded">
-        <Transition
-          name="fade-image"
-          appear
-        >
+        <Transition name="fade-image" appear>
           <img
             v-if="ratedMovies?.length && ratedMovies[0].poster_path"
             :src="$getImageUrl(ratedMovies[0].poster_path, 'poster', 'w342')"
@@ -70,14 +58,13 @@
             class="absolute inset-0 h-full w-full object-cover transition duration-300 group-hover:scale-102"
           >
         </Transition>
-        <div class="relative h-full w-full flex flex-col items-center justify-center gap-2.5 bg-primary/30 backdrop-blur transition-colors duration-300 group-hover:bg-primary/50">
+        <div
+          class="relative h-full w-full flex flex-col items-center justify-center gap-2.5 bg-primary/30 backdrop-blur transition-colors duration-300 group-hover:bg-primary/50"
+        >
           <span class="i-ph-star size-9" />
           <h3>Rated</h3>
         </div>
-        <NuxtLink
-          to="/rated"
-          class="absolute inset-0 h-full w-full"
-        />
+        <NuxtLink to="/rated" class="absolute inset-0 h-full w-full" />
       </div>
       <div class="group relative col-span-2 aspect-2/1 cursor-pointer overflow-hidden rounded">
         <img
@@ -85,14 +72,13 @@
           alt="Favourites"
           class="absolute inset-0 h-full w-full object-cover transition duration-300 group-hover:scale-102"
         >
-        <div class="relative h-full w-full flex flex-col items-center justify-center gap-2.5 bg-primary/30 backdrop-blur transition-colors duration-300 group-hover:bg-primary/50">
+        <div
+          class="relative h-full w-full flex flex-col items-center justify-center gap-2.5 bg-primary/30 backdrop-blur transition-colors duration-300 group-hover:bg-primary/50"
+        >
           <span class="i-ph-heart size-9" />
           <h3>Favourites</h3>
         </div>
-        <NuxtLink
-          to="/likes"
-          class="absolute inset-0 h-full w-full"
-        />
+        <NuxtLink to="/likes" class="absolute inset-0 h-full w-full" />
       </div>
     </div>
     <MovieSlider
@@ -102,12 +88,7 @@
       :movies="trendingMovies"
       class="mb-10"
     />
-    <ShowSlider
-      v-if="trendingShows"
-      more="/tv"
-      title="Trending TV shows"
-      :shows="trendingShows"
-    />
+    <ShowSlider v-if="trendingShows" more="/tv" title="Trending TV shows" :shows="trendingShows" />
   </div>
 </template>
 
@@ -168,7 +149,9 @@ onMounted(async () => {
 <style lang="scss">
 .fade-image-enter-active,
 .fade-image-leave-active {
-    transition: opacity 1.5s ease, filter 1.5s linear;
+    transition:
+        opacity 1.5s ease,
+        filter 1.5s linear;
 }
 
 .fade-image-enter-from,

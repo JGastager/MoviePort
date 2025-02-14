@@ -1,13 +1,6 @@
 <template>
-  <div
-    v-if="genres && genres.length"
-    class="flex flex-wrap gap-3"
-  >
-    <div
-      v-for="genre in genres"
-      :key="genre.id"
-      class="tag"
-    >
+  <div v-if="genres && genres.length" class="flex flex-wrap gap-3">
+    <div v-for="genre in genres" :key="genre.id" class="tag">
       {{ genre.name }}
     </div>
   </div>
@@ -23,5 +16,4 @@ const props = defineProps({
 })
 </script>
 
-<style lang="scss">
-</style>
+<style lang="scss"></style>

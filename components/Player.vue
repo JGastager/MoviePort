@@ -2,7 +2,7 @@
   <div id="player">
     <iframe
       :src="playerUrl"
-      style="width: 100%; height: 100%;"
+      style="width: 100%; height: 100%"
       frameborder="0"
       referrerpolicy="origin"
       allowfullscreen
@@ -14,10 +14,10 @@
 
 <script lang="ts" setup>
 const props = defineProps<{
-  type: 'movie' | 'tv'
-  tmdbId: number
-  season?: number
-  episode?: number
+    type: 'movie' | 'tv'
+    tmdbId: number
+    season?: number
+    episode?: number
 }>()
 
 const config = useRuntimeConfig() // Access server-side config
@@ -41,6 +41,4 @@ const playerUrl = computed(() => {
 })
 </script>
 
-<style>
-
-</style>
+<style></style>

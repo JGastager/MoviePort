@@ -10,15 +10,14 @@
         alt="Poster"
         class="h-full w-full object-cover transition-all duration-300 group-hover:scale-102 group-hover:blur-sm"
       >
-      <div class="absolute inset-0 flex items-center justify-center bg-primary/20 opacity-0 transition-opacity duration-300 group-hover:opacity-100">
+      <div
+        class="absolute inset-0 flex items-center justify-center bg-primary/20 opacity-0 transition-opacity duration-300 group-hover:opacity-100"
+      >
         <div class="i-ph-arrows-out size-9" />
       </div>
     </template>
   </div>
-  <Teleport
-    v-if="posterPath"
-    to="#modals"
-  >
+  <Teleport v-if="posterPath" to="#modals">
     <Transition name="modal">
       <div
         v-if="modal && posterPath"
@@ -33,10 +32,7 @@
               class="h-full w-full object-cover"
             >
           </div>
-          <div
-            class="absolute top-0 translate-x-full transform -right-3 button"
-            @click="closeModal"
-          >
+          <div class="absolute top-0 translate-x-full transform -right-3 button" @click="closeModal">
             <span class="i-ph-x-bold size-6" />
           </div>
         </div>

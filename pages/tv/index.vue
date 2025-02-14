@@ -1,9 +1,6 @@
 <template>
   <div>
-    <ShowListings
-      title="Popular TV shows"
-      :shows="popularShows"
-    />
+    <ShowListings title="Popular TV shows" :shows="popularShows" />
   </div>
 </template>
 
@@ -30,6 +27,4 @@ onMounted(async () => {
 })
 </script>
 
-<style>
-
-</style>
+<style></style>

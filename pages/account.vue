@@ -6,72 +6,29 @@
           <h1 v-if="accountDetails.username">
             Hallo, {{ accountDetails.username }}
           </h1>
-          <small
-            v-if="accountDetails.id"
-            class="italic"
-          >Account-ID: {{ accountDetails.id }}</small>
+          <small v-if="accountDetails.id" class="italic">Account-ID: {{ accountDetails.id }}</small>
           <small v-if="accountDetails.iso_3166_1"> | {{ accountDetails.iso_3166_1 }}</small>
         </div>
-        <img
-          v-if="gravatarUrl"
-          class="rounded-full"
-          :src="gravatarUrl"
-        >
+        <img v-if="gravatarUrl" class="rounded-full" :src="gravatarUrl">
       </div>
       <div class="lists">
-        <div
-          v-if="favoriteMovies?.results?.length"
-          class="favoriteMovies"
-        >
-          <MovieListings
-            title="Favorite Movies"
-            :movies="favoriteMovies.results"
-          />
+        <div v-if="favoriteMovies?.results?.length" class="favoriteMovies">
+          <MovieListings title="Favorite Movies" :movies="favoriteMovies.results" />
         </div>
-        <div
-          v-if="favoriteTVShows?.results?.length"
-          class="favoriteTVShows"
-        >
-          <ShowListings
-            title="Favorite TV Shows"
-            :shows="favoriteTVShows.results"
-          />
+        <div v-if="favoriteTVShows?.results?.length" class="favoriteTVShows">
+          <ShowListings title="Favorite TV Shows" :shows="favoriteTVShows.results" />
         </div>
-        <div
-          v-if="ratedMovies?.results?.length"
-          class="ratedMovies"
-        >
-          <MovieListings
-            title="Rated Movies"
-            :movies="ratedMovies.results"
-          />
+        <div v-if="ratedMovies?.results?.length" class="ratedMovies">
+          <MovieListings title="Rated Movies" :movies="ratedMovies.results" />
         </div>
-        <div
-          v-if="ratedTVShows?.results?.length"
-          class="ratedTVShows"
-        >
-          <ShowListings
-            title="Rated TV Shows"
-            :shows="ratedTVShows.results"
-          />
+        <div v-if="ratedTVShows?.results?.length" class="ratedTVShows">
+          <ShowListings title="Rated TV Shows" :shows="ratedTVShows.results" />
         </div>
-        <div
-          v-if="watchlistMovies?.results?.length"
-          class="watchlistMovies"
-        >
-          <MovieListings
-            title="Watchlist Movies"
-            :movies="watchlistMovies.results"
-          />
+        <div v-if="watchlistMovies?.results?.length" class="watchlistMovies">
+          <MovieListings title="Watchlist Movies" :movies="watchlistMovies.results" />
         </div>
-        <div
-          v-if="watchlistTVShows?.results?.length"
-          class="watchlistTVShows"
-        >
-          <ShowListings
-            title="Watchlist TV Shows"
-            :shows="watchlistTVShows.results"
-          />
+        <div v-if="watchlistTVShows?.results?.length" class="watchlistTVShows">
+          <ShowListings title="Watchlist TV Shows" :shows="watchlistTVShows.results" />
         </div>
       </div>
     </div>
@@ -94,7 +51,15 @@ const {
     watchlistTVShows,
 } = storeToRefs(accountStore)
 
-const { fetchAccountDetails, fetchFavoriteMovies, fetchFavoriteTVShows, fetchRatedMovies, fetchRatedTVShows, fetchWatchlistMovies, fetchWatchlistTVShows } = accountStore
+const {
+    fetchAccountDetails,
+    fetchFavoriteMovies,
+    fetchFavoriteTVShows,
+    fetchRatedMovies,
+    fetchRatedTVShows,
+    fetchWatchlistMovies,
+    fetchWatchlistTVShows,
+} = accountStore
 
 onMounted(async () => {
     try {

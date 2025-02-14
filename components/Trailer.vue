@@ -1,16 +1,9 @@
 <template>
-  <div
-    v-if="trailer"
-    class="button"
-    @click="openModal"
-  >
+  <div v-if="trailer" class="button" @click="openModal">
     <span class="i-ph-monitor-play-bold size-6" />
     <span>Trailer</span>
   </div>
-  <Teleport
-    v-if="trailer"
-    to="#modals"
-  >
+  <Teleport v-if="trailer" to="#modals">
     <Transition name="modal">
       <div
         v-if="modal && trailer"
@@ -29,10 +22,7 @@
               class="h-full w-full"
             />
           </div>
-          <div
-            class="absolute top-0 translate-x-full transform -right-3 button"
-            @click="closeModal"
-          >
+          <div class="absolute top-0 translate-x-full transform -right-3 button" @click="closeModal">
             <span class="i-ph-x-bold size-6" />
           </div>
         </div>
@@ -45,8 +35,8 @@
 import { computed, onMounted, ref } from 'vue'
 
 const props = defineProps<{
-  type: 'movie' | 'tv'
-  tmdbId: string
+    type: 'movie' | 'tv'
+    tmdbId: string
 }>()
 
 const modal = ref(false)
@@ -88,6 +78,4 @@ onMounted(async () => {
 })
 </script>
 
-<style>
-
-</style>
+<style></style>

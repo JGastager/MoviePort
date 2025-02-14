@@ -1,9 +1,6 @@
 <template>
   <div class="min-h-screen bg-[#000711]">
-    <div
-      id="backdrop"
-      class="fixed top-0 h-screen w-full"
-    >
+    <div id="backdrop" class="fixed top-0 h-screen w-full">
       <!-- <img src="~/assets/images/backdrop.jpg" class="h-full w-full object-cover" alt="Backdrop" > -->
     </div>
     <NuxtLayout>
@@ -55,7 +52,7 @@ h3 {
     font-weight: normal;
 }
 
-.button:has(span:only-child){
+.button:has(span:only-child) {
     padding-left: 0 !important;
     padding-right: 0 !important;
 }
@@ -81,15 +78,15 @@ button {
 
 .modal-enter-active,
 .modal-leave-active {
-  transition: opacity 0.3s;
-  .modal {
-    transition: transform 0.3s;
-  }
+    transition: opacity 0.3s;
+    .modal {
+        transition: transform 0.3s;
+    }
 }
 
 .modal-enter-from,
 .modal-leave-to {
-  opacity: 0;
+    opacity: 0;
     .modal {
         transform: scale(0.5);
     }

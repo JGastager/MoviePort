@@ -1,10 +1,6 @@
 <template>
   <div>
-    <MovieListings
-      v-if="popularMovies"
-      title="Popular movies"
-      :movies="popularMovies"
-    />
+    <MovieListings v-if="popularMovies" title="Popular movies" :movies="popularMovies" />
   </div>
 </template>
 
@@ -30,6 +26,4 @@ onMounted(async () => {
 })
 </script>
 
-<style>
-
-</style>
+<style></style>

@@ -1,5 +1,17 @@
 import { defineStore } from 'pinia'
-import type { AccountDetails, CreateSessionWithLogin, CreateSession, CreateRequestToken, DeleteSession, RatedMovieResponse, RatedTvShowResponse, MovieWatchlistResponse, TvShowWatchlistResponse, FavoriteMoviesResponse, FavoriteTvShowResponse } from '~/types/account'
+import type {
+    AccountDetails,
+    CreateSessionWithLogin,
+    CreateSession,
+    CreateRequestToken,
+    DeleteSession,
+    RatedMovieResponse,
+    RatedTvShowResponse,
+    MovieWatchlistResponse,
+    TvShowWatchlistResponse,
+    FavoriteMoviesResponse,
+    FavoriteTvShowResponse,
+} from '~/types/account'
 
 export const useAccountStore = defineStore('accountStore', {
     state: () => ({
@@ -29,11 +41,14 @@ export const useAccountStore = defineStore('accountStore', {
 
             try {
                 // Step 1: Validate Login
-                const loginResponse: CreateSessionWithLogin = await $fetch('/api/authentication/token/validate_with_login', {
-                    method: 'POST',
-                    headers: { 'Content-Type': 'application/json' },
-                    body: requestBody,
-                })
+                const loginResponse: CreateSessionWithLogin = await $fetch(
+                    '/api/authentication/token/validate_with_login',
+                    {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: requestBody,
+                    },
+                )
 
                 if (!loginResponse.success) throw new Error('Login failed')
 
@@ -110,17 +125,23 @@ export const useAccountStore = defineStore('accountStore', {
         async fetchFavoriteMovies() {
             const sessionId = this.sessionId
             if (!sessionId || !this.accountDetails?.id) return
-            this.favoriteMovies = await $fetch<FavoriteMoviesResponse>(`/api/account/${this.accountDetails.id}/favorite/movies`, {
-                headers: { 'x-tmdb-session-id': sessionId },
-            })
+            this.favoriteMovies = await $fetch<FavoriteMoviesResponse>(
+                `/api/account/${this.accountDetails.id}/favorite/movies`,
+                {
+                    headers: { 'x-tmdb-session-id': sessionId },
+                },
+            )
         },
 
         async fetchFavoriteTVShows() {
             const sessionId = this.sessionId
             if (!sessionId || !this.accountDetails?.id) return
-            this.favoriteTVShows = await $fetch<FavoriteTvShowResponse>(`/api/account/${this.accountDetails.id}/favorite/tv`, {
-                headers: { 'x-tmdb-session-id': sessionId },
-            })
+            this.favoriteTVShows = await $fetch<FavoriteTvShowResponse>(
+                `/api/account/${this.accountDetails.id}/favorite/tv`,
+                {
+                    headers: { 'x-tmdb-session-id': sessionId },
+                },
+            )
         },
 
         async fetchRatedMovies() {
@@ -142,17 +163,23 @@ export const useAccountStore = defineStore('accountStore', {
         async fetchWatchlistMovies() {
             const sessionId = this.sessionId
             if (!sessionId || !this.accountDetails?.id) return
-            this.watchlistMovies = await $fetch<MovieWatchlistResponse>(`/api/account/${this.accountDetails.id}/watchlist/movies`, {
-                headers: { 'x-tmdb-session-id': sessionId },
-            })
+            this.watchlistMovies = await $fetch<MovieWatchlistResponse>(
+                `/api/account/${this.accountDetails.id}/watchlist/movies`,
+                {
+                    headers: { 'x-tmdb-session-id': sessionId },
+                },
+            )
         },
 
         async fetchWatchlistTVShows() {
             const sessionId = this.sessionId
             if (!sessionId || !this.accountDetails?.id) return
-            this.watchlistTVShows = await $fetch<TvShowWatchlistResponse>(`/api/account/${this.accountDetails.id}/watchlist/tv`, {
-                headers: { 'x-tmdb-session-id': sessionId },
-            })
+            this.watchlistTVShows = await $fetch<TvShowWatchlistResponse>(
+                `/api/account/${this.accountDetails.id}/watchlist/tv`,
+                {
+                    headers: { 'x-tmdb-session-id': sessionId },
+                },
+            )
         },
 
         async addRating(type: 'movie' | 'tv', id: number, rating: number) {
@@ -161,7 +188,7 @@ export const useAccountStore = defineStore('accountStore', {
             this.watchlistTVShows = await $fetch<TvShowWatchlistResponse>(`/api/${type}/${id}/rating`, {
                 method: 'POST',
                 headers: { 'x-tmdb-session-id': sessionId },
-                body: { value: (rating * 2) },
+                body: { value: rating * 2 },
             })
             if (type === 'movie') {
                 this.fetchRatedMovies()

@@ -13,31 +13,19 @@
           @input="handleInput"
           @blur="handleBlur"
         >
-        <div
-          class="h-full w-13 flex items-center justify-center pr-2"
-        >
+        <div class="h-full w-13 flex items-center justify-center pr-2">
           <span class="i-ph-magnifying-glass-bold size-6" />
         </div>
       </div>
       <TransitionExpand>
-        <ul
-          v-if="showResults"
-          class="m-0 p-0"
-        >
+        <ul v-if="showResults" class="m-0 p-0">
           <li
-            v-for="(result, index) in searchResults.results.slice(
-              0,
-              6,
-            )"
+            v-for="(result, index) in searchResults.results.slice(0, 6)"
             :key="result.id || index"
             class="h-10 flex cursor-pointer items-center rounded transition-colors duration-300 -my-1.5 last:mb-0 hover:bg-primary/20"
             @click="handleResultClick"
           >
-            <NuxtLink
-              v-if="result.media_type === 'movie'"
-              :to="`/movie/${result.id}`"
-              class="w-full px-4"
-            >
+            <NuxtLink v-if="result.media_type === 'movie'" :to="`/movie/${result.id}`" class="w-full px-4">
               <span class="line-clamp-1">
                 {{ result.title || result.name }}
                 <span class="text-sm text-muted">
@@ -45,22 +33,14 @@
                 </span>
                 <span class="text-sm text-muted">
                   {{
-                    result.media_type === "movie"
-                      && result.release_date
-                      ? ", "
-                        + $dayjs(result.release_date).get(
-                          "year",
-                        )
+                    result.media_type === 'movie' && result.release_date
+                      ? ', ' + $dayjs(result.release_date).get('year')
                       : null
                   }}
                 </span>
               </span>
             </NuxtLink>
-            <NuxtLink
-              v-else
-              :to="`/tv/${result.id}`"
-              class="w-full px-4"
-            >
+            <NuxtLink v-else :to="`/tv/${result.id}`" class="w-full px-4">
               <span class="line-clamp-1">
                 {{ result.title || result.name }}
                 <span class="text-sm text-muted">
@@ -68,12 +48,8 @@
                 </span>
                 <span class="text-sm text-muted">
                   {{
-                    result.media_type === "movie"
-                      && result.release_date
-                      ? ", "
-                        + $dayjs(result.release_date).get(
-                          "year",
-                        )
+                    result.media_type === 'movie' && result.release_date
+                      ? ', ' + $dayjs(result.release_date).get('year')
                       : null
                   }}
                 </span>
@@ -81,10 +57,7 @@
             </NuxtLink>
           </li>
           <li
-            v-if="
-              searchString.length >= 3
-                && searchResults.results.length === 0
-            "
+            v-if="searchString.length >= 3 && searchResults.results.length === 0"
             class="h-10 flex items-center px-4 text-muted"
           >
             No results found.
@@ -98,11 +71,7 @@
         </ul>
       </TransitionExpand>
     </div>
-    <div
-      v-if="showResults"
-      class="fixed inset-0 z-0"
-      @click="showResults = false"
-    />
+    <div v-if="showResults" class="fixed inset-0 z-0" @click="showResults = false" />
   </div>
 </template>
 
@@ -168,14 +137,14 @@ function handleResultClick() {
 
 function getMediaType(mediaType: string) {
     switch (mediaType) {
-    case 'movie':
-        return 'Movie'
-    case 'tv':
-        return 'TV Show'
-    case 'person':
-        return 'Person'
-    default:
-        return null
+        case 'movie':
+            return 'Movie'
+        case 'tv':
+            return 'TV Show'
+        case 'person':
+            return 'Person'
+        default:
+            return null
     }
 }
 </script>
