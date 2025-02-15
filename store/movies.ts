@@ -14,9 +14,23 @@ export const useMoviesStore = defineStore("moviesStore", {
         similarMovies: {} as TMDBSimilarMoviesResponse,
     }),
     actions: {
-        async fetchPopularMovies() {
-            const response = await $fetch<TMDBPopularMoviesResponse>("/api/movie/popular");
-            this.popularMovies = response;
+        async fetchPopularMovies(page = 1) {
+            try {
+                const response = await $fetch<TMDBPopularMoviesResponse>("/api/movie/popular", {
+                    query: { page },
+                });
+
+                if (page === 1) {
+                    this.popularMovies = response;
+                } else {
+                    this.popularMovies = {
+                        ...response,
+                        results: [...this.popularMovies.results, ...response.results],
+                    };
+                }
+            } catch (error) {
+                console.error("Error fetching movies:", error);
+            }
         },
         async fetchTrendingMovies(timeWindow: string = "day") {
             const response = await $fetch<TMDBTrendingMoviesResponse>(`/api/trending/movie/${timeWindow}`);
