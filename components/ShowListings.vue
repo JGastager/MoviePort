@@ -26,17 +26,11 @@
 </template>
 
 <script lang="ts" setup>
-interface Show {
-    id: number;
-    name: string;
-    first_air_date: string;
-    runtime: number;
-    poster_path: string;
-}
+import type { TMDBTvShowBase } from "~/types/tvshowDetails";
 
 const _props = defineProps<{
     title?: string;
-    shows: Show[];
+    shows: TMDBTvShowBase[];
 }>();
 </script>
 

@@ -28,17 +28,11 @@
 </template>
 
 <script lang="ts" setup>
-interface Movie {
-    id: number;
-    title: string;
-    release_date: string;
-    runtime: number;
-    poster_path: string;
-}
+import type { TMDBSimilarMovie } from "~/types/movieDetails";
 
 const _props = defineProps<{
     title?: string;
-    movies: Movie[];
+    movies: TMDBSimilarMovie[];
 }>();
 </script>
 
