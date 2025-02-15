@@ -96,6 +96,7 @@
 <script lang="ts" setup>
 import { computed, onMounted, ref } from "vue";
 import { useRoute } from "vue-router";
+import { storeToRefs } from "pinia";
 import { useMoviesStore } from "~/store/movies";
 import type { TMDBCredit } from "~/types/person";
 
