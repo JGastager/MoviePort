@@ -8,15 +8,13 @@
             </span>
         </div>
 
-        <!-- Button (Not Authenticated) -->
         <div v-else class="pointer-events-auto relative flex cursor-pointer items-center overflow-hidden px-0 transition-all duration-300 ease-in-out button !gap-0" @click="openModal">
-            <span class="i-ph-lock-bold mx-2.5 size-6 flex-shrink-0 transition-all duration-500 group-[.modal-open]:ml-4 group-hover:ml-4" />
+            <span class="i-ph-identification-badge -bold mx-2.5 size-6 flex-shrink-0 transition-all duration-500 group-[.modal-open]:ml-4 group-hover:ml-4" />
             <span class="max-w-0 transform whitespace-nowrap opacity-0 transition-all duration-500 group-[.modal-open]:max-w-50 group-hover:max-w-50 group-[.modal-open]:pr-4 group-hover:pr-4 group-[.modal-open]:opacity-100 group-hover:opacity-100">
                 Login
             </span>
         </div>
 
-        <!-- Dropdown (Only for Authenticated Users) -->
         <TransitionExpand v-if="isAuthenticated">
             <div
                 class="pointer-events-none absolute right-0 top-full z-10 w-full flex flex-col scale-95 items-end gap-2.5 rounded bg-primary/30 p-2.5 opacity-0 transition-all duration-300 group-hover:pointer-events-auto group-hover:scale-100 group-hover:opacity-100"
