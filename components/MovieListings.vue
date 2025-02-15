@@ -3,7 +3,7 @@
         <h2 v-if="title" class="mb-6">
             {{ title }}
         </h2>
-        <TransitionSlide appear group tag="div" class="grid grid-cols-7 gap">
+        <TransitionScale appear group tag="div" class="grid grid-cols-7 gap">
             <div v-for="(movie, index) in movies" :key="movie.id" ref="movieRefs" class="group relative cursor-pointer rounded">
                 <div class="relative mb-3 aspect-2/3 overflow-hidden card">
                     <img v-if="movie.poster_path" :src="$getImageUrl(movie.poster_path, 'poster', 'w342')" :alt="movie.title" class="h-full w-full object-cover transition-all duration-300 group-hover:scale-102 group-hover:blur-sm" />
@@ -16,7 +16,7 @@
                 <Rating :tmdb-id="movie.id" type="movie" :rating="movie.vote_average" />
                 <NuxtLink :to="'/movie/' + movie.id" class="absolute inset-0 z-10" />
             </div>
-        </TransitionSlide>
+        </TransitionScale>
         <div ref="loadMoreTrigger" class="h-10"></div>
         <!-- Invisible trigger div for infinite scroll -->
     </div>

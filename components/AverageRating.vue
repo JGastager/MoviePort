@@ -7,7 +7,7 @@
             <div class="relative z-1 h-full rounded-full bg-amber-400" :style="{ width: `${averageRating * 10}%` }">
                 <div class="i-ph-star-fill absolute right-0 top-1/2 size-6 translate-x-1/2 transform text-amber-400 -translate-y-1/2"></div>
                 <div class="absolute right-0 top-5.5 h-11 flex translate-x-1/2 transform items-center justify-center card px-3 backdrop-blur">
-                    <div class="">{{ averageRating.toFixed(1) }}</div>
+                    <div class="">{{ (averageRating / 2).toFixed(1) }}</div>
                 </div>
             </div>
             <div class="absolute left-0 top-5 transform rounded-full text-muted -translate-x-1/2">0</div>

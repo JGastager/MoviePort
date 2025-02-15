@@ -1,14 +1,6 @@
 <template>
     <div>
-        <div class="grid grid-cols-10 mb-30 gap-15">
-            <div class="group relative col-span-2 aspect-2/1 cursor-pointer overflow-hidden rounded">
-                <img src="~assets/images/poster.jpg" alt="TV Shows" class="absolute inset-0 h-full w-full object-cover transition duration-300 group-hover:scale-102" />
-                <div class="relative h-full w-full flex flex-col items-center justify-center gap-2.5 bg-primary/30 backdrop-blur transition-colors duration-300 group-hover:bg-primary/50">
-                    <span class="i-ph-bookmark-simple size-9" />
-                    <h3>Watchlist</h3>
-                </div>
-                <NuxtLink to="/saves" class="absolute inset-0 h-full w-full" />
-            </div>
+        <div class="grid grid-cols-10 mb-30 gap">
             <div class="group relative col-span-2 aspect-2/1 cursor-pointer overflow-hidden rounded">
                 <Transition name="fade-image" appear>
                     <img
@@ -39,22 +31,30 @@
                 </div>
                 <NuxtLink to="/tv" class="absolute inset-0 h-full w-full" />
             </div>
-            <div class="group relative col-span-2 aspect-2/1 cursor-pointer overflow-hidden rounded">
-                <Transition v-if="isLoggedIn" name="fade-image" appear>
+            <div v-if="isLoggedIn" class="group relative col-span-2 aspect-2/1 cursor-pointer overflow-hidden rounded">
+                <img src="~assets/images/poster.jpg" alt="TV Shows" class="absolute inset-0 h-full w-full object-cover transition duration-300 group-hover:scale-102" />
+                <div class="relative h-full w-full flex flex-col items-center justify-center gap-2.5 bg-primary/30 backdrop-blur transition-colors duration-300 group-hover:bg-primary/50">
+                    <span class="i-ph-bookmark-simple size-9" />
+                    <h3>Watchlist</h3>
+                </div>
+                <NuxtLink to="/saves" class="absolute inset-0 h-full w-full" />
+            </div>
+            <div v-if="isLoggedIn" class="group relative col-span-2 aspect-2/1 cursor-pointer overflow-hidden rounded">
+                <Transition name="fade-image" appear>
                     <img
                         v-if="ratedMovies?.results[0]?.poster_path"
                         :src="$getImageUrl(ratedMovies.results[0].poster_path, 'poster', 'w342')"
-                        alt="Rated"
+                        alt="Ratings"
                         class="absolute inset-0 h-full w-full object-cover transition duration-300 group-hover:scale-102"
                     />
                 </Transition>
                 <div class="relative h-full w-full flex flex-col items-center justify-center gap-2.5 bg-primary/30 backdrop-blur transition-colors duration-300 group-hover:bg-primary/50">
                     <span class="i-ph-star size-9" />
-                    <h3>Rated</h3>
+                    <h3>Ratings</h3>
                 </div>
                 <NuxtLink to="/ratings" class="absolute inset-0 h-full w-full" />
             </div>
-            <div class="group relative col-span-2 aspect-2/1 cursor-pointer overflow-hidden rounded">
+            <div v-if="isLoggedIn" class="group relative col-span-2 aspect-2/1 cursor-pointer overflow-hidden rounded">
                 <img src="~assets/images/poster.jpg" alt="Favourites" class="absolute inset-0 h-full w-full object-cover transition duration-300 group-hover:scale-102" />
                 <div class="relative h-full w-full flex flex-col items-center justify-center gap-2.5 bg-primary/30 backdrop-blur transition-colors duration-300 group-hover:bg-primary/50">
                     <span class="i-ph-heart size-9" />
@@ -62,9 +62,13 @@
                 </div>
                 <NuxtLink to="/likes" class="absolute inset-0 h-full w-full" />
             </div>
+            <div v-if="!isLoggedIn" class="relative col-span-1 flex flex-shrink-0 flex-col cursor-pointer items-center justify-center gap-2.5 card transition-colors duration-300 focus:bg-primary/50 hover:bg-primary/50">
+                <span class="i-ph-plus-square size-9" />
+                <h3>more</h3>
+            </div>
         </div>
-        <MovieSlider v-if="trendingMovies?.results" more="/movie" title="Trending movies" :movies="trendingMovies.results" class="mb-10" />
-        <ShowSlider v-if="trendingShows?.results" more="/tv" title="Trending TV shows" :shows="trendingShows.results" />
+        <MovieSlider v-if="trendingMovies?.results" :after="{ text: 'All movies', link: '/movie', icon: 'i-ph-film-strip-bold' }" title="Trending movies" :movies="trendingMovies.results" class="mb-10" />
+        <ShowSlider v-if="trendingShows?.results" :after="{ text: 'All TV shows', link: '/tv', icon: 'i-ph-television-simple-bold' }" title="Trending TV shows" :shows="trendingShows.results" />
     </div>
 </template>
 

@@ -3,7 +3,7 @@
         <h2 v-if="title" class="mb-6">
             {{ title }}
         </h2>
-        <TransitionSlide appear group tag="div" class="grid grid-cols-7 gap">
+        <TransitionScale appear group tag="div" class="grid grid-cols-7 gap">
             <div v-for="(show, index) in shows" :key="index" class="group relative cursor-pointer rounded">
                 <div class="relative mb-3 aspect-2/3 overflow-hidden card">
                     <img v-if="show.poster_path" :src="$getImageUrl(show.poster_path, 'poster', 'w342')" :alt="show.name" class="h-full w-full object-cover transition-all duration-300 group-hover:scale-102 group-hover:blur-sm" />
@@ -21,7 +21,7 @@
                 <Rating :tmdb-id="show.id" type="tv" :rating="show.vote_average" />
                 <NuxtLink :to="'/tv/' + show.id" class="absolute inset-0 z-10" />
             </div>
-        </TransitionSlide>
+        </TransitionScale>
     </div>
 </template>
 
