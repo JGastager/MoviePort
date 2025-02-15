@@ -54,7 +54,6 @@ export default eventHandler(async (event) => {
         });
         return res || [];
     } catch (error) {
-        console.error(`❌ TMDB Proxy Error [${method} ${route}]:`, error);
-        throw createError({ statusCode: 500, statusMessage: "TMDB API Error" });
+        throw createError({ statusCode: 500, statusMessage: `❌ TMDB Proxy Error [${method} ${route}]: ${error}` });
     }
 });
