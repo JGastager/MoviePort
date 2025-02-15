@@ -1,13 +1,13 @@
 <template>
     <div>
         <div v-if="accountDetails">
-            <div class="flex items-center gap-8">
+            <div class="mb-10 flex items-center gap-8">
                 <div>
                     <h1 v-if="accountDetails.username">Hallo, {{ accountDetails.username }}</h1>
                     <small v-if="accountDetails.id" class="italic">Account-ID: {{ accountDetails.id }}</small>
                     <small v-if="accountDetails.iso_3166_1"> | {{ accountDetails.iso_3166_1 }}</small>
                 </div>
-                <img v-if="gravatarUrl" class="rounded-full" :src="gravatarUrl" />
+                <img v-if="gravatarUrl" class="rounded-full" alt="Avatar" :src="gravatarUrl" />
             </div>
             <div class="lists">
                 <div v-if="favoriteMovies?.results?.length" class="favoriteMovies">
