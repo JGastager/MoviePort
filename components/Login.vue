@@ -1,6 +1,5 @@
 <template>
     <div :class="{ 'modal-open': modal }" class="group relative">
-        <!-- Button (Authenticated) -->
         <div v-if="isAuthenticated" class="pointer-events-auto relative flex cursor-pointer items-center overflow-hidden px-0 transition-all duration-300 ease-in-out button !gap-0">
             <span class="i-ph-user-bold mx-2.5 size-6 flex-shrink-0 transition-all duration-500 group-[.modal-open]:ml-4 group-hover:ml-4" />
             <span class="max-w-0 transform whitespace-nowrap opacity-0 transition-all duration-500 group-[.modal-open]:max-w-50 group-hover:max-w-50 group-[.modal-open]:pr-4 group-hover:pr-4 group-[.modal-open]:opacity-100 group-hover:opacity-100">
@@ -9,14 +8,14 @@
         </div>
 
         <div v-else class="pointer-events-auto relative flex cursor-pointer items-center overflow-hidden px-0 transition-all duration-300 ease-in-out button !gap-0" @click="openModal">
-            <span class="i-ph-identification-badge -bold mx-2.5 size-6 flex-shrink-0 transition-all duration-500 group-[.modal-open]:ml-4 group-hover:ml-4" />
+            <span class="i-ph-sign-in-bold mx-2.5 size-6 flex-shrink-0 transition-all duration-500 group-[.modal-open]:ml-4 group-hover:ml-4" />
             <span class="max-w-0 transform whitespace-nowrap opacity-0 transition-all duration-500 group-[.modal-open]:max-w-50 group-hover:max-w-50 group-[.modal-open]:pr-4 group-hover:pr-4 group-[.modal-open]:opacity-100 group-hover:opacity-100">
                 Login
             </span>
         </div>
-
-        <TransitionExpand v-if="isAuthenticated">
+        <TransitionExpand>
             <div
+                v-if="isAuthenticated"
                 class="pointer-events-none absolute right-0 top-full z-10 w-full flex flex-col scale-95 items-end gap-2.5 rounded bg-primary/30 p-2.5 opacity-0 transition-all duration-300 group-hover:pointer-events-auto group-hover:scale-100 group-hover:opacity-100"
             >
                 <NuxtLink to="/account">Account</NuxtLink>
@@ -40,7 +39,16 @@
                                 </div>
                             </div>
                             <div class="h-11 w-full flex flex-shrink-0 items-center card transition-colors duration-300 focus:bg-primary/50 hover:bg-primary/50">
-                                <input v-model="password" class="h-full w-full rounded b-none bg-transparent px-4 py-0 text-1rem placeholder:text-muted text-white font-sans outline-none" type="password" placeholder="Password" required />
+                                <input
+                                    v-model="password"
+                                    class="h-full w-full rounded b-none bg-transparent px-4 py-0 text-1rem placeholder:text-muted text-white font-sans outline-none"
+                                    :type="showPassword ? 'text' : 'password'"
+                                    placeholder="Password"
+                                    required
+                                />
+                                <div class="h-full w-13 flex cursor-pointer items-center justify-center pr-2" @click="toggleShowPassword">
+                                    <span class="size-6" :class="showPassword ? 'i-ph-eye-slash-bold' : 'i-ph-eye-bold'" />
+                                </div>
                             </div>
                             <button class="mt-3 button" type="submit">Login</button>
                         </form>
@@ -72,6 +80,7 @@ const { isLoggedIn, getUserInfo } = storeToRefs(accountStore);
 
 const username = ref("");
 const password = ref("");
+const showPassword = ref(false);
 
 const isAuthenticated = computed(() => isLoggedIn.value);
 
@@ -85,6 +94,10 @@ function openModal() {
 
 function closeModal() {
     modal.value = false;
+}
+
+function toggleShowPassword() {
+    showPassword.value = !showPassword.value;
 }
 
 async function handleLogin() {
