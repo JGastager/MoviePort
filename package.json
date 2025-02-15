@@ -12,7 +12,7 @@
     "lint": "eslint . && prettier . --check",
     "lint:eslint": "eslint .",
     "lint:prettier": "prettier . --check",
-    "lintfix": "eslint . --fix && prettier --write --list-different ."
+    "lintfix": "eslint . --fix"
   },
   "dependencies": {
     "@morev/vue-transitions": "^3.0.5",
