@@ -30,7 +30,7 @@
                 <NuxtLink to="/tv" class="absolute inset-0 h-full w-full" />
             </div>
             <div class="group relative col-span-2 aspect-2/1 cursor-pointer overflow-hidden rounded">
-                <Transition name="fade-image" appear>
+                <Transition v-if="isLoggedIn" name="fade-image" appear>
                     <img
                         v-if="ratedMovies?.results[0]?.poster_path"
                         :src="$getImageUrl(ratedMovies.results[0].poster_path, 'poster', 'w342')"
@@ -76,6 +76,7 @@ const { fetchTrendingShows, fetchPopularShows } = showsStore;
 const { trendingMovies, popularMovies } = storeToRefs(moviesStore);
 const { trendingShows, popularShows } = storeToRefs(showsStore);
 const { ratedMovies } = storeToRefs(accountStore);
+const { isLoggedIn } = accountStore;
 
 await fetchTrendingMovies();
 await fetchTrendingShows();

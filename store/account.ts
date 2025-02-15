@@ -10,7 +10,7 @@ import type {
     MovieWatchlistResponse,
     TvShowWatchlistResponse,
     FavoriteMoviesResponse,
-    FavoriteTvShowResponse,
+    FavoriteTVShowsResponse,
 } from "~/types/account";
 
 export const useAccountStore = defineStore("accountStore", {
@@ -19,7 +19,7 @@ export const useAccountStore = defineStore("accountStore", {
         sessionId: "" as string,
         accountDetails: {} as AccountDetails,
         favoriteMovies: {} as FavoriteMoviesResponse,
-        favoriteTVShows: {} as FavoriteTvShowResponse,
+        favoriteTVShows: {} as FavoriteTVShowsResponse,
         ratedMovies: {} as RatedMovieResponse,
         ratedTVShows: {} as RatedTvShowResponse,
         watchlistMovies: {} as MovieWatchlistResponse,
@@ -130,7 +130,7 @@ export const useAccountStore = defineStore("accountStore", {
         async fetchFavoriteTVShows() {
             const sessionId = this.sessionId;
             if (!sessionId || !this.accountDetails?.id) return;
-            this.favoriteTVShows = await $fetch<FavoriteTvShowResponse>(`/api/account/${this.accountDetails.id}/favorite/tv`, {
+            this.favoriteTVShows = await $fetch<FavoriteTVShowsResponse>(`/api/account/${this.accountDetails.id}/favorite/tv`, {
                 headers: { "x-tmdb-session-id": sessionId },
             });
         },
