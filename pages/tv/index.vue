@@ -1,6 +1,6 @@
 <template>
     <div>
-        <ShowListings title="Popular TV shows" :shows="popularShows" />
+        <ShowListings v-if="popularShows" title="Popular TV shows" :shows="popularShows.results" />
     </div>
 </template>
 
