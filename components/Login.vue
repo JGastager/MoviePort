@@ -116,6 +116,7 @@ function openModal() {
 function closeModal() {
     modal.value = false;
     loginError.value = false;
+    loginSuccess.value = false;
     username.value = "";
     password.value = "";
 }
