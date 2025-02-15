@@ -46,9 +46,13 @@ import { ref, computed } from "vue";
 import { useRouter } from "vue-router";
 import { useAccountStore } from "~/store/account";
 
+defineOptions({
+    name: "LoginComponent",
+});
+
 const router = useRouter();
 const accountStore = useAccountStore();
-const { login, logout, isLoggedIn } = accountStore;
+const { login, isLoggedIn } = accountStore;
 const { getUserInfo } = storeToRefs(accountStore);
 
 const username = ref("");

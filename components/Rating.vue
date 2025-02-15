@@ -23,6 +23,10 @@
 import { storeToRefs } from "pinia";
 import { useAccountStore } from "~/store/account";
 
+defineOptions({
+    name: "RatingComponent",
+});
+
 const props = defineProps<{
     type: "movie" | "tv";
     tmdbId: number;

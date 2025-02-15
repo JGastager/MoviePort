@@ -49,11 +49,10 @@
 
 <script lang="ts" setup>
 import { debounce } from "lodash";
-import { useRoute, useRouter } from "vue-router";
+import { useRoute } from "vue-router";
 import { ref, watch } from "vue";
 
 const { fetchTMDB } = useTMDB();
-const router = useRouter();
 const route = useRoute();
 
 const searchString = ref("");

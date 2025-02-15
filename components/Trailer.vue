@@ -22,6 +22,10 @@
 <script lang="ts" setup>
 import { computed, onMounted, ref } from "vue";
 
+defineOptions({
+    name: "TrailerComponent",
+});
+
 const props = defineProps<{
     type: "movie" | "tv";
     tmdbId: string;
@@ -31,7 +35,7 @@ const modal = ref(false);
 const videos = ref({});
 
 const trailer = computed(() => {
-    return videos.value?.results?.find((video: any) => video.type === "Trailer");
+    return videos.value?.results?.find((video) => video.type === "Trailer");
 });
 
 function closeModal() {

@@ -12,6 +12,9 @@
 <script lang="ts" setup>
 import { useRoute } from "vue-router";
 
+defineOptions({
+    name: "NavigationComponent",
+});
 const route = useRoute();
 
 const isHome = computed(() => route.path === "/");

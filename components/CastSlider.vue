@@ -35,7 +35,7 @@ interface Actor {
     order: number;
 }
 
-const props = defineProps<{
+const _props = defineProps<{
     cast: Actor[];
 }>();
 </script>

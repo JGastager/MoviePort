@@ -2,7 +2,11 @@
     <div id="brand" class="pointer-events-none absolute left-22.5 top-0 h-18 w-108 transform bg-primary/30 backdrop-blur -translate-y-full" />
 </template>
 
-<script lang="ts" setup></script>
+<script lang="ts" setup>
+defineOptions({
+    name: "BrandComponent",
+});
+</script>
 
 <style lang="scss">
 #brand {

@@ -26,7 +26,11 @@
 <script lang="ts" setup>
 import { ref } from "vue";
 
-const props = defineProps({
+defineOptions({
+    name: "PosterComponent",
+});
+
+const _props = defineProps({
     posterPath: {
         type: String,
         required: false,

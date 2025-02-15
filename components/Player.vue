@@ -5,6 +5,9 @@
 </template>
 
 <script lang="ts" setup>
+defineOptions({
+    name: "PlayerComponent",
+});
 const props = defineProps<{
     type: "movie" | "tv";
     tmdbId: number;

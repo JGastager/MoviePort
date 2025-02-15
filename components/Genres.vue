@@ -7,7 +7,10 @@
 </template>
 
 <script lang="ts" setup>
-const props = defineProps({
+defineOptions({
+    name: "GenreComponent",
+});
+const _props = defineProps({
     genres: {
         type: Array,
         required: false,

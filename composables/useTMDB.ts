@@ -2,7 +2,7 @@ export const useTMDB = () => {
     const config = useRuntimeConfig();
     const baseUrl = "https://api.themoviedb.org/3";
 
-    const fetchTMDB = async (endpoint: string, params: Record<string, any> = {}, method: "GET" | "POST" | "PUT" | "DELETE" = "GET", body: Record<string, any> | null = null, authType: "bearer" | "session" | "none" = "bearer") => {
+    const fetchTMDB = async (endpoint: string, params: Record<string, unknown> = {}, method: "GET" | "POST" | "PUT" | "DELETE" = "GET", body: Record<string, unknown> | null = null, authType: "bearer" | "session" | "none" = "bearer") => {
         const url = new URL(`${baseUrl}${endpoint}`);
 
         if (method === "GET") {

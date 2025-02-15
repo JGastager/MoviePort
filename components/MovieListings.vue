@@ -36,7 +36,7 @@ interface Movie {
     poster_path: string;
 }
 
-const props = defineProps<{
+const _props = defineProps<{
     title?: string;
     movies: Movie[];
 }>();

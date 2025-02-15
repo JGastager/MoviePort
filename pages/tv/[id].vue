@@ -103,7 +103,7 @@
 <script lang="ts" setup>
 import { onMounted, ref } from "vue";
 import { useRoute } from "vue-router";
-import Rating from "~/components/RatingButton.vue";
+import RatingButton from "~/components/RatingButton.vue";
 
 const play = ref(false);
 
