@@ -1,6 +1,7 @@
 import { defineStore } from "pinia";
 import type { TMDBImagesResponse, TMDBVideosResponse } from "~/types/general";
-import type { TMDBPopularMoviesResponse, TMDBTrendingMoviesResponse } from "~/types/movieDetails";
+import type { TMDBPopularMoviesResponse, TMDBTrendingMoviesResponse, TMDBMovieDetailsResponse, TMDBSimilarMoviesResponse } from "~/types/movieDetails";
+import type { TMDBMovieCreditsResponse } from "~/types/person";
 
 export const useMoviesStore = defineStore("moviesStore", {
     state: () => ({
@@ -8,6 +9,9 @@ export const useMoviesStore = defineStore("moviesStore", {
         trendingMovies: {} as TMDBTrendingMoviesResponse,
         movieImages: {} as TMDBImagesResponse,
         movieVideos: {} as TMDBVideosResponse,
+        movieDetails: {} as TMDBMovieDetailsResponse,
+        movieCredits: {} as TMDBMovieCreditsResponse,
+        similarMovies: {} as TMDBSimilarMoviesResponse,
     }),
     actions: {
         async fetchPopularMovies() {
@@ -23,6 +27,15 @@ export const useMoviesStore = defineStore("moviesStore", {
         },
         async fetchMovieVideos(movieId: number) {
             this.movieVideos = await $fetch<TMDBVideosResponse>(`/api/movie/${movieId}/videos`);
+        },
+        async fetchMovieDetails(movieId: number) {
+            this.movieDetails = await $fetch<TMDBMovieDetailsResponse>(`/api/movie/${movieId}`);
+        },
+        async fetchMovieCredits(movieId: number) {
+            this.movieCredits = await $fetch<TMDBMovieCreditsResponse>(`/api/movie/${movieId}/credits`);
+        },
+        async fetchSimilarMovies(movieId: number) {
+            this.similarMovies = await $fetch<TMDBSimilarMoviesResponse>(`/api/movie/${movieId}/similar`);
         },
     },
 });

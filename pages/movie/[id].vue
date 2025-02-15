@@ -12,36 +12,36 @@
                             <span class="i-ph-bookmark-simple-bold size-6" />
                         </div>
                     </div>
-                    <Poster :poster-path="details.poster_path" />
+                    <Poster v-if="movieDetails.poster_path" :poster-path="movieDetails.poster_path" />
                 </div>
             </section>
             <section class="col-span-6">
                 <h1 class="mb-10">
-                    {{ details.title }}
+                    {{ movieDetails.title }}
                 </h1>
                 <p class="mb-10">
-                    {{ details.overview }}
+                    {{ movieDetails.overview }}
                 </p>
-                <Genres :genres="details.genres" class="mb-10" />
-                <CastSlider v-if="credits?.cast && credits?.cast.length" :cast="credits.cast" class="mb-10" />
+                <Genres :genres="movieDetails.genres" class="mb-10" />
+                <CastSlider v-if="movieCredits?.cast && movieCredits?.cast.length" :cast="movieCredits.cast" class="mb-10" />
                 <ImageSlider v-if="movieId" :tmdb-id="movieId" type="movie" />
             </section>
             <section class="col-span-2 h-full">
                 <div class="sticky top-12">
-                    <RatingButton :rating="details.vote_average" :tmdb-id="movieId" type="movie" class="mb-10" />
+                    <RatingButton :rating="movieDetails.vote_average" :tmdb-id="movieId" type="movie" class="mb-10" />
                     <div class="mb-10">
                         <div class="flex items-center justify-between gap-3">
                             <h3>Duration</h3>
-                            <span class="text-muted">{{ details.runtime }} minutes</span>
+                            <span class="text-muted">{{ movieDetails.runtime }} minutes</span>
                         </div>
                         <div class="flex items-center justify-between gap-3">
                             <h3>Release</h3>
-                            <span class="text-muted">{{ $dayjs(details.release_date).get("year") }}</span>
+                            <span class="text-muted">{{ $dayjs(movieDetails.release_date).get("year") }}</span>
                         </div>
                     </div>
                     <div class="mb-10 flex flex-wrap gap-3">
                         <Trailer type="movie" :tmdb-id="movieId" />
-                        <NuxtLink :to="`https://www.imdb.com/title/${details.imdb_id}/`" target="_blank" class="button">
+                        <NuxtLink :to="`https://www.imdb.com/title/${movieDetails.imdb_id}/`" target="_blank" class="button">
                             <span class="i-ph-film-slate-bold size-6" />
                             <span>IMDb</span>
                         </NuxtLink>
@@ -70,10 +70,10 @@
                             </li>
                         </ul>
                     </div>
-                    <div v-if="details?.production_companies?.length" class="mb-3 flex items-start justify-between gap-3">
+                    <div v-if="movieDetails?.production_companies?.length" class="mb-3 flex items-start justify-between gap-3">
                         <h3>Production</h3>
                         <ul class="m-0 p-0">
-                            <li v-for="producer in details.production_companies" :key="producer.id" class="list-none text-right text-muted line-height-27px">
+                            <li v-for="producer in movieDetails.production_companies" :key="producer.id" class="list-none text-right text-muted line-height-27px">
                                 <span>{{ producer.name }}</span>
                             </li>
                         </ul>
@@ -82,12 +82,12 @@
             </section>
         </div>
         <!-- <pre>{{ details }}</pre> -->
-        <MovieListings v-if="similar?.results" title="Related movies" :movies="similar.results" />
-        <Teleport v-if="details.backdrop_path" to="#backdrop">
-            <img v-if="details?.backdrop_path" :src="$getImageUrl(details.backdrop_path, 'backdrop', 'w1280')" alt="Backdrop" class="h-full w-full object-cover" />
-            <img v-if="details?.backdrop_path" :src="$getImageUrl(details.backdrop_path, 'backdrop', 'original')" alt="Backdrop" class="absolute inset-0 h-full w-full object-cover" />
+        <MovieListings v-if="similarMovies?.results" title="Related movies" :movies="similarMovies.results" />
+        <Teleport v-if="movieDetails.backdrop_path" to="#backdrop">
+            <img v-if="movieDetails?.backdrop_path" :src="$getImageUrl(movieDetails.backdrop_path, 'backdrop', 'w1280')" alt="Backdrop" class="h-full w-full object-cover" />
+            <img v-if="movieDetails?.backdrop_path" :src="$getImageUrl(movieDetails.backdrop_path, 'backdrop', 'original')" alt="Backdrop" class="absolute inset-0 h-full w-full object-cover" />
             <TransitionFade>
-                <Player v-if="play && details?.id" :tmdb-id="details.id" type="movie" />
+                <Player v-if="play && movieDetails?.id" :tmdb-id="movieDetails.id" type="movie" />
             </TransitionFade>
         </Teleport>
     </div>
@@ -96,66 +96,36 @@
 <script lang="ts" setup>
 import { computed, onMounted, ref } from "vue";
 import { useRoute } from "vue-router";
-
-interface Crewmember {
-    adult: boolean;
-    gender: number;
-    id: number;
-    known_for_department: string;
-    name: string;
-    original_name: string;
-    popularity: number;
-    profile_path: string;
-    credit_id: string;
-    department: string;
-    job: string;
-}
+import { useMoviesStore } from "~/store/movies";
+import type { TMDBCredit } from "~/types/person";
 
 const play = ref(false);
 
-const details = ref({});
-const credits = ref({});
-const similar = ref([]);
-
 const directors = computed(() => {
-    return credits.value?.crew?.filter((crewmember: Crewmember) => crewmember.job === "Director");
+    return movieCredits.value?.crew?.filter((crewmember: TMDBCredit) => crewmember.job === "Director");
 });
 const composers = computed(() => {
-    return credits.value?.crew?.filter((crewmember: Crewmember) => crewmember.job === "Original Music Composer");
+    return movieCredits.value?.crew?.filter((crewmember: TMDBCredit) => crewmember.job === "Original Music Composer");
 });
 const writers = computed(() => {
-    return credits.value?.crew?.filter((crewmember: Crewmember) => crewmember.job === "Writer");
+    return movieCredits.value?.crew?.filter((crewmember: TMDBCredit) => crewmember.job === "Writer");
 });
 
 const route = useRoute();
-const { fetchTMDB } = useTMDB();
 
-const movieId = route.params.id;
+const movieId = Number(route.params.id);
+
+const movieStore = useMoviesStore();
+const { fetchMovieDetails, fetchMovieCredits, fetchSimilarMovies } = movieStore;
+const { movieDetails, movieCredits, similarMovies } = storeToRefs(movieStore);
 
 onMounted(async () => {
-    console.log("Movie ID:", movieId);
-
-    try {
-        details.value = await fetchTMDB("/movie/" + movieId);
-        console.log("Movie details:", details.value);
-        useHead({
-            title: `${details.value?.title} | MoviePort`,
-        });
-    } catch (error) {
-        console.error("Error loading movie details:", error);
-    }
-    try {
-        credits.value = await fetchTMDB("/movie/" + movieId + "/credits");
-        console.log("Movie credits:", credits.value);
-    } catch (error) {
-        console.error("Error loading movie credits:", error);
-    }
-    try {
-        similar.value = await fetchTMDB("/movie/" + movieId + "/similar");
-        console.log("Similar movies:", similar.value);
-    } catch (error) {
-        console.error("Error loading similar movies:", error);
-    }
+    await fetchMovieDetails(movieId);
+    useHead({
+        title: `${movieDetails.value?.title} | MoviePort`,
+    });
+    await fetchMovieCredits(movieId);
+    await fetchSimilarMovies(movieId);
 });
 
 function triggerPlay() {
