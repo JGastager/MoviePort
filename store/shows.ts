@@ -1,5 +1,5 @@
 import { defineStore } from "pinia";
-import type { TMDBImagesResponse } from "~/types/general";
+import type { TMDBImagesResponse, TMDBVideosResponse } from "~/types/general";
 import type { TMDBPopularTvShowsResponse } from "~/types/tvshowDetails";
 
 export const useShowsStore = defineStore("showsStore", {
@@ -7,6 +7,7 @@ export const useShowsStore = defineStore("showsStore", {
         popularShows: {} as TMDBPopularTvShowsResponse,
         trendingShows: {} as TMDBPopularTvShowsResponse,
         tvShowImages: {} as TMDBImagesResponse,
+        tvShowVideos: {} as TMDBVideosResponse,
     }),
     actions: {
         async fetchPopularShows() {
@@ -19,6 +20,9 @@ export const useShowsStore = defineStore("showsStore", {
         },
         async fetchTvShowImages(movieId: number) {
             this.tvShowImages = await $fetch<TMDBImagesResponse>(`/api/tv/${movieId}/images`);
+        },
+        async fetchTvShowVideos(movieId: number) {
+            this.tvShowVideos = await $fetch<TMDBVideosResponse>(`/api/tv/${movieId}/videos`);
         },
     },
 });
