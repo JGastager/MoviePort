@@ -45,7 +45,7 @@ export const useAccountStore = defineStore("accountStore", {
 
             try {
                 // Step 1: Validate Login
-                const loginResponse: CreateSessionWithLogin = await $fetch("/api/authentication/token/validate_with_login", {
+                const loginResponse = await $fetch<CreateSessionWithLogin>("/api/authentication/token/validate_with_login", {
                     method: "POST",
                     headers: { "Content-Type": "application/json" },
                     body: requestBody,
@@ -56,7 +56,7 @@ export const useAccountStore = defineStore("accountStore", {
                 this.requestToken = loginResponse.request_token;
 
                 // Step 2: Create Session ID
-                const sessionResponse: CreateSession = await $fetch("/api/authentication/session/new", {
+                const sessionResponse = await $fetch<CreateSession>("/api/authentication/session/new", {
                     method: "POST",
                     headers: { "Content-Type": "application/json" },
                     body: { request_token: loginResponse.request_token },
@@ -170,15 +170,26 @@ export const useAccountStore = defineStore("accountStore", {
         async addRating(type: "movie" | "tv", id: number, rating: number) {
             const sessionId = this.sessionId;
             if (!sessionId || !this.accountDetails?.id) return;
-            this.watchlistTVShows = await $fetch<TvShowWatchlistResponse>(`/api/${type}/${id}/rating`, {
-                method: "POST",
-                headers: { "x-tmdb-session-id": sessionId },
-                body: { value: rating * 2 },
-            });
-            if (type === "movie") {
-                this.fetchRatedMovies();
-            } else {
-                this.fetchRatedTVShows();
+
+            try {
+                await $fetch<TvShowWatchlistResponse>(`/api/${type}/${id}/rating`, {
+                    method: "POST",
+                    headers: { "x-tmdb-session-id": sessionId },
+                    body: { value: rating * 2 },
+                });
+                console.log(`✅ Rating added for ${type} ${id} with ${rating} stars.`);
+
+                await new Promise((resolve) => setTimeout(resolve, 3000));
+
+                if (type === "movie") {
+                    await this.fetchRatedMovies();
+                    console.log("✅ Fetched updated rated movies.", this.ratedMovies);
+                } else {
+                    await this.fetchRatedTVShows();
+                    console.log("✅ Fetched updated rated TV shows.", this.ratedTVShows);
+                }
+            } catch (error) {
+                console.error(`❌ Failed to add rating for ${type} ${id}:`, error);
             }
         },
 
