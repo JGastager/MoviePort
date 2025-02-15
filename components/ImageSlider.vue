@@ -15,21 +15,34 @@
 </template>
 
 <script lang="ts" setup>
+import { storeToRefs } from "pinia";
+import { useMoviesStore } from "~/store/movies";
+import { useShowsStore } from "~/store/shows";
+import type { TMDBImagesResponse } from "~/types/general";
+
 const props = defineProps<{
-    tmdbId: string;
+    tmdbId: number;
     type: "movie" | "tv";
 }>();
 
-const images = ref({});
+const movieStore = useMoviesStore();
+const { fetchMovieImages } = movieStore;
+const { movieImages } = storeToRefs(movieStore);
 
-const { fetchTMDB } = useTMDB();
+const showStore = useShowsStore();
+const { fetchTvShowImages } = showStore;
+const { tvShowImages } = storeToRefs(showStore);
+
+const images = ref({}) as Ref<TMDBImagesResponse>;
 
 onMounted(async () => {
-    try {
-        images.value = await fetchTMDB(`/${props.type}/${props.tmdbId}/images`);
-        console.log(`${props.type == "tv" ? "TV show" : "Movie"} images:`, images.value);
-    } catch (error) {
-        console.error(`Error loading ${props.type == "tv" ? "TV show" : "movie"} images:`, error);
+    if (!props.tmdbId) return;
+    if (props.type == "movie") {
+        await fetchMovieImages(props.tmdbId);
+        images.value = movieImages.value;
+    } else {
+        await fetchTvShowImages(props.tmdbId);
+        images.value = tvShowImages.value;
     }
 });
 </script>
