@@ -1,6 +1,6 @@
 <template>
     <div class="rating button">
-        <div class="relative flex items-center" @mouseover="hovered = true" @mouseleave="hovered = false" @click="isLoggedIn ? addRating(props.type, props.tmdbId, ownRating) : $router.push('/login')">
+        <div class="relative flex items-center" @mouseover="hovered = true" @mouseleave="hovered = false" @click="isLoggedIn ? writeRating() : $router.push('/login')">
             <span class="block h-6 w-7 pr-1" :class="{ 'text-amber-400': ownRating >= 1 }" @mouseover="myNewRating = 1">
                 <span class="i-ph-star-bold inline-block size-6" />
             </span>
@@ -27,6 +27,13 @@
         </div>
         <span v-if="rating" class="text-muted">{{ (rating / 2).toFixed(1) }}</span>
     </div>
+    <!-- <pre>
+        ownRating: {{ ownRating }}
+        myCurrentRating: {{ myCurrentRating }}
+        myNewRating: {{ myNewRating }}
+        lastClicktRating: {{ lastClicktRating }}
+        timeout: {{ timeout }}
+    </pre> -->
 </template>
 
 <script lang="ts" setup>
@@ -45,6 +52,8 @@ const { addRating, isLoggedIn } = accountStore;
 
 const hovered = ref(false);
 const myNewRating = ref(0);
+const lastClicktRating = ref(0);
+const timeout = ref(false);
 
 const ownRating = computed(() => {
     return hovered.value ? myNewRating.value : myCurrentRating.value;
@@ -55,10 +64,31 @@ const starRating = computed(() => {
 });
 
 const myCurrentRating = computed(() => {
+    if (timeout.value) {
+        return lastClicktRating.value;
+    }
     const ratedItems = props.type === "movie" ? ratedMovies.value?.results : ratedTVShows.value?.results;
     const item = ratedItems?.find((item) => Number(item.id) === Number(props.tmdbId));
     return item ? Math.round((Number(item.rating) / 2) * 2) / 2 : 0;
 });
+
+function writeRating() {
+    lastClicktRating.value = myNewRating.value;
+    addRating(props.type, props.tmdbId, ownRating.value);
+    let ratingTimeout: ReturnType<typeof setTimeout>;
+
+    function startRatingCountdown() {
+        timeout.value = true;
+        if (ratingTimeout) {
+            clearTimeout(ratingTimeout);
+        }
+        ratingTimeout = setTimeout(() => {
+            timeout.value = false;
+        }, 3100);
+    }
+
+    startRatingCountdown();
+}
 </script>
 
 <style lang="scss">
