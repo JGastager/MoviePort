@@ -1,15 +1,30 @@
 <template>
-    <div class="relative">
-        <div v-if="isAuthenticated" class="pointer-events-auto relative cursor-pointer overflow-hidden px-0 transition-all duration-300 ease-in-out button !gap-0" @click="toggleDropdown" @mouseenter="openDropdown" @mouseleave="closeDropdown">
-            <span class="i-ph-user-bold mx-2.5 size-6 flex-shrink-0 transition-all duration-500" :class="dropdownOpen ? 'ml-4' : null" />
-            <span class="transform whitespace-nowrap transition-all duration-500" :class="dropdownOpen ? 'opacity-100 max-w-50 pr-4' : 'opacity-0 max-w-0'">
+    <div :class="{ 'modal-open': modal }" class="group relative">
+        <!-- Button (Authenticated) -->
+        <div v-if="isAuthenticated" class="pointer-events-auto relative flex cursor-pointer items-center overflow-hidden px-0 transition-all duration-300 ease-in-out button !gap-0">
+            <span class="i-ph-user-bold mx-2.5 size-6 flex-shrink-0 transition-all duration-500 group-[.modal-open]:ml-4 group-hover:ml-4" />
+            <span class="max-w-0 transform whitespace-nowrap opacity-0 transition-all duration-500 group-[.modal-open]:max-w-50 group-hover:max-w-50 group-[.modal-open]:pr-4 group-hover:pr-4 group-[.modal-open]:opacity-100 group-hover:opacity-100">
                 {{ getUserInfo?.username }}
             </span>
         </div>
 
-        <div v-else class="pointer-events-auto button" @click="openModal">
-            <span class="i-ph-sign-in-bold size-6" />
+        <!-- Button (Not Authenticated) -->
+        <div v-else class="pointer-events-auto relative flex cursor-pointer items-center overflow-hidden px-0 transition-all duration-300 ease-in-out button !gap-0" @click="openModal">
+            <span class="i-ph-lock-bold mx-2.5 size-6 flex-shrink-0 transition-all duration-500 group-[.modal-open]:ml-4 group-hover:ml-4" />
+            <span class="max-w-0 transform whitespace-nowrap opacity-0 transition-all duration-500 group-[.modal-open]:max-w-50 group-hover:max-w-50 group-[.modal-open]:pr-4 group-hover:pr-4 group-[.modal-open]:opacity-100 group-hover:opacity-100">
+                Login
+            </span>
         </div>
+
+        <!-- Dropdown (Only for Authenticated Users) -->
+        <TransitionExpand v-if="isAuthenticated">
+            <div
+                class="pointer-events-none absolute right-0 top-full z-10 w-full flex flex-col scale-95 items-end gap-2.5 rounded bg-primary/30 p-2.5 opacity-0 transition-all duration-300 group-hover:pointer-events-auto group-hover:scale-100 group-hover:opacity-100"
+            >
+                <NuxtLink to="/account">Account</NuxtLink>
+                <span class="cursor-pointer" @click="handleLogout">Logout</span>
+            </div>
+        </TransitionExpand>
     </div>
 
     <!-- Login Modal -->
@@ -42,8 +57,9 @@
 </template>
 
 <script lang="ts" setup>
-import { ref, computed } from "vue";
+import { ref, computed, onMounted } from "vue";
 import { useRouter } from "vue-router";
+import { storeToRefs } from "pinia"; // ✅ Import storeToRefs
 import { useAccountStore } from "~/store/account";
 
 defineOptions({
@@ -52,19 +68,20 @@ defineOptions({
 
 const router = useRouter();
 const accountStore = useAccountStore();
-const { login, isLoggedIn } = accountStore;
-const { getUserInfo } = storeToRefs(accountStore);
+const { login, logout } = accountStore;
+
+const { isLoggedIn, getUserInfo } = storeToRefs(accountStore);
 
 const username = ref("");
 const password = ref("");
 
-const isAuthenticated = computed(() => isLoggedIn);
-const dropdownOpen = ref(false);
+const isAuthenticated = computed(() => isLoggedIn.value);
 
 const modal = ref(false);
 const mounted = ref(false);
 
 function openModal() {
+    console.log("open modal");
     modal.value = true;
 }
 
@@ -72,24 +89,28 @@ function closeModal() {
     modal.value = false;
 }
 
-function openDropdown() {
-    dropdownOpen.value = true;
-}
-
-function closeDropdown() {
-    dropdownOpen.value = false;
-}
-
-function toggleDropdown() {
-    dropdownOpen.value = !dropdownOpen.value;
-}
-
 async function handleLogin() {
     try {
         await login(username.value, password.value);
+        username.value = "";
+        password.value = "";
+        closeModal();
         router.push("/account");
     } catch (error) {
         console.error(error);
     }
 }
+
+async function handleLogout() {
+    try {
+        await logout();
+        router.push("/");
+    } catch (error) {
+        console.error(error);
+    }
+}
+
+onMounted(() => {
+    mounted.value = true;
+});
 </script>
