@@ -2,12 +2,16 @@
     <div>
         <div v-if="accountDetails">
             <div class="mb-10 flex items-center gap-8">
-                <div>
-                    <h1 v-if="accountDetails.username">Hallo, {{ accountDetails.username }}</h1>
-                    <small v-if="accountDetails.id" class="italic">Account-ID: {{ accountDetails.id }}</small>
-                    <small v-if="accountDetails.iso_3166_1"> | {{ accountDetails.iso_3166_1 }}</small>
-                </div>
                 <img v-if="gravatarUrl" class="rounded-full" alt="Avatar" :src="gravatarUrl" />
+                <div>
+                    <h1 v-if="accountDetails.username" class="mb-3">Hello, {{ accountDetails.username }}</h1>
+                    <span v-if="accountDetails.id">
+                        Account-ID:
+                        <span class="text-muted">{{ accountDetails.id }}</span>
+                    </span>
+                    <span v-if="accountDetails.iso_3166_1" class="text-muted"> | {{ accountDetails.iso_3166_1 }}</span>
+                </div>
+                <Logout />
             </div>
             <div class="lists">
                 <div v-if="favoriteMovies?.results?.length" class="favoriteMovies">

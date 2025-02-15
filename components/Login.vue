@@ -1,10 +1,14 @@
 <template>
     <div :class="{ 'modal-open': modal }" class="group relative">
-        <div v-if="isAuthenticated" class="pointer-events-auto relative flex cursor-pointer items-center overflow-hidden px-0 transition-all duration-300 ease-in-out button !gap-0">
-            <span class="i-ph-user-bold mx-2.5 size-6 flex-shrink-0 transition-all duration-500 group-[.modal-open]:ml-4 group-hover:ml-4" />
-            <span class="max-w-0 transform whitespace-nowrap opacity-0 transition-all duration-500 group-[.modal-open]:max-w-50 group-hover:max-w-50 group-[.modal-open]:pr-4 group-hover:pr-4 group-[.modal-open]:opacity-100 group-hover:opacity-100">
-                {{ getUserInfo?.username }}
-            </span>
+        <div v-if="isAuthenticated" class="pointer-events-auto overflow-hidden card transition-colors duration-300 focus:bg-primary/50 hover:bg-primary/50">
+            <NuxtLink to="/account" class="pointer-events-auto relative h-11 flex cursor-pointer items-center overflow-hidden px-0 transition-all duration-300 ease-in-out !gap-0">
+                <span class="i-ph-user-bold mx-2.5 size-6 flex-shrink-0 transition-all duration-500 group-[.modal-open]:ml-4 group-hover:ml-4" />
+                <span
+                    class="max-w-0 transform whitespace-nowrap opacity-0 transition-all duration-500 group-[.modal-open]:max-w-50 group-hover:max-w-50 group-[.modal-open]:pr-4 group-hover:pr-4 group-[.modal-open]:opacity-100 group-hover:opacity-100"
+                >
+                    {{ getUserInfo?.username }}
+                </span>
+            </NuxtLink>
         </div>
 
         <div v-else class="pointer-events-auto relative flex cursor-pointer items-center overflow-hidden px-0 transition-all duration-300 ease-in-out button !gap-0" @click="openModal">
@@ -13,15 +17,6 @@
                 Login
             </span>
         </div>
-        <TransitionExpand>
-            <div
-                v-if="isAuthenticated"
-                class="pointer-events-none absolute right-0 top-full z-10 w-full flex flex-col scale-95 items-end gap-2.5 rounded bg-primary/30 p-2.5 opacity-0 transition-all duration-300 group-hover:pointer-events-auto group-hover:scale-100 group-hover:opacity-100"
-            >
-                <NuxtLink to="/account">Account</NuxtLink>
-                <span class="cursor-pointer" @click="handleLogout">Logout</span>
-            </div>
-        </TransitionExpand>
     </div>
 
     <!-- Login Modal -->
@@ -31,26 +26,49 @@
                 <div class="modal relative h-fit w-fit">
                     <div class="h-60vh w-50vw flex flex-col items-center justify-center overflow-hidden card px-20">
                         <h2 class="mb-6">Login</h2>
-                        <form class="max-w-100 w-full flex flex-col items-center gap-2.5" @submit.prevent="handleLogin">
-                            <div class="h-11 w-full flex flex-shrink-0 items-center card transition-colors duration-300 focus:bg-primary/50 hover:bg-primary/50">
-                                <input v-model="username" class="h-full w-full rounded b-none bg-transparent px-4 py-0 text-1rem placeholder:text-muted text-white font-sans outline-none" type="text" placeholder="Username" required />
-                                <div class="pointer-events-none h-full w-13 flex items-center justify-center pr-2">
-                                    <span class="i-ph-user-bold size-6" />
+                        <form class="login-form relative max-w-100 w-full" @submit.prevent="handleLogin">
+                            <div class="flex flex-col items-center gap-2.5 transition-opacity duration-300" :class="{ 'opacity-0 pointer-events-0': isAuthenticated && loginSuccess }">
+                                <div
+                                    class="h-11 w-full flex flex-shrink-0 items-center border-2 border-transparent card border-solid transition-colors duration-300 focus:bg-primary/50 hover:bg-primary/50"
+                                    :class="{ 'animate-wiggle': triggerAnimation }"
+                                >
+                                    <input v-model="username" class="h-full w-full rounded b-none bg-transparent px-4 py-0 text-1rem placeholder:text-muted text-white font-sans outline-none" type="text" placeholder="Username" required />
+                                    <div class="pointer-events-none h-full w-13 flex items-center justify-center pr-2">
+                                        <span class="i-ph-user-bold size-6" />
+                                    </div>
                                 </div>
-                            </div>
-                            <div class="h-11 w-full flex flex-shrink-0 items-center card transition-colors duration-300 focus:bg-primary/50 hover:bg-primary/50">
-                                <input
-                                    v-model="password"
-                                    class="h-full w-full rounded b-none bg-transparent px-4 py-0 text-1rem placeholder:text-muted text-white font-sans outline-none"
-                                    :type="showPassword ? 'text' : 'password'"
-                                    placeholder="Password"
-                                    required
-                                />
-                                <div class="h-full w-13 flex cursor-pointer items-center justify-center pr-2" @click="toggleShowPassword">
-                                    <span class="size-6" :class="showPassword ? 'i-ph-eye-slash-bold' : 'i-ph-eye-bold'" />
+                                <div
+                                    class="h-11 w-full flex flex-shrink-0 items-center border-2 border-transparent card border-solid transition-colors duration-300 focus:bg-primary/50 hover:bg-primary/50"
+                                    :class="{ 'animate-wiggle': triggerAnimation }"
+                                >
+                                    <input
+                                        v-model="password"
+                                        class="h-full w-full rounded b-none bg-transparent px-4 py-0 text-1rem placeholder:text-muted text-white font-sans outline-none"
+                                        :type="showPassword ? 'text' : 'password'"
+                                        placeholder="Password"
+                                        required
+                                    />
+                                    <div class="h-full w-13 flex cursor-pointer items-center justify-center pr-2" @click="toggleShowPassword">
+                                        <span class="size-6" :class="showPassword ? 'i-ph-eye-slash-bold' : 'i-ph-eye-bold'" />
+                                    </div>
                                 </div>
+                                <button class="mt-3 button" type="submit">Login</button>
                             </div>
-                            <button class="mt-3 button" type="submit">Login</button>
+                            <TransitionFade>
+                                <div v-if="isAuthenticated && loginSuccess" class="absolute left-1/2 top-0 h-auto w-full flex flex-col transform items-center gap-2.5 -translate-x-1/2">
+                                    <span class="i-ph-check-circle-thin size-24 text-green-400"></span>
+                                    <span>Succesfully logged in!</span>
+                                </div>
+                            </TransitionFade>
+                            <TransitionFade>
+                                <div v-if="loginError && !loginSuccess" class="absolute bottom-0 left-1/2 h-auto w-full flex flex-col translate-y-full transform items-center gap-2.5 pt-6 -translate-x-1/2">
+                                    <div class="flex items-center gap-2.5">
+                                        <span class="i-ph-warning-circle-bold size-6 text-red-500"></span>
+                                        <span>Login failed!</span>
+                                    </div>
+                                    <span class="text-center">Please check your credentials and try again.</span>
+                                </div>
+                            </TransitionFade>
                         </form>
                     </div>
                     <div class="absolute top-0 translate-x-full transform -right-3 button" @click="closeModal">
@@ -74,7 +92,7 @@ defineOptions({
 
 const router = useRouter();
 const accountStore = useAccountStore();
-const { login, logout } = accountStore;
+const { login } = accountStore;
 
 const { isLoggedIn, getUserInfo } = storeToRefs(accountStore);
 
@@ -83,6 +101,9 @@ const password = ref("");
 const showPassword = ref(false);
 
 const isAuthenticated = computed(() => isLoggedIn.value);
+const loginSuccess = ref(false);
+const loginError = ref(false);
+const triggerAnimation = ref(false);
 
 const modal = ref(false);
 const mounted = ref(false);
@@ -94,6 +115,9 @@ function openModal() {
 
 function closeModal() {
     modal.value = false;
+    loginError.value = false;
+    username.value = "";
+    password.value = "";
 }
 
 function toggleShowPassword() {
@@ -103,20 +127,19 @@ function toggleShowPassword() {
 async function handleLogin() {
     try {
         await login(username.value, password.value);
+        loginSuccess.value = true;
         username.value = "";
         password.value = "";
-        closeModal();
-        router.push("/account");
+        setTimeout(() => {
+            closeModal();
+            router.push("/account");
+        }, 1000);
     } catch (error) {
-        console.error(error);
-    }
-}
-
-async function handleLogout() {
-    try {
-        await logout();
-        router.push("/");
-    } catch (error) {
+        loginError.value = true;
+        triggerAnimation.value = true;
+        setTimeout(() => {
+            triggerAnimation.value = false;
+        }, 300);
         console.error(error);
     }
 }
@@ -125,3 +148,23 @@ onMounted(() => {
     mounted.value = true;
 });
 </script>
+
+<style lang="scss">
+.login-form {
+    @keyframes wiggle {
+        0%,
+        100% {
+            transform: translateX(0px);
+        }
+        45% {
+            transform: translateX(6px);
+        }
+        75% {
+            transform: translateX(-6px);
+        }
+    }
+    .animate-wiggle {
+        animation: wiggle 0.3s ease-in-out;
+    }
+}
+</style>
