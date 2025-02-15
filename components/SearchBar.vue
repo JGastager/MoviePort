@@ -10,7 +10,7 @@
             <TransitionExpand>
                 <ul v-if="showResults" class="m-0 p-0">
                     <li
-                        v-for="(result, index) in searchResults.results.slice(0, 6)"
+                        v-for="(result, index) in searchMultiResults?.results.slice(0, 6)"
                         :key="result.id || index"
                         class="h-10 flex cursor-pointer items-center rounded transition-colors duration-300 -my-1.5 last:mb-0 hover:bg-primary/20"
                         @click="handleResultClick"
@@ -38,8 +38,7 @@
                             </span>
                         </NuxtLink>
                     </li>
-                    <li v-if="searchString.length >= 3 && searchResults.results.length === 0" class="h-10 flex items-center px-4 text-muted">No results found.</li>
-                    <li v-if="searchString.length && searchString.length < 3" class="h-10 flex items-center px-4 text-muted">Please enter at least 3 characters to search.</li>
+                    <li v-if="searchString.length >= 3 && searchMultiResults.results.length === 0" class="h-10 flex items-center px-4 text-muted">No results found.</li>
                 </ul>
             </TransitionExpand>
         </div>
@@ -49,30 +48,19 @@
 
 <script lang="ts" setup>
 import { debounce } from "lodash";
-import { useRoute } from "vue-router";
 import { ref, watch } from "vue";
+import { storeToRefs } from "pinia";
+import { useRoute } from "vue-router";
+import { useSearchStore } from "~/store/search";
 
-const { fetchTMDB } = useTMDB();
 const route = useRoute();
+const searchStore = useSearchStore();
+
+const { searchMulti } = searchStore;
+const { searchMultiResults } = storeToRefs(searchStore);
 
 const searchString = ref("");
-const searchResults = ref({
-    results: [],
-});
 const showResults = ref(false);
-
-const fetchResults = async () => {
-    if (searchString.value.length < 3) {
-        searchResults.value.results = [];
-        return;
-    }
-
-    searchResults.value = await fetchTMDB("/search/multi", {
-        query: searchString.value,
-    });
-};
-
-const debouncedFetchResults = debounce(fetchResults, 300);
 
 watch(
     () => route.fullPath,
@@ -84,12 +72,13 @@ watch(
 function handleInput() {
     if (!searchString.value.trim()) {
         showResults.value = false;
-        searchResults.value.results = [];
     } else {
         showResults.value = true;
         debouncedFetchResults();
     }
 }
+
+const debouncedFetchResults = debounce(() => searchMulti(searchString.value), 300);
 
 function handleFocus() {
     if (searchString.value.trim()) {
