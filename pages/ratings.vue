@@ -1,0 +1,38 @@
+<template>
+    <div>
+        <div v-if="isLoggedIn">
+            <div class="grid grid-cols-7 gap">
+                <AverageRating type="movie" title="Average Movie Ratings" class="col-span-3 mb-10" />
+            </div>
+            <div v-if="ratedMovies?.results?.length" class="ratedMovies">
+                <MovieListings title="Rated Movies" :movies="ratedMovies.results" />
+            </div>
+            <div class="grid grid-cols-7 gap">
+                <AverageRating type="tv" title="Average TV Show Ratings" class="col-span-3 mb-10" />
+            </div>
+            <div v-if="ratedTVShows?.results?.length" class="ratedTVShows">
+                <ShowListings title="Rated TV Shows" :shows="ratedTVShows.results" />
+            </div>
+        </div>
+    </div>
+</template>
+
+<script setup lang="ts">
+import { onMounted } from "vue";
+import { storeToRefs } from "pinia";
+import { useAccountStore } from "~/store/account";
+
+const accountStore = useAccountStore();
+const { ratedMovies, ratedTVShows } = storeToRefs(accountStore);
+
+const { fetchRatedMovies, fetchRatedTVShows, isLoggedIn } = accountStore;
+
+onMounted(async () => {
+    try {
+        await fetchRatedMovies();
+        await fetchRatedTVShows();
+    } catch (error) {
+        console.error("Failed to fetch account details:", error);
+    }
+});
+</script>

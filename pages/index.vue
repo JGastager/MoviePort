@@ -52,7 +52,7 @@
                     <span class="i-ph-star size-9" />
                     <h3>Rated</h3>
                 </div>
-                <NuxtLink to="/account" class="absolute inset-0 h-full w-full" />
+                <NuxtLink to="/ratings" class="absolute inset-0 h-full w-full" />
             </div>
             <div class="group relative col-span-2 aspect-2/1 cursor-pointer overflow-hidden rounded">
                 <img src="~assets/images/poster.jpg" alt="Favourites" class="absolute inset-0 h-full w-full object-cover transition duration-300 group-hover:scale-102" />
