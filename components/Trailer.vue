@@ -21,6 +21,9 @@
 
 <script lang="ts" setup>
 import { computed, onMounted, ref } from "vue";
+import { useMoviesStore } from "~/store/movies";
+import { useShowsStore } from "~/store/shows";
+import type { TMDBVideosResponse } from "~/types/general";
 
 defineOptions({
     name: "TrailerComponent",
@@ -28,15 +31,10 @@ defineOptions({
 
 const props = defineProps<{
     type: "movie" | "tv";
-    tmdbId: string;
+    tmdbId: number;
 }>();
 
 const modal = ref(false);
-const videos = ref({});
-
-const trailer = computed(() => {
-    return videos.value?.results?.find((video) => video.type === "Trailer");
-});
 
 function closeModal() {
     modal.value = false;
@@ -46,23 +44,28 @@ function openModal() {
     modal.value = true;
 }
 
-const { fetchTMDB } = useTMDB();
+const videos = ref({}) as Ref<TMDBVideosResponse>;
+
+const trailer = computed(() => {
+    return videos.value?.results?.find((video) => video.type === "Trailer");
+});
+
+const movieStore = useMoviesStore();
+const { fetchMovieVideos } = movieStore;
+const { movieVideos } = storeToRefs(movieStore);
+
+const showStore = useShowsStore();
+const { fetchTvShowVideos } = showStore;
+const { tvShowVideos } = storeToRefs(showStore);
 
 onMounted(async () => {
-    if (props.type === "movie") {
-        try {
-            videos.value = await fetchTMDB("/movie/" + props.tmdbId + "/videos");
-            console.log("Movie videos:", videos.value);
-        } catch (error) {
-            console.error("Error loading movie videos:", error);
-        }
+    if (!props.tmdbId) return;
+    if (props.type == "movie") {
+        await fetchMovieVideos(props.tmdbId);
+        videos.value = movieVideos.value;
     } else {
-        try {
-            videos.value = await fetchTMDB("/tv/" + props.tmdbId + "/videos");
-            console.log("TV show videos:", videos.value);
-        } catch (error) {
-            console.error("Error loading TV show videos:", error);
-        }
+        await fetchTvShowVideos(props.tmdbId);
+        videos.value = tvShowVideos.value;
     }
 });
 </script>
