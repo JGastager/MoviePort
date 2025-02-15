@@ -1,4 +1,4 @@
-export interface TVSeasonDetailsResponse extends TVSeasonDetails {}
+export type TVSeasonDetailsResponse = TVSeasonDetails;
 
 interface TVSeasonDetails {
     _id: string;
