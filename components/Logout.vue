@@ -8,6 +8,10 @@
 <script lang="ts" setup>
 import { useAccountStore } from "~/store/account";
 
+defineOptions({
+    name: "LogoutComponent",
+});
+
 const router = useRouter();
 const accountStore = useAccountStore();
 const { logout } = accountStore;
