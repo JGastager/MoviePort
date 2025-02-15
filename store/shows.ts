@@ -1,18 +1,19 @@
 import { defineStore } from "pinia";
+import type { TMDBPopularTvShowsResponse } from "~/types/tvshowDetails";
 
 export const useShowsStore = defineStore("showsStore", {
     state: () => ({
-        popularShows: [],
-        trendingShows: [],
+        popularShows: {} as TMDBPopularTvShowsResponse,
+        trendingShows: {} as TMDBPopularTvShowsResponse,
     }),
     actions: {
         async fetchPopularShows() {
-            const response = await $fetch("/api/tv/popular");
-            this.popularShows = response.results;
+            const response = await $fetch<TMDBPopularTvShowsResponse>("/api/tv/popular");
+            this.popularShows = response;
         },
         async fetchTrendingShows(timeWindow: string = "day") {
-            const response = await $fetch(`/api/trending/tv/${timeWindow}`);
-            this.trendingShows = response.results;
+            const response = await $fetch<TMDBPopularTvShowsResponse>(`/api/trending/tv/${timeWindow}`);
+            this.trendingShows = response;
         },
     },
 });

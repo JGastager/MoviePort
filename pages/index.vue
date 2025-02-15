@@ -11,7 +11,12 @@
             </div>
             <div class="group relative col-span-2 aspect-2/1 cursor-pointer overflow-hidden rounded">
                 <Transition name="fade-image" appear>
-                    <img v-if="popularMovies[0]?.poster_path" :src="$getImageUrl(popularMovies[0].poster_path, 'poster', 'w342')" alt="Movies" class="absolute inset-0 h-full w-full object-cover transition duration-300 group-hover:scale-102" />
+                    <img
+                        v-if="popularMovies.results[0]?.poster_path"
+                        :src="$getImageUrl(popularMovies.results[0].poster_path, 'poster', 'w342')"
+                        alt="Movies"
+                        class="absolute inset-0 h-full w-full object-cover transition duration-300 group-hover:scale-102"
+                    />
                 </Transition>
                 <div class="relative h-full w-full flex flex-col items-center justify-center gap-2.5 bg-primary/30 backdrop-blur transition-colors duration-300 group-hover:bg-primary/50">
                     <span class="i-ph-film-strip size-9" />
@@ -21,7 +26,12 @@
             </div>
             <div class="group relative col-span-2 aspect-2/1 cursor-pointer overflow-hidden rounded">
                 <Transition name="fade-image" appear>
-                    <img v-if="popularShows[0]?.poster_path" :src="$getImageUrl(popularShows[0].poster_path, 'poster', 'w342')" alt="TV Shows" class="absolute inset-0 h-full w-full object-cover transition duration-300 group-hover:scale-102" />
+                    <img
+                        v-if="popularShows?.results[0]?.poster_path"
+                        :src="$getImageUrl(popularShows?.results[0].poster_path, 'poster', 'w342')"
+                        alt="TV Shows"
+                        class="absolute inset-0 h-full w-full object-cover transition duration-300 group-hover:scale-102"
+                    />
                 </Transition>
                 <div class="relative h-full w-full flex flex-col items-center justify-center gap-2.5 bg-primary/30 backdrop-blur transition-colors duration-300 group-hover:bg-primary/50">
                     <span class="i-ph-television-simple size-9" />
@@ -53,8 +63,8 @@
                 <NuxtLink to="/likes" class="absolute inset-0 h-full w-full" />
             </div>
         </div>
-        <MovieSlider v-if="trendingMovies" more="/movie" title="Trending movies" :movies="trendingMovies" class="mb-10" />
-        <ShowSlider v-if="trendingShows" more="/tv" title="Trending TV shows" :shows="trendingShows" />
+        <MovieSlider v-if="trendingMovies?.results" more="/movie" title="Trending movies" :movies="trendingMovies.results" class="mb-10" />
+        <ShowSlider v-if="trendingShows?.results" more="/tv" title="Trending TV shows" :shows="trendingShows.results" />
     </div>
 </template>
 
