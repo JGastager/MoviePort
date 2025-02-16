@@ -84,9 +84,7 @@
         </div>
         <!-- <pre>{{ details }}</pre> -->
         <MovieListings v-if="similarMovies?.results" title="Related movies" :movies="similarMovies.results" />
-        <Teleport v-if="movieDetails.backdrop_path" to="#backdrop">
-            <img v-if="movieDetails?.backdrop_path" :src="$getImageUrl(movieDetails.backdrop_path, 'backdrop', 'w1280')" alt="Backdrop" class="h-full w-full object-cover" />
-            <img v-if="movieDetails?.backdrop_path" :src="$getImageUrl(movieDetails.backdrop_path, 'backdrop', 'original')" alt="Backdrop" class="absolute inset-0 h-full w-full object-cover" />
+        <Teleport v-if="play" to="#backdrop">
             <TransitionFade>
                 <Player v-if="play && movieDetails?.id" :tmdb-id="movieDetails.id" type="movie" />
             </TransitionFade>
@@ -95,7 +93,7 @@
 </template>
 
 <script lang="ts" setup>
-import { computed, onMounted, ref } from "vue";
+import { computed, ref } from "vue";
 import { useRoute } from "vue-router";
 import { storeToRefs } from "pinia";
 import { useMoviesStore } from "~/store/movies";
@@ -121,14 +119,12 @@ const movieStore = useMoviesStore();
 const { fetchMovieDetails, fetchMovieCredits, fetchSimilarMovies } = movieStore;
 const { movieDetails, movieCredits, similarMovies } = storeToRefs(movieStore);
 
-onMounted(async () => {
-    await fetchMovieDetails(movieId);
-    useHead({
-        title: `${movieDetails.value?.title} | MoviePort`,
-    });
-    await fetchMovieCredits(movieId);
-    await fetchSimilarMovies(movieId);
+await fetchMovieDetails(movieId);
+useHead({
+    title: `${movieDetails.value?.title} | MoviePort`,
 });
+await fetchMovieCredits(movieId);
+await fetchSimilarMovies(movieId);
 
 function triggerPlay() {
     play.value = true;

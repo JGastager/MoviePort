@@ -91,9 +91,7 @@
         </div>
         <!-- <pre>{{ details }}</pre> -->
         <ShowListings v-if="similarTvShows?.results" title="Related TV shows" :shows="similarTvShows.results" />
-        <Teleport v-if="tvShowDetails.backdrop_path" to="#backdrop">
-            <img v-if="tvShowDetails?.backdrop_path" :src="$getImageUrl(tvShowDetails.backdrop_path, 'backdrop', 'w1280')" alt="Backdrop" class="h-full w-full object-cover" />
-            <img v-if="tvShowDetails?.backdrop_path" :src="$getImageUrl(tvShowDetails.backdrop_path, 'backdrop', 'original')" alt="Backdrop" class="absolute inset-0 h-full w-full object-cover" />
+        <Teleport v-if="play" to="#backdrop">
             <TransitionFade>
                 <Player v-if="play && tvShowDetails?.id" :tmdb-id="tvShowDetails.id" :season="activeSeason" :episode="activeEpisode" type="tv" />
             </TransitionFade>
@@ -102,11 +100,10 @@
 </template>
 
 <script lang="ts" setup>
-import { onMounted, ref } from "vue";
+import { ref } from "vue";
 import dayjs from "dayjs";
 import { useRoute } from "vue-router";
 import { storeToRefs } from "pinia";
-import RatingButton from "~/components/RatingButton.vue";
 import { useShowsStore } from "~/store/shows";
 
 const play = ref(false);
@@ -126,17 +123,15 @@ const showsStore = useShowsStore();
 const { fetchTvShowDetails, fetchTvShowCredits, fetchTvShowSeasonDetails, fetchSimilarTvShows } = showsStore;
 const { tvShowDetails, tvShowCredits, similarTvShows, tvShowSeasonDetails } = storeToRefs(showsStore);
 
-onMounted(async () => {
-    console.log("TV Show ID:", showId);
+console.log("TV Show ID:", showId);
 
-    await fetchTvShowDetails(showId);
-    useHead({
-        title: `${tvShowDetails.value?.name} | MoviePort`,
-    });
-    await fetchTvShowCredits(showId);
-    await fetchTvShowSeasonDetails(showId, activeSeason.value);
-    await fetchSimilarTvShows(showId);
+await fetchTvShowDetails(showId);
+useHead({
+    title: `${tvShowDetails.value?.name} | MoviePort`,
 });
+await fetchTvShowCredits(showId);
+await fetchTvShowSeasonDetails(showId, activeSeason.value);
+await fetchSimilarTvShows(showId);
 
 function triggerPlay() {
     play.value = true;
