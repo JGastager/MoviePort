@@ -1,5 +1,11 @@
 <template>
     <div class="min-h-screen flex flex-col">
+        <div id="backdrop" class="fixed top-0 h-screen w-full">
+            <TransitionFade :duration="{ enter: 1200, leave: 600 }" :delay="{ enter: 600, leave: 0 }">
+                <img v-if="currentRouteType === 'movie' && movieDetails?.backdrop_path" :src="$getImageUrl(movieDetails.backdrop_path, 'backdrop', 'original')" alt="Backdrop" class="h-full w-full object-cover" />
+                <img v-else-if="currentRouteType === 'tv' && tvShowDetails?.backdrop_path" :src="$getImageUrl(tvShowDetails.backdrop_path, 'backdrop', 'original')" alt="Backdrop" class="h-full w-full object-cover" />
+            </TransitionFade>
+        </div>
         <header class="pointer-events-none relative z-1 h-86 min-h-35 transition-all duration-800">
             <div class="sticky top-0 flex items-start justify-between px-22.5 py-12">
                 <Navigation />
@@ -27,8 +33,27 @@
 </template>
 
 <script lang="ts" setup>
-import Brand from "~/components/Brand.vue";
-import OptionsButton from "~/components/OptionsButton.vue";
+import { storeToRefs } from "pinia";
+import { useRoute } from "vue-router";
+import { useMoviesStore } from "~/store/movies";
+import { useShowsStore } from "~/store/shows";
+
+const movieStore = useMoviesStore();
+const showsStore = useShowsStore();
+
+const { movieDetails } = storeToRefs(movieStore);
+const { tvShowDetails } = storeToRefs(showsStore);
+
+const route = useRoute();
+const currentRouteType = computed(() => {
+    if (route.path.startsWith("/movie/")) {
+        return "movie";
+    } else if (route.path.startsWith("/tv/")) {
+        return "tv";
+    } else {
+        return null;
+    }
+});
 </script>
 
 <style lang="scss">
