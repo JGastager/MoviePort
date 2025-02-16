@@ -1,6 +1,6 @@
 <template>
     <div class="min-h-screen flex flex-col">
-        <header class="pointer-events-none relative z-1 h-90 min-h-35 transition-all duration-800">
+        <header class="pointer-events-none relative z-1 h-86 min-h-35 transition-all duration-800">
             <div class="sticky top-0 flex items-start justify-between px-22.5 py-12">
                 <Navigation />
                 <div class="flex gap-3">
@@ -36,7 +36,8 @@ html:has(#backdrop #player) header {
 html:has(.home) header {
     height: 140px;
 }
-// html:has(.home):has(.search-bar.is-open) header {
-//     height: auto;
-// }
+html:has(.home):has(.search-bar.is-open) header {
+    height: 344px;
+    transition-duration: 250ms;
+}
 </style>
