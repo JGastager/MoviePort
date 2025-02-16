@@ -1,5 +1,5 @@
 <template>
-    <div>
+    <div class="home">
         <div class="grid grid-cols-10 mb-30 gap">
             <div class="group relative col-span-2 aspect-2/1 cursor-pointer overflow-hidden rounded">
                 <Transition name="fade-image" appear>

@@ -33,4 +33,10 @@ import OptionsButton from "~/components/OptionsButton.vue";
 html:has(#backdrop #player) header {
     height: 100vh;
 }
+html:has(.home) header {
+    height: 140px;
+}
+// html:has(.home):has(.search-bar.is-open) header {
+//     height: auto;
+// }
 </style>
