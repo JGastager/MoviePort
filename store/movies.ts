@@ -43,7 +43,16 @@ export const useMoviesStore = defineStore("moviesStore", {
             this.movieVideos = await $fetch<TMDBVideosResponse>(`/api/movie/${movieId}/videos`);
         },
         async fetchMovieDetails(movieId: number) {
-            this.movieDetails = await $fetch<TMDBMovieDetailsResponse>(`/api/movie/${movieId}`);
+            if (this.movieDetails.id === movieId) {
+                console.log(`✅ Successfully loaded movie details ${movieId} from store.`);
+            } else {
+                try {
+                    this.movieDetails = await $fetch<TMDBMovieDetailsResponse>(`/api/movie/${movieId}`);
+                    console.log(`✅ Fetched movie details ${movieId}`);
+                } catch (error) {
+                    console.error(`❌ Error fetching movie details ${movieId}:`, error);
+                }
+            }
         },
         async fetchMovieCredits(movieId: number) {
             this.movieCredits = await $fetch<TMDBMovieCreditsResponse>(`/api/movie/${movieId}/credits`);

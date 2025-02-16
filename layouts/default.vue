@@ -41,7 +41,6 @@ import { useShowsStore } from "~/store/shows";
 const movieStore = useMoviesStore();
 const showsStore = useShowsStore();
 
-// TODO delete details before fetch to prevent loading old details/backdrops
 const { movieDetails } = storeToRefs(movieStore);
 const { tvShowDetails } = storeToRefs(showsStore);
 

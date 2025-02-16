@@ -28,7 +28,16 @@ export const useShowsStore = defineStore("showsStore", {
             this.tvShowVideos = await $fetch<TMDBVideosResponse>(`/api/tv/${showId}/videos`);
         },
         async fetchTvShowDetails(showId: number) {
-            this.tvShowDetails = await $fetch<TMDBTVShowDetails>(`/api/tv/${showId}`);
+            if (this.tvShowDetails.id === showId) {
+                console.log(`✅ Successfully loaded TV show details ${showId} from store.`);
+            } else {
+                try {
+                    this.tvShowDetails = await $fetch<TMDBTVShowDetails>(`/api/tv/${showId}`);
+                    console.log(`✅ Fetched TV show details ${showId}`);
+                } catch (error) {
+                    console.error(`❌ Error fetching TV show details ${showId}:`, error);
+                }
+            }
         },
         async fetchTvShowCredits(showId: number) {
             this.tvShowCredits = await $fetch<TMDBTVCreditsResponse>(`/api/tv/${showId}/credits`);
