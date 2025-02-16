@@ -7,7 +7,7 @@
                         v-if="popularMovies.results[0]?.poster_path"
                         :src="$getImageUrl(popularMovies.results[0].poster_path, 'poster', 'w342')"
                         alt="Movies"
-                        class="absolute inset-0 h-full w-full object-cover transition duration-300 group-hover:scale-102"
+                        class="absolute inset-0 h-full w-full object-cover saturate-120 transition duration-300 group-hover:scale-102"
                     />
                 </Transition>
                 <div class="relative h-full w-full flex flex-col items-center justify-center gap-2.5 bg-primary/30 backdrop-blur transition-colors duration-300 group-hover:bg-primary/50">
@@ -22,7 +22,7 @@
                         v-if="popularShows?.results[0]?.poster_path"
                         :src="$getImageUrl(popularShows?.results[0].poster_path, 'poster', 'w342')"
                         alt="TV Shows"
-                        class="absolute inset-0 h-full w-full object-cover transition duration-300 group-hover:scale-102"
+                        class="absolute inset-0 h-full w-full object-cover saturate-120 transition duration-300 group-hover:scale-102"
                     />
                 </Transition>
                 <div class="relative h-full w-full flex flex-col items-center justify-center gap-2.5 bg-primary/30 backdrop-blur transition-colors duration-300 group-hover:bg-primary/50">
@@ -34,10 +34,10 @@
             <div v-if="isLoggedIn" class="group relative col-span-2 aspect-2/1 cursor-pointer overflow-hidden rounded">
                 <Transition name="fade-image" appear>
                     <img
-                        v-if="watchlistMovies?.results[0]?.poster_path"
-                        :src="$getImageUrl(watchlistMovies.results[0].poster_path, 'poster', 'w342')"
+                        v-if="watchlistMovies?.results[watchlistMovies.results.length - 1]?.poster_path"
+                        :src="$getImageUrl(watchlistMovies.results[watchlistMovies.results.length - 1].poster_path, 'poster', 'w342')"
                         alt="Watchlist"
-                        class="absolute inset-0 h-full w-full object-cover transition duration-300 group-hover:scale-102"
+                        class="absolute inset-0 h-full w-full object-cover saturate-120 transition duration-300 group-hover:scale-102"
                     />
                 </Transition>
                 <div class="relative h-full w-full flex flex-col items-center justify-center gap-2.5 bg-primary/30 backdrop-blur transition-colors duration-300 group-hover:bg-primary/50">
@@ -49,10 +49,10 @@
             <div v-if="isLoggedIn" class="group relative col-span-2 aspect-2/1 cursor-pointer overflow-hidden rounded">
                 <Transition name="fade-image" appear>
                     <img
-                        v-if="ratedMovies?.results[0]?.poster_path"
-                        :src="$getImageUrl(ratedMovies.results[0].poster_path, 'poster', 'w342')"
+                        v-if="ratedMovies?.results[ratedMovies.results.length - 1]?.poster_path"
+                        :src="$getImageUrl(ratedMovies.results[ratedMovies.results.length - 1].poster_path, 'poster', 'w342')"
                         alt="Ratings"
-                        class="absolute inset-0 h-full w-full object-cover transition duration-300 group-hover:scale-102"
+                        class="absolute inset-0 h-full w-full object-cover saturate-120 filter transition duration-300 group-hover:scale-102"
                     />
                 </Transition>
                 <div class="relative h-full w-full flex flex-col items-center justify-center gap-2.5 bg-primary/30 backdrop-blur transition-colors duration-300 group-hover:bg-primary/50">
@@ -64,10 +64,10 @@
             <div v-if="isLoggedIn" class="group relative col-span-2 aspect-2/1 cursor-pointer overflow-hidden rounded">
                 <Transition name="fade-image" appear>
                     <img
-                        v-if="favoriteMovies?.results[0]?.poster_path"
-                        :src="$getImageUrl(favoriteMovies.results[0].poster_path, 'poster', 'w342')"
+                        v-if="favoriteMovies?.results[favoriteMovies.results.length - 1]?.poster_path"
+                        :src="$getImageUrl(favoriteMovies.results[favoriteMovies.results.length - 1].poster_path, 'poster', 'w342')"
                         alt="Favorites"
-                        class="absolute inset-0 h-full w-full object-cover transition duration-300 group-hover:scale-102"
+                        class="absolute inset-0 h-full w-full object-cover saturate-120 transition duration-300 group-hover:scale-102"
                     />
                 </Transition>
                 <div class="relative h-full w-full flex flex-col items-center justify-center gap-2.5 bg-primary/30 backdrop-blur transition-colors duration-300 group-hover:bg-primary/50">
