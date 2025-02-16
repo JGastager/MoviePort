@@ -67,7 +67,7 @@
                                         <span class="i-ph-warning-circle-bold size-6 text-red-500"></span>
                                         <span>Login failed!</span>
                                     </div>
-                                    <span class="text-center">Please check your credentials and try again.</span>
+                                    <span class="text-center text-red-500">Please check your credentials and try again.</span>
                                 </div>
                             </TransitionFade>
                         </form>
