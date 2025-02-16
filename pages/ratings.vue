@@ -9,9 +9,6 @@
             <div v-if="ratedMovies?.results?.length" class="ratedMovies">
                 <MovieListings title="Rated Movies" :movies="ratedMovies.results.reverse()" />
             </div>
-            <div class="grid grid-cols-7 gap">
-                <AverageRating type="tv" title="Average TV Show Ratings" class="col-span-3 mb-10" />
-            </div>
             <div v-if="ratedTVShows?.results?.length" class="ratedTVShows">
                 <ShowListings title="Rated TV Shows" :shows="ratedTVShows.results.reverse()" />
             </div>

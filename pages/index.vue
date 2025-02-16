@@ -32,7 +32,14 @@
                 <NuxtLink to="/tv" class="absolute inset-0 h-full w-full" />
             </div>
             <div v-if="isLoggedIn" class="group relative col-span-2 aspect-2/1 cursor-pointer overflow-hidden rounded">
-                <img src="~assets/images/poster.jpg" alt="TV Shows" class="absolute inset-0 h-full w-full object-cover transition duration-300 group-hover:scale-102" />
+                <Transition name="fade-image" appear>
+                    <img
+                        v-if="watchlistMovies?.results[0]?.poster_path"
+                        :src="$getImageUrl(watchlistMovies.results[0].poster_path, 'poster', 'w342')"
+                        alt="Watchlist"
+                        class="absolute inset-0 h-full w-full object-cover transition duration-300 group-hover:scale-102"
+                    />
+                </Transition>
                 <div class="relative h-full w-full flex flex-col items-center justify-center gap-2.5 bg-primary/30 backdrop-blur transition-colors duration-300 group-hover:bg-primary/50">
                     <span class="i-ph-bookmark-simple size-9" />
                     <h3>Watchlist</h3>
@@ -55,7 +62,14 @@
                 <NuxtLink to="/ratings" class="absolute inset-0 h-full w-full" />
             </div>
             <div v-if="isLoggedIn" class="group relative col-span-2 aspect-2/1 cursor-pointer overflow-hidden rounded">
-                <img src="~assets/images/poster.jpg" alt="Favourites" class="absolute inset-0 h-full w-full object-cover transition duration-300 group-hover:scale-102" />
+                <Transition name="fade-image" appear>
+                    <img
+                        v-if="favoriteMovies?.results[0]?.poster_path"
+                        :src="$getImageUrl(favoriteMovies.results[0].poster_path, 'poster', 'w342')"
+                        alt="Favorites"
+                        class="absolute inset-0 h-full w-full object-cover transition duration-300 group-hover:scale-102"
+                    />
+                </Transition>
                 <div class="relative h-full w-full flex flex-col items-center justify-center gap-2.5 bg-primary/30 backdrop-blur transition-colors duration-300 group-hover:bg-primary/50">
                     <span class="i-ph-heart size-9" />
                     <h3>Favorites</h3>
@@ -89,7 +103,7 @@ const { fetchTrendingMovies, fetchPopularMovies } = moviesStore;
 const { fetchTrendingShows, fetchPopularShows } = showsStore;
 const { trendingMovies, popularMovies } = storeToRefs(moviesStore);
 const { trendingShows, popularShows } = storeToRefs(showsStore);
-const { ratedMovies } = storeToRefs(accountStore);
+const { ratedMovies, watchlistMovies, favoriteMovies } = storeToRefs(accountStore);
 const { isLoggedIn } = accountStore;
 
 await fetchTrendingMovies();

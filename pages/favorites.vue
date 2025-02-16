@@ -4,9 +4,6 @@
             <div v-if="favoriteMovies?.results?.length" class="favoriteMovies">
                 <MovieListings title="Favorite Movies" :movies="favoriteMovies.results.reverse()" />
             </div>
-            <div class="grid grid-cols-7 gap">
-                <AverageRating type="tv" title="Average TV Show Ratings" class="col-span-3 mb-10" />
-            </div>
             <div v-if="favoriteTVShows?.results?.length" class="favoriteTVShows">
                 <ShowListings title="Favorite TV Shows" :shows="favoriteTVShows.results.reverse()" />
             </div>
