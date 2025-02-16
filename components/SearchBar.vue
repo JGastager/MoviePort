@@ -30,7 +30,18 @@
                                 </span>
                             </span>
                         </NuxtLink>
-                        <NuxtLink v-else :to="`/tv/${result.id}`" class="w-full px-4">
+                        <NuxtLink v-else-if="result.media_type === 'tv'" :to="`/tv/${result.id}`" class="w-full px-4">
+                            <span class="line-clamp-1">
+                                {{ result.title || result.name }}
+                                <span class="text-sm text-muted">
+                                    {{ getMediaType(result.media_type) }}
+                                </span>
+                                <span class="text-sm text-muted">
+                                    {{ result.media_type === "movie" && result.release_date ? ", " + $dayjs(result.release_date).get("year") : null }}
+                                </span>
+                            </span>
+                        </NuxtLink>
+                        <NuxtLink v-else :to="`/person/${result.id}`" class="w-full px-4">
                             <span class="line-clamp-1">
                                 {{ result.title || result.name }}
                                 <span class="text-sm text-muted">

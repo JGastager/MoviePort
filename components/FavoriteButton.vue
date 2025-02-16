@@ -9,7 +9,7 @@ import { storeToRefs } from "pinia";
 import { useAccountStore } from "~/store/account";
 
 const props = defineProps<{
-    type: "movie" | "tv";
+    type: "movie" | "tv" | "person";
     tmdbId: number;
 }>();
 

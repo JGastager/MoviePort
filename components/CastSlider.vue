@@ -1,7 +1,7 @@
 <template>
     <h2 class="mb-6">Cast</h2>
     <TransitionSlide v-drag-scroll appear group tag="div" class="relative w-full flex items-start gap overflow-x-auto rounded pb-7 scrollbar-none" :class="[$attrs.class, $attrs.staticClass]">
-        <div v-for="(actor, index) in cast" :key="index" class="group w-40 flex-shrink-0 cursor-pointer">
+        <div v-for="(actor, index) in cast" :key="index" class="group relative w-40 flex-shrink-0 cursor-pointer">
             <div class="relative mb-3 aspect-2/3 w-full overflow-hidden card">
                 <img v-if="actor.profile_path" :src="$getImageUrl(actor.profile_path, 'profile', 'w185')" loading="lazy" :alt="actor.name" class="h-full w-full object-cover transition-all duration-300 group-hover:scale-102 group-hover:blur-sm" />
                 <div v-else class="absolute inset-0 h-full w-full flex items-center justify-center transition-all duration-300 group-hover:scale-102 group-hover:blur-sm">
@@ -15,6 +15,7 @@
                 {{ actor.character }}
             </h3>
             <span class="text-muted">{{ actor.name }}</span>
+            <NuxtLink :to="'/person/' + actor.id" class="absolute inset-0" />
         </div>
         <div class="absolute right-0 top-0 h-full w-19 flex cursor-pointer items-center justify-center card opacity-0 transition-opacity duration-300 hover:opacity-100">
             <span class="i-ph-arrow-right-bold size-6" />
