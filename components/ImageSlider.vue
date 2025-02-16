@@ -1,6 +1,6 @@
 <template>
     <h2 v-if="images?.backdrops?.length" class="mb-6">Images</h2>
-    <div v-if="images?.backdrops?.length" class="relative w-full flex gap-7 overflow-x-auto rounded">
+    <div v-if="images?.backdrops?.length" v-drag-scroll class="relative w-full flex gap-7 overflow-x-auto rounded scrollbar-none">
         <template v-for="(image, index) in images?.backdrops" :key="index">
             <div v-if="image.iso_639_1 == 'en' || image.iso_639_1 == null">
                 <div class="h-120 w-fit overflow-hidden card">
