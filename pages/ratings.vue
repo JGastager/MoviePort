@@ -1,8 +1,10 @@
 <template>
     <div>
         <div v-if="isLoggedIn">
-            <div class="grid grid-cols-7 gap">
-                <AverageRating type="movie" title="Average Movie Ratings" class="col-span-3 mb-10" />
+            <h2 class="mb-6">Average Ratings</h2>
+            <div class="grid grid-cols-10 items-center gap">
+                <RatingSummary class="col-span-2 mb-10" />
+                <RatingAverage class="col-span-2 mb-10" />
             </div>
             <div v-if="ratedMovies?.results?.length" class="ratedMovies">
                 <MovieListings title="Rated Movies" :movies="ratedMovies.results" />
