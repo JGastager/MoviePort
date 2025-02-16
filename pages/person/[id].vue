@@ -72,7 +72,7 @@
                 </div>
             </section>
         </div>
-        <PersonMediaListing v-if="personDetails?.combined_credits?.cast" :title="'Movies and TV Shows with ' + personDetails.name" :media="personDetails?.combined_credits?.cast" />
+        <PersonMediaListing v-if="personDetails?.combined_credits?.cast" class="mb-10" :title="'Movies and TV Shows with ' + personDetails.name" :media="personDetails?.combined_credits?.cast" />
         <PersonMediaListing v-if="personDetails?.combined_credits?.crew" :title="'Movies and TV Shows with ' + personDetails.name + ' as crew member'" :media="personDetails?.combined_credits?.crew" />
     </div>
 </template>
