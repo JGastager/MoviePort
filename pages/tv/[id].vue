@@ -8,9 +8,7 @@
                             <span class="i-ph-play-bold size-6" />
                             <span>Watch now</span>
                         </div>
-                        <div class="button">
-                            <span class="i-ph-bookmark-simple-bold size-6" />
-                        </div>
+                        <WatchlistButton :tmdb-id="showId" type="tv" />
                     </div>
                     <Poster v-if="tvShowDetails.poster_path" :poster-path="tvShowDetails.poster_path" />
                 </div>
@@ -51,7 +49,10 @@
             </section>
             <section class="col-span-2 h-full">
                 <div class="sticky top-12">
-                    <RatingButton :rating="tvShowDetails.vote_average" :tmdb-id="showId" type="tv" class="mb-10" />
+                    <div class="mb-10 flex flex-wrap gap-2.5">
+                        <RatingButton :rating="tvShowDetails.vote_average" :tmdb-id="showId" type="tv" />
+                        <FavoriteButton :tmdb-id="showId" type="tv" />
+                    </div>
                     <div class="mb-10">
                         <div class="flex items-center justify-between gap-3">
                             <h3>First Air Date</h3>

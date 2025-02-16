@@ -58,9 +58,9 @@
                 <img src="~assets/images/poster.jpg" alt="Favourites" class="absolute inset-0 h-full w-full object-cover transition duration-300 group-hover:scale-102" />
                 <div class="relative h-full w-full flex flex-col items-center justify-center gap-2.5 bg-primary/30 backdrop-blur transition-colors duration-300 group-hover:bg-primary/50">
                     <span class="i-ph-heart size-9" />
-                    <h3>Favourites</h3>
+                    <h3>Favorites</h3>
                 </div>
-                <NuxtLink to="/likes" class="absolute inset-0 h-full w-full" />
+                <NuxtLink to="/favorites" class="absolute inset-0 h-full w-full" />
             </div>
             <div v-if="!isLoggedIn" class="relative col-span-1 flex flex-shrink-0 flex-col cursor-pointer items-center justify-center gap-2.5 card transition-colors duration-300 focus:bg-primary/50 hover:bg-primary/50">
                 <span class="i-ph-plus-square size-9" />

@@ -219,6 +219,32 @@ export const useAccountStore = defineStore("accountStore", {
             }
         },
 
+        async addFavorite(type: "movie" | "tv", id: number, favorite: boolean) {
+            const sessionId = this.sessionId;
+            if (!sessionId || !this.accountDetails?.id) return;
+
+            try {
+                await $fetch<TvShowWatchlistResponse>(`/api/account/${this.accountDetails.id}/favorite`, {
+                    method: "POST",
+                    headers: { "x-tmdb-session-id": sessionId },
+                    body: { media_type: type, media_id: id, favorite: favorite },
+                });
+                console.log(`✅ ${favorite ? "Added" : "Removed"} ${type == "movie" ? "movie" : "TV show"} ${id} ${favorite ? "to" : "from"} favorites.`);
+
+                await new Promise((resolve) => setTimeout(resolve, 3000));
+
+                if (type === "movie") {
+                    await this.fetchFavoriteMovies();
+                    console.log("✅ Fetched updated favorite movies.", this.favoriteMovies);
+                } else {
+                    await this.fetchFavoriteTVShows();
+                    console.log("✅ Fetched updated favorite TV shows.", this.favoriteTVShows);
+                }
+            } catch (error) {
+                console.error(`❌ Failed to update favorites for ${type == "movie" ? "movie" : "TV show"} ${id}:`, error);
+            }
+        },
+
         async initializeAccountStore() {
             console.log("🔄 Checking for existing session...");
 

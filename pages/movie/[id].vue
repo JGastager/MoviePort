@@ -26,7 +26,10 @@
             </section>
             <section class="col-span-2 h-full">
                 <div class="sticky top-12">
-                    <RatingButton :rating="movieDetails.vote_average" :tmdb-id="movieId" type="movie" class="mb-10" />
+                    <div class="mb-10 flex flex-wrap gap-2.5">
+                        <RatingButton :rating="movieDetails.vote_average" :tmdb-id="movieId" type="movie" />
+                        <FavoriteButton :tmdb-id="movieId" type="movie" />
+                    </div>
                     <div class="mb-10">
                         <div class="flex items-center justify-between gap-3">
                             <h3>Duration</h3>

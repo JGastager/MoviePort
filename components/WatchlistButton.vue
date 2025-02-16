@@ -1,6 +1,6 @@
 <template>
     <div class="button" @click="isLoggedIn ? writeToWatchlist() : $router.push('/login')">
-        <span class="size-6" :class="watchlistToggle ? 'i-ph-bookmark-simple-fill text-cyan-400' : 'i-ph-bookmark-simple-bold'" />
+        <span class="size-6" :class="watchlistToggle ? 'i-ph-bookmark-simple-fill text-blue-400' : 'i-ph-bookmark-simple-bold'" />
     </div>
 </template>
 
