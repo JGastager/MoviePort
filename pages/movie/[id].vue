@@ -8,9 +8,7 @@
                             <span class="i-ph-play-bold size-6" />
                             <span>Watch now</span>
                         </div>
-                        <div class="button">
-                            <span class="i-ph-bookmark-simple-bold size-6" />
-                        </div>
+                        <WatchlistButton :tmdb-id="movieId" type="movie" />
                     </div>
                     <Poster v-if="movieDetails.poster_path" :poster-path="movieDetails.poster_path" />
                 </div>

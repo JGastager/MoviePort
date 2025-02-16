@@ -1,0 +1,37 @@
+<template>
+    <div class="button" @click="isLoggedIn ? writeToWatchlist() : $router.push('/login')">
+        <span class="size-6" :class="watchlistToggle ? 'i-ph-bookmark-simple-fill text-cyan-400' : 'i-ph-bookmark-simple-bold'" />
+    </div>
+</template>
+
+<script lang="ts" setup>
+import { storeToRefs } from "pinia";
+import { useAccountStore } from "~/store/account";
+
+const props = defineProps<{
+    type: "movie" | "tv";
+    tmdbId: number;
+}>();
+
+const accountStore = useAccountStore();
+const { watchlistMovies, watchlistTVShows } = storeToRefs(accountStore);
+const { addToWatchlist, isLoggedIn } = accountStore;
+
+const inWatchlist = computed(() => {
+    const watchlistItems = props.type === "movie" ? watchlistMovies.value?.results : watchlistTVShows.value?.results;
+    return watchlistItems?.some((item) => Number(item.id) === Number(props.tmdbId));
+});
+
+const watchlistToggle = ref(inWatchlist.value);
+
+function writeToWatchlist() {
+    watchlistToggle.value = !watchlistToggle.value;
+    try {
+        addToWatchlist(props.type, props.tmdbId, watchlistToggle.value);
+    } catch {
+        watchlistToggle.value = !watchlistToggle.value;
+    }
+}
+</script>
+
+<style></style>

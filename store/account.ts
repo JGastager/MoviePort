@@ -177,7 +177,7 @@ export const useAccountStore = defineStore("accountStore", {
                     headers: { "x-tmdb-session-id": sessionId },
                     body: { value: rating * 2 },
                 });
-                console.log(`✅ Rating added for ${type} ${id} with ${rating} stars.`);
+                console.log(`✅ Rating added for ${type == "movie" ? "movie" : "TV show"} ${id} with ${rating} stars.`);
 
                 await new Promise((resolve) => setTimeout(resolve, 3000));
 
@@ -189,7 +189,33 @@ export const useAccountStore = defineStore("accountStore", {
                     console.log("✅ Fetched updated rated TV shows.", this.ratedTVShows);
                 }
             } catch (error) {
-                console.error(`❌ Failed to add rating for ${type} ${id}:`, error);
+                console.error(`❌ Failed to add rating for ${type == "movie" ? "movie" : "TV show"} ${id}:`, error);
+            }
+        },
+
+        async addToWatchlist(type: "movie" | "tv", id: number, watchlist: boolean) {
+            const sessionId = this.sessionId;
+            if (!sessionId || !this.accountDetails?.id) return;
+
+            try {
+                await $fetch<TvShowWatchlistResponse>(`/api/account/${this.accountDetails.id}/watchlist`, {
+                    method: "POST",
+                    headers: { "x-tmdb-session-id": sessionId },
+                    body: { media_type: type, media_id: id, watchlist: watchlist },
+                });
+                console.log(`✅ ${watchlist ? "Added" : "Removed"} ${type == "movie" ? "movie" : "TV show"} ${id} ${watchlist ? "to" : "from"} watchlist.`);
+
+                await new Promise((resolve) => setTimeout(resolve, 3000));
+
+                if (type === "movie") {
+                    await this.fetchWatchlistMovies();
+                    console.log("✅ Fetched updated watchlist movies.", this.watchlistMovies);
+                } else {
+                    await this.fetchWatchlistTVShows();
+                    console.log("✅ Fetched updated watchlist TV shows.", this.watchlistTVShows);
+                }
+            } catch (error) {
+                console.error(`❌ Failed to update watchlist for ${type == "movie" ? "movie" : "TV show"} ${id}:`, error);
             }
         },
 

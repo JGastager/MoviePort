@@ -37,7 +37,7 @@
                     <span class="i-ph-bookmark-simple size-9" />
                     <h3>Watchlist</h3>
                 </div>
-                <NuxtLink to="/saves" class="absolute inset-0 h-full w-full" />
+                <NuxtLink to="/watchlist" class="absolute inset-0 h-full w-full" />
             </div>
             <div v-if="isLoggedIn" class="group relative col-span-2 aspect-2/1 cursor-pointer overflow-hidden rounded">
                 <Transition name="fade-image" appear>
