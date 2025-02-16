@@ -1,9 +1,12 @@
 <template>
     <h2 class="mb-6">Cast</h2>
-    <TransitionSlide appear group tag="div" class="relative w-full flex items-start gap overflow-x-auto rounded pb-7" :class="[$attrs.class, $attrs.staticClass]">
+    <TransitionSlide appear group tag="div" class="scrollbar-none relative w-full flex items-start gap overflow-x-auto rounded pb-7" :class="[$attrs.class, $attrs.staticClass]">
         <div v-for="(actor, index) in cast" :key="index" class="group w-40 flex-shrink-0 cursor-pointer">
             <div class="relative mb-3 aspect-2/3 w-full overflow-hidden card">
                 <img v-if="actor.profile_path" :src="$getImageUrl(actor.profile_path, 'profile', 'w185')" loading="lazy" :alt="actor.name" class="h-full w-full object-cover transition-all duration-300 group-hover:scale-102 group-hover:blur-sm" />
+                <div v-else class="absolute inset-0 h-full w-full flex items-center justify-center transition-all duration-300 group-hover:scale-102 group-hover:blur-sm">
+                    <span class="i-ph-user-thin size-18 text-muted" />
+                </div>
                 <div class="absolute inset-0 flex items-center justify-center bg-primary/20 opacity-0 transition-opacity duration-300 group-hover:opacity-100">
                     <div class="i-ph-arrow-square-in-bold size-6" />
                 </div>

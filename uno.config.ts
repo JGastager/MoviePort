@@ -24,4 +24,19 @@ export default defineConfig({
         "text-muted": "text-white/50",
         gap: "gap-7",
     },
+    rules: [
+        [
+            "scrollbar-none",
+            {
+                "scrollbar-width": "none",
+                "-ms-overflow-style": "none",
+            },
+        ],
+        [
+            /^scrollbar-none(::-webkit-scrollbar)?$/,
+            () => ({
+                display: "none",
+            }),
+        ],
+    ],
 });

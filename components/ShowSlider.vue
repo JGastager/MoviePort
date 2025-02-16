@@ -3,7 +3,7 @@
         <h2 v-if="title" class="mb-6">
             {{ title }}
         </h2>
-        <TransitionScale appear group tag="div" class="w-screen flex items-start gap overflow-x-auto px-22.5 pb-7 -mx-22.5">
+        <TransitionScale appear group tag="div" class="scrollbar-none w-screen flex items-start gap overflow-x-auto px-22.5 pb-7 -mx-22.5">
             <div v-if="before" class="relative w-card flex flex-shrink-0 flex-col cursor-pointer items-center justify-center gap-2.5 card transition-colors duration-300 !aspect-2/3 focus:bg-primary/50 hover:bg-primary/50">
                 <span class="size-6" :class="before.icon ? before.icon : 'i-ph-plus-square-bold'" />
                 <h3>{{ before.text }}</h3>

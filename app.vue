@@ -63,6 +63,11 @@
     box-sizing: border-box;
 }
 
+html {
+    overflow-x: hidden;
+    scroll-behavior: smooth;
+}
+
 body {
     margin: unset;
     color: white;
