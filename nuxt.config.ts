@@ -5,6 +5,12 @@ export default defineNuxtConfig({
     devtools: { enabled: true },
     app: {
         pageTransition: { name: "page", mode: "out-in" },
+        head: {
+            link: [
+                { rel: "icon", href: "/favicon.ico", sizes: "64x64" },
+                { rel: "icon", href: "/favicon.svg", sizes: "any", type: "image/svg+xml" },
+            ],
+        },
     },
     runtimeConfig: {
         public: {
