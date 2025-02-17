@@ -2,89 +2,57 @@ import type { Directive } from "vue";
 
 const dragScroll: Directive = {
     mounted(el) {
-        let isDown = false;
-        let startX: number;
-        let startY: number;
-        let scrollLeft: number;
-        let scrollTop: number;
-        let isDragging = false;
+        if (el.classList.contains("initialized")) return;
 
-        const startDrag = (e: MouseEvent | TouchEvent) => {
-            isDown = true;
-            isDragging = false; // Reset dragging state
-            el.classList.add("dragging");
+        let initialX: number | null = null;
+        let initialScroll: number | null = null;
 
-            if (e instanceof TouchEvent) {
-                startX = e.touches[0].pageX - el.offsetLeft;
-                startY = e.touches[0].pageY - el.offsetTop;
+        el.classList.add("initialized");
+
+        const updateClasses = () => {
+            if (el.scrollLeft <= 30) {
+                el.classList.add("start");
             } else {
-                startX = e.pageX - el.offsetLeft;
-                startY = e.pageY - el.offsetTop;
+                el.classList.remove("start");
             }
 
-            scrollLeft = el.scrollLeft;
-            scrollTop = el.scrollTop;
-
-            // Add global mousemove listener to allow dragging outside the container
-            document.addEventListener("mousemove", moveDrag);
-            document.addEventListener("mouseup", stopDrag);
-            document.addEventListener("mouseleave", stopDrag);
-        };
-
-        const moveDrag = (e: MouseEvent | TouchEvent) => {
-            if (!isDown) return;
-            e.preventDefault();
-
-            isDragging = true; // Mark as dragging
-
-            let x: number, y: number;
-            if (e instanceof TouchEvent) {
-                x = e.touches[0].pageX - el.offsetLeft;
-                y = e.touches[0].pageY - el.offsetTop;
+            if (el.scrollLeft >= el.scrollWidth - el.clientWidth - 30) {
+                el.classList.add("end");
             } else {
-                x = e.pageX - el.offsetLeft;
-                y = e.pageY - el.offsetTop;
+                el.classList.remove("end");
             }
-
-            const walkX = (x - startX) * 1.5; // Adjust speed
-            const walkY = (y - startY) * 1.5;
-
-            el.scrollLeft = scrollLeft - walkX;
-            el.scrollTop = scrollTop - walkY;
         };
 
-        const stopDrag = () => {
-            isDown = false;
-            isDragging = false;
-            el.classList.remove("dragging");
+        updateClasses();
+        el.addEventListener("scroll", updateClasses);
 
-            // Remove global event listeners after drag ends
-            document.removeEventListener("mousemove", moveDrag);
-            document.removeEventListener("mouseup", stopDrag);
-            document.removeEventListener("mouseleave", stopDrag);
-        };
+        const onPointerDown = (e: PointerEvent) => {
+            if (e.pointerType === "touch" || e.pointerType === "mouse") {
+                e.preventDefault();
+                initialX = e.clientX;
+                initialScroll = el.scrollLeft;
 
-        const preventClick = (e: MouseEvent) => {
-            if (isDragging) {
-                e.preventDefault(); // Prevent unintended clicks
-                e.stopPropagation();
+                const onPointerMove = (moveEvent: PointerEvent) => {
+                    if (initialX !== null && initialScroll !== null) {
+                        const moveX = moveEvent.clientX;
+                        const moveDiff = initialX - moveX;
+                        el.scrollLeft = initialScroll + moveDiff;
+                    }
+                };
+
+                const onPointerUp = () => {
+                    document.removeEventListener("pointermove", onPointerMove);
+                    document.removeEventListener("pointerup", onPointerUp);
+                    initialX = null;
+                    initialScroll = null;
+                };
+
+                document.addEventListener("pointermove", onPointerMove);
+                document.addEventListener("pointerup", onPointerUp);
             }
-            isDragging = false;
         };
 
-        const preventDrag = (e: DragEvent) => {
-            e.preventDefault(); // Prevent default browser drag behavior
-        };
-
-        // Event Listeners
-        el.addEventListener("mousedown", startDrag);
-        el.addEventListener("touchstart", startDrag);
-
-        // Prevent unintended clicks on links and buttons
-        el.querySelectorAll("a, button").forEach((child) => {
-            child.addEventListener("click", preventClick);
-            child.addEventListener("dragstart", preventDrag); // Prevent dragging links
-        });
+        el.addEventListener("pointerdown", onPointerDown);
     },
 };
 

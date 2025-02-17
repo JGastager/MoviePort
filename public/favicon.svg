@@ -3,11 +3,11 @@
   <defs>
     <style>
       path {
-        fill: #22272e;
+        fill: #22272E;
       } 
       @media (prefers-color-scheme: dark) { 
         path {
-          fill: #FFFFFF;
+          fill: #688890;
         } 
       }
     </style>

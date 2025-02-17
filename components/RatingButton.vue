@@ -84,7 +84,7 @@ function writeRating() {
         }
         ratingTimeout = setTimeout(() => {
             timeout.value = false;
-        }, 3100);
+        }, 3500);
     }
 
     startRatingCountdown();

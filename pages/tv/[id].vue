@@ -123,8 +123,6 @@ const showsStore = useShowsStore();
 const { fetchTvShowDetails, fetchTvShowCredits, fetchTvShowSeasonDetails, fetchSimilarTvShows } = showsStore;
 const { tvShowDetails, tvShowCredits, similarTvShows, tvShowSeasonDetails } = storeToRefs(showsStore);
 
-console.log("TV Show ID:", showId);
-
 await fetchTvShowDetails(showId);
 useHead({
     title: `${tvShowDetails.value?.name} | MoviePort`,
