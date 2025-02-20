@@ -1,11 +1,12 @@
 import type { Directive } from "vue";
 
-const dragScroll: Directive = {
+const vDraggable: Directive = {
     mounted(el) {
         if (el.classList.contains("initialized")) return;
 
         let initialX: number | null = null;
         let initialScroll: number | null = null;
+        let isDragging = false; // Track if dragging occurred
 
         el.classList.add("initialized");
 
@@ -29,6 +30,7 @@ const dragScroll: Directive = {
         const onPointerDown = (e: PointerEvent) => {
             if (e.pointerType === "touch" || e.pointerType === "mouse") {
                 e.preventDefault();
+                isDragging = false; // Reset drag state
                 initialX = e.clientX;
                 initialScroll = el.scrollLeft;
 
@@ -36,6 +38,12 @@ const dragScroll: Directive = {
                     if (initialX !== null && initialScroll !== null) {
                         const moveX = moveEvent.clientX;
                         const moveDiff = initialX - moveX;
+
+                        // If moveDiff is significant, mark as dragging
+                        if (Math.abs(moveDiff) > 5) {
+                            isDragging = true;
+                        }
+
                         el.scrollLeft = initialScroll + moveDiff;
                     }
                 };
@@ -52,8 +60,16 @@ const dragScroll: Directive = {
             }
         };
 
+        const onClick = (e: Event) => {
+            if (isDragging) {
+                e.preventDefault();
+                e.stopPropagation(); // Prevent triggering child element click events
+            }
+        };
+
         el.addEventListener("pointerdown", onPointerDown);
+        el.addEventListener("click", onClick, true); // Capture phase to catch events before propagation
     },
 };
 
-export default dragScroll;
+export default vDraggable;
