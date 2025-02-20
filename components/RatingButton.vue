@@ -1,27 +1,27 @@
 <template>
     <div class="rating button">
         <div class="relative flex items-center" @mouseover="hovered = true" @mouseleave="hovered = false" @click="isLoggedIn ? writeRating() : $router.push('/login')">
-            <span class="block h-6 w-7 pr-1" :class="{ 'text-amber-400': ownRating >= 1 }" @mouseover="myNewRating = 1">
-                <span class="i-ph-star-bold inline-block size-6" />
+            <span class="block h-6 w-7 pr-1" @mouseover="myNewRating = 1">
+                <span class="i-ph-star-bold inline-block size-6 bg-gradient-to-br" :class="{ 'from-orange-400 to-amber-400': ownRating >= 1 }" />
             </span>
-            <span class="block h-6 w-7 pr-1" :class="{ 'text-amber-400': ownRating >= 2 }" @mouseover="myNewRating = 2">
-                <span class="i-ph-star-bold inline-block size-6" />
+            <span class="block h-6 w-7 pr-1" @mouseover="myNewRating = 2">
+                <span class="i-ph-star-bold inline-block size-6 bg-gradient-to-br" :class="{ 'from-orange-400 to-amber-400': ownRating >= 2 }" />
             </span>
-            <span class="block h-6 w-7 pr-1" :class="{ 'text-amber-400': ownRating >= 3 }" @mouseover="myNewRating = 3">
-                <span class="i-ph-star-bold inline-block size-6" />
+            <span class="block h-6 w-7 pr-1" @mouseover="myNewRating = 3">
+                <span class="i-ph-star-bold inline-block size-6 bg-gradient-to-br" :class="{ 'from-orange-400 to-amber-400': ownRating >= 3 }" />
             </span>
-            <span class="block h-6 w-7 pr-1" :class="{ 'text-amber-400': ownRating >= 4 }" @mouseover="myNewRating = 4">
-                <span class="i-ph-star-bold inline-block size-6" />
+            <span class="block h-6 w-7 pr-1" @mouseover="myNewRating = 4">
+                <span class="i-ph-star-bold inline-block size-6 bg-gradient-to-br" :class="{ 'from-orange-400 to-amber-400': ownRating >= 4 }" />
             </span>
-            <span class="block h-6 w-6" :class="{ 'text-amber-400': ownRating == 5 }" @mouseover="myNewRating = 5">
-                <span class="i-ph-star-bold inline-block size-6" />
+            <span class="block h-6 w-6" @mouseover="myNewRating = 5">
+                <span class="i-ph-star-bold inline-block size-6 bg-gradient-to-br" :class="{ 'from-orange-400 to-amber-400': ownRating == 5 }" />
             </span>
-            <div class="pointer-events-none absolute h-full w-full flex items-center gap-1" :class="{ 'text-amber-400': hovered || myCurrentRating }">
-                <span v-if="(starRating >= 1 && !ownRating) || ownRating >= 1" class="i-ph-star-fill size-6" />
-                <span v-if="(starRating >= 2 && !ownRating) || ownRating >= 2" class="i-ph-star-fill size-6" />
-                <span v-if="(starRating >= 3 && !ownRating) || ownRating >= 3" class="i-ph-star-fill size-6" />
-                <span v-if="(starRating >= 4 && !ownRating) || ownRating >= 4" class="i-ph-star-fill size-6" />
-                <span v-if="(starRating == 5 && !ownRating) || ownRating == 5" class="i-ph-star-fill size-6" />
+            <div class="pointer-events-none absolute h-full w-full flex items-center gap-1">
+                <span v-if="(starRating >= 1 && !ownRating) || ownRating >= 1" class="i-ph-star-fill size-6 bg-gradient-to-br" :class="{ 'from-orange-400 to-amber-400': hovered || myCurrentRating }" />
+                <span v-if="(starRating >= 2 && !ownRating) || ownRating >= 2" class="i-ph-star-fill size-6 bg-gradient-to-br" :class="{ 'from-orange-400 to-amber-400': hovered || myCurrentRating }" />
+                <span v-if="(starRating >= 3 && !ownRating) || ownRating >= 3" class="i-ph-star-fill size-6 bg-gradient-to-br" :class="{ 'from-orange-400 to-amber-400': hovered || myCurrentRating }" />
+                <span v-if="(starRating >= 4 && !ownRating) || ownRating >= 4" class="i-ph-star-fill size-6 bg-gradient-to-br" :class="{ 'from-orange-400 to-amber-400': hovered || myCurrentRating }" />
+                <span v-if="(starRating == 5 && !ownRating) || ownRating == 5" class="i-ph-star-fill size-6 bg-gradient-to-br" :class="{ 'from-orange-400 to-amber-400': hovered || myCurrentRating }" />
                 <span v-if="starRating % 1 !== 0 && !ownRating" class="i-ph-star-half-fill size-6" />
             </div>
         </div>

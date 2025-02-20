@@ -8,17 +8,17 @@
                 <h2>{{ averageRating.toFixed(1) }}</h2>
             </div>
             <div class="relative flex items-center gap-1">
-                <span class="i-ph-star-bold inline-block size-6" :class="{ 'text-amber-400': averageRating >= 1 }" />
-                <span class="i-ph-star-bold inline-block size-6" :class="{ 'text-amber-400': averageRating >= 2 }" />
-                <span class="i-ph-star-bold inline-block size-6" :class="{ 'text-amber-400': averageRating >= 3 }" />
-                <span class="i-ph-star-bold inline-block size-6" :class="{ 'text-amber-400': averageRating >= 4 }" />
-                <span class="i-ph-star-bold inline-block size-6" :class="{ 'text-amber-400': averageRating == 5 }" />
-                <div class="pointer-events-none absolute h-full w-full flex items-center gap-1 text-amber-400">
-                    <span v-if="averageRating >= 1" class="i-ph-star-fill size-6" />
-                    <span v-if="averageRating >= 2" class="i-ph-star-fill size-6" />
-                    <span v-if="averageRating >= 3" class="i-ph-star-fill size-6" />
-                    <span v-if="averageRating >= 4" class="i-ph-star-fill size-6" />
-                    <span v-if="averageRating == 5" class="i-ph-star-fill size-6" />
+                <span class="i-ph-star-bold inline-block size-6 bg-gradient-to-br" :class="{ 'from-orange-400 to-amber-400': averageRating >= 1 }" />
+                <span class="i-ph-star-bold inline-block size-6 bg-gradient-to-br" :class="{ 'from-orange-400 to-amber-400': averageRating >= 2 }" />
+                <span class="i-ph-star-bold inline-block size-6 bg-gradient-to-br" :class="{ 'from-orange-400 to-amber-400': averageRating >= 3 }" />
+                <span class="i-ph-star-bold inline-block size-6 bg-gradient-to-br" :class="{ 'from-orange-400 to-amber-400': averageRating >= 4 }" />
+                <span class="i-ph-star-bold inline-block size-6 bg-gradient-to-br" :class="{ 'from-orange-400 to-amber-400': averageRating == 5 }" />
+                <div class="pointer-events-none absolute h-full w-full flex items-center gap-1">
+                    <span v-if="averageRating >= 1" class="i-ph-star-fill size-6 from-orange-400 to-amber-400 bg-gradient-to-br" />
+                    <span v-if="averageRating >= 2" class="i-ph-star-fill size-6 from-orange-400 to-amber-400 bg-gradient-to-br" />
+                    <span v-if="averageRating >= 3" class="i-ph-star-fill size-6 from-orange-400 to-amber-400 bg-gradient-to-br" />
+                    <span v-if="averageRating >= 4" class="i-ph-star-fill size-6 from-orange-400 to-amber-400 bg-gradient-to-br" />
+                    <span v-if="averageRating == 5" class="i-ph-star-fill size-6 from-orange-400 to-amber-400 bg-gradient-to-br" />
                     <!-- <span v-if="starRating % 1 !== 0 && !ownRating" class="i-ph-star-half-fill size-6" /> -->
                 </div>
             </div>

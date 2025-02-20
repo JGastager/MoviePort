@@ -1,6 +1,6 @@
 <template>
     <div class="button" @click="isLoggedIn ? writeFavorite() : $router.push('/login')">
-        <span class="size-6" :class="favoriteToggle ? 'i-ph-heart-fill text-rose-500' : 'i-ph-heart-bold'" />
+        <span class="size-6 bg-gradient-to-br" :class="favoriteToggle ? 'i-ph-heart-fill from-rose-500 to-pink-500' : 'i-ph-heart-bold'" />
     </div>
 </template>
 
