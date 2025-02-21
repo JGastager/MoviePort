@@ -19,22 +19,22 @@
             </div>
             <div class="lists">
                 <div v-if="favoriteMovies?.results?.length" class="favoriteMovies">
-                    <MovieListings :title="$t('account.favoriteMovies')" :movies="favoriteMovies.results" />
+                    <MediaListings title="Favorite Movies" :media="favoriteMovies.results" type="movie" />
                 </div>
                 <div v-if="favoriteTVShows?.results?.length" class="favoriteTVShows">
-                    <ShowListings :title="$t('account.favoriteTvShows')" :shows="favoriteTVShows.results" />
+                    <MediaListings title="Favorite TV Shows" :media="favoriteTVShows.results" type="tv" />
                 </div>
                 <div v-if="ratedMovies?.results?.length" class="ratedMovies">
-                    <MovieListings :title="$t('account.ratedMovies')" :movies="ratedMovies.results" />
+                    <MediaListings title="Rated Movies" :media="ratedMovies.results" type="movie" />
                 </div>
                 <div v-if="ratedTVShows?.results?.length" class="ratedTVShows">
-                    <ShowListings :title="$t('account.ratedTvShows')" :shows="ratedTVShows.results" />
+                    <MediaListings title="Rated TV Shows" :media="ratedTVShows.results" type="tv" />
                 </div>
                 <div v-if="watchlistMovies?.results?.length" class="watchlistMovies">
-                    <MovieListings :title="$t('account.watchListMovies')" :movies="watchlistMovies.results" />
+                    <MediaListings title="Watchlist Movies" :media="watchlistMovies.results" type="movie" />
                 </div>
                 <div v-if="watchlistTVShows?.results?.length" class="watchlistTVShows">
-                    <ShowListings :title="$t('account.watchListTvShows')" :shows="watchlistTVShows.results" />
+                    <MediaListings title="Watchlist TV Shows" :media="watchlistTVShows.results" type="tv" />
                 </div>
             </div>
         </div>

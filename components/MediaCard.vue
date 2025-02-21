@@ -11,8 +11,8 @@
         </div>
         <h3 class="mb-0.5">{{ media.title }}</h3>
         <span v-if="media.release_date" class="text-muted">{{ $dayjs(media.release_date).get("year") }}</span>
-        <Rating :tmdb-id="media.id" type="media" :rating="media.vote_average" />
-        <NuxtLink :to="'/media/' + media.id" class="absolute inset-0 z-10" />
+        <Rating :tmdb-id="media.id" type="movie" :rating="media.vote_average" />
+        <NuxtLink :to="'/movie/' + media.id" class="absolute inset-0 z-10" />
     </div>
     <div v-else-if="type === 'tv'" class="group relative cursor-pointer rounded">
         <div class="relative mb-3 aspect-2/3 overflow-hidden card">

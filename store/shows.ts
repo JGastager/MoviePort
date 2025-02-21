@@ -15,8 +15,23 @@ export const useShowsStore = defineStore("showsStore", {
         similarTvShows: {} as TMDBSimilarTvShowsResponse,
     }),
     actions: {
-        async fetchPopularShows() {
-            this.popularShows = await $fetch<TMDBPopularTvShowsResponse>("/api/tv/popular");
+        async fetchPopularShows(page = 1) {
+            try {
+                const response = await $fetch<TMDBPopularTvShowsResponse>("/api/tv/popular", {
+                    query: { page },
+                });
+
+                if (page === 1) {
+                    this.popularShows = response;
+                } else {
+                    this.popularShows = {
+                        ...response,
+                        results: [...this.popularShows.results, ...response.results],
+                    };
+                }
+            } catch (error) {
+                console.error("Error fetching TV shows:", error);
+            }
         },
         async fetchTrendingShows(timeWindow: string = "day") {
             this.trendingShows = await $fetch<TMDBPopularTvShowsResponse>(`/api/trending/tv/${timeWindow}`);
