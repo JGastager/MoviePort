@@ -7,10 +7,10 @@
                 <RatingAverage class="col-span-2 mb-10" />
             </div>
             <div v-if="ratedMovies?.results?.length" class="ratedMovies">
-                <MovieListings title="Rated Movies" :movies="ratedMovies.results.reverse()" />
+                <MovieListings title="Rated Movies" :movies="[...ratedMovies.results].reverse()" />
             </div>
             <div v-if="ratedTVShows?.results?.length" class="ratedTVShows">
-                <ShowListings title="Rated TV Shows" :shows="ratedTVShows.results.reverse()" />
+                <ShowListings title="Rated TV Shows" :movies="[...ratedTvShows.results].reverse()" />
             </div>
         </div>
     </div>
@@ -22,6 +22,7 @@ import { storeToRefs } from "pinia";
 import { useAccountStore } from "~/store/account";
 
 const accountStore = useAccountStore();
+
 const { ratedMovies, ratedTVShows } = storeToRefs(accountStore);
 
 const { fetchRatedMovies, fetchRatedTVShows, isLoggedIn } = accountStore;
