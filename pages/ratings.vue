@@ -10,7 +10,7 @@
                 <MediaListing title="Rated Movies" type="movie" :media="[...ratedMovies.results].reverse()" />
             </div>
             <div v-if="ratedTVShows?.results?.length" class="ratedTVShows">
-                <MediaListing title="Rated TV Shows" type="tv" :media="[...ratedTvShows.results].reverse()" />
+                <MediaListing title="Rated TV Shows" type="tv" :media="[...ratedTVShows.results].reverse()" />
             </div>
         </div>
     </div>
