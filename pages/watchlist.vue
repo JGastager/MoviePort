@@ -2,10 +2,10 @@
     <div>
         <div v-if="isLoggedIn">
             <div v-if="watchlistMovies?.results?.length" class="watchlistMovies">
-                <MovieListings title="Watchlisted Movies" :movies="[...watchlistMovies.results].reverse()" />
+                <MediaListings title="Watchlisted Movies" type="movie" :media="[...watchlistMovies.results].reverse()" />
             </div>
             <div v-if="watchlistTVShows?.results?.length" class="watchlistTVShows">
-                <ShowListings title="Watchlisted TV Shows" :shows="[...watchlistTVShows.results].reverse()" />
+                <MediaListings title="Watchlisted TV Shows" type="tv" :media="[...watchlistTVShows.results].reverse()" />
             </div>
         </div>
     </div>
