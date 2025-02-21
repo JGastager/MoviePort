@@ -1,0 +1,14 @@
+{
+    "account": {
+        "login": "Login",
+        "hello": "Hello",
+        "yourLanguagePreference": "Your language preference",
+        "yourLanguagePreferencePlaceholder": "Please select your language preference",
+        "favoriteMovies": "Favorite movies",
+        "favoriteTvShows": "Favorite TV shows",
+        "ratedMovies": "Rated movies",
+        "ratedTvShows": "Rated TV shows",
+        "watchListMovies": "Watchlist movies",
+        "watchListTvShows": "Watchlist TV shows"
+    }
+}

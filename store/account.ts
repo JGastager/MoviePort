@@ -24,6 +24,7 @@ export const useAccountStore = defineStore("accountStore", {
         ratedTVShows: {} as RatedTvShowResponse,
         watchlistMovies: {} as MovieWatchlistResponse,
         watchlistTVShows: {} as TvShowWatchlistResponse,
+        preferredLanguage: "en" as string,
     }),
     getters: {
         isLoggedIn(): boolean {
@@ -293,6 +294,9 @@ export const useAccountStore = defineStore("accountStore", {
             } catch (error) {
                 console.error("❌ Failed to restore account:", error);
             }
+        },
+        setPreferredLanguage(language: string) {
+            this.preferredLanguage = language;
         },
     },
 });
