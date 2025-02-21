@@ -84,7 +84,7 @@
             </section>
         </div>
         <!-- <pre>{{ details }}</pre> -->
-        <MovieListings v-if="similarMovies?.results" title="Related movies" :movies="similarMovies.results" />
+        <MediaListings v-if="similarMovies?.results" title="Related movies" :media="similarMovies.results" type="movie" />
         <Teleport v-if="play" to="#backdrop">
             <TransitionFade>
                 <Player v-if="play && movieDetails?.id" :tmdb-id="movieDetails.id" type="movie" />

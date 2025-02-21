@@ -7,10 +7,10 @@
                 <RatingAverage class="col-span-2 mb-10" />
             </div>
             <div v-if="ratedMovies?.results?.length" class="ratedMovies">
-                <MovieListings title="Rated Movies" :movies="ratedMovies.results.reverse()" />
+                <MediaListings title="Rated Movies" :media="ratedMovies.results.reverse()" type="movie" />
             </div>
             <div v-if="ratedTVShows?.results?.length" class="ratedTVShows">
-                <ShowListings title="Rated TV Shows" :shows="ratedTVShows.results.reverse()" />
+                <MediaListings title="Rated TV Shows" :media="ratedTVShows.results.reverse()" type="tv" />
             </div>
         </div>
     </div>

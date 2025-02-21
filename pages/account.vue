@@ -15,22 +15,22 @@
             </div>
             <div class="lists">
                 <div v-if="favoriteMovies?.results?.length" class="favoriteMovies">
-                    <MovieListings title="Favorite Movies" :movies="favoriteMovies.results" />
+                    <MediaListings title="Favorite Movies" :media="favoriteMovies.results" type="movie" />
                 </div>
                 <div v-if="favoriteTVShows?.results?.length" class="favoriteTVShows">
-                    <ShowListings title="Favorite TV Shows" :shows="favoriteTVShows.results" />
+                    <MediaListings title="Favorite TV Shows" :media="favoriteTVShows.results" type="tv" />
                 </div>
                 <div v-if="ratedMovies?.results?.length" class="ratedMovies">
-                    <MovieListings title="Rated Movies" :movies="ratedMovies.results" />
+                    <MediaListings title="Rated Movies" :media="ratedMovies.results" type="movie" />
                 </div>
                 <div v-if="ratedTVShows?.results?.length" class="ratedTVShows">
-                    <ShowListings title="Rated TV Shows" :shows="ratedTVShows.results" />
+                    <MediaListings title="Rated TV Shows" :media="ratedTVShows.results" type="tv" />
                 </div>
                 <div v-if="watchlistMovies?.results?.length" class="watchlistMovies">
-                    <MovieListings title="Watchlist Movies" :movies="watchlistMovies.results" />
+                    <MediaListings title="Watchlist Movies" :media="watchlistMovies.results" type="movie" />
                 </div>
                 <div v-if="watchlistTVShows?.results?.length" class="watchlistTVShows">
-                    <ShowListings title="Watchlist TV Shows" :shows="watchlistTVShows.results" />
+                    <MediaListings title="Watchlist TV Shows" :media="watchlistTVShows.results" type="tv" />
                 </div>
             </div>
         </div>

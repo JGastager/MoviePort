@@ -91,7 +91,7 @@
             </section>
         </div>
         <!-- <pre>{{ details }}</pre> -->
-        <ShowListings v-if="similarTvShows?.results" title="Related TV shows" :shows="similarTvShows.results" />
+        <MediaListings v-if="similarTvShows?.results" title="Related TV shows" :media="similarTvShows.results" type="tv" />
         <Teleport v-if="play" to="#backdrop">
             <TransitionFade>
                 <Player v-if="play && tvShowDetails?.id" :tmdb-id="tvShowDetails.id" :season="activeSeason" :episode="activeEpisode" type="tv" />

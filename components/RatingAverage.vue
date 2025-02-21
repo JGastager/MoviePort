@@ -33,7 +33,7 @@ import { computed } from "vue";
 import { useAccountStore } from "~/store/account";
 
 const props = defineProps<{
-    type: "movie" | "tv";
+    type?: "movie" | "tv";
     title?: string;
 }>();
 

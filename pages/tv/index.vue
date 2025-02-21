@@ -1,6 +1,6 @@
 <template>
     <div>
-        <ShowListings v-if="popularShows" title="Popular TV shows" :shows="popularShows.results" />
+        <MediaListings v-if="popularShows" title="Popular TV shows" :media="popularShows.results" type="tv" :more="true" @load-more="loadMoreShows" />
     </div>
 </template>
 
@@ -17,13 +17,18 @@ const showsStore = useShowsStore();
 const { fetchPopularShows } = showsStore;
 const { popularShows } = storeToRefs(showsStore);
 
+const currentPage = ref(1);
+
 onMounted(async () => {
     try {
-        await fetchPopularShows();
+        await fetchPopularShows(currentPage.value);
     } catch (error) {
         console.error(error);
     }
 });
-</script>
 
-<style></style>
+async function loadMoreShows() {
+    currentPage.value++;
+    await fetchPopularShows(currentPage.value);
+}
+</script>
