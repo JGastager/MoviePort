@@ -193,6 +193,31 @@ export const useAccountStore = defineStore("accountStore", {
             }
         },
 
+        async deleteRating(type: "movie" | "tv", id: number) {
+            const sessionId = this.sessionId;
+            if (!sessionId || !this.accountDetails?.id) return;
+
+            try {
+                await $fetch(`/api/${type}/${id}/rating`, {
+                    method: "DELETE",
+                    headers: { "x-tmdb-session-id": sessionId },
+                });
+                console.log(`✅ Rating deleted for ${type == "movie" ? "movie" : "TV show"} ${id}.`);
+
+                await new Promise((resolve) => setTimeout(resolve, 3000));
+
+                if (type === "movie") {
+                    await this.fetchRatedMovies();
+                    console.log("✅ Fetched updated rated movies.", this.ratedMovies);
+                } else {
+                    await this.fetchRatedTVShows();
+                    console.log("✅ Fetched updated rated TV shows.", this.ratedTVShows);
+                }
+            } catch (error) {
+                console.error(`❌ Failed to delete rating for ${type == "movie" ? "movie" : "TV show"} ${id}:`, error);
+            }
+        },
+
         async addToWatchlist(type: "movie" | "tv", id: number, watchlist: boolean) {
             const sessionId = this.sessionId;
             if (!sessionId || !this.accountDetails?.id) return;

@@ -48,12 +48,11 @@ const props = defineProps<{
 
 const accountStore = useAccountStore();
 const { ratedMovies, ratedTVShows } = storeToRefs(accountStore);
-const { addRating, isLoggedIn } = accountStore;
+const { addRating, deleteRating, isLoggedIn } = accountStore;
 
 const hovered = ref(false);
 const myNewRating = ref(0);
-const lastClicktRating = ref(0);
-const timeout = ref(false);
+const lastClicktRating = ref<number | null>(null);
 
 const ownRating = computed(() => {
     return hovered.value ? myNewRating.value : myCurrentRating.value;
@@ -64,7 +63,7 @@ const starRating = computed(() => {
 });
 
 const myCurrentRating = computed(() => {
-    if (timeout.value) {
+    if (lastClicktRating.value !== null) {
         return lastClicktRating.value;
     }
     const ratedItems = props.type === "movie" ? ratedMovies.value?.results : ratedTVShows.value?.results;
@@ -73,21 +72,15 @@ const myCurrentRating = computed(() => {
 });
 
 function writeRating() {
-    lastClicktRating.value = myNewRating.value;
-    addRating(props.type, props.tmdbId, ownRating.value);
-    let ratingTimeout: ReturnType<typeof setTimeout>;
-
-    function startRatingCountdown() {
-        timeout.value = true;
-        if (ratingTimeout) {
-            clearTimeout(ratingTimeout);
-        }
-        ratingTimeout = setTimeout(() => {
-            timeout.value = false;
-        }, 3500);
+    if (myNewRating.value === myCurrentRating.value) {
+        myNewRating.value = 0;
+        lastClicktRating.value = 0;
+        hovered.value = false;
+        deleteRating(props.type, props.tmdbId);
+    } else {
+        lastClicktRating.value = myNewRating.value;
+        addRating(props.type, props.tmdbId, ownRating.value);
     }
-
-    startRatingCountdown();
 }
 </script>
 
