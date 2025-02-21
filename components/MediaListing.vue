@@ -1,5 +1,5 @@
 <template>
-    <div ref="mediaListings" class="media-listings">
+    <div ref="MediaListing" class="media-listings">
         <h2 v-if="title" class="mb-6">
             {{ title }}
         </h2>
@@ -48,7 +48,7 @@ const sortedMedia = computed(() => {
     }
 });
 
-const mediaListings = ref<HTMLElement | null>(null);
+const MediaListing = ref<HTMLElement | null>(null);
 const scrollTrigger = ref<HTMLElement | null>(null);
 const loadMore = ref(false);
 const showToTop = ref(false);
@@ -63,8 +63,8 @@ const observer = new IntersectionObserver(
 );
 
 const scrollToTop = () => {
-    if (mediaListings.value) {
-        mediaListings.value.scrollIntoView({ behavior: "smooth" });
+    if (MediaListing.value) {
+        MediaListing.value.scrollIntoView({ behavior: "smooth" });
     }
 };
 
@@ -83,10 +83,10 @@ onUnmounted(() => {
 });
 
 function isScrolledPastThreshold() {
-    if (mediaListings.value) {
+    if (MediaListing.value) {
         const scrollPosition = window.scrollY;
         const viewportHeight = window.innerHeight;
-        const elementTop = mediaListings.value.getBoundingClientRect().top + scrollPosition;
+        const elementTop = MediaListing.value.getBoundingClientRect().top + scrollPosition;
 
         showToTop.value = scrollPosition - elementTop > viewportHeight;
     }

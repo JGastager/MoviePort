@@ -1,6 +1,6 @@
 <template>
     <div>
-        <MediaListings v-if="popularShows" title="Popular TV shows" :media="popularShows.results" type="tv" :more="true" @load-more="loadMoreShows" />
+        <MediaListing v-if="popularShows" title="Popular TV shows" :media="popularShows.results" type="tv" :more="true" @load-more="loadMoreShows" />
     </div>
 </template>
 
