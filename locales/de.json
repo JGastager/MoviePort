@@ -1,0 +1,14 @@
+{
+    "account": {
+        "login": "Anmelden",
+        "hello": "Hallo",
+        "yourLanguagePreference": "Ihre Sprachpräferenz",
+        "yourLanguagePreferencePlaceholder": "Bitte wählen Sie Ihre Sprache",
+        "favoriteMovies": "Lieblingsfilme",
+        "favoriteTvShows": "Lieblingsserien",
+        "ratedMovies": "Bewertete Filme",
+        "ratedTvShows": "Bewertete Serien",
+        "watchListMovies": "Merkliste Filme",
+        "watchListTvShows": "Merkliste Serien"
+    }
+}
