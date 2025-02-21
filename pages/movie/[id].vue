@@ -46,6 +46,7 @@
                             <span class="i-ph-film-slate-bold size-6" />
                             <span>IMDb</span>
                         </NuxtLink>
+                        <ShareButton type="movie" />
                     </div>
                     <div v-if="directors?.length" class="mb-3 flex items-start justify-between gap-3">
                         <h3>Director</h3>

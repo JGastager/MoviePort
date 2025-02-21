@@ -69,6 +69,7 @@
                             <span class="i-ph-film-slate-bold size-6" />
                             <span>IMDb</span>
                         </NuxtLink> -->
+                        <ShareButton type="tv" />
                     </div>
                     <div v-if="tvShowDetails.created_by?.length" class="mb-3 flex items-start justify-between gap-3">
                         <h3>Creator</h3>
