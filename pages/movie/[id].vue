@@ -17,6 +17,9 @@
                 <h1 class="mb-10">
                     {{ movieDetails.title }}
                 </h1>
+                <h3 class="mb-10">
+                    {{ movieDetails.tagline }}
+                </h3>
                 <p class="mb-10">
                     {{ movieDetails.overview }}
                 </p>

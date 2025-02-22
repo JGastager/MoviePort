@@ -17,6 +17,9 @@
                 <h1 class="mb-10">
                     {{ tvShowDetails.name }}
                 </h1>
+                <h3 class="mb-10">
+                    {{ tvShowDetails.tagline }}
+                </h3>
                 <p class="mb-10">
                     {{ tvShowDetails.overview }}
                 </p>
