@@ -32,7 +32,7 @@
                 </div>
             </div>
             <TransitionFade :duration="{ enter: 1200, leave: 600 }" :delay="{ enter: 600, leave: 0 }">
-                <div v-if="currentRouteType === 'home' && lastWatchedMovie" class="absolute bottom-12 left-22.5 flex flex-col items-start gap-10">
+                <div v-if="currentRouteType === 'home' && lastWatchedMovie" class="pointer-events-auto absolute bottom-12 left-22.5 flex flex-col items-start gap-10">
                     <div>
                         <h1 class="mb-5">{{ lastWatchedMovie.title }}</h1>
                         <h3 class="mb-7">{{ lastWatchedMovie.tagline }}</h3>

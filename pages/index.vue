@@ -81,8 +81,9 @@
                 <h3>{{ $t("global.more") }}</h3>
             </div>
         </div>
-        <MovieSlider v-if="trendingMovies?.results" :after="{ text: $t('global.allMovies'), link: '/movie', icon: 'i-ph-film-strip-bold' }" :title="$t('home.trendingMovies')" :movies="trendingMovies.results" class="mb-10" />
-        <ShowSlider v-if="trendingShows?.results" :after="{ text: $t('global.allTvShows'), link: '/tv', icon: 'i-ph-television-simple-bold' }" :title="$t('home.trendingTvShows')" :shows="trendingShows.results" />
+        <MovieSlider v-if="trendingMovies?.results" :after="{ text: $t('global.allMovies'), link: '/movie', icon: 'i-ph-film-strip-bold' }" :title="$t('home.trendingMovies')" :overflow="true" :movies="trendingMovies.results" class="mb-10" />
+        <ShowSlider v-if="trendingShows?.results" :after="{ text: $t('global.allTvShows'), link: '/tv', icon: 'i-ph-television-simple-bold' }" :title="$t('home.trendingTvShows')" :overflow="true" :shows="trendingShows.results" />
+        <PersonSlider v-if="popularPersons?.results" :after="{ text: 'All People', link: '/person', icon: 'i-ph-user-bold' }" title="Trending People" :overflow="true" :cast="popularPersons.results" />
     </div>
 </template>
 
