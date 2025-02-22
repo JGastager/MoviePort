@@ -11,7 +11,7 @@
                 @click="loadMore = true"
             >
                 <span class="i-ph-plus-square-bold size-6" />
-                <h3>load more</h3>
+                <h3>{{ $t("global.loadMore") }}</h3>
             </div>
         </TransitionScale>
         <div v-show="more" ref="scrollTrigger" class="pointer-events-none h-10 opacity-0"></div>
