@@ -1,5 +1,5 @@
 <template>
-    <div>
+    <div class="ratings-page">
         <div v-if="isLoggedIn">
             <h2 class="mb-6">Average Ratings</h2>
             <div class="grid grid-cols-10 items-center gap">

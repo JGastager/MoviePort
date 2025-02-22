@@ -1,5 +1,5 @@
 <template>
-    <div>
+    <div class="person-page">
         <div class="grid grid-cols-10 mb-30 gap-15">
             <section class="col-span-2 h-full">
                 <div class="sticky top-12">
@@ -81,7 +81,7 @@
 import { useRoute } from "vue-router";
 import dayjs from "dayjs";
 import LocalizedFormat from "dayjs/plugin/localizedFormat";
-import { usePersonsStore } from "~/store/person";
+import { usePersonsStore } from "~/store/persons";
 import PersonImageSlider from "~/components/PersonImageSlider.vue";
 
 dayjs.extend(LocalizedFormat);

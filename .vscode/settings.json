@@ -7,5 +7,8 @@
   "prettier.enable": true, // Ensure Prettier runs
   "prettier.configPath": ".prettierrc",
   "eslint.lintTask.enable": false, // Prevent unnecessary background linting
-  "editor.formatOnSave": true // Use your Prettier config
+  "editor.formatOnSave": true,
+  "i18n-ally.localesPaths": [
+    "locales"
+  ] // Use your Prettier config
 }

@@ -1,5 +1,5 @@
 <template>
-    <div>
+    <div class="account-page">
         <div v-if="accountDetails">
             <div class="mb-10 flex items-center gap-8">
                 <img v-if="gravatarUrl" class="rounded-full" alt="Avatar" :src="gravatarUrl" />

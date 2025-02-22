@@ -1,5 +1,5 @@
 <template>
-    <div>
+    <div class="tv-page">
         <div class="grid grid-cols-10 mb-30 gap-15">
             <section class="col-span-2 h-full">
                 <div class="sticky top-12">
@@ -44,7 +44,7 @@
                     </div>
                 </TransitionScale>
                 <!-- <pre>{{tvShowSeasonDetails}}</pre> -->
-                <CastSlider v-if="tvShowCredits?.cast && tvShowCredits?.cast.length" :cast="tvShowCredits.cast" class="mb-10" />
+                <PersonSlider v-if="tvShowCredits?.cast && tvShowCredits?.cast.length" :cast="tvShowCredits.cast" class="mb-10" />
                 <ImageSlider v-if="showId" :tmdb-id="showId" type="tv" />
             </section>
             <section class="col-span-2 h-full">
@@ -137,6 +137,7 @@ function triggerPlay() {
     if (play.value) {
         window.scrollTo({ top: 0, behavior: "smooth" });
     }
+    localStorage.setItem("lastWatchedTVShow", JSON.stringify(tvShowDetails.value));
 }
 </script>
 

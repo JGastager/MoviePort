@@ -1,5 +1,5 @@
 <template>
-    <div>
+    <div class="movie-page">
         <div class="grid grid-cols-10 mb-30 gap-15">
             <section class="col-span-2 h-full">
                 <div class="sticky top-12">
@@ -21,7 +21,7 @@
                     {{ movieDetails.overview }}
                 </p>
                 <Genres :genres="movieDetails.genres" class="mb-10" />
-                <CastSlider v-if="movieCredits?.cast && movieCredits?.cast.length" :cast="movieCredits.cast" class="mb-10" />
+                <PersonSlider v-if="movieCredits?.cast && movieCredits?.cast.length" :cast="movieCredits.cast" class="mb-10" />
                 <ImageSlider v-if="movieId" :tmdb-id="movieId" type="movie" />
             </section>
             <section class="col-span-2 h-full">
@@ -132,6 +132,7 @@ function triggerPlay() {
     if (play.value) {
         window.scrollTo({ top: 0, behavior: "smooth" });
     }
+    localStorage.setItem("lastWatchedMovie", JSON.stringify(movieDetails.value));
 }
 </script>
 

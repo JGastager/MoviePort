@@ -1,5 +1,5 @@
 <template>
-    <div>
+    <div class="favorites-page">
         <div v-if="isLoggedIn">
             <div v-if="favoriteMovies?.results?.length" class="favoriteMovies">
                 <MediaListing title="Favorite Movies" :media="[...favoriteMovies.results].reverse()" type="movie" />

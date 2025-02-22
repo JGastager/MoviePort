@@ -1,5 +1,5 @@
 <template>
-    <div>
+    <div class="watchlist-page">
         <div v-if="isLoggedIn">
             <div v-if="watchlistMovies?.results?.length" class="watchlistMovies">
                 <MediaListing title="Watchlisted Movies" type="movie" :media="[...watchlistMovies.results].reverse()" />
