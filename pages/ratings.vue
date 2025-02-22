@@ -7,7 +7,7 @@
                 <RatingAverage class="col-span-2 mb-10" />
             </div>
             <div v-if="ratedMovies?.results?.length" class="ratedMovies">
-                <MediaListing title="Rated Movies" type="movie" :media="[...ratedMovies.results].reverse()" />
+                <MediaListing title="Rated Movies" type="movie" :media="[...ratedMovies.results].reverse()" class="mb-10" />
             </div>
             <div v-if="ratedTVShows?.results?.length" class="ratedTVShows">
                 <MediaListing title="Rated TV Shows" type="tv" :media="[...ratedTVShows.results].reverse()" />

@@ -1,5 +1,23 @@
 <template>
-    <div class="h-6 flex items-center gap-1.5">
+    <div v-if="size === 'large'" class="h-6 flex items-center gap-2.5">
+        <div class="relative flex items-center gap-1 text-muted" :class="{ 'opacity-50 text-white': !ownRating }">
+            <span class="i-ph-star-bold inline-block size-6 bg-gradient-to-br" :class="{ 'from-orange-400 to-amber-400': ownRating >= 1 }" />
+            <span class="i-ph-star-bold inline-block size-6 bg-gradient-to-br" :class="{ 'from-orange-400 to-amber-400': ownRating >= 2 }" />
+            <span class="i-ph-star-bold inline-block size-6 bg-gradient-to-br" :class="{ 'from-orange-400 to-amber-400': ownRating >= 3 }" />
+            <span class="i-ph-star-bold inline-block size-6 bg-gradient-to-br" :class="{ 'from-orange-400 to-amber-400': ownRating >= 4 }" />
+            <span class="i-ph-star-bold inline-block size-6 bg-gradient-to-br" :class="{ 'from-orange-400 to-amber-400': ownRating == 5 }" />
+            <div class="pointer-events-none absolute h-full w-full flex items-center gap-1">
+                <span v-if="(starRating >= 1 && !ownRating) || ownRating >= 1" class="i-ph-star-fill size-6 bg-gradient-to-br" :class="{ 'from-orange-400 to-amber-400': ownRating }" />
+                <span v-if="(starRating >= 2 && !ownRating) || ownRating >= 2" class="i-ph-star-fill size-6 bg-gradient-to-br" :class="{ 'from-orange-400 to-amber-400': ownRating }" />
+                <span v-if="(starRating >= 3 && !ownRating) || ownRating >= 3" class="i-ph-star-fill size-6 bg-gradient-to-br" :class="{ 'from-orange-400 to-amber-400': ownRating }" />
+                <span v-if="(starRating >= 4 && !ownRating) || ownRating >= 4" class="i-ph-star-fill size-6 bg-gradient-to-br" :class="{ 'from-orange-400 to-amber-400': ownRating }" />
+                <span v-if="(starRating == 5 && !ownRating) || ownRating == 5" class="i-ph-star-fill size-6 bg-gradient-to-br" :class="{ 'from-orange-400 to-amber-400': ownRating }" />
+                <span v-if="starRating % 1 !== 0 && !ownRating" class="i-ph-star-half-fill size-6" />
+            </div>
+        </div>
+        <span v-if="rating" class="text-muted">{{ (rating / 2).toFixed(1) }}</span>
+    </div>
+    <div v-else class="h-6 flex items-center gap-1.5">
         <div class="relative flex items-center gap-0.5 text-muted" :class="{ 'opacity-50 text-white': !ownRating }">
             <span class="i-ph-star-bold inline-block size-4 bg-gradient-to-br" :class="{ 'from-orange-400 to-amber-400': ownRating >= 1 }" />
             <span class="i-ph-star-bold inline-block size-4 bg-gradient-to-br" :class="{ 'from-orange-400 to-amber-400': ownRating >= 2 }" />
@@ -31,6 +49,7 @@ const props = defineProps<{
     type: "movie" | "tv";
     tmdbId: number;
     rating: number;
+    size?: "small" | "large";
 }>();
 
 const accountStore = useAccountStore();
