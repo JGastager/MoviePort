@@ -135,6 +135,7 @@ function triggerPlay() {
     if (play.value) {
         window.scrollTo({ top: 0, behavior: "smooth" });
     }
+    localStorage.removeItem("lastWatchedMovie");
     localStorage.setItem("lastWatchedMovie", JSON.stringify(movieDetails.value));
 }
 </script>

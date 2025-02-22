@@ -40,7 +40,7 @@
                     <SearchBar />
                 </div>
             </div>
-            <TransitionFade :duration="{ enter: 1200, leave: 600 }" :delay="{ enter: 600, leave: 0 }">
+            <TransitionFade :duration="{ enter: 1200, leave: 600 }" :delay="{ enter: 1200, leave: 0 }">
                 <div v-if="currentRouteType === 'home' && lastWatchedMovie" class="pointer-events-auto absolute bottom-12 left-22.5 flex flex-col items-start gap-10">
                     <NuxtLink :to="'/movie/' + lastWatchedMovie.id">
                         <h1 class="mb-5">{{ lastWatchedMovie.title }}</h1>
@@ -119,7 +119,7 @@ html:has(#backdrop #player) header {
     height: 100vh;
 }
 html:has(.home-page) header {
-    height: 560px;
+    height: 600px;
 }
 html:has(.movies-page) header,
 html:has(.tvs-page) header,

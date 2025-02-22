@@ -140,6 +140,7 @@ function triggerPlay() {
     if (play.value) {
         window.scrollTo({ top: 0, behavior: "smooth" });
     }
+    localStorage.removeItem("lastWatchedTVShow");
     localStorage.setItem("lastWatchedTVShow", JSON.stringify(tvShowDetails.value));
 }
 </script>
