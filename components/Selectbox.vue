@@ -5,8 +5,8 @@
                 <span v-if="selectedValue" class="active"></span>
             </Transition>
             {{ findActiveLabel() || placeholder }}
-            <span class="i-ph-caret-down-bold caret" :style="caretStyle" />
-            <span v-if="deselect && selectedValue" class="deselect i-ph-x-bold mr-2" @click.stop="clearSelection" />
+            <span class="caret i-ph-caret-down-bold" :style="caretStyle" />
+            <span v-if="deselect && selectedValue" class="i-ph-x-bold deselect mr-2" @click.stop="clearSelection" />
         </div>
         <div ref="optionsRef" class="options" :style="dropdownOpen ? optionsStyle : 'height: 0;'">
             <div v-for="option in options" :key="getValue(option)" class="option" :style="optionStyle" tabindex="-1" @click="selectOption(option)" @blur="checkBlur" @keyup.enter="selectOption(option)">
