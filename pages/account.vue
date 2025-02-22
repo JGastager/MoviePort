@@ -45,7 +45,6 @@
 import { computed, onMounted, watch } from "vue";
 import { storeToRefs } from "pinia";
 import { useI18n } from "vue-i18n";
-import { FavoriteMovie } from "../types/account";
 import { useAccountStore } from "~/store/account";
 
 const accountStore = useAccountStore();
@@ -59,8 +58,8 @@ const { locales, locale } = useI18n();
 
 watch(selectedLanguage, (value) => {
     if (value) {
-        setPreferredLanguage(value);
         locale.value = value;
+        setPreferredLanguage(value);
     }
 });
 

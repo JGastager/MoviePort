@@ -276,6 +276,13 @@ export const useAccountStore = defineStore("accountStore", {
 
             this.sessionId = localStorage.getItem("tmdb_session_id") || "";
 
+            try {
+                await this.initPreferredLang();
+            } catch (error) {
+                console.error("❌ Failed to get preferredLanguage:", error);
+            }
+            this.initPreferredLang();
+
             if (!this.sessionId) {
                 console.log("❌ No session ID found. User is not logged in.");
                 return;
@@ -295,8 +302,16 @@ export const useAccountStore = defineStore("accountStore", {
                 console.error("❌ Failed to restore account:", error);
             }
         },
-        setPreferredLanguage(language: string) {
-            this.preferredLanguage = language;
+        async initPreferredLang() {
+            const i18nCookie = useCookie("i18n_redirected");
+            if (i18nCookie.value) {
+                this.preferredLanguage = i18nCookie.value;
+            }
+        },
+        setPreferredLanguage(lang: string) {
+            this.preferredLanguage = lang;
+            const i18nCookie = useCookie("i18n_redirected", { maxAge: 60 * 60 * 24 * 365 }); // Set cookie for 1 year
+            i18nCookie.value = lang;
         },
     },
 });
