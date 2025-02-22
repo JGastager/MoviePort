@@ -1,4 +1,23 @@
 {
+    "global": {
+        "search": "Search",
+        "searchPlaceholder": "Search for movies or TV shows",
+        "menu": "Menu",
+        "more": "more",
+        "language": "Language",
+        "favorites": "Favorites",
+        "ratings": "Ratings",
+        "watchlist": "Watchlist",
+        "movies": "Movies",
+        "tvShows": "TV shows",
+        "allMovies": "all movies",
+        "allTvShows": "all TV shows",
+        "loadMore": "load more"
+    },
+    "home": {
+        "trendingMovies": "Trending movies",
+        "trendingTvShows": "Trending TV shows"
+    },
     "account": {
         "login": "Login",
         "hello": "Hello",
@@ -8,7 +27,7 @@
         "favoriteTvShows": "Favorite TV shows",
         "ratedMovies": "Rated movies",
         "ratedTvShows": "Rated TV shows",
-        "watchListMovies": "Watchlist movies",
-        "watchListTvShows": "Watchlist TV shows"
+        "watchlistMovies": "Watchlist movies",
+        "watchlistTvShows": "Watchlist TV shows"
     }
 }

@@ -1,4 +1,23 @@
 {
+    "global": {
+        "search": "Suche",
+        "searchPlaceholder": "Suche nach Filmen oder Serien",
+        "menu": "Menü",
+        "more": "mehr",
+        "language": "Sprache",
+        "favorites": "Favoriten",
+        "ratings": "Bewertungen",
+        "watchlist": "Merkliste",
+        "movies": "Filme",
+        "tvShows": "Serien",
+        "allMovies": "alle Filme",
+        "allTvShows": "alle Serien",
+        "loadMore": "mehr laden"
+    },
+    "home": {
+        "trendingMovies": "Angesagte Filme",
+        "trendingTvShows": "Angesagte Serien"
+    },
     "account": {
         "login": "Anmelden",
         "hello": "Hallo",
@@ -8,7 +27,7 @@
         "favoriteTvShows": "Lieblingsserien",
         "ratedMovies": "Bewertete Filme",
         "ratedTvShows": "Bewertete Serien",
-        "watchListMovies": "Merkliste Filme",
-        "watchListTvShows": "Merkliste Serien"
+        "watchlistMovies": "Merkliste Filme",
+        "watchlistTvShows": "Merkliste Serien"
     }
 }

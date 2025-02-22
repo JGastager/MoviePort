@@ -19,22 +19,22 @@
             </div>
             <div class="lists">
                 <div v-if="favoriteMovies?.results?.length" class="favoriteMovies">
-                    <MediaListing title="Favorite Movies" :media="favoriteMovies.results" type="movie" />
+                    <MediaListing :title="$t('account.favoriteMovies')" :media="favoriteMovies.results" type="movie" />
                 </div>
                 <div v-if="favoriteTVShows?.results?.length" class="favoriteTVShows">
-                    <MediaListing title="Favorite TV Shows" :media="favoriteTVShows.results" type="tv" />
+                    <MediaListing :title="$t('account.favoriteTvShows')" :media="favoriteTVShows.results" type="tv" />
                 </div>
                 <div v-if="ratedMovies?.results?.length" class="ratedMovies">
-                    <MediaListing title="Rated Movies" :media="ratedMovies.results" type="movie" />
+                    <MediaListing :title="$t('account.ratedMovies')" :media="ratedMovies.results" type="movie" />
                 </div>
                 <div v-if="ratedTVShows?.results?.length" class="ratedTVShows">
-                    <MediaListing title="Rated TV Shows" :media="ratedTVShows.results" type="tv" />
+                    <MediaListing :title="$t('account.ratedTvShows')" :media="ratedTVShows.results" type="tv" />
                 </div>
                 <div v-if="watchlistMovies?.results?.length" class="watchlistMovies">
-                    <MediaListing title="Watchlist Movies" :media="watchlistMovies.results" type="movie" />
+                    <MediaListing :title="$t('account.watchlistMovies')" :media="watchlistMovies.results" type="movie" />
                 </div>
                 <div v-if="watchlistTVShows?.results?.length" class="watchlistTVShows">
-                    <MediaListing title="Watchlist TV Shows" :media="watchlistTVShows.results" type="tv" />
+                    <MediaListing :title="$t('account.watchlistTvShows')" :media="watchlistTVShows.results" type="tv" />
                 </div>
             </div>
         </div>
@@ -45,6 +45,7 @@
 import { computed, onMounted, watch } from "vue";
 import { storeToRefs } from "pinia";
 import { useI18n } from "vue-i18n";
+import { FavoriteMovie } from "../types/account";
 import { useAccountStore } from "~/store/account";
 
 const accountStore = useAccountStore();

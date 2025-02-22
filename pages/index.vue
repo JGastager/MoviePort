@@ -12,7 +12,7 @@
                 </Transition>
                 <div class="relative h-full w-full flex flex-col items-center justify-center gap-2.5 bg-primary/30 backdrop-blur transition-colors duration-300 group-hover:bg-primary/50">
                     <span class="i-ph-film-strip size-9" />
-                    <h3>Movies</h3>
+                    <h3>{{ $t("global.movies") }}</h3>
                 </div>
                 <NuxtLink to="/movie" class="absolute inset-0 h-full w-full" />
             </div>
@@ -27,7 +27,7 @@
                 </Transition>
                 <div class="relative h-full w-full flex flex-col items-center justify-center gap-2.5 bg-primary/30 backdrop-blur transition-colors duration-300 group-hover:bg-primary/50">
                     <span class="i-ph-television-simple size-9" />
-                    <h3>TV Shows</h3>
+                    <h3>{{ $t("global.tvShows") }}</h3>
                 </div>
                 <NuxtLink to="/tv" class="absolute inset-0 h-full w-full" />
             </div>
@@ -42,7 +42,7 @@
                 </Transition>
                 <div class="relative h-full w-full flex flex-col items-center justify-center gap-2.5 bg-primary/30 backdrop-blur transition-colors duration-300 group-hover:bg-primary/50">
                     <span class="i-ph-bookmark-simple size-9" />
-                    <h3>Watchlist</h3>
+                    <h3>{{ $t("global.watchlist") }}</h3>
                 </div>
                 <NuxtLink to="/watchlist" class="absolute inset-0 h-full w-full" />
             </div>
@@ -57,7 +57,7 @@
                 </Transition>
                 <div class="relative h-full w-full flex flex-col items-center justify-center gap-2.5 bg-primary/30 backdrop-blur transition-colors duration-300 group-hover:bg-primary/50">
                     <span class="i-ph-star size-9" />
-                    <h3>Ratings</h3>
+                    <h3>{{ $t("global.ratings") }}</h3>
                 </div>
                 <NuxtLink to="/ratings" class="absolute inset-0 h-full w-full" />
             </div>
@@ -72,17 +72,17 @@
                 </Transition>
                 <div class="relative h-full w-full flex flex-col items-center justify-center gap-2.5 bg-primary/30 backdrop-blur transition-colors duration-300 group-hover:bg-primary/50">
                     <span class="i-ph-heart size-9" />
-                    <h3>Favorites</h3>
+                    <h3>{{ $t("global.favorites") }}</h3>
                 </div>
                 <NuxtLink to="/favorites" class="absolute inset-0 h-full w-full" />
             </div>
             <div v-if="!isLoggedIn" class="relative col-span-1 flex flex-shrink-0 flex-col cursor-pointer items-center justify-center gap-2.5 card transition-colors duration-300 focus:bg-primary/50 hover:bg-primary/50">
                 <span class="i-ph-plus-square size-9" />
-                <h3>more</h3>
+                <h3>{{ $t("global.more") }}</h3>
             </div>
         </div>
-        <MovieSlider v-if="trendingMovies?.results" :after="{ text: 'All movies', link: '/movie', icon: 'i-ph-film-strip-bold' }" title="Trending movies" :movies="trendingMovies.results" class="mb-10" />
-        <ShowSlider v-if="trendingShows?.results" :after="{ text: 'All TV shows', link: '/tv', icon: 'i-ph-television-simple-bold' }" title="Trending TV shows" :shows="trendingShows.results" />
+        <MovieSlider v-if="trendingMovies?.results" :after="{ text: $t('global.allMovies'), link: '/movie', icon: 'i-ph-film-strip-bold' }" :title="$t('home.trendingMovies')" :movies="trendingMovies.results" class="mb-10" />
+        <ShowSlider v-if="trendingShows?.results" :after="{ text: $t('global.allTvShows'), link: '/tv', icon: 'i-ph-television-simple-bold' }" :title="$t('home.trendingTvShows')" :shows="trendingShows.results" />
     </div>
 </template>
 
