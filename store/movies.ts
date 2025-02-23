@@ -47,7 +47,9 @@ export const useMoviesStore = defineStore("moviesStore", {
                 console.log(`✅ Successfully loaded movie details ${movieId} from store.`);
             } else {
                 try {
-                    this.movieDetails = await $fetch<TMDBMovieDetailsResponse>(`/api/movie/${movieId}`);
+                    this.movieDetails = await $fetch<TMDBMovieDetailsResponse>(`/api/movie/${movieId}`, {
+                        query: { append_to_response: "translations" },
+                    });
                     console.log(`✅ Fetched movie details ${movieId}`);
                 } catch (error) {
                     console.error(`❌ Error fetching movie details ${movieId}:`, error);

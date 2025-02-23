@@ -15,13 +15,13 @@
             </section>
             <section class="col-span-6">
                 <h1 class="mb-10">
-                    {{ tvShowDetails.name }}
+                    {{ translatedContent.name }}
                 </h1>
                 <h3 class="mb-10">
-                    {{ tvShowDetails.tagline }}
+                    {{ translatedContent.tagline }}
                 </h3>
                 <p class="mb-10">
-                    {{ tvShowDetails.overview }}
+                    {{ translatedContent.overview }}
                 </p>
                 <Genres :genres="tvShowDetails.genres" class="mb-20" />
                 <h2 class="mb-6">{{ $t("tvShowDetails.seasons") }}</h2>
@@ -52,6 +52,9 @@
             </section>
             <section class="col-span-2 h-full">
                 <div class="sticky top-12">
+                    <div class="mb-10">
+                        <Selectbox v-model="selectedDetailsLanguage" :deselect="false" :options="tvShowDetails.translations.translations" label-field="english_name" value-field="iso_639_1" class="relative w-max !z-100" />
+                    </div>
                     <div class="mb-10 flex flex-wrap gap-2.5">
                         <RatingButton :rating="tvShowDetails.vote_average" :tmdb-id="showId" type="tv" />
                         <FavoriteButton :tmdb-id="showId" type="tv" />
@@ -109,6 +112,7 @@ import dayjs from "dayjs";
 import { useRoute } from "vue-router";
 import { storeToRefs } from "pinia";
 import { useShowsStore } from "~/store/shows";
+import { useAccountStore } from "~/store/account";
 
 const play = ref(false);
 
@@ -118,16 +122,49 @@ const activeEpisode = ref(1);
 const route = useRoute();
 
 const showId = Number(route.params.id);
+const selectedDetailsLanguage = ref<string | null>(null);
+const translatedContent = computed(() => {
+    if (selectedDetailsLanguage.value) {
+        const translation = tvShowDetails.value?.translations.translations.find((translation) => translation.iso_639_1 === selectedDetailsLanguage.value);
+        if (translation) {
+            return {
+                overview: translation.data.overview || null,
+                tagline: translation.data.tagline || null,
+                name: translation.data.name || tvShowDetails.value?.name,
+            };
+        }
+    }
+    return {
+        overview: tvShowDetails.value?.overview,
+        tagline: tvShowDetails.value?.tagline,
+        name: tvShowDetails.value?.name,
+    };
+});
 
 watch(activeSeason, async (newSeason) => {
     await fetchTvShowSeasonDetails(showId, newSeason);
 });
 
 const showsStore = useShowsStore();
+const accountStore = useAccountStore();
+const { preferredLanguage } = storeToRefs(accountStore);
+
 const { fetchTvShowDetails, fetchTvShowCredits, fetchTvShowSeasonDetails, fetchSimilarTvShows } = showsStore;
 const { tvShowDetails, tvShowCredits, similarTvShows, tvShowSeasonDetails } = storeToRefs(showsStore);
 
 await fetchTvShowDetails(showId);
+
+selectedDetailsLanguage.value = hasPreferredLanguage(preferredLanguage.value);
+
+function hasPreferredLanguage(language: string) {
+    for (const translation of tvShowDetails.value?.translations?.translations) {
+        if (translation.iso_639_1 === language) {
+            return translation.iso_639_1;
+        }
+    }
+    return "en";
+}
+
 useHead({
     title: `${tvShowDetails.value?.name} | MoviePort`,
 });

@@ -15,13 +15,13 @@
             </section>
             <section class="col-span-6">
                 <h1 class="mb-10">
-                    {{ movieDetails.title }}
+                    {{ translatedContent.title }}
                 </h1>
                 <h3 class="mb-10">
-                    {{ movieDetails.tagline }}
+                    {{ translatedContent.tagline }}
                 </h3>
                 <p class="mb-10">
-                    {{ movieDetails.overview }}
+                    {{ translatedContent.overview }}
                 </p>
                 <Genres :genres="movieDetails.genres" class="mb-10" />
                 <PersonSlider v-if="movieCredits?.cast && movieCredits?.cast.length" :cast="movieCredits.cast" class="mb-10" />
@@ -29,6 +29,9 @@
             </section>
             <section class="col-span-2 h-full">
                 <div class="sticky top-12">
+                    <div class="mb-10">
+                        <Selectbox v-model="selectedDetailsLanguage" :deselect="false" :options="movieDetails.translations.translations" label-field="english_name" value-field="iso_639_1" class="relative w-max !z-100" />
+                    </div>
                     <div class="mb-10 flex flex-wrap gap-2.5">
                         <RatingButton :rating="movieDetails.vote_average" :tmdb-id="movieId" type="movie" />
                         <FavoriteButton :tmdb-id="movieId" type="movie" />
@@ -101,6 +104,7 @@ import { computed, ref } from "vue";
 import { useRoute } from "vue-router";
 import { storeToRefs } from "pinia";
 import { useMoviesStore } from "~/store/movies";
+import { useAccountStore } from "~/store/account";
 import type { TMDBCredit } from "~/types/person";
 
 const play = ref(false);
@@ -118,12 +122,44 @@ const writers = computed(() => {
 const route = useRoute();
 
 const movieId = Number(route.params.id);
+const selectedDetailsLanguage = ref<string | null>(null);
+const translatedContent = computed(() => {
+    if (selectedDetailsLanguage.value) {
+        const translation = movieDetails.value?.translations.translations.find((translation) => translation.iso_639_1 === selectedDetailsLanguage.value);
+        if (translation) {
+            return {
+                overview: translation.data.overview || null,
+                tagline: translation.data.tagline || null,
+                title: translation.data.title || movieDetails.value?.title,
+            };
+        }
+    }
+    return {
+        overview: movieDetails.value?.overview,
+        tagline: movieDetails.value?.tagline,
+        title: movieDetails.value?.title,
+    };
+});
 
 const movieStore = useMoviesStore();
+const accountStore = useAccountStore();
+const { preferredLanguage } = storeToRefs(accountStore);
 const { fetchMovieDetails, fetchMovieCredits, fetchSimilarMovies } = movieStore;
 const { movieDetails, movieCredits, similarMovies } = storeToRefs(movieStore);
 
 await fetchMovieDetails(movieId);
+
+selectedDetailsLanguage.value = hasPreferredLanguage(preferredLanguage.value);
+
+function hasPreferredLanguage(language: string) {
+    for (const translation of movieDetails.value?.translations?.translations) {
+        if (translation.iso_639_1 === language) {
+            return translation.iso_639_1;
+        }
+    }
+    return "en";
+}
+
 useHead({
     title: `${movieDetails.value?.title} | MoviePort`,
 });
