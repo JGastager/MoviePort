@@ -12,11 +12,16 @@
         "tvShows": "Serien",
         "allMovies": "alle Filme",
         "allTvShows": "alle Serien",
-        "loadMore": "mehr laden"
+        "allPeople": "alle Personen",
+        "loadMore": "mehr laden",
+        "people": "Personen",
+        "minutes": "Minuten",
+        "images": "Bilder"
     },
     "home": {
         "trendingMovies": "Angesagte Filme",
-        "trendingTvShows": "Angesagte Serien"
+        "trendingTvShows": "Angesagte Serien",
+        "trendingPeople": "Angesagte Personen"
     },
     "account": {
         "login": "Anmelden",
@@ -29,5 +34,30 @@
         "ratedTvShows": "Bewertete Serien",
         "watchlistMovies": "Merkliste Filme",
         "watchlistTvShows": "Merkliste Serien"
-    }
+    },
+    "movieDetails": {
+        "watchNow": "jetzt ansehen",   
+        "duration": "Dauer",
+        "release": "Veröffentlichung",
+        "trailer": "Trailer",
+        "director": "Regisseur",
+        "script": "Drehbuch",
+        "composers" : "Komponisten",
+        "production": "Produktion",
+        "relatedMovies": "Ähnliche Filme"
+    },
+    "tvShowDetails": {
+        "watchNow": "jetzt ansehen",   
+        "duration": "Dauer",
+        "firstAirDate": "Erstausstrahlung",
+        "status": "Status", 
+        "trailer": "Trailer",
+        "creator" : "Schöpfer",
+        "production": "Produktion",
+        "relatedTvShows": "Ähnliche Serien",
+        "seasons": "Staffeln",
+        "season": "Staffel",
+        "specials": "Specials"
+    },
+    "personDetails": {}
 }

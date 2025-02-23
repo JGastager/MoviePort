@@ -6,7 +6,7 @@
                     <div class="mb-10 flex flex-wrap gap-3">
                         <div class="button" @click="triggerPlay()">
                             <span class="i-ph-play-bold size-6" />
-                            <span>Watch now</span>
+                            <span>{{ $t("movieDetails.watchNow") }}</span>
                         </div>
                         <WatchlistButton :tmdb-id="movieId" type="movie" />
                     </div>
@@ -35,11 +35,11 @@
                     </div>
                     <div class="mb-10">
                         <div class="flex items-center justify-between gap-3">
-                            <h3>Duration</h3>
-                            <span class="text-muted">{{ movieDetails.runtime }} minutes</span>
+                            <h3>{{ $t("movieDetails.duration") }}</h3>
+                            <span class="text-muted">{{ movieDetails.runtime }} {{ $t("global.minutes") }}</span>
                         </div>
                         <div class="flex items-center justify-between gap-3">
-                            <h3>Release</h3>
+                            <h3>{{ $t("movieDetails.release") }}</h3>
                             <span class="text-muted">{{ $dayjs(movieDetails.release_date).get("year") }}</span>
                         </div>
                     </div>
@@ -52,7 +52,7 @@
                         <ShareButton type="movie" />
                     </div>
                     <div v-if="directors?.length" class="mb-3 flex items-start justify-between gap-3">
-                        <h3>Director</h3>
+                        <h3>{{ $t("movieDetails.director") }}</h3>
                         <ul class="m-0 p-0">
                             <li v-for="director in directors" :key="director.id" class="list-none text-right text-muted line-height-27px">
                                 {{ director.name }}
@@ -60,7 +60,7 @@
                         </ul>
                     </div>
                     <div v-if="writers?.length" class="mb-3 flex items-start justify-between gap-3">
-                        <h3>Script</h3>
+                        <h3>{{ $t("movieDetails.script") }}</h3>
                         <ul class="m-0 p-0">
                             <li v-for="writer in writers" :key="writer.id" class="list-none text-right text-muted line-height-27px">
                                 {{ writer.name }}
@@ -68,7 +68,7 @@
                         </ul>
                     </div>
                     <div v-if="composers?.length" class="mb-3 flex items-start justify-between gap-3">
-                        <h3>Score</h3>
+                        <h3>{{ $t("movieDetails.composers") }}</h3>
                         <ul class="m-0 p-0">
                             <li v-for="composer in composers" :key="composer.id" class="list-none text-right text-muted line-height-27px">
                                 {{ composer.name }}
@@ -76,7 +76,7 @@
                         </ul>
                     </div>
                     <div v-if="movieDetails?.production_companies?.length" class="mb-3 flex items-start justify-between gap-3">
-                        <h3>Production</h3>
+                        <h3>{{ $t("movieDetails.production") }}</h3>
                         <ul class="m-0 p-0">
                             <li v-for="producer in movieDetails.production_companies" :key="producer.id" class="list-none text-right text-muted line-height-27px">
                                 <span>{{ producer.name }}</span>
@@ -87,7 +87,7 @@
             </section>
         </div>
         <!-- <pre>{{ details }}</pre> -->
-        <MediaListing v-if="similarMovies?.results" title="Related movies" :media="similarMovies.results" type="movie" />
+        <MediaListing v-if="similarMovies?.results" :title="$t('movieDetails.relatedMovies')" :media="similarMovies.results" type="movie" />
         <Teleport v-if="play" to="#backdrop">
             <TransitionFade>
                 <Player v-if="play && movieDetails?.id" :tmdb-id="movieDetails.id" type="movie" />

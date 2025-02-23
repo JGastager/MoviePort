@@ -87,7 +87,7 @@
                 </Transition>
                 <div class="relative h-full w-full flex flex-col items-center justify-center gap-2.5 bg-primary/30 backdrop-blur-xl transition-colors duration-300 group-hover:bg-primary/50">
                     <span class="i-ph-user-bold size-6" />
-                    <h3>People</h3>
+                    <h3>{{ $t("global.people") }}</h3>
                 </div>
                 <NuxtLink to="/person" class="absolute inset-0 h-full w-full" />
             </div>
@@ -98,7 +98,7 @@
         </div>
         <MovieSlider v-if="trendingMovies?.results" :after="{ text: $t('global.allMovies'), link: '/movie', icon: 'i-ph-film-strip-bold' }" :title="$t('home.trendingMovies')" :overflow="true" :movies="trendingMovies.results" class="mb-10" />
         <ShowSlider v-if="trendingShows?.results" :after="{ text: $t('global.allTvShows'), link: '/tv', icon: 'i-ph-television-simple-bold' }" :title="$t('home.trendingTvShows')" :overflow="true" :shows="trendingShows.results" />
-        <PersonSlider v-if="popularPersons?.results" :after="{ text: 'All People', link: '/person', icon: 'i-ph-user-bold' }" title="Trending People" :overflow="true" :cast="popularPersons.results" />
+        <PersonSlider v-if="popularPersons?.results" :after="{ text: $t('global.allPeople'), link: '/person', icon: 'i-ph-user-bold' }" :title="$t('home.trendingPeople')" :overflow="true" :cast="popularPersons.results" />
     </div>
 </template>
 

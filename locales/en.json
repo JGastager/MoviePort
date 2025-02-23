@@ -12,11 +12,16 @@
         "tvShows": "TV shows",
         "allMovies": "all movies",
         "allTvShows": "all TV shows",
-        "loadMore": "load more"
+        "allPeople": "all people",
+        "loadMore": "load more",
+        "people": "People",
+        "minutes": "minutes",
+        "images": "Images"
     },
     "home": {
         "trendingMovies": "Trending movies",
-        "trendingTvShows": "Trending TV shows"
+        "trendingTvShows": "Trending TV shows",
+        "trendingPeople": "Trending people"
     },
     "account": {
         "login": "Login",
@@ -29,5 +34,29 @@
         "ratedTvShows": "Rated TV shows",
         "watchlistMovies": "Watchlist movies",
         "watchlistTvShows": "Watchlist TV shows"
+    },
+    "movieDetails": {
+        "watchNow": "Watch now",
+        "duration": "Duration",
+        "release": "Release",
+        "trailer": "Trailer",
+        "director": "Director",
+        "script": "Script",
+        "composers": "Composers",
+        "production": "Production",
+        "relatedMovies": "Related movies"
+    },
+    "tvShowDetails": {
+        "watchNow": "Watch now",
+        "duration": "Duration",
+        "firstAirDate": "First air date",
+        "status": "Status",
+        "trailer": "Trailer",
+        "creator": "Creator",
+        "production": "Production",
+        "relatedTvShows": "Related TV shows",
+        "seasons": "Seasons",
+        "season": "Season",
+        "specials": "Specials"
     }
 }

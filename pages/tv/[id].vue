@@ -6,7 +6,7 @@
                     <div class="mb-10 flex flex-wrap gap-3">
                         <div class="button" @click="triggerPlay()">
                             <span class="i-ph-play-bold size-6" />
-                            <span>Watch now</span>
+                            <span>{{ $t("tvShowDetails.watchNow") }}</span>
                         </div>
                         <WatchlistButton :tmdb-id="showId" type="tv" />
                     </div>
@@ -24,7 +24,7 @@
                     {{ tvShowDetails.overview }}
                 </p>
                 <Genres :genres="tvShowDetails.genres" class="mb-20" />
-                <h2 class="mb-6">Seasons</h2>
+                <h2 class="mb-6">{{ $t("tvShowDetails.seasons") }}</h2>
                 <div class="seasons mb-6 flex flex-wrap gap-3">
                     <div
                         v-for="season in tvShowDetails.seasons"
@@ -33,9 +33,9 @@
                         :class="[activeSeason === season.season_number ? 'active' : null, season.season_number == 0 ? 'order-last' : null]"
                         @click="activeSeason = season.season_number"
                     >
-                        <div v-if="season.season_number == 0" class="ml-3">Specials</div>
+                        <div v-if="season.season_number == 0" class="ml-3">{{ $t("tvShowDetails.specials") }}</div>
                         <template v-else>
-                            <span>Season</span>
+                            <span>{{ $t("tvShowDetails.season") }}</span>
                             <span class="ml-3">{{ season.season_number }}</span>
                         </template>
                     </div>
@@ -58,11 +58,11 @@
                     </div>
                     <div class="mb-10">
                         <div class="flex items-center justify-between gap-3">
-                            <h3>First Air Date</h3>
+                            <h3>{{ $t("tvShowDetails.firstAirDate") }}</h3>
                             <span class="text-muted">{{ dayjs(tvShowDetails.first_air_date).year() }}</span>
                         </div>
                         <div class="flex items-center justify-between gap-3">
-                            <h3>Status</h3>
+                            <h3>{{ $t("tvShowDetails.status") }}</h3>
                             <span class="text-muted">{{ tvShowDetails.status }}</span>
                         </div>
                     </div>
@@ -75,7 +75,7 @@
                         <ShareButton type="tv" />
                     </div>
                     <div v-if="tvShowDetails.created_by?.length" class="mb-3 flex items-start justify-between gap-3">
-                        <h3>Creator</h3>
+                        <h3>{{ $t("tvShowDetails.creator") }}</h3>
                         <ul class="m-0 p-0">
                             <li v-for="creator in tvShowDetails.created_by" :key="creator.id" class="list-none text-right text-muted line-height-27px">
                                 {{ creator.name }}
@@ -83,7 +83,7 @@
                         </ul>
                     </div>
                     <div v-if="tvShowDetails?.production_companies?.length" class="mb-3 flex items-start justify-between gap-3">
-                        <h3>Production</h3>
+                        <h3>{{ $t("tvShowDetails.production") }}</h3>
                         <ul class="m-0 p-0">
                             <li v-for="producer in tvShowDetails.production_companies" :key="producer.id" class="list-none text-right text-muted line-height-27px">
                                 <span>{{ producer.name }}</span>
@@ -94,7 +94,7 @@
             </section>
         </div>
         <!-- <pre>{{ details }}</pre> -->
-        <MediaListing v-if="similarTvShows?.results" title="Related TV shows" :media="similarTvShows.results" type="tv" />
+        <MediaListing v-if="similarTvShows?.results" :title="$t('tvShowDetails.relatedTvShows')" :media="similarTvShows.results" type="tv" />
         <Teleport v-if="play" to="#backdrop">
             <TransitionFade>
                 <Player v-if="play && tvShowDetails?.id" :tmdb-id="tvShowDetails.id" :season="activeSeason" :episode="activeEpisode" type="tv" />
