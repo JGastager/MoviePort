@@ -33,8 +33,8 @@
         </div>
         <header class="pointer-events-none relative z-1 h-95 min-h-35 transition-all duration-800">
             <TransitionFade :duration="{ enter: 1200, leave: 600 }" :delay="{ enter: 600, leave: 0 }">
-                <div class="pointer-events-none absolute left-22.5 top-12 h-58">
-                    <Brand v-if="currentRouteType === 'home'" class="sticky top-12" />
+                <div v-if="currentRouteType === 'home'" class="pointer-events-none absolute left-22.5 top-12 h-58">
+                    <Brand class="sticky top-12" />
                 </div>
             </TransitionFade>
             <div class="sticky top-0 flex items-start justify-between px-22.5 py-12">
@@ -47,10 +47,10 @@
             </div>
             <TransitionFade :duration="{ enter: 1200, leave: 600 }" :delay="{ enter: 1200, leave: 0 }">
                 <div v-if="currentRouteType === 'home' && (lastWatchedMovie || popularMovie)" class="pointer-events-auto absolute bottom-12 left-22.5 flex flex-col items-start gap-10">
-                    <NuxtLink :to="'/movie/' + lastWatchedMovie ? lastWatchedMovie?.id : popularMovie?.id">
+                    <div>
                         <h1 class="mb-7">{{ lastWatchedMovie ? lastWatchedMovie?.title : popularMovie?.title }}</h1>
                         <p class="line-clamp-3 max-w-150 text-muted">{{ lastWatchedMovie ? lastWatchedMovie?.overview : popularMovie?.overview }}</p>
-                    </NuxtLink>
+                    </div>
                     <div class="flex items-center gap-2.5">
                         <NuxtLink v-if="lastWatchedMovie" :to="'/movie/' + lastWatchedMovie?.id" class="button">
                             <span class="i-ph-play-bold size-6" />
