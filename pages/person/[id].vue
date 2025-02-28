@@ -1,5 +1,5 @@
 <template>
-    <div class="person-page">
+    <div v-if="personDetails" class="person-page">
         <div class="grid grid-cols-10 mb-30 gap-15">
             <section class="col-span-2 h-full">
                 <div class="sticky top-12">
@@ -8,10 +8,10 @@
             </section>
             <section class="col-span-6">
                 <h1 class="mb-10">
-                    {{ personDetails.name }}
+                    {{ translatedContent.name }}
                 </h1>
                 <p class="mb-10">
-                    {{ personDetails.biography }}
+                    {{ translatedContent.biography }}
                 </p>
                 <PersonImageSlider :images="personDetails.images?.profiles.slice(1)" />
             </section>
@@ -68,6 +68,9 @@
                                 </NuxtLink>
                             </div>
                         </div>
+                        <div class="mt-10">
+                            <SelectBox v-model="selectedDetailsLanguage" :deselect="false" :options="personDetails.translations.translations" label-field="english_name" value-field="iso_639_1" class="relative w-max !z-100" />
+                        </div>
                     </div>
                 </div>
             </section>
@@ -82,6 +85,7 @@ import { useRoute } from "vue-router";
 import dayjs from "dayjs";
 import LocalizedFormat from "dayjs/plugin/localizedFormat";
 import { usePersonsStore } from "~/store/persons";
+import { useAccountStore } from "~/store/account";
 import PersonImageSlider from "~/components/PersonImageSlider.vue";
 
 dayjs.extend(LocalizedFormat);
@@ -90,12 +94,43 @@ const route = useRoute();
 const personId = Number(route.params.id);
 
 const personStore = usePersonsStore();
+const accountStore = useAccountStore();
+const { preferredLanguage } = storeToRefs(accountStore);
+
 const { fetchPersonDetails } = personStore;
 const { personDetails } = storeToRefs(personStore);
 
-onMounted(() => {
-    fetchPersonDetails(personId);
+await fetchPersonDetails(personId);
+
+const selectedDetailsLanguage = ref<string | null>(null);
+const translatedContent = computed(() => {
+    if (selectedDetailsLanguage.value) {
+        console.log(personDetails.value);
+        const translation = personDetails.value?.translations.translations.find((translation) => translation.iso_639_1 === selectedDetailsLanguage.value);
+        if (translation) {
+            return {
+                biography: translation.data.biography || null,
+                name: translation.data.name || personDetails.value?.name,
+            };
+        }
+    }
+    return {
+        biography: personDetails.value.biography,
+        name: personDetails.value.name,
+    };
 });
+
+selectedDetailsLanguage.value = hasPreferredLanguage(preferredLanguage.value);
+function hasPreferredLanguage(language: string) {
+    if (personDetails.value && personDetails.value.translations) {
+        for (const translation of personDetails.value.translations.translations) {
+            if (translation.iso_639_1 === language) {
+                return translation.iso_639_1;
+            }
+        }
+    }
+    return "en";
+}
 </script>
 
 <style></style>
