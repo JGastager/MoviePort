@@ -15,22 +15,22 @@
             </div>
             <div class="mb-10">
                 <h2 class="mb-5">{{ $t("account.yourLanguagePreference") }}</h2>
-                <Selectbox v-model="selectedLanguage" :deselect="false" :options="locales" label-field="name" value-field="code" :placeholder="$t('account.yourLanguagePreferencePlaceholder')" class="relative w-max !z-100" />
+                <SelectBox v-model="selectedLanguage" :deselect="false" :options="locales" label-field="name" value-field="code" :placeholder="$t('account.yourLanguagePreferencePlaceholder')" class="relative w-max !z-100" />
             </div>
             <div class="lists">
-                <div v-if="favoriteMovies?.results?.length" class="favoriteMovies">
+                <div v-if="favoriteMovies?.results?.length" class="favoriteMovies mb-10">
                     <MediaListing :title="$t('account.favoriteMovies')" :media="favoriteMovies.results" type="movie" />
                 </div>
-                <div v-if="favoriteTVShows?.results?.length" class="favoriteTVShows">
+                <div v-if="favoriteTVShows?.results?.length" class="favoriteTVShows mb-10">
                     <MediaListing :title="$t('account.favoriteTvShows')" :media="favoriteTVShows.results" type="tv" />
                 </div>
-                <div v-if="ratedMovies?.results?.length" class="ratedMovies">
+                <div v-if="ratedMovies?.results?.length" class="ratedMovies mb-10">
                     <MediaListing :title="$t('account.ratedMovies')" :media="ratedMovies.results" type="movie" />
                 </div>
-                <div v-if="ratedTVShows?.results?.length" class="ratedTVShows">
+                <div v-if="ratedTVShows?.results?.length" class="ratedTVShows mb-10">
                     <MediaListing :title="$t('account.ratedTvShows')" :media="ratedTVShows.results" type="tv" />
                 </div>
-                <div v-if="watchlistMovies?.results?.length" class="watchlistMovies">
+                <div v-if="watchlistMovies?.results?.length" class="watchlistMovies mb-10">
                     <MediaListing :title="$t('account.watchlistMovies')" :media="watchlistMovies.results" type="movie" />
                 </div>
                 <div v-if="watchlistTVShows?.results?.length" class="watchlistTVShows">

@@ -1,15 +1,32 @@
 <template>
-    <div class="select-box" tabindex="0" :style="dropdownStyle" @click.self="toggleDropdown" @blur="checkBlur" @keyup.enter="openDropdown" @keyup.esc="closeDropdown" @keyup.up="navigateOptions('up')" @keyup.down="navigateOptions('down')">
+    <div
+        class="select-box card backdrop-blur hover:bg-primary/50"
+        tabindex="0"
+        :style="dropdownStyle"
+        @click.self="toggleDropdown"
+        @blur="checkBlur"
+        @keyup.enter="openDropdown"
+        @keyup.esc="closeDropdown"
+        @keyup.up="navigateOptions('up')"
+        @keyup.down="navigateOptions('down')"
+    >
         <div class="selected" :style="selectedStyle" @click="toggleDropdown">
-            <Transition name="select-box-active">
-                <span v-if="selectedValue" class="active"></span>
-            </Transition>
+            <span v-if="selectedValue" class="active"></span>
             {{ findActiveLabel() || placeholder }}
-            <span class="caret i-ph-caret-down-bold" :style="caretStyle" />
+            <span class="caret i-ph-caret-down-bold size-5" :style="caretStyle" />
             <span v-if="deselect && selectedValue" class="i-ph-x-bold deselect mr-2" @click.stop="clearSelection" />
         </div>
         <div ref="optionsRef" class="options" :style="dropdownOpen ? optionsStyle : 'height: 0;'">
-            <div v-for="option in options" :key="getValue(option)" class="option" :style="optionStyle" tabindex="-1" @click="selectOption(option)" @blur="checkBlur" @keyup.enter="selectOption(option)">
+            <div
+                v-for="option in options"
+                :key="getValue(option)"
+                class="option h-10 flex cursor-pointer items-center rounded transition-colors duration-300 -my-1.5 last:mb-0 hover:bg-primary/20"
+                :style="optionStyle"
+                tabindex="-1"
+                @click="selectOption(option)"
+                @blur="checkBlur"
+                @keyup.enter="selectOption(option)"
+            >
                 {{ getLabel(option) }}
             </div>
         </div>
@@ -77,7 +94,7 @@ const optionsRef = ref<HTMLElement | null>(null);
 
 // Computed Styles
 const dropdownStyle = computed(() => ({
-    marginBottom: dropdownOpen.value ? `-${Math.min(props.options.length * props.height, props.maxHeight)}px` : "0",
+    marginBottom: dropdownOpen.value ? `-${Math.min(props.options.length * 34 + 3, props.maxHeight)}px` : "0",
 }));
 
 const selectedStyle = computed(() => ({
@@ -88,7 +105,7 @@ const selectedStyle = computed(() => ({
 const caretStyle = computed(() => (dropdownOpen.value ? { transform: "rotate(-180deg)" } : {}));
 
 const optionsStyle = computed(() => ({
-    height: dropdownOpen.value ? `${Math.min(props.options.length * props.height, props.maxHeight)}px` : "0",
+    height: dropdownOpen.value ? `${Math.min(props.options.length * 34 + 3, props.maxHeight)}px` : "0",
 }));
 
 const optionStyle = computed(() => ({
@@ -180,37 +197,33 @@ const focusOption = () => {
 .select-box {
     cursor: pointer;
     text-align: left;
-    transition: margin-bottom 0.3s ease;
+    transition:
+        margin-bottom 0.3s ease,
+        background-color 0.3s ease;
     overflow: hidden;
     min-width: 240px;
     z-index: 1;
-    background-color: transparent;
-    border-radius: 8px;
-    xbackground-color: rgb(112 112 112);
     font-size: 16px;
     color: #fff;
 }
 
 .select-box .selected {
-    padding: 0 1rem 0 1.25rem;
-    background-color: rgb(112 112 112 / 0.3) !important;
+    padding: 0 1rem;
     border-radius: 8px;
     color: #fff;
 }
 
 .select-box .options {
     transition: height 0.3s ease;
-    background-color: rgb(112 112 112) !important;
     overflow: auto;
 }
 
 .select-box .option {
-    padding: 0 1rem 0 1.25rem;
+    padding: 0 1rem;
 }
 
 .select-box .option:hover,
 .select-box .option:focus {
-    background-color: rgb(100 100 100);
     outline: none;
 }
 
@@ -218,7 +231,6 @@ const focusOption = () => {
 .select-box .caret {
     float: right;
     cursor: pointer;
-    line-height: 46px !important;
     height: 100%;
     transition: transform 0.3s ease;
 }

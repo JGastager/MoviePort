@@ -14,7 +14,7 @@
             <TransitionExpand>
                 <ul v-if="showResults" class="m-0 p-0">
                     <li
-                        v-for="(result, index) in searchMultiResults?.results.slice(0, 6)"
+                        v-for="(result, index) in searchMultiResults?.results.slice(0, 7)"
                         :key="result.id || index"
                         class="h-10 flex cursor-pointer items-center rounded transition-colors duration-300 -my-1.5 last:mb-0 hover:bg-primary/20"
                         @click="handleResultClick"

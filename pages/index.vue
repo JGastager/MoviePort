@@ -97,7 +97,7 @@
             </div>
         </div>
         <MovieSlider v-if="trendingMovies?.results" :after="{ text: $t('global.allMovies'), link: '/movie', icon: 'i-ph-film-strip-bold' }" :title="$t('home.trendingMovies')" :overflow="true" :movies="trendingMovies.results" class="mb-10" />
-        <ShowSlider v-if="trendingShows?.results" :after="{ text: $t('global.allTvShows'), link: '/tv', icon: 'i-ph-television-simple-bold' }" :title="$t('home.trendingTvShows')" :overflow="true" :shows="trendingShows.results" />
+        <ShowSlider v-if="trendingShows?.results" :after="{ text: $t('global.allTvShows'), link: '/tv', icon: 'i-ph-television-simple-bold' }" :title="$t('home.trendingTvShows')" :overflow="true" :shows="trendingShows.results" class="mb-10" />
         <PersonSlider v-if="popularPersons?.results" :after="{ text: $t('global.allPeople'), link: '/person', icon: 'i-ph-user-bold' }" :title="$t('home.trendingPeople')" :overflow="true" :cast="popularPersons.results" />
     </div>
 </template>

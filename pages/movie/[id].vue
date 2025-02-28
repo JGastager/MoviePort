@@ -29,9 +29,6 @@
             </section>
             <section class="col-span-2 h-full">
                 <div class="sticky top-12">
-                    <div class="mb-10">
-                        <Selectbox v-model="selectedDetailsLanguage" :deselect="false" :options="movieDetails.translations.translations" label-field="english_name" value-field="iso_639_1" class="relative w-max !z-100" />
-                    </div>
                     <div class="mb-10 flex flex-wrap gap-2.5">
                         <RatingButton :rating="movieDetails.vote_average" :tmdb-id="movieId" type="movie" />
                         <FavoriteButton :tmdb-id="movieId" type="movie" />
@@ -85,6 +82,9 @@
                                 <span>{{ producer.name }}</span>
                             </li>
                         </ul>
+                    </div>
+                    <div class="mt-10">
+                        <SelectBox v-model="selectedDetailsLanguage" :deselect="false" :options="movieDetails.translations.translations" label-field="english_name" value-field="iso_639_1" class="relative w-max !z-100" />
                     </div>
                 </div>
             </section>
