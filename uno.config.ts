@@ -1,7 +1,9 @@
 import { defineConfig, presetUno, presetIcons } from "unocss";
+import { compareColors, stringToColor } from "@iconify/utils/lib/colors";
+import { importDirectory, parseColors, runSVGO, deOptimisePaths } from "@iconify/tools";
+import type { IconifyJSON } from "@iconify/types";
 
 export default defineConfig({
-    presets: [presetUno(), presetIcons()],
     safelist: ["animate-fly-in", "animate-fly-off", "animate-wiggle"],
     theme: {
         colors: {
@@ -62,5 +64,65 @@ export default defineConfig({
                 display: "none",
             }),
         ],
+    ],
+    presets: [
+        presetUno(),
+        presetIcons({
+            prefix: "i-",
+            autoInstall: false,
+            collections: {
+                // Loading IconifyJSON data
+                // test: async () => {
+                //     const content = await fs.readFile("./assets/test.json", "utf8");
+                //     return JSON.parse(content);
+                // },
+                // Loading icon set
+                // Moved to a separate function to make it easier to understand and reuse it
+                custom: async (): Promise<IconifyJSON> => {
+                    // Load icons
+                    const iconSet = await importDirectory("assets/icons", {
+                        prefix: "svg",
+                    });
+
+                    // Clean up each icon
+                    await iconSet.forEach(async (name) => {
+                        const svg = iconSet.toSVG(name)!;
+
+                        // Change color to `currentColor`
+                        const blackColor = stringToColor("black")!;
+
+                        await parseColors(svg, {
+                            defaultColor: "currentColor",
+                            callback: (attr, colorStr, color) => {
+                                // Change black to "currentColor"
+                                if (color && compareColors(color, blackColor)) {
+                                    return "currentColor";
+                                }
+
+                                switch (color?.type) {
+                                    case "none":
+                                    case "current":
+                                        return color;
+                                }
+
+                                throw new Error(`Unexpected color "${colorStr}" in attribute ${attr}`);
+                            },
+                        });
+
+                        // Optimise
+                        runSVGO(svg);
+
+                        // Update paths for compatibility with old software
+                        await deOptimisePaths(svg);
+
+                        // Update icon in icon set
+                        iconSet.fromSVG(name, svg);
+                    });
+
+                    // Export as IconifyJSON
+                    return JSON.parse(JSON.stringify(iconSet.export()));
+                },
+            },
+        }),
     ],
 });

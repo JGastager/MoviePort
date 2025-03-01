@@ -33,6 +33,7 @@
   },
   "devDependencies": {
     "@iconify-json/ph": "^1.1.14",
+    "@iconify/tools": "^4.0.4",
     "@typescript-eslint/parser": "^8.24.0",
     "@unocss/eslint-config": "^0.62.3",
     "@unocss/nuxt": "^0.62.3",
