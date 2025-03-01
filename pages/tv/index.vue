@@ -5,7 +5,6 @@
 </template>
 
 <script lang="ts" setup>
-import { onMounted } from "vue";
 import { storeToRefs } from "pinia";
 import { useShowsStore } from "~/store/shows";
 
@@ -19,13 +18,7 @@ const { popularShows } = storeToRefs(showsStore);
 
 const currentPage = ref(1);
 
-onMounted(async () => {
-    try {
-        await fetchPopularShows(currentPage.value);
-    } catch (error) {
-        console.error(error);
-    }
-});
+await fetchPopularShows(currentPage.value);
 
 async function loadMoreShows() {
     currentPage.value++;

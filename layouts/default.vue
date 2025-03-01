@@ -46,22 +46,33 @@
                 </div>
             </div>
             <TransitionFade :duration="{ enter: 1200, leave: 600 }" :delay="{ enter: 1200, leave: 0 }">
-                <div v-if="currentRouteType === 'home' && (lastWatchedMovie || popularMovie)" class="pointer-events-auto absolute bottom-12 left-22.5 flex flex-col items-start gap-10">
+                <div v-if="currentRouteType === 'home' && lastWatchedMovie" class="pointer-events-auto absolute bottom-12 left-22.5 flex flex-col items-start gap-10">
                     <div>
-                        <h1 class="mb-7">{{ lastWatchedMovie ? lastWatchedMovie?.title : popularMovie?.title }}</h1>
-                        <p class="line-clamp-3 max-w-150 text-muted">{{ lastWatchedMovie ? lastWatchedMovie?.overview : popularMovie?.overview }}</p>
+                        <h1 class="mb-7">{{ lastWatchedMovie?.title }}</h1>
+                        <p class="line-clamp-3 max-w-150 text-muted">{{ lastWatchedMovie?.overview }}</p>
                     </div>
                     <div class="flex items-center gap-2.5">
-                        <NuxtLink v-if="lastWatchedMovie" :to="'/movie/' + lastWatchedMovie?.id" class="button">
+                        <NuxtLink :to="'/movie/' + lastWatchedMovie?.id" class="button">
                             <span class="i-ph-play-bold size-6" />
                             <span>Continue watching</span>
                         </NuxtLink>
-                        <NuxtLink v-else :to="'/movie/' + popularMovie?.id" class="button">
+                        <div class="button" @click="deleteFromLastWatched()"><span class="i-ph-minus-square-bold size-6" /></div>
+                        <WatchlistButton :tmdb-id="lastWatchedMovie?.id" type="movie" />
+                        <Rating :tmdb-id="lastWatchedMovie?.id" type="movie" :rating="lastWatchedMovie?.vote_average" size="large" class="mx-3" />
+                    </div>
+                </div>
+                <div v-else-if="currentRouteType === 'home' && popularMovie" class="pointer-events-auto absolute bottom-12 left-22.5 flex flex-col items-start gap-10">
+                    <div>
+                        <h1 class="mb-7">{{ popularMovie?.title }}</h1>
+                        <p class="line-clamp-3 max-w-150 text-muted">{{ popularMovie?.overview }}</p>
+                    </div>
+                    <div class="flex items-center gap-2.5">
+                        <NuxtLink :to="'/movie/' + popularMovie?.id" class="button">
                             <span class="i-ph-play-bold size-6" />
                             <span>{{ $t("movieDetails.watchNow") }}</span>
                         </NuxtLink>
-                        <WatchlistButton :tmdb-id="lastWatchedMovie ? lastWatchedMovie?.id : popularMovie?.id" type="movie" />
-                        <Rating :tmdb-id="lastWatchedMovie ? lastWatchedMovie?.id : popularMovie?.id" type="movie" :rating="lastWatchedMovie ? lastWatchedMovie?.vote_average : popularMovie?.vote_average" size="large" class="mx-3" />
+                        <WatchlistButton :tmdb-id="popularMovie?.id" type="movie" />
+                        <Rating :tmdb-id="popularMovie?.id" type="movie" :rating="popularMovie?.vote_average" size="large" class="mx-3" />
                     </div>
                 </div>
             </TransitionFade>
@@ -112,6 +123,11 @@ const lastWatchedMovie = ref(null);
 const popularMovie = computed(() => {
     return popularMovies.value.results?.length ? popularMovies.value.results[0] : null;
 });
+
+function deleteFromLastWatched() {
+    lastWatchedMovie.value = null;
+    localStorage.removeItem("lastWatchedMovie");
+}
 
 onMounted(() => {
     const storedShow = localStorage.getItem("lastWatchedTVShow");

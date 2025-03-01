@@ -1,10 +1,10 @@
 <template>
     <div class="watchlist-page">
         <div v-if="isLoggedIn">
-            <div v-if="watchlistMovies?.results?.length" class="watchlistMovies">
+            <div v-if="watchlistMovies?.results?.length" class="watchlistMovies mb-10">
                 <MediaListing title="Watchlisted Movies" type="movie" :media="[...watchlistMovies.results].reverse()" />
             </div>
-            <div v-if="watchlistTVShows?.results?.length" class="watchlistTVShows">
+            <div v-if="watchlistTVShows?.results?.length" class="watchlistTVShows mb-10">
                 <MediaListing title="Watchlisted TV Shows" type="tv" :media="[...watchlistTVShows.results].reverse()" />
             </div>
         </div>

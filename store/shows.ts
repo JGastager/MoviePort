@@ -62,8 +62,23 @@ export const useShowsStore = defineStore("showsStore", {
         async fetchTvShowSeasonDetails(showId: number, seasonNumber: number) {
             this.tvShowSeasonDetails = await $fetch<TVSeasonDetailsResponse>(`/api/tv/${showId}/season/${seasonNumber}`);
         },
-        async fetchSimilarTvShows(showId: number) {
-            this.similarTvShows = await $fetch<TMDBSimilarTvShowsResponse>(`/api/tv/${showId}/similar`);
+        async fetchSimilarTvShows(showId: number, page = 1) {
+            try {
+                const response = await $fetch<TMDBSimilarTvShowsResponse>(`/api/tv/${showId}/similar`, {
+                    query: { page },
+                });
+
+                if (page === 1) {
+                    this.similarTvShows = response;
+                } else {
+                    this.similarTvShows = {
+                        ...response,
+                        results: [...this.similarTvShows.results, ...response.results],
+                    };
+                }
+            } catch (error) {
+                console.error("Error fetching similar TV shows:", error);
+            }
         },
     },
 });

@@ -59,8 +59,23 @@ export const useMoviesStore = defineStore("moviesStore", {
         async fetchMovieCredits(movieId: number) {
             this.movieCredits = await $fetch<TMDBMovieCreditsResponse>(`/api/movie/${movieId}/credits`);
         },
-        async fetchSimilarMovies(movieId: number) {
-            this.similarMovies = await $fetch<TMDBSimilarMoviesResponse>(`/api/movie/${movieId}/similar`);
+        async fetchSimilarMovies(movieId: number, page = 1) {
+            try {
+                const response = await $fetch<TMDBSimilarMoviesResponse>(`/api/movie/${movieId}/similar`, {
+                    query: { page },
+                });
+
+                if (page === 1) {
+                    this.similarMovies = response;
+                } else {
+                    this.similarMovies = {
+                        ...response,
+                        results: [...this.similarMovies.results, ...response.results],
+                    };
+                }
+            } catch (error) {
+                console.error("Error fetching similar movies:", error);
+            }
         },
     },
 });

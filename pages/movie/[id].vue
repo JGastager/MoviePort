@@ -90,7 +90,7 @@
             </section>
         </div>
         <!-- <pre>{{ details }}</pre> -->
-        <MediaListing v-if="similarMovies?.results" :title="$t('movieDetails.relatedMovies')" :media="similarMovies.results" type="movie" />
+        <MediaListing v-if="similarMovies?.results" :title="$t('movieDetails.relatedMovies')" :media="similarMovies.results" :more="true" type="movie" @load-more="loadMoreSimilarMovies" />
         <Teleport v-if="play" to="#backdrop">
             <TransitionFade>
                 <Player v-if="play && movieDetails?.id" :tmdb-id="movieDetails.id" type="movie" />
@@ -147,6 +147,8 @@ const { preferredLanguage } = storeToRefs(accountStore);
 const { fetchMovieDetails, fetchMovieCredits, fetchSimilarMovies } = movieStore;
 const { movieDetails, movieCredits, similarMovies } = storeToRefs(movieStore);
 
+const currentPage = ref(1);
+
 await fetchMovieDetails(movieId);
 
 selectedDetailsLanguage.value = hasPreferredLanguage(preferredLanguage.value);
@@ -163,8 +165,14 @@ function hasPreferredLanguage(language: string) {
 useHead({
     title: `${movieDetails.value?.title} | MoviePort`,
 });
+
 await fetchMovieCredits(movieId);
 await fetchSimilarMovies(movieId);
+
+async function loadMoreSimilarMovies() {
+    currentPage.value++;
+    await fetchSimilarMovies(movieId, currentPage.value);
+}
 
 function triggerPlay() {
     play.value = true;

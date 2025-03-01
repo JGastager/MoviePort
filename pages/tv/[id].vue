@@ -97,7 +97,7 @@
             </section>
         </div>
         <!-- <pre>{{ details }}</pre> -->
-        <MediaListing v-if="similarTvShows?.results" :title="$t('tvShowDetails.relatedTvShows')" :media="similarTvShows.results" type="tv" />
+        <MediaListing v-if="similarTvShows?.results" :title="$t('tvShowDetails.relatedTvShows')" :media="similarTvShows.results" :more="true" type="tv" @load-more="loadMoreSimilarTvShows" />
         <Teleport v-if="play" to="#backdrop">
             <TransitionFade>
                 <Player v-if="play && tvShowDetails?.id" :tmdb-id="tvShowDetails.id" :season="activeSeason" :episode="activeEpisode" type="tv" />
@@ -152,6 +152,8 @@ const { preferredLanguage } = storeToRefs(accountStore);
 const { fetchTvShowDetails, fetchTvShowCredits, fetchTvShowSeasonDetails, fetchSimilarTvShows } = showsStore;
 const { tvShowDetails, tvShowCredits, similarTvShows, tvShowSeasonDetails } = storeToRefs(showsStore);
 
+const currentPage = ref(1);
+
 await fetchTvShowDetails(showId);
 
 selectedDetailsLanguage.value = hasPreferredLanguage(preferredLanguage.value);
@@ -168,9 +170,15 @@ function hasPreferredLanguage(language: string) {
 useHead({
     title: `${tvShowDetails.value?.name} | MoviePort`,
 });
+
 await fetchTvShowCredits(showId);
 await fetchTvShowSeasonDetails(showId, activeSeason.value);
 await fetchSimilarTvShows(showId);
+
+async function loadMoreSimilarTvShows() {
+    currentPage.value++;
+    await fetchSimilarTvShows(showId, currentPage.value);
+}
 
 function triggerPlay() {
     play.value = true;

@@ -18,13 +18,7 @@ const { popularMovies } = storeToRefs(moviesStore);
 
 const currentPage = ref(1);
 
-onMounted(async () => {
-    try {
-        await fetchPopularMovies(currentPage.value);
-    } catch (error) {
-        console.error(error);
-    }
-});
+await fetchPopularMovies(currentPage.value);
 
 async function loadMoreMovies() {
     currentPage.value++;
