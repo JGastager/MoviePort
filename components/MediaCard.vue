@@ -9,9 +9,11 @@
                 <div class="i-ph-arrow-square-in-bold size-6" />
             </div>
         </div>
-        <h3 class="mb-0.5">{{ media.title }}</h3>
-        <span v-if="media.release_date" class="text-muted">{{ $dayjs(media.release_date).get("year") }}</span>
-        <Rating :tmdb-id="media.id" type="movie" :rating="media.vote_average" />
+        <div class="min-h-26.5">
+            <h3 class="mb-0.5">{{ media.title }}</h3>
+            <span v-if="media.release_date" class="text-muted">{{ $dayjs(media.release_date).get("year") }}</span>
+            <Rating :tmdb-id="media.id" type="movie" :rating="media.vote_average" />
+        </div>
         <NuxtLink :to="'/movie/' + media.id" class="absolute inset-0 z-10" />
     </div>
     <div v-else-if="type === 'tv'" class="group relative cursor-pointer rounded">
@@ -24,11 +26,11 @@
                 <div class="i-ph-arrow-square-in-bold size-6" />
             </div>
         </div>
-        <h3 class="mb-0.5">
-            {{ media.name }}
-        </h3>
-        <span v-if="media.first_air_date" class="text-muted">{{ $dayjs(media.first_air_date).get("year") }}</span>
-        <Rating :tmdb-id="media.id" type="tv" :rating="media.vote_average" />
+        <div class="min-h-26.5">
+            <h3 class="mb-0.5">{{ media.name }}</h3>
+            <span v-if="media.first_air_date" class="text-muted">{{ $dayjs(media.first_air_date).get("year") }}</span>
+            <Rating :tmdb-id="media.id" type="tv" :rating="media.vote_average" />
+        </div>
         <NuxtLink :to="'/tv/' + media.id" class="absolute inset-0 z-10" />
     </div>
 </template>

@@ -36,11 +36,11 @@
                     <div class="mb-10">
                         <div class="flex items-center justify-between gap-3">
                             <h3>{{ $t("movieDetails.duration") }}</h3>
-                            <span class="text-muted">{{ movieDetails.runtime }} {{ $t("global.minutes") }}</span>
+                            <span class="text-right text-muted">{{ movieDetails.runtime }} {{ $t("global.minutes") }}</span>
                         </div>
                         <div class="flex items-center justify-between gap-3">
                             <h3>{{ $t("movieDetails.release") }}</h3>
-                            <span class="text-muted">{{ $dayjs(movieDetails.release_date).get("year") }}</span>
+                            <span class="text-right text-muted">{{ $dayjs(movieDetails.release_date).get("year") }}</span>
                         </div>
                     </div>
                     <div class="mb-10 flex flex-wrap gap-3">

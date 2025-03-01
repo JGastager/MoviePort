@@ -163,7 +163,8 @@ html:has(.persons-page) header,
 html:has(.favorites-page) header,
 html:has(.ratings-page) header,
 html:has(.account-page) header,
-html:has(.watchlist-page) header {
+html:has(.watchlist-page) header,
+html:has(.person-page) header {
     height: 140px;
 }
 html:has(.movies-page):has(.search-bar.is-open) header,
@@ -172,7 +173,8 @@ html:has(.persons-page):has(.search-bar.is-open) header,
 html:has(.favorites-page):has(.search-bar.is-open) header,
 html:has(.ratings-page):has(.search-bar.is-open) header,
 html:has(.account-page):has(.search-bar.is-open) header,
-html:has(.watchlist-page):has(.search-bar.is-open) header {
+html:has(.watchlist-page):has(.search-bar.is-open) header,
+html:has(.person-page):has(.search-bar.is-open) header {
     height: 380px;
     transition-duration: 250ms;
 }

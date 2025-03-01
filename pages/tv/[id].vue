@@ -59,11 +59,11 @@
                     <div class="mb-10">
                         <div class="flex items-center justify-between gap-3">
                             <h3>{{ $t("tvShowDetails.firstAirDate") }}</h3>
-                            <span class="text-muted">{{ dayjs(tvShowDetails.first_air_date).year() }}</span>
+                            <span class="text-right text-muted">{{ dayjs(tvShowDetails.first_air_date).year() }}</span>
                         </div>
                         <div class="flex items-center justify-between gap-3">
                             <h3>{{ $t("tvShowDetails.status") }}</h3>
-                            <span class="text-muted">{{ tvShowDetails.status }}</span>
+                            <span class="text-right text-muted">{{ tvShowDetails.status }}</span>
                         </div>
                     </div>
                     <div class="mb-10 flex flex-wrap gap-3">
