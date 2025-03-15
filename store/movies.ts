@@ -12,6 +12,7 @@ export const useMoviesStore = defineStore("moviesStore", {
         movieDetails: {} as TMDBMovieDetailsResponse,
         movieCredits: {} as TMDBMovieCreditsResponse,
         similarMovies: {} as TMDBSimilarMoviesResponse,
+        movieProviders: {} as TMDBProviders,
     }),
     actions: {
         async fetchPopularMovies(page = 1) {
@@ -41,6 +42,9 @@ export const useMoviesStore = defineStore("moviesStore", {
         },
         async fetchMovieVideos(movieId: number) {
             this.movieVideos = await $fetch<TMDBVideosResponse>(`/api/movie/${movieId}/videos`);
+        },
+        async fetchMovieProviders(movieId: number) {
+            this.movieProviders = await $fetch<TMDBProvidersResponse>(`/api/movie/${movieId}/watch/providers`);
         },
         async fetchMovieDetails(movieId: number) {
             if (this.movieDetails.id === movieId) {

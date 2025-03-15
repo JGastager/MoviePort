@@ -132,6 +132,13 @@ const popularMovie = computed(() => {
     return popularMovies.value.results?.length ? popularMovies.value.results[0] : null;
 });
 
+const storedCountry = localStorage.getItem("userCountry");
+if (!storedCountry) {
+    const userLanguage = navigator.language || "en-US";
+    const userCountry = userLanguage.slice(0, 2).toUpperCase(); // Extracts first two letters
+    localStorage.setItem("userCountry", userCountry);
+}
+
 function deleteFromLastWatched() {
     lastWatchedMovie.value = null;
     localStorage.removeItem("lastWatchedMovie");

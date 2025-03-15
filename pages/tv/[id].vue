@@ -48,7 +48,8 @@
                 </TransitionScale>
                 <!-- <pre>{{tvShowSeasonDetails}}</pre> -->
                 <PersonSlider v-if="tvShowCredits?.cast && tvShowCredits?.cast.length" :cast="tvShowCredits.cast" class="mb-10" />
-                <ImageSlider v-if="showId" :tmdb-id="showId" type="tv" />
+                <ImageSlider v-if="showId" :tmdb-id="showId" type="tv" class="mb-10" />
+                <Providers v-if="tvShowProviders?.results" :providers="tvShowProviders.results" />
             </section>
             <section class="col-span-2 h-full">
                 <div class="sticky top-12">
@@ -149,8 +150,8 @@ const showsStore = useShowsStore();
 const accountStore = useAccountStore();
 const { preferredLanguage } = storeToRefs(accountStore);
 
-const { fetchTvShowDetails, fetchTvShowCredits, fetchTvShowSeasonDetails, fetchSimilarTvShows } = showsStore;
-const { tvShowDetails, tvShowCredits, similarTvShows, tvShowSeasonDetails } = storeToRefs(showsStore);
+const { fetchTvShowDetails, fetchTvShowCredits, fetchTvShowSeasonDetails, fetchSimilarTvShows, fetchTvShowProviders } = showsStore;
+const { tvShowDetails, tvShowCredits, similarTvShows, tvShowSeasonDetails, tvShowProviders } = storeToRefs(showsStore);
 
 const currentPage = ref(1);
 
@@ -174,6 +175,7 @@ useHead({
 await fetchTvShowCredits(showId);
 await fetchTvShowSeasonDetails(showId, activeSeason.value);
 await fetchSimilarTvShows(showId);
+await fetchTvShowProviders(showId);
 
 async function loadMoreSimilarTvShows() {
     currentPage.value++;

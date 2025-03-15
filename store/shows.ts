@@ -13,6 +13,7 @@ export const useShowsStore = defineStore("showsStore", {
         tvShowCredits: {} as TMDBTVCreditsResponse,
         tvShowSeasonDetails: {} as TVSeasonDetailsResponse,
         similarTvShows: {} as TMDBSimilarTvShowsResponse,
+        tvShowProviders: {} as TMDBProviders,
     }),
     actions: {
         async fetchPopularShows(page = 1) {
@@ -41,6 +42,9 @@ export const useShowsStore = defineStore("showsStore", {
         },
         async fetchTvShowVideos(showId: number) {
             this.tvShowVideos = await $fetch<TMDBVideosResponse>(`/api/tv/${showId}/videos`);
+        },
+        async fetchTvShowProviders(showId: number) {
+            this.tvShowProviders = await $fetch<TMDBProvidersResponse>(`/api/tv/${showId}/watch/providers`);
         },
         async fetchTvShowDetails(showId: number) {
             if (this.tvShowDetails.id === showId) {

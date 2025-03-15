@@ -24,8 +24,16 @@
                     {{ translatedContent.overview }}
                 </p>
                 <Genres :genres="movieDetails.genres" class="mb-10" />
-                <PersonSlider v-if="movieCredits?.cast && movieCredits?.cast.length" :cast="movieCredits.cast" class="mb-10" />
-                <ImageSlider v-if="movieId" :tmdb-id="movieId" type="movie" />
+                <!-- <h3>Where to Rent</h3>
+                <div class="flex flex-wrap gap-2.5">
+                    <div v-for="provider in providers?.rent" :key="provider.provider_id" class="button">
+                        <img :src="$getImageUrl(provider.logo_path, 'poster', 'w92')" alt="provider logo" class="size-7 rounded" />
+                        <span>{{ provider.provider_name }}</span>
+                    </div>
+                </div> -->
+                <PersonSlider v-if="movieCredits?.cast && movieCredits?.cast.length" :cast="movieCredits.cast" title="Cast" class="mb-10" />
+                <ImageSlider v-if="movieId" :tmdb-id="movieId" type="movie" class="mb-10" />
+                <Providers v-if="movieProviders?.results" :providers="movieProviders.results" />
             </section>
             <section class="col-span-2 h-full">
                 <div class="sticky top-12">
@@ -144,8 +152,8 @@ const translatedContent = computed(() => {
 const movieStore = useMoviesStore();
 const accountStore = useAccountStore();
 const { preferredLanguage } = storeToRefs(accountStore);
-const { fetchMovieDetails, fetchMovieCredits, fetchSimilarMovies } = movieStore;
-const { movieDetails, movieCredits, similarMovies } = storeToRefs(movieStore);
+const { fetchMovieDetails, fetchMovieCredits, fetchSimilarMovies, fetchMovieProviders } = movieStore;
+const { movieDetails, movieCredits, similarMovies, movieProviders } = storeToRefs(movieStore);
 
 const currentPage = ref(1);
 
@@ -168,6 +176,7 @@ useHead({
 
 await fetchMovieCredits(movieId);
 await fetchSimilarMovies(movieId);
+await fetchMovieProviders(movieId);
 
 async function loadMoreSimilarMovies() {
     currentPage.value++;
