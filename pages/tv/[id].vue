@@ -160,7 +160,7 @@ await fetchTvShowDetails(showId);
 selectedDetailsLanguage.value = hasPreferredLanguage(preferredLanguage.value);
 
 function hasPreferredLanguage(language: string) {
-    for (const translation of tvShowDetails.value?.translations?.translations) {
+    for (const translation of tvShowDetails.value?.translations?.translations || []) {
         if (translation.iso_639_1 === language) {
             return translation.iso_639_1;
         }

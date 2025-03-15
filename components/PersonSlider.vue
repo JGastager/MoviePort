@@ -19,8 +19,9 @@
                         <div class="i-ph-arrow-square-in-bold size-6" />
                     </div>
                 </div>
-                <h3 v-if="actor.character" class="mb-0.5">
-                    {{ actor.character }}
+                <h3 v-if="actor.character" class="line-clamp-3 mb-0.5">
+                    {{ actor.character.replace("(voice)", "") }}
+                    <span v-if="actor.character.includes('(voice)')" class="tag py-1 text-sm !px-2.5">Voice</span>
                 </h3>
                 <h3 v-else class="mb-0.5">
                     {{ actor.name }}

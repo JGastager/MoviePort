@@ -1,32 +1,39 @@
 <template>
     <div class="providers">
-        <h2 class="mb-6">Providers</h2>
-        <h3 v-if="!mappedProviders?.flatrate?.length && buyOrRentProviders.length" class="mb-3">No Providers found</h3>
-        <h3 v-if="mappedProviders?.flatrate" class="mb-3">Stream</h3>
-        <div v-if="mappedProviders?.flatrate" class="mb-6 flex flex-wrap gap-2.5">
-            <template v-for="provider in mappedProviders?.flatrate">
-                <a v-if="provider.provider_link" :key="provider.provider_id" :href="provider.provider_link" target="_blank" class="button !pl-3">
-                    <img :src="$getImageUrl(provider.logo_path, 'poster', 'w92')" alt="provider logo" class="size-7 rounded" />
-                    <span>{{ provider.provider_name }}</span>
-                </a>
-                <div v-else :key="provider.provider_id + '-no-link'" class="h-11 inline-flex cursor-default items-center gap-2.5 card pl-3 pr-4">
-                    <img :src="$getImageUrl(provider.logo_path, 'poster', 'w92')" alt="provider logo" class="size-7 rounded" />
-                    <span>{{ provider.provider_name }}</span>
-                </div>
-            </template>
+        <h2 class="mb-3">Providers</h2>
+        <p v-if="!mappedProviders?.flatrate?.length && !buyOrRentProviders.length" class="mb-3 flex items-center gap-2.5 text-muted">
+            <span class="i-ph-seal-warning-bold size-6 text-muted" />
+            <span>No Providers found</span>
+        </p>
+        <div v-if="mappedProviders?.flatrate">
+            <h3 class="mb-3">Stream</h3>
+            <div class="flex flex-wrap gap-2.5" :class="{ 'mb-6': buyOrRentProviders.length }">
+                <template v-for="provider in mappedProviders?.flatrate">
+                    <a v-if="provider.provider_link" :key="provider.provider_id" :href="provider.provider_link" target="_blank" class="button !pl-3">
+                        <img :src="$getImageUrl(provider.logo_path, 'poster', 'w92')" alt="provider logo" class="size-7 rounded" />
+                        <span>{{ provider.provider_name }}</span>
+                    </a>
+                    <div v-else :key="provider.provider_id + '-no-link'" class="h-11 inline-flex cursor-default items-center gap-2.5 card pl-3 pr-4">
+                        <img :src="$getImageUrl(provider.logo_path, 'poster', 'w92')" alt="provider logo" class="size-7 rounded" />
+                        <span>{{ provider.provider_name }}</span>
+                    </div>
+                </template>
+            </div>
         </div>
-        <h3 v-if="buyOrRentProviders.length" class="mb-3">Buy or Rent</h3>
-        <div v-if="buyOrRentProviders.length" class="flex flex-wrap gap-2.5">
-            <template v-for="provider in buyOrRentProviders">
-                <a v-if="provider.provider_link" :key="provider.provider_id" :href="provider.provider_link" target="_blank" class="button !pl-3">
-                    <img :src="$getImageUrl(provider.logo_path, 'poster', 'w92')" alt="provider logo" class="size-7 rounded" />
-                    <span>{{ provider.provider_name }}</span>
-                </a>
-                <div v-else :key="provider.provider_id + '-no-link'" class="h-11 inline-flex cursor-default items-center gap-2.5 card pl-3 pr-4">
-                    <img :src="$getImageUrl(provider.logo_path, 'poster', 'w92')" alt="provider logo" class="size-7 rounded" />
-                    <span>{{ provider.provider_name }}</span>
-                </div>
-            </template>
+        <div v-if="buyOrRentProviders.length">
+            <h3 class="mb-3">Buy or Rent</h3>
+            <div class="flex flex-wrap gap-2.5">
+                <template v-for="provider in buyOrRentProviders">
+                    <a v-if="provider.provider_link" :key="provider.provider_id" :href="provider.provider_link" target="_blank" class="button !pl-3">
+                        <img :src="$getImageUrl(provider.logo_path, 'poster', 'w92')" alt="provider logo" class="size-7 rounded" />
+                        <span>{{ provider.provider_name }}</span>
+                    </a>
+                    <div v-else :key="provider.provider_id + '-no-link'" class="h-11 inline-flex cursor-default items-center gap-2.5 card pl-3 pr-4">
+                        <img :src="$getImageUrl(provider.logo_path, 'poster', 'w92')" alt="provider logo" class="size-7 rounded" />
+                        <span>{{ provider.provider_name }}</span>
+                    </div>
+                </template>
+            </div>
         </div>
     </div>
 </template>
@@ -34,8 +41,24 @@
 <script lang="ts" setup>
 import { computed } from "vue";
 
+defineOptions({
+    name: "ProvidersComponent",
+});
+
+interface Provider {
+    provider_id: number;
+    logo_path: string;
+    provider_name: string;
+}
+
+interface ProvidersByCategory {
+    buy?: Provider[];
+    rent?: Provider[];
+    flatrate?: Provider[];
+}
+
 const props = defineProps<{
-    providers: object;
+    providers: Record<string, ProvidersByCategory>;
 }>();
 
 const providerLinks = [
@@ -105,12 +128,14 @@ const storedCountry = localStorage.getItem("userCountry");
 
 const mappedProviders = computed(() => {
     if (storedCountry && props.providers) {
-        const allProviders = props.providers[storedCountry];
-        const categories = ["buy", "rent", "flatrate"];
+        const allProviders = props.providers[storedCountry] as ProvidersByCategory | undefined;
+        if (!allProviders) return null;
 
-        return categories.reduce((acc, category) => {
+        const categories: (keyof ProvidersByCategory)[] = ["buy", "rent", "flatrate"];
+
+        return categories.reduce((acc: Record<string, Provider[]>, category) => {
             if (allProviders[category]) {
-                acc[category] = allProviders[category].map((provider) => {
+                acc[category] = allProviders[category]!.map((provider) => {
                     const linkEntry = providerLinks.find((entry) => entry.provider_id.includes(provider.provider_id));
                     return {
                         ...provider,
@@ -123,8 +148,6 @@ const mappedProviders = computed(() => {
     }
     return null;
 });
-
-// TODO: Fix TypeScript stuff
 
 const buyOrRentProviders = computed(() => {
     const buy = mappedProviders.value?.buy || [];

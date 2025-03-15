@@ -69,6 +69,7 @@ export interface TMDBMovieDetailsResponse extends TMDBMovieBase {
     spoken_languages: TMDBSpokenLanguage[];
     status: string;
     tagline: string | null;
+    translations: { translations: TMDBTranslation[] };
 }
 
 export interface TMDBPaginatedResponse<T> {

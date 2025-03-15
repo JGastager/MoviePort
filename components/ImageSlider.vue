@@ -9,9 +9,9 @@
                     </div>
                 </div>
             </template>
-            <div class="absolute right-0 top-0 h-full w-19 flex cursor-pointer items-center justify-center card opacity-0 transition-opacity duration-300 hover:opacity-100">
+            <!-- <div class="absolute right-0 top-0 h-full w-19 flex cursor-pointer items-center justify-center card opacity-0 transition-opacity duration-300 hover:opacity-100">
                 <span class="i-ph-arrow-right-bold size-6" />
-            </div>
+            </div> -->
         </div>
     </div>
 </template>

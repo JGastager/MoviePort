@@ -47,10 +47,13 @@
             </div>
             <TransitionFade :duration="{ enter: 1200, leave: 600 }" :delay="{ enter: 1200, leave: 0 }">
                 <div v-if="currentRouteType === 'home' && lastWatchedMovie" class="pointer-events-auto absolute bottom-12 left-22.5 flex flex-col items-start gap-10">
-                    <div>
-                        <h1 class="mb-7">{{ lastWatchedMovie?.title }}</h1>
+                    <NuxtLink :to="'/movie/' + lastWatchedMovie?.id" group="group">
+                        <h1 class="relative mb-6 inline-block">
+                            {{ lastWatchedMovie?.title }}
+                            <span class="i-ph-arrow-square-in-bold text absolute bottom-2 block size-6 opacity-0 transition-opacity duration-300 -right-13 group-hover:opacity-100" />
+                        </h1>
                         <p class="line-clamp-3 max-w-150 text-muted">{{ lastWatchedMovie?.overview }}</p>
-                    </div>
+                    </NuxtLink>
                     <div class="flex items-center gap-2.5">
                         <NuxtLink :to="'/movie/' + lastWatchedMovie?.id" class="button">
                             <span class="i-ph-play-bold size-6" />
@@ -62,10 +65,13 @@
                     </div>
                 </div>
                 <div v-else-if="currentRouteType === 'home' && popularMovie" class="pointer-events-auto absolute bottom-12 left-22.5 flex flex-col items-start gap-10">
-                    <div>
-                        <h1 class="mb-7">{{ popularMovie?.title }}</h1>
+                    <NuxtLink :to="'/movie/' + popularMovie?.id" class="group">
+                        <h1 class="relative mb-6 inline-block">
+                            {{ popularMovie?.title }}
+                            <span class="i-ph-arrow-square-in-bold text absolute bottom-2 block size-6 opacity-0 transition-opacity duration-300 -right-13 group-hover:opacity-100" />
+                        </h1>
                         <p class="line-clamp-3 max-w-150 text-muted">{{ popularMovie?.overview }}</p>
-                    </div>
+                    </NuxtLink>
                     <div class="flex items-center gap-2.5">
                         <NuxtLink :to="'/movie/' + popularMovie?.id" class="button">
                             <span class="i-ph-play-bold size-6" />

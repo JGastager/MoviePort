@@ -17,7 +17,7 @@
                 <h1 class="mb-10">
                     {{ translatedContent.title }}
                 </h1>
-                <h3 class="mb-10">
+                <h3 class="mb-3">
                     {{ translatedContent.tagline }}
                 </h3>
                 <p class="mb-10">
@@ -162,7 +162,7 @@ await fetchMovieDetails(movieId);
 selectedDetailsLanguage.value = hasPreferredLanguage(preferredLanguage.value);
 
 function hasPreferredLanguage(language: string) {
-    for (const translation of movieDetails.value?.translations?.translations) {
+    for (const translation of movieDetails.value?.translations?.translations || []) {
         if (translation.iso_639_1 === language) {
             return translation.iso_639_1;
         }
