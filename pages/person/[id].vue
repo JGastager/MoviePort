@@ -3,7 +3,7 @@
         <div class="grid grid-cols-10 mb-30 gap-15">
             <section class="col-span-2 h-full">
                 <div class="sticky top-12">
-                    <Poster v-if="personDetails.images?.profiles[0].file_path" :poster-path="personDetails.images?.profiles[0].file_path" />
+                    <Poster :poster-path="personDetails.images?.profiles[0]?.file_path" type="person" />
                 </div>
             </section>
             <section class="col-span-6">
@@ -59,7 +59,7 @@
                                 <span>Website</span>
                             </NuxtLink>
                         </div>
-                        <div v-if="personDetails.also_known_as" class="mb-10 flex justify-between gap-3">
+                        <div v-if="personDetails.also_known_as?.length" class="mb-10 flex justify-between gap-3">
                             <h3>Also known as</h3>
                             <div class="flex flex-col justify-end text-right">
                                 <span v-for="(alias, index) of personDetails.also_known_as" :key="index" class="text-muted">{{ alias }}</span>

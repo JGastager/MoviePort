@@ -10,7 +10,7 @@
                         </div>
                         <WatchlistButton :tmdb-id="showId" type="tv" />
                     </div>
-                    <Poster v-if="tvShowDetails.poster_path" :poster-path="tvShowDetails.poster_path" />
+                    <Poster :poster-path="tvShowDetails?.poster_path" type="tv" />
                 </div>
             </section>
             <section class="col-span-6">

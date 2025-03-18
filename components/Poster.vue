@@ -6,6 +6,11 @@
                 <div class="i-ph-arrows-out size-9" />
             </div>
         </template>
+        <div v-else class="absolute inset-0 h-full w-full flex items-center justify-center">
+            <span v-if="type === 'movie'" class="i-ph-film-strip-thin size-18 text-muted" />
+            <span v-else-if="type === 'tv'" class="i-ph-television-simple-thin size-18 text-muted" />
+            <span v-else-if="type === 'person'" class="i-ph-user-thin size-18 text-muted" />
+        </div>
     </div>
     <Teleport v-if="posterPath" to="#modals">
         <Transition name="modal">
@@ -30,13 +35,10 @@ defineOptions({
     name: "PosterComponent",
 });
 
-const _props = defineProps({
-    posterPath: {
-        type: String,
-        required: false,
-        default: undefined,
-    },
-});
+const props = defineProps<{
+    type: "movie" | "tv" | "person";
+    posterPath?: string,
+}>();
 
 const modal = ref(false);
 
