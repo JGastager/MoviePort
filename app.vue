@@ -1,11 +1,22 @@
 <template>
     <div class="min-h-screen bg-[#000711]">
+        <Topbar v-if="isElectron" />
         <NuxtLayout>
             <NuxtPage />
         </NuxtLayout>
         <div id="modals" />
     </div>
 </template>
+
+<script lang="ts" setup>
+const isElectron = ref(false);
+onMounted(() => {
+    // Check if the app is running in Electron
+    if (window.electron) {
+        isElectron.value = true;
+    }
+});
+</script>
 
 <style lang="scss">
 @keyframes spotlight {

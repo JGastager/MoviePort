@@ -1,5 +1,5 @@
 {
-  "name": "nuxt-app",
+  "name": "movieport",
   "private": true,
   "type": "module",
   "main": "dist-electron/main.js",

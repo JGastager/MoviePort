@@ -1,8 +1,7 @@
 // https://nuxt.com/docs/api/configuration/nuxt-config
 export default defineNuxtConfig({
-    modules: [/* 'nuxt-electron', */ "@unocss/nuxt", "@nuxt/eslint", "@nuxt/fonts", "@morev/vue-transitions/nuxt", "@pinia/nuxt", "@nuxtjs/i18n"],
+    modules: ["nuxt-electron", "@unocss/nuxt", "@nuxt/eslint", "@nuxt/fonts", "@morev/vue-transitions/nuxt", "@pinia/nuxt", "@nuxtjs/i18n"],
     ssr: false,
-    spaLoadingTemplate: 'spa-loading-template.html',
     devtools: { enabled: true },
     app: {
         pageTransition: { name: "page", mode: "out-in" },
@@ -13,6 +12,7 @@ export default defineNuxtConfig({
             ],
         },
     },
+    spaLoadingTemplate: "spa-loading-template.html",
     runtimeConfig: {
         public: {
             tmdbAuthToken: process.env.TMDB_AUTH_TOKEN,
@@ -21,15 +21,30 @@ export default defineNuxtConfig({
         },
     },
     compatibilityDate: "2024-04-03",
-    /*    electron: {
+    electron: {
         disableDefaultOptions: true,
         build: [
             {
                 // Main-Process entry file of the Electron App.
-                entry: 'electron/main.ts',
+                entry: "electron/main.ts",
+            },
+            {
+                entry: "electron/preload.ts",
+                vite: {
+                    build: {
+                        rollupOptions: {
+                            output: {
+                                format: "cjs",
+                            },
+                        },
+                    },
+                },
+                onstart(args) {
+                    args.reload();
+                },
             },
         ],
-    }, */
+    },
     // app:{ cdnURL: './'},
     eslint: {
         checker: true,

@@ -17,7 +17,7 @@
                     class="custom-clip-gradient mx-auto block h-230 max-h-full w-auto object-cover"
                 />
                 <img
-                    v-else-if="currentRouteType === 'home' && (lastWatchedMovie || popularMovie)"
+                    v-else-if="currentRouteType === 'home' && (lastWatchedMovie?.backdrop_path || popularMovie?.backdrop_path)"
                     v-parallax
                     :src="$getImageUrl(lastWatchedMovie ? lastWatchedMovie?.backdrop_path : popularMovie?.backdrop_path, 'backdrop', 'original')"
                     alt="Backdrop"

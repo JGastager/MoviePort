@@ -16,7 +16,7 @@ export const usePersonsStore = defineStore("personsStore", {
         },
         async fetchPersonDetails(personId: number) {
             try {
-                this.personDetails = {} as any;
+                this.personDetails = {} as never;
 
                 this.personDetails = await $fetch(`/api/person/${personId}`, {
                     query: { append_to_response: "combined_credits,external_ids,images,translations" },

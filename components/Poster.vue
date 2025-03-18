@@ -35,9 +35,9 @@ defineOptions({
     name: "PosterComponent",
 });
 
-const props = defineProps<{
+const _props = defineProps<{
     type: "movie" | "tv" | "person";
-    posterPath?: string,
+    posterPath?: string;
 }>();
 
 const modal = ref(false);
