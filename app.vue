@@ -59,6 +59,7 @@
 html {
     overflow-x: hidden;
     scroll-behavior: smooth;
+    background: #22272d;
 }
 
 body {

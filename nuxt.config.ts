@@ -2,6 +2,7 @@
 export default defineNuxtConfig({
     modules: [/* 'nuxt-electron', */ "@unocss/nuxt", "@nuxt/eslint", "@nuxt/fonts", "@morev/vue-transitions/nuxt", "@pinia/nuxt", "@nuxtjs/i18n"],
     ssr: false,
+    spaLoadingTemplate: 'spa-loading-template.html',
     devtools: { enabled: true },
     app: {
         pageTransition: { name: "page", mode: "out-in" },

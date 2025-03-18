@@ -27,3 +27,7 @@ logs
 
 # Electron Build files
 dist-electron
+
+# PM2 files
+ecosystem.config.js
+ecosystem.config.cjs

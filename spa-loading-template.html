@@ -1,0 +1,117 @@
+<style>
+    html {
+        background: #000711;
+    }
+
+    #spots {
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        overflow: hidden;
+    }
+
+    .loading {
+        background-color: rgba(112, 112, 112, 0.3);
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        backdrop-filter: blur(40px);
+    }
+    
+    #brand {
+        mask-image: url("/brand.svg");
+        mask-repeat: no-repeat;
+        mask-size: contain;
+        mask-position: bottom left;
+        height: 64px;
+        width: 400px;
+        background-color: #000711;
+    }
+
+    @keyframes spotlight {
+        0% {
+            transform: rotate3d(1, 0, 0, 30deg);
+        }
+        25% {
+            transform: rotate3d(0, 0, 1, -30deg);
+        }
+        50% {
+            transform: rotate3d(1, 0, 1, 30deg);
+        }
+        75% {
+            transform: rotate3d(0, 0, 1, -30deg);
+        }
+        100% {
+            transform: rotate3d(1, 0, 0, 30deg);
+        }
+    }
+
+    @keyframes spotlight2 {
+        0% {
+            transform: rotate3d(1, 0, 0, -30deg);
+        }
+        25% {
+            transform: rotate3d(0, 0, 1, 30deg);
+        }
+        50% {
+            transform: rotate3d(1, 0, 1, -30deg);
+        }
+        75% {
+            transform: rotate3d(0, 0, 1, 30deg);
+        }
+        100% {
+            transform: rotate3d(1, 0, 0, -30deg);
+        }
+    }
+
+    .spotlight {
+        position: absolute;
+        transform-origin: bottom;
+        object-fit: cover;
+        width: auto;
+    }
+    #spot-1 {
+        animation: spotlight 120s infinite;
+        height: 190%;
+        bottom: -66%;
+        right: -120px;
+        filter: blur(40px);
+    }
+    #spot-2 {
+        animation: spotlight2 120s infinite reverse;
+        height: 185%;
+        bottom: -66%;
+        left: -120px;
+        filter: blur(40px);
+    }
+    #spot-3 {
+        animation: spotlight2 120s infinite reverse;
+        bottom: 0;
+        right: 120px;
+        height: 165%;
+        filter: blur(16px);
+    }
+    #spot-4 {
+        animation: spotlight 120s infinite;
+        bottom: 0;
+        left: 120px;
+        height: 160%;
+        filter: blur(16px);
+    }
+</style>
+<div id="spots">
+    <img src="/spotlight.svg" id="spot-1" alt="spotlight" class="spotlight" />
+    <img src="/spotlight.svg" id="spot-2" alt="spotlight" class="spotlight" />
+    <img src="/spotlight.svg" id="spot-3" alt="spotlight" class="spotlight" />
+    <img src="/spotlight.svg" id="spot-4" alt="spotlight" class="spotlight" />
+</div>
+<div class="loading">
+    <div id="brand"></div>
+</div>
