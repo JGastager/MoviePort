@@ -20,7 +20,7 @@
             </div>
         </TransitionScale>
         <Transition name="to-top">
-            <div v-if="media?.length > 28 && showToTop" class="pointer-events-none sticky bottom-0 z-10 w-full flex items-center justify-center px-22.5 py-12">
+            <div v-if="media?.length > 28 && showToTop" class="pointer-events-none sticky bottom-0 z-10 w-full flex items-center justify-center px-margin py-12">
                 <div class="pointer-events-auto backdrop-blur button" @click="scrollToTop">
                     <span class="i-ph-arrow-up size-6" />
                 </div>

@@ -1,7 +1,7 @@
 <template>
     <div class="home-page">
-        <div class="grid grid-cols-7 mb-15 gap">
-            <div class="group relative aspect-9/5 cursor-pointer overflow-hidden rounded">
+        <div class="grid-media-cards mb-15 gap">
+            <div class="group relative aspect-9/5 min-h-28 w-full cursor-pointer overflow-hidden rounded">
                 <Transition name="fade-image" appear>
                     <img
                         v-if="popularMovies.results[0]?.backdrop_path"
@@ -16,7 +16,7 @@
                 </div>
                 <NuxtLink to="/movie" class="absolute inset-0 h-full w-full" />
             </div>
-            <div class="group relative aspect-9/5 cursor-pointer overflow-hidden rounded">
+            <div class="group relative aspect-9/5 min-h-28 w-full cursor-pointer overflow-hidden rounded">
                 <Transition name="fade-image" appear>
                     <img
                         v-if="popularShows?.results[0]?.backdrop_path"
@@ -31,7 +31,7 @@
                 </div>
                 <NuxtLink to="/tv" class="absolute inset-0 h-full w-full" />
             </div>
-            <div v-if="isLoggedIn" class="group relative aspect-9/5 cursor-pointer overflow-hidden rounded">
+            <div v-if="isLoggedIn" class="group relative aspect-9/5 min-h-28 w-full cursor-pointer overflow-hidden rounded">
                 <Transition name="fade-image" appear>
                     <img
                         v-if="watchlistMovies?.results[watchlistMovies.results.length - 1]?.backdrop_path"
@@ -46,7 +46,7 @@
                 </div>
                 <NuxtLink to="/watchlist" class="absolute inset-0 h-full w-full" />
             </div>
-            <div v-if="isLoggedIn" class="group relative aspect-9/5 cursor-pointer overflow-hidden rounded">
+            <div v-if="isLoggedIn" class="group relative aspect-9/5 min-h-28 w-full cursor-pointer overflow-hidden rounded">
                 <Transition name="fade-image" appear>
                     <img
                         v-if="ratedMovies?.results[ratedMovies.results.length - 1]?.backdrop_path"
@@ -61,7 +61,7 @@
                 </div>
                 <NuxtLink to="/ratings" class="absolute inset-0 h-full w-full" />
             </div>
-            <div v-if="isLoggedIn" class="group relative aspect-9/5 cursor-pointer overflow-hidden rounded">
+            <div v-if="isLoggedIn" class="group relative aspect-9/5 min-h-28 w-full cursor-pointer overflow-hidden rounded">
                 <Transition name="fade-image" appear>
                     <img
                         v-if="favoriteMovies?.results[favoriteMovies.results.length - 1]?.backdrop_path"
@@ -76,7 +76,7 @@
                 </div>
                 <NuxtLink to="/favorites" class="absolute inset-0 h-full w-full" />
             </div>
-            <div class="group relative aspect-9/5 cursor-pointer overflow-hidden rounded">
+            <div class="group relative aspect-9/5 min-h-28 w-full cursor-pointer overflow-hidden rounded">
                 <Transition name="fade-image" appear>
                     <img
                         v-if="popularPersons?.results[0]?.profile_path"
@@ -91,7 +91,7 @@
                 </div>
                 <NuxtLink to="/person" class="absolute inset-0 h-full w-full" />
             </div>
-            <div v-if="!isLoggedIn" class="relative col-span-1 flex flex-shrink-0 flex-col cursor-pointer items-center justify-center gap-2.5 card transition-colors duration-300 focus:bg-primary/50 hover:bg-primary/50">
+            <div v-if="!isLoggedIn" class="relative col-span-1 aspect-9/5 min-h-28 w-full flex flex-shrink-0 flex-col cursor-pointer items-center justify-center gap-2.5 card transition-colors duration-300 focus:bg-primary/50 hover:bg-primary/50">
                 <span class="i-ph-plus-square-bold size-6" />
                 <h3>{{ $t("global.more") }}</h3>
             </div>

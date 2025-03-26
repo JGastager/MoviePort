@@ -32,12 +32,7 @@
             </TransitionFade>
         </div>
         <header class="pointer-events-none relative z-1 h-95 min-h-35 transition-all duration-800">
-            <TransitionFade :duration="{ enter: 1200, leave: 600 }" :delay="{ enter: 600, leave: 0 }">
-                <div v-if="currentRouteType === 'home'" class="pointer-events-none absolute left-22.5 top-12 h-58">
-                    <Brand class="sticky top-12" />
-                </div>
-            </TransitionFade>
-            <div class="sticky top-0 flex items-start justify-between px-22.5 py-12">
+            <div class="px-margin sticky top-0 flex items-start justify-between py-12">
                 <Navigation />
                 <div class="flex gap-3">
                     <OptionsButton />
@@ -45,45 +40,50 @@
                     <SearchBar />
                 </div>
             </div>
-            <TransitionFade :duration="{ enter: 1200, leave: 600 }" :delay="{ enter: 1200, leave: 0 }">
-                <div v-if="currentRouteType === 'home' && lastWatchedMovie" class="pointer-events-auto absolute bottom-12 left-22.5 flex flex-col items-start gap-10">
-                    <NuxtLink :to="'/movie/' + lastWatchedMovie?.id" group="group">
-                        <h1 class="relative mb-6 inline-block">
-                            {{ lastWatchedMovie?.title }}
-                            <span class="i-ph-arrow-square-in-bold text absolute bottom-2 block size-6 opacity-0 transition-opacity duration-300 -right-13 group-hover:opacity-100" />
-                        </h1>
-                        <p class="line-clamp-3 max-w-150 text-muted">{{ lastWatchedMovie?.overview }}</p>
-                    </NuxtLink>
-                    <div class="flex items-center gap-2.5">
-                        <NuxtLink :to="'/movie/' + lastWatchedMovie?.id" class="button">
-                            <span class="i-ph-play-bold size-6" />
-                            <span>Continue watching</span>
-                        </NuxtLink>
-                        <div class="button" @click="deleteFromLastWatched()"><span class="i-ph-minus-square-bold size-6" /></div>
-                        <WatchlistButton :tmdb-id="lastWatchedMovie?.id" type="movie" />
-                        <Rating :tmdb-id="lastWatchedMovie?.id" type="movie" :rating="lastWatchedMovie?.vote_average" size="large" class="mx-3" />
+            <TransitionFade :duration="{ enter: 1800, leave: 600 }" :delay="{ enter: 1200, leave: 0 }">
+                <div v-if="currentRouteType === 'home'" class="pl-margin pointer-events-auto absolute bottom-0 left-0 h-full flex flex-col items-start justify-end gap-10 py-12">
+                    <div class="pointer-events-none flex-grow pb-10">
+                        <Brand class="sticky top-12" />
                     </div>
-                </div>
-                <div v-else-if="currentRouteType === 'home' && popularMovie" class="pointer-events-auto absolute bottom-12 left-22.5 flex flex-col items-start gap-10">
-                    <NuxtLink :to="'/movie/' + popularMovie?.id" class="group">
-                        <h1 class="relative mb-6 inline-block">
-                            {{ popularMovie?.title }}
-                            <span class="i-ph-arrow-square-in-bold text absolute bottom-2 block size-6 opacity-0 transition-opacity duration-300 -right-13 group-hover:opacity-100" />
-                        </h1>
-                        <p class="line-clamp-3 max-w-150 text-muted">{{ popularMovie?.overview }}</p>
-                    </NuxtLink>
-                    <div class="flex items-center gap-2.5">
-                        <NuxtLink :to="'/movie/' + popularMovie?.id" class="button">
-                            <span class="i-ph-play-bold size-6" />
-                            <span>{{ $t("movieDetails.watchNow") }}</span>
+                    <template v-if="lastWatchedMovie">
+                        <NuxtLink :to="'/movie/' + lastWatchedMovie?.id" group="group">
+                            <h1 class="relative mb-6 inline-block">
+                                {{ lastWatchedMovie?.title }}
+                                <span class="i-ph-arrow-square-in-bold text absolute bottom-2 block size-6 opacity-0 transition-opacity duration-300 -right-13 group-hover:opacity-100" />
+                            </h1>
+                            <p class="line-clamp-3 max-w-150 text-muted">{{ lastWatchedMovie?.overview }}</p>
                         </NuxtLink>
-                        <WatchlistButton :tmdb-id="popularMovie?.id" type="movie" />
-                        <Rating :tmdb-id="popularMovie?.id" type="movie" :rating="popularMovie?.vote_average" size="large" class="mx-3" />
-                    </div>
+                        <div class="flex items-center gap-2.5">
+                            <NuxtLink :to="'/movie/' + lastWatchedMovie?.id" class="button">
+                                <span class="i-ph-play-bold size-6" />
+                                <span>Continue watching</span>
+                            </NuxtLink>
+                            <div class="button" @click="deleteFromLastWatched()"><span class="i-ph-minus-square-bold size-6" /></div>
+                            <WatchlistButton :tmdb-id="lastWatchedMovie?.id" type="movie" />
+                            <Rating :tmdb-id="lastWatchedMovie?.id" type="movie" :rating="lastWatchedMovie?.vote_average" size="large" class="mx-3" />
+                        </div>
+                    </template>
+                    <template v-else-if="popularMovie">
+                        <NuxtLink :to="'/movie/' + popularMovie?.id" class="group">
+                            <h1 class="relative mb-6 inline-block">
+                                {{ popularMovie?.title }}
+                                <span class="i-ph-arrow-square-in-bold text absolute bottom-2 block size-6 opacity-0 transition-opacity duration-300 -right-13 group-hover:opacity-100" />
+                            </h1>
+                            <p class="line-clamp-3 max-w-150 text-muted">{{ popularMovie?.overview }}</p>
+                        </NuxtLink>
+                        <div class="flex items-center gap-2.5">
+                            <NuxtLink :to="'/movie/' + popularMovie?.id" class="button">
+                                <span class="i-ph-play-bold size-6" />
+                                <span>{{ $t("movieDetails.watchNow") }}</span>
+                            </NuxtLink>
+                            <WatchlistButton :tmdb-id="popularMovie?.id" type="movie" />
+                            <Rating :tmdb-id="popularMovie?.id" type="movie" :rating="popularMovie?.vote_average" size="large" class="mx-3" />
+                        </div>
+                    </template>
                 </div>
             </TransitionFade>
         </header>
-        <div class="realtive flex-grow bg-primary/30 px-22.5 py-12 backdrop-blur">
+        <div class="realtive px-margin flex-grow bg-primary/30 py-12 backdrop-blur">
             <main>
                 <slot />
             </main>

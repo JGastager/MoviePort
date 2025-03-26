@@ -3,14 +3,14 @@
         <h2 v-if="title" class="mb-6">
             {{ title }}
         </h2>
-        <TransitionScale v-drag-scroll appear group tag="div" class="flex items-start gap overflow-x-auto pb-1 scrollbar-none" :class="overflow ? 'px-22.5 -mx-22.5' : 'rounded'">
-            <div v-if="before" class="relative w-card flex flex-shrink-0 flex-col cursor-pointer items-center justify-center gap-2.5 card transition-colors duration-300 !aspect-2/3 focus:bg-primary/50 hover:bg-primary/50">
+        <TransitionScale v-drag-scroll appear group tag="div" class="flex items-start gap overflow-x-auto pb-1 scrollbar-none" :class="overflow ? 'px-margin -mx-margin' : 'rounded'">
+            <div v-if="before" class="w-media-card relative flex flex-shrink-0 flex-col cursor-pointer items-center justify-center gap-2.5 card transition-colors duration-300 !aspect-2/3 focus:bg-primary/50 hover:bg-primary/50">
                 <span class="size-6" :class="before.icon ? before.icon : 'i-ph-plus-square-bold'" />
                 <h3>{{ before.text }}</h3>
                 <NuxtLink :to="before.link" class="absolute inset-0 z-10" />
             </div>
             <div v-for="(movie, index) in movies" :key="index" class="group relative cursor-pointer rounded">
-                <div class="relative mb-3 aspect-2/3 w-card overflow-hidden card">
+                <div class="w-media-card relative mb-3 aspect-2/3 overflow-hidden card">
                     <img v-if="movie.poster_path" :src="$getImageUrl(movie.poster_path, 'poster', 'w342')" :alt="movie.title" class="h-full w-full object-cover transition-all duration-300 group-hover:scale-102 group-hover:blur-sm" />
                     <div v-else class="absolute inset-0 h-full w-full flex items-center justify-center transition-all duration-300 group-hover:scale-102 group-hover:blur-sm">
                         <span class="i-ph-film-strip-thin size-18 text-muted" />
@@ -28,7 +28,7 @@
                 <Rating :tmdb-id="movie.id" type="movie" :rating="movie.vote_average" />
                 <NuxtLink :to="'/movie/' + movie.id" class="absolute inset-0 z-10" />
             </div>
-            <div v-if="after" class="relative w-card flex flex-shrink-0 flex-col cursor-pointer items-center justify-center gap-2.5 card transition-colors duration-300 !aspect-2/3 focus:bg-primary/50 hover:bg-primary/50">
+            <div v-if="after" class="w-media-card relative flex flex-shrink-0 flex-col cursor-pointer items-center justify-center gap-2.5 card transition-colors duration-300 !aspect-2/3 focus:bg-primary/50 hover:bg-primary/50">
                 <span class="size-6" :class="after.icon ? after.icon : 'i-ph-plus-square-bold'" />
                 <h3>{{ after.text }}</h3>
                 <NuxtLink :to="after.link" class="absolute inset-0 z-10" />
@@ -54,3 +54,20 @@ const _props = defineProps<{
     overflow?: boolean;
 }>();
 </script>
+
+<style lang="scss">
+// :root {
+//     --container-padding: 90px;
+//     --container-width: calc(100vw - (var(--container-padding) * 2));
+//     --min-width: 220px;
+//     --gap: 28px;
+//     /* Approximate number of items per row */
+//     --items-per-row: calc(var(--container-width) / (var(--min-width) + var(--gap)));
+
+//     /* Calculate card width */
+//     --card-width: calc((var(--container-width) / var(--items-per-row)) - var(--gap));
+// }
+// .w-custom {
+//     width: var(--items-per-row) !important;
+// }
+</style>

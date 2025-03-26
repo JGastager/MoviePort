@@ -15,8 +15,17 @@ export default defineConfig({
         fontFamily: {
             sans: ["Poppins", "sans-serif"],
         },
-        width: {
-            card: "calc((100vw - 180px - (28px * 6)) / 7)",
+        breakpoints: {
+            sm: "640px",
+            md: "768px",
+            lg: "1024px",
+            xl: "1280px",
+            "2xl": "1536px",
+            "3xl": "2080px",
+            "4xl": "2440px",
+        },
+        spacing: {
+            margin: "var(--grid-margin)",
         },
         animation: {
             keyframes: {
@@ -49,7 +58,20 @@ export default defineConfig({
         "text-muted": "text-white/50",
         gap: "gap-7",
         "absolute-center": "absolute left-1/2 top-1/2 transform -translate-x-1/2 -translate-y-1/2",
+        "grid-media-cards": "3xl:grid-cols-8 4xl:grid-cols-9 grid grid-cols-2 2xl:grid-cols-7 lg:grid-cols-5 md:grid-cols-4 sm:grid-cols-3 xl:grid-cols-6 gap-7",
+        "w-media-card":
+            "w-[calc((100vw-(var(--grid-margin)*2)-var(--grid-gutter))/2)] sm:w-[calc((100vw-(var(--grid-margin)*2)-(var(--grid-gutter)*2))/3)] md:w-[calc((100vw-(var(--grid-margin)*2)-(var(--grid-gutter)*3))/4)] lg:w-[calc((100vw-(var(--grid-margin)*2)-(var(--grid-gutter)*4))/5)] xl:w-[calc((100vw-(var(--grid-margin)*2)-(var(--grid-gutter)*5))/6)] 2xl:w-[calc((100vw-(var(--grid-margin)*2)-(var(--grid-gutter)*6))/7)] 3xl:w-[calc((100vw-(var(--grid-margin)*2)-(var(--grid-gutter)*7))/8)] 4xl:w-[calc((100vw-(var(--grid-margin)*2)-(var(--grid-gutter)*8))/9)]",
     },
+    variants: [
+        (matcher) => {
+            if (matcher.startsWith("-")) {
+                return {
+                    matcher: matcher.slice(1),
+                    selector: (s) => `${s}\\:neg`,
+                };
+            }
+        },
+    ],
     rules: [
         [
             "scrollbar-none",

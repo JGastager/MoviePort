@@ -1,6 +1,6 @@
 <template>
     <div class="button" @click="share()">
-        <span class="i-ph-share-bold size-6" />
+        <span class="i-ph-share-fat-bold size-6" />
     </div>
 </template>
 
