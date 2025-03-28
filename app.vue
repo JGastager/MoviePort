@@ -23,13 +23,11 @@ onMounted(() => {
     --grid-margin: 28px;
     --grid-gutter: 28px;
 
-    // md
-    @media (min-width: 768px) {
+    @screen md {
         --grid-margin: 60px;
     }
 
-    // xl
-    @media (min-width: 1280px) {
+    @screen xl {
         --grid-margin: 90px;
     }
 }

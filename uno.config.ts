@@ -1,4 +1,5 @@
 import { defineConfig, presetUno, presetIcons } from "unocss";
+import transformerDirectives from "@unocss/transformer-directives";
 import { compareColors, stringToColor } from "@iconify/utils/lib/colors";
 import { importDirectory, parseColors, runSVGO, deOptimisePaths } from "@iconify/tools";
 import type { IconifyJSON } from "@iconify/types";
@@ -87,6 +88,7 @@ export default defineConfig({
             }),
         ],
     ],
+    transformers: [transformerDirectives()],
     presets: [
         presetUno(),
         presetIcons({
