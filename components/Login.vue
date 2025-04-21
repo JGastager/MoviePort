@@ -55,21 +55,25 @@
                                         <span class="size-6" :class="showPassword ? 'i-ph-eye-slash-bold' : 'i-ph-eye-bold'" />
                                     </div>
                                 </div>
+                                <TransitionExpand>
+                                    <div v-if="loginError && !loginSuccess" class="w-full flex flex-col items-center gap-1.5 pt-4">
+                                        <div class="flex items-center gap-2.5">
+                                            <span class="i-ph-warning-circle-bold size-6 text-red-500"></span>
+                                            <span>Login failed!</span>
+                                        </div>
+                                        <span class="text-center text-red-500">Please check your credentials and try again.</span>
+                                    </div>
+                                </TransitionExpand>
                                 <button class="mt-3 button" type="submit">Login</button>
+                                <div class="mt-4 flex flex-col items-center">
+                                    <NuxtLink to="https://www.themoviedb.org/reset-password" target="_blank" class="text-muted transition-colors duration-300 hover:text-white">Forgot password?</NuxtLink>
+                                    <NuxtLink to="https://www.themoviedb.org/signup" target="_blank" class="text-muted transition-colors duration-300 hover:text-white">Don't have an account?</NuxtLink>
+                                </div>
                             </div>
                             <TransitionFade>
                                 <div v-if="isAuthenticated && loginSuccess" class="absolute left-1/2 top-0 h-auto w-full flex flex-col transform items-center gap-2.5 -translate-x-1/2">
                                     <span class="i-ph-check-circle-thin size-24 text-green-400"></span>
                                     <span>Succesfully logged in!</span>
-                                </div>
-                            </TransitionFade>
-                            <TransitionFade>
-                                <div v-if="loginError && !loginSuccess" class="absolute bottom-0 left-1/2 h-auto w-full flex flex-col translate-y-full transform items-center gap-2.5 pt-6 -translate-x-1/2">
-                                    <div class="flex items-center gap-2.5">
-                                        <span class="i-ph-warning-circle-bold size-6 text-red-500"></span>
-                                        <span>Login failed!</span>
-                                    </div>
-                                    <span class="text-center text-red-500">Please check your credentials and try again.</span>
                                 </div>
                             </TransitionFade>
                         </form>
