@@ -14,7 +14,7 @@
     </div>
     <Teleport v-if="posterPath" to="#modals">
         <Transition name="modal">
-            <div v-if="modal && posterPath" class="fixed left-0 top-0 z-100 h-screen w-screen flex items-center justify-center bg-primary/30 backdrop-blur-md" @click.self="closeModal">
+            <div v-if="modal && posterPath" class="bg-secondary/20 fixed left-0 top-0 z-100 h-screen w-screen flex items-center justify-center backdrop-blur-md" @click.self="closeModal">
                 <div class="modal relative h-fit w-fit">
                     <div class="aspect-2/3 h-80vh overflow-hidden card">
                         <img :src="$getImageUrl(posterPath, 'poster', 'w780')" alt="Poster" class="h-full w-full object-cover" />

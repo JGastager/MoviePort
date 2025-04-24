@@ -32,7 +32,7 @@
             </TransitionFade>
         </div>
         <header class="pointer-events-none relative z-1 h-95 min-h-35 transition-all duration-800">
-            <div class="px-margin sticky top-0 flex items-start justify-between py-12">
+            <div class="sticky top-0 flex items-start justify-between px-margin py-12">
                 <Navigation />
                 <div class="flex gap-3">
                     <OptionsButton />
@@ -41,7 +41,7 @@
                 </div>
             </div>
             <TransitionFade :duration="{ enter: 1800, leave: 600 }" :delay="{ enter: 1200, leave: 0 }">
-                <div v-if="currentRouteType === 'home'" class="pl-margin pointer-events-auto absolute bottom-0 left-0 h-full flex flex-col items-start justify-end gap-10 py-12">
+                <div v-if="currentRouteType === 'home'" class="pointer-events-auto absolute bottom-0 left-0 h-full flex flex-col items-start justify-end gap-10 py-12 pl-margin">
                     <div class="pointer-events-none flex-grow pb-10">
                         <Brand class="sticky top-12" />
                     </div>
@@ -83,11 +83,12 @@
                 </div>
             </TransitionFade>
         </header>
-        <div class="realtive px-margin flex-grow bg-primary/30 py-12 backdrop-blur">
-            <main>
+        <div class="relative flex-grow px-margin py-12">
+            <div class="absolute inset-0 z-0 bg-primary/30 backdrop-blur"></div>
+            <main class="relative">
                 <slot />
             </main>
-            <footer class="mt-30 flex justify-between gap">
+            <footer class="relative mt-30 flex justify-between gap">
                 <div class="flex items-center gap-4">
                     <NuxtLink to="https://www.themoviedb.org/" target="_blank">
                         <img src="~assets/images/TMDB/alt-short.svg" alt="TMDB Logo" class="block h-4" />

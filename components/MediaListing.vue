@@ -3,11 +3,11 @@
         <h2 v-if="title" class="mb-6">
             {{ title }}
         </h2>
-        <TransitionScale appear group tag="div" class="grid-media-cards items-start">
+        <TransitionScale appear group tag="div" class="items-start grid-media-cards">
             <MediaCard v-for="mediaItem in sortedMedia" :key="mediaItem.id" :media="mediaItem" :type="type" />
             <div
                 v-if="media && more && !loadMore"
-                class="relative w-media-card flex flex-shrink-0 flex-col cursor-pointer items-center justify-center gap-2.5 card transition-colors duration-300 !aspect-2/3 focus:bg-primary/50 hover:bg-primary/50"
+                class="relative flex flex-shrink-0 flex-col cursor-pointer items-center justify-center gap-2.5 card transition-colors duration-300 !aspect-2/3 w-media-card focus:bg-primary/50 hover:bg-primary/50"
                 @click="loadMore = true"
             >
                 <span class="i-ph-plus-square-bold size-6" />
@@ -17,7 +17,7 @@
         <div v-show="more" ref="scrollTrigger" class="pointer-events-none h-10 opacity-0"></div>
         <!-- Invisible trigger div for infinite scroll -->
         <Transition name="to-top">
-            <div v-if="media?.length > 28 && showToTop" class="px-margin pointer-events-none sticky bottom-0 z-10 w-full flex items-center justify-center py-12">
+            <div v-if="media?.length > 28 && showToTop" class="pointer-events-none sticky bottom-0 z-10 w-full flex items-center justify-center px-margin py-12">
                 <div class="pointer-events-auto backdrop-blur button" @click="scrollToTop">
                     <span class="i-ph-arrow-up size-6" />
                 </div>

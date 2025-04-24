@@ -22,9 +22,9 @@
     <!-- Login Modal -->
     <Teleport v-if="mounted" to="#modals">
         <Transition name="modal">
-            <div v-if="modal" class="fixed left-0 top-0 z-100 h-screen w-screen flex items-center justify-center bg-primary/30 backdrop-blur-md" @click.self="closeModal">
+            <div v-if="modal" class="bg-secondary/20 fixed left-0 top-0 z-100 h-screen w-screen flex items-center justify-center backdrop-blur-md" @click.self="closeModal">
                 <div class="modal relative h-fit w-fit">
-                    <div class="h-60vh w-50vw flex flex-col items-center justify-center overflow-hidden card px-20">
+                    <div class="bg-secondary h-60vh w-50vw flex flex-col items-center justify-center overflow-hidden rounded px-20">
                         <h2 class="mb-2.5">Login to</h2>
                         <NuxtLink to="https://www.themoviedb.org/" target="_blank" class="mb-10">
                             <img src="~assets/images/TMDB/primary-long.svg" alt="TMDB Logo" class="block h-4" />

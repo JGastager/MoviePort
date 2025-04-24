@@ -9,6 +9,7 @@ export default defineConfig({
     theme: {
         colors: {
             primary: "#707070",
+            secondary: "#000711",
         },
         borderRadius: {
             DEFAULT: "8px",

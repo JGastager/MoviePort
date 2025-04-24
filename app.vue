@@ -1,5 +1,5 @@
 <template>
-    <div class="min-h-screen bg-[#000711]">
+    <div class="bg-secondary min-h-screen">
         <Topbar v-if="isElectron" />
         <NuxtLayout>
             <NuxtPage />
@@ -134,9 +134,7 @@ a {
 }
 
 header .button,
-header .card,
-#modals .button,
-#modals .card {
+header .card {
     backdrop-filter: blur(40px);
 }
 

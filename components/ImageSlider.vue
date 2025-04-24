@@ -49,4 +49,19 @@ onMounted(async () => {
 });
 </script>
 
-<style></style>
+<!-- <style lang="scss">
+.image-slider {
+    > div {
+        scroll-snap-type: x proximity;
+        > div {
+            &:first-child {
+                scroll-snap-align: start;
+            }
+            scroll-snap-align: center;
+            &:last-child {
+                scroll-snap-align: end;
+            }
+        }
+    }
+}
+</style> -->
