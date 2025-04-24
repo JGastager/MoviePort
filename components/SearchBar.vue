@@ -1,26 +1,23 @@
 <template>
     <div class="relative">
         <div
+            ref="searchBar"
             class="search-bar pointer-events-auto z-10 w-103 cursor-text card transition-colors duration-300 focus:bg-primary/50 hover:bg-primary/50"
             :class="{ 'is-open': showResults && searchMultiResults?.results }"
             @click.stop="showResults = true"
+            @focusout="onFocusOut"
         >
             <div class="h-11 flex items-center">
-                <input v-model="searchString" type="text" class="h-full w-full rounded b-none bg-transparent px-4 py-0 text-1rem text-white font-sans outline-none" @focus="handleFocus" @input="handleInput" @blur="handleBlur" />
+                <input v-model="searchString" type="text" class="h-full w-full rounded b-none bg-transparent px-4 py-0 text-1rem text-white font-sans outline-none" @focus="handleFocus" @input="handleInput" />
                 <div class="h-full w-13 flex items-center justify-center pr-2">
                     <span class="i-ph-magnifying-glass-bold size-6" />
                 </div>
             </div>
             <TransitionExpand>
                 <ul v-if="showResults" class="m-0 p-0">
-                    <li
-                        v-for="(result, index) in searchMultiResults?.results.slice(0, 7)"
-                        :key="result.id || index"
-                        class="h-10 flex cursor-pointer items-center rounded transition-colors duration-300 -my-1.5 last:mb-0 hover:bg-primary/20"
-                        @click="handleResultClick"
-                    >
-                        <NuxtLink v-if="result.media_type === 'movie'" :to="`/movie/${result.id}`" class="w-full px-4">
-                            <span class="line-clamp-1">
+                    <li v-for="(result, index) in searchMultiResults?.results.slice(0, 7)" :key="result.id || index" class="h-10 flex cursor-pointer items-center rounded transition-colors duration-300 hover:z-1 -my-1.5 last:mb-0 hover:bg-primary/20">
+                        <NuxtLink v-if="result.media_type === 'movie'" :to="`/movie/${result.id}`" class="w-full px-4" @click.self="handleResultClick">
+                            <span class="line-clamp-1 line-height-7">
                                 {{ result.title || result.name }}
                                 <span class="text-sm text-muted">
                                     {{ getMediaType(result.media_type) }}
@@ -30,8 +27,8 @@
                                 </span>
                             </span>
                         </NuxtLink>
-                        <NuxtLink v-else-if="result.media_type === 'tv'" :to="`/tv/${result.id}`" class="w-full px-4">
-                            <span class="line-clamp-1">
+                        <NuxtLink v-else-if="result.media_type === 'tv'" :to="`/tv/${result.id}`" class="w-full px-4" @click.self="handleResultClick">
+                            <span class="line-clamp-1 line-height-7">
                                 {{ result.title || result.name }}
                                 <span class="text-sm text-muted">
                                     {{ getMediaType(result.media_type) }}
@@ -41,8 +38,8 @@
                                 </span>
                             </span>
                         </NuxtLink>
-                        <NuxtLink v-else :to="`/person/${result.id}`" class="w-full px-4">
-                            <span class="line-clamp-1">
+                        <NuxtLink v-else :to="`/person/${result.id}`" class="w-full px-4" @click.self="handleResultClick">
+                            <span class="line-clamp-1 line-height-7">
                                 {{ result.title || result.name }}
                                 <span class="text-sm text-muted">
                                     {{ getMediaType(result.media_type) }}
@@ -77,6 +74,8 @@ const { searchMultiResults } = storeToRefs(searchStore);
 const searchString = ref("");
 const showResults = ref(false);
 
+const searchBar = ref<HTMLElement | null>(null);
+
 watch(
     () => route.fullPath,
     () => {
@@ -101,10 +100,6 @@ function handleFocus() {
     }
 }
 
-function handleBlur() {
-    showResults.value = false;
-}
-
 function handleResultClick() {
     showResults.value = false;
 }
@@ -120,5 +115,13 @@ function getMediaType(mediaType: string) {
         default:
             return null;
     }
+}
+
+function onFocusOut() {
+    requestAnimationFrame(() => {
+        if (!searchBar.value!.contains(document.activeElement)) {
+            showResults.value = false;
+        }
+    });
 }
 </script>
