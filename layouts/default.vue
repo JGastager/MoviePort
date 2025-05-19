@@ -51,14 +51,18 @@
                                 {{ lastWatchedMovie?.title }}
                                 <span class="i-ph-arrow-square-in-bold text absolute bottom-2 block size-6 opacity-0 transition-opacity duration-300 -right-13 group-hover:opacity-100" />
                             </h1>
-                            <p class="line-clamp-3 max-w-150 text-muted">{{ lastWatchedMovie?.overview }}</p>
+                            <p class="line-clamp-3 max-w-150 text-muted">
+                                {{ lastWatchedMovie?.overview }}
+                            </p>
                         </NuxtLink>
                         <div class="flex items-center gap-2.5">
                             <NuxtLink :to="'/movie/' + lastWatchedMovie?.id" class="button">
                                 <span class="i-ph-play-bold size-6" />
                                 <span>Continue watching</span>
                             </NuxtLink>
-                            <div class="button" @click="deleteFromLastWatched()"><span class="i-ph-minus-square-bold size-6" /></div>
+                            <div class="button" @click="deleteFromLastWatched()">
+                                <span class="i-ph-minus-square-bold size-6" />
+                            </div>
                             <WatchlistButton :tmdb-id="lastWatchedMovie?.id" type="movie" />
                             <Rating :tmdb-id="lastWatchedMovie?.id" type="movie" :rating="lastWatchedMovie?.vote_average" size="large" class="mx-3" />
                         </div>
@@ -69,7 +73,9 @@
                                 {{ popularMovie?.title }}
                                 <span class="i-ph-arrow-square-in-bold text absolute bottom-2 block size-6 opacity-0 transition-opacity duration-300 -right-13 group-hover:opacity-100" />
                             </h1>
-                            <p class="line-clamp-3 max-w-150 text-muted">{{ popularMovie?.overview }}</p>
+                            <p class="line-clamp-3 max-w-150 text-muted">
+                                {{ popularMovie?.overview }}
+                            </p>
                         </NuxtLink>
                         <div class="flex items-center gap-2.5">
                             <NuxtLink :to="'/movie/' + popularMovie?.id" class="button">
@@ -83,25 +89,12 @@
                 </div>
             </TransitionFade>
         </header>
-        <div class="relative flex-grow px-margin py-12">
+        <div class="relative flex flex-grow flex-col px-margin py-12">
             <div class="absolute inset-0 z-0 bg-primary/30 backdrop-blur"></div>
             <main class="relative">
                 <slot />
             </main>
-            <footer class="relative mt-30 flex justify-between gap">
-                <div class="flex items-center gap-4">
-                    <NuxtLink to="https://www.themoviedb.org/" target="_blank">
-                        <img src="~assets/images/TMDB/alt-short.svg" alt="TMDB Logo" class="block h-4" />
-                    </NuxtLink>
-                    <p class="text-muted">This application uses TMDB and the TMDB APIs but is not endorsed, certified, or otherwise approved by TMDB.</p>
-                </div>
-                <div>
-                    <NuxtLink to="https://github.com/JGastager/MoviePort/issues" target="_blank" class="inline-block flex items-center gap-2.5">
-                        <p class="text-muted">File an issue on GitHub</p>
-                        <span class="i-custom-github size-7 text-muted" />
-                    </NuxtLink>
-                </div>
-            </footer>
+            <FooterInfos />
         </div>
     </div>
 </template>
