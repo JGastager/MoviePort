@@ -1,5 +1,5 @@
 <template>
-    <div v-if="type === 'movie'" class="group relative w-media-card cursor-pointer rounded">
+    <div v-if="type === 'movie'" class="group relative cursor-pointer rounded w-media-card">
         <div class="relative mb-3 aspect-2/3 overflow-hidden card">
             <img v-if="media.poster_path" :src="$getImageUrl(media.poster_path, 'poster', 'w342')" :alt="media.title" class="h-full w-full object-cover transition-all duration-300 group-hover:scale-102 group-hover:blur-sm" />
             <div v-else class="absolute inset-0 h-full w-full flex items-center justify-center transition-all duration-300 group-hover:scale-102 group-hover:blur-sm">
@@ -16,7 +16,7 @@
         </div>
         <NuxtLink :to="'/movie/' + media.id" class="absolute inset-0 z-10" />
     </div>
-    <div v-else-if="type === 'tv'" class="group relative w-media-card cursor-pointer rounded">
+    <div v-else-if="type === 'tv'" class="group relative cursor-pointer rounded w-media-card">
         <div class="relative mb-3 aspect-2/3 overflow-hidden card">
             <img v-if="media.poster_path" :src="$getImageUrl(media.poster_path, 'poster', 'w342')" :alt="media.name" class="h-full w-full object-cover transition-all duration-300 group-hover:scale-102 group-hover:blur-sm" />
             <div v-else class="absolute inset-0 h-full w-full flex items-center justify-center transition-all duration-300 group-hover:scale-102 group-hover:blur-sm">
