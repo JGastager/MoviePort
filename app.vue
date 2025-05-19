@@ -1,8 +1,8 @@
 <template>
-    <div class="bg-secondary min-h-screen">
+    <div class="min-h-screen bg-secondary">
         <Topbar v-if="isElectron" />
         <NuxtLayout>
-            <NuxtPage />
+            <PlusModalNuxtPage />
         </NuxtLayout>
         <div id="modals" />
     </div>

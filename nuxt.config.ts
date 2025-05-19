@@ -1,6 +1,6 @@
 // https://nuxt.com/docs/api/configuration/nuxt-config
 export default defineNuxtConfig({
-    modules: ["nuxt-electron", "@unocss/nuxt", "@nuxt/eslint", "@nuxt/fonts", "@morev/vue-transitions/nuxt", "@pinia/nuxt", "@nuxtjs/i18n"],
+    modules: ["nuxt-electron", "@unocss/nuxt", "@nuxt/eslint", "@nuxt/fonts", "@morev/vue-transitions/nuxt", "@pinia/nuxt", "@nuxtjs/i18n", "nuxt-pages-plus"],
     ssr: false,
     devtools: { enabled: true },
     app: {
@@ -53,7 +53,7 @@ export default defineNuxtConfig({
         },
     },
     i18n: {
-        vueI18n: "./i18n.config.ts",
+        // vueI18n: "./i18n.config.ts",
         strategy: "no_prefix",
         locales: [
             {
@@ -72,5 +72,8 @@ export default defineNuxtConfig({
             alwaysRedirect: false,
             fallbackLocale: "en",
         },
+    },
+    pagesPlus: {
+        // Nuxt Pages Plus configuration
     },
 });
