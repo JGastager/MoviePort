@@ -15,12 +15,11 @@
     "lint:prettier": "prettier . --check",
     "lintfix": "eslint . --fix"
   },
-  
   "dependencies": {
     "@morev/vue-transitions": "^3.0.5",
     "@nuxt/eslint": "^1.0.1",
     "@nuxt/fonts": "^0.7.2",
-    "@nuxtjs/i18n": "^10.0.0-beta.4",
+    "@nuxtjs/i18n": "^9.5.4",
     "@pinia/nuxt": "^0.9.0",
     "@stylistic/eslint-plugin": "^3.1.0",
     "dayjs": "^1.11.13",
