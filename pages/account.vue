@@ -54,11 +54,11 @@ const { fetchAccountDetails, fetchFavoriteMovies, fetchFavoriteTVShows, fetchRat
 
 const selectedLanguage = ref<string | null>(null);
 
-const { locales, locale } = useI18n();
+const { locales, setLocale } = useI18n();
 
-watch(selectedLanguage, (value) => {
+watch(selectedLanguage, async (value) => {
     if (value) {
-        locale.value = value;
+        await setLocale(value);
         setPreferredLanguage(value);
     }
 });
