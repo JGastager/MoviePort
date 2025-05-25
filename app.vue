@@ -4,7 +4,6 @@
         <NuxtLayout>
             <PlusModalNuxtPage />
         </NuxtLayout>
-        <div id="modals" />
     </div>
 </template>
 
@@ -164,10 +163,16 @@ button {
 .page-enter-active,
 .page-leave-active {
     transition: opacity 0.3s;
+    .modal {
+        transition: transform 0.3s;
+    }
 }
 
 .page-enter-from,
 .page-leave-to {
     opacity: 0;
+    .modal {
+        transform: scale(0.5);
+    }
 }
 </style>

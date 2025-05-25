@@ -1,0 +1,127 @@
+<template>
+    <div class="h-full flex flex-col items-center justify-center">
+        <h2 class="mb-2.5">Login to</h2>
+        <NuxtLink to="https://www.themoviedb.org/" target="_blank" class="mb-10">
+            <img src="~assets/images/TMDB/primary-long.svg" alt="TMDB Logo" class="block h-4" />
+        </NuxtLink>
+        <form class="login-form relative max-w-100 w-full" @submit.prevent="handleLogin">
+            <div class="flex flex-col items-center gap-2.5 transition-opacity duration-300" :class="{ 'opacity-0 pointer-events-0': isAuthenticated && loginSuccess }">
+                <div class="h-11 w-full flex flex-shrink-0 items-center border-2 border-transparent card border-solid transition-colors duration-300 focus:bg-primary/50 hover:bg-primary/50" :class="{ 'animate-wiggle': triggerAnimation }">
+                    <input v-model="username" class="h-full w-full rounded b-none bg-transparent px-4 py-0 text-1rem placeholder:text-muted text-white font-sans outline-none" type="text" placeholder="Username" required />
+                    <div class="pointer-events-none h-full w-13 flex items-center justify-center pr-2">
+                        <span class="i-ph-user-bold size-6" />
+                    </div>
+                </div>
+                <div class="h-11 w-full flex flex-shrink-0 items-center border-2 border-transparent card border-solid transition-colors duration-300 focus:bg-primary/50 hover:bg-primary/50" :class="{ 'animate-wiggle': triggerAnimation }">
+                    <input
+                        v-model="password"
+                        class="h-full w-full rounded b-none bg-transparent px-4 py-0 text-1rem placeholder:text-muted text-white font-sans outline-none"
+                        :type="showPassword ? 'text' : 'password'"
+                        placeholder="Password"
+                        required
+                    />
+                    <div class="h-full w-13 flex cursor-pointer items-center justify-center pr-2" @click="toggleShowPassword">
+                        <span class="size-6" :class="showPassword ? 'i-ph-eye-slash-bold' : 'i-ph-eye-bold'" />
+                    </div>
+                </div>
+                <TransitionExpand>
+                    <div v-if="loginError && !loginSuccess" class="w-full flex flex-col items-center gap-1.5 pt-4">
+                        <div class="flex items-center gap-2.5">
+                            <span class="i-ph-warning-circle-bold size-6 text-red-500"></span>
+                            <span>Login failed!</span>
+                        </div>
+                        <span class="text-center text-red-500">Please check your credentials and try again.</span>
+                    </div>
+                </TransitionExpand>
+                <button class="mt-3 button" type="submit">Login</button>
+                <div class="mt-4 flex flex-col items-center">
+                    <NuxtLink to="https://www.themoviedb.org/reset-password" target="_blank" class="text-muted transition-colors duration-300 hover:text-white">Forgot password?</NuxtLink>
+                    <NuxtLink to="https://www.themoviedb.org/signup" target="_blank" class="text-muted transition-colors duration-300 hover:text-white">Don't have an account?</NuxtLink>
+                </div>
+            </div>
+            <TransitionFade>
+                <div v-if="isAuthenticated && loginSuccess" class="absolute left-1/2 top-0 h-auto w-full flex flex-col transform items-center gap-2.5 -translate-x-1/2">
+                    <span class="i-ph-check-circle-thin size-24 text-green-400"></span>
+                    <span>Succesfully logged in!</span>
+                </div>
+            </TransitionFade>
+        </form>
+    </div>
+</template>
+
+<script lang="ts" setup>
+import { ref, computed } from "vue";
+import { useRouter } from "vue-router";
+import { storeToRefs } from "pinia"; // ✅ Import storeToRefs
+import { useAccountStore } from "~/store/account";
+
+defineOptions({
+    name: "LoginComponent",
+});
+
+const router = useRouter();
+const accountStore = useAccountStore();
+const { login } = accountStore;
+
+const { isLoggedIn } = storeToRefs(accountStore);
+
+const username = ref("");
+const password = ref("");
+const showPassword = ref(false);
+
+const isAuthenticated = computed(() => isLoggedIn.value);
+const loginSuccess = ref(false);
+const loginError = ref(false);
+const triggerAnimation = ref(false);
+
+function closeModal() {
+    loginError.value = false;
+    loginSuccess.value = false;
+    username.value = "";
+    password.value = "";
+}
+
+function toggleShowPassword() {
+    showPassword.value = !showPassword.value;
+}
+
+async function handleLogin() {
+    try {
+        await login(username.value, password.value);
+        loginSuccess.value = true;
+        username.value = "";
+        password.value = "";
+        setTimeout(() => {
+            closeModal();
+            router.push("/account");
+        }, 1000);
+    } catch (error) {
+        loginError.value = true;
+        triggerAnimation.value = true;
+        setTimeout(() => {
+            triggerAnimation.value = false;
+        }, 300);
+        console.error(error);
+    }
+}
+</script>
+
+<style lang="scss">
+.login-form {
+    @keyframes wiggle {
+        0%,
+        100% {
+            transform: translateX(0px);
+        }
+        45% {
+            transform: translateX(6px);
+        }
+        75% {
+            transform: translateX(-6px);
+        }
+    }
+    .animate-wiggle {
+        animation: wiggle 0.3s ease-in-out;
+    }
+}
+</style>

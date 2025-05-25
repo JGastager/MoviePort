@@ -94,9 +94,7 @@
             <div v-if="!isLoggedIn" class="relative col-span-1 aspect-9/5 min-h-28 w-full flex flex-shrink-0 flex-col cursor-pointer items-center justify-center gap-2.5 card transition-colors duration-300 focus:bg-primary/50 hover:bg-primary/50">
                 <span class="i-ph-plus-square-bold size-6" />
                 <h3>{{ $t("global.more") }}</h3>
-                <NuxtLink to="/login" class="absolute inset-0 h-full w-full" />
-                <PlusModalLink to="/info">Show Info Modal</PlusModalLink>
-                <PlusModalPage name="my-modal" />
+                <PlusModalLink to="/login" class="absolute inset-0 h-full w-full" />
             </div>
         </div>
         <MovieSlider v-if="trendingMovies?.results" :after="{ text: $t('global.allMovies'), link: '/movie', icon: 'i-ph-film-strip-bold' }" :title="$t('home.trendingMovies')" :overflow="true" :movies="trendingMovies.results" class="mb-10" />
