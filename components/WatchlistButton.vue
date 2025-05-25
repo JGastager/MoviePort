@@ -1,7 +1,10 @@
 <template>
-    <div class="button" @click="isLoggedIn ? writeToWatchlist() : $router.push('/login')">
+    <div v-if="isLoggedIn" class="button" @click="writeToWatchlist()">
         <span class="size-6 bg-gradient-to-br" :class="watchlistToggle ? 'i-ph-bookmark-simple-fill from-indigo-400 to-blue-400 animate-fly-in' : 'i-ph-bookmark-simple-bold'" />
     </div>
+    <PlusModalLink v-else to="/login" class="button">
+        <span class="i-ph-bookmark-simple-bold size-6 bg-gradient-to-br" />
+    </PlusModalLink>
 </template>
 
 <script lang="ts" setup>

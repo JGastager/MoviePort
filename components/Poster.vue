@@ -12,7 +12,7 @@
             <span v-else-if="type === 'person'" class="i-ph-user-thin size-18 text-muted" />
         </div>
     </div>
-    <Teleport v-if="posterPath" to="#modals">
+    <Teleport v-if="posterPath" to="body">
         <Transition name="modal">
             <div v-if="modal && posterPath" class="fixed left-0 top-0 z-100 h-screen w-screen flex items-center justify-center bg-primary/20 backdrop-blur-md" @click.self="closeModal">
                 <div class="modal relative h-fit w-fit">

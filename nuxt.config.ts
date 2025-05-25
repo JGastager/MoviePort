@@ -1,6 +1,6 @@
 // https://nuxt.com/docs/api/configuration/nuxt-config
 export default defineNuxtConfig({
-    modules: ["nuxt-electron", "@unocss/nuxt", "@nuxt/eslint", "@nuxt/fonts", "@morev/vue-transitions/nuxt", "@pinia/nuxt", "@nuxtjs/i18n"],
+    modules: ["nuxt-pages-plus", "nuxt-electron", "@unocss/nuxt", "@nuxt/eslint", "@nuxt/fonts", "@morev/vue-transitions/nuxt", "@pinia/nuxt", "@nuxtjs/i18n"],
     ssr: false,
     devtools: { enabled: true },
     app: {
@@ -53,17 +53,12 @@ export default defineNuxtConfig({
         },
     },
     i18n: {
-        vueI18n: "./i18n.config.ts",
+        defaultLocale: "en",
+        lazy: true,
         strategy: "no_prefix",
         locales: [
-            {
-                code: "en",
-                name: "English",
-            },
-            {
-                code: "de",
-                name: "Deutsch",
-            },
+            { code: "en", name: "English", file: "en.json" },
+            { code: "de", name: "Deutsch", file: "de.json" },
         ],
         skipSettingLocaleOnNavigate: true,
         detectBrowserLanguage: {

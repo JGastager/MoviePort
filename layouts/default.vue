@@ -113,14 +113,21 @@ const { movieDetails, popularMovies } = storeToRefs(movieStore);
 const { tvShowDetails } = storeToRefs(showsStore);
 
 const route = useRoute();
+let lastRouteType: string | null = null;
 const currentRouteType = computed(() => {
     if (route.path === "/") {
+        lastRouteType = "home";
         return "home";
     } else if (route.path.startsWith("/movie/")) {
+        lastRouteType = "movie";
         return "movie";
     } else if (route.path.startsWith("/tv/")) {
+        lastRouteType = "tv";
         return "tv";
+    } else if (route.path === "/login") {
+        return lastRouteType;
     } else {
+        lastRouteType = null;
         return null;
     }
 });

@@ -1,10 +1,9 @@
 <template>
-    <div class="bg-secondary min-h-screen">
+    <div class="min-h-screen bg-secondary">
         <Topbar v-if="isElectron" />
         <NuxtLayout>
-            <NuxtPage />
+            <PlusModalNuxtPage />
         </NuxtLayout>
-        <div id="modals" />
     </div>
 </template>
 
@@ -164,10 +163,16 @@ button {
 .page-enter-active,
 .page-leave-active {
     transition: opacity 0.3s;
+    .modal {
+        transition: transform 0.3s;
+    }
 }
 
 .page-enter-from,
 .page-leave-to {
     opacity: 0;
+    .modal {
+        transform: scale(0.5);
+    }
 }
 </style>

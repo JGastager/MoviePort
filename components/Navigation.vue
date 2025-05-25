@@ -16,12 +16,27 @@
 <script lang="ts" setup>
 import { useRoute } from "vue-router";
 
+import { ref, computed, watch } from "vue";
+
 defineOptions({
     name: "NavigationComponent",
 });
 const route = useRoute();
 
-const isHome = computed(() => route.path === "/");
+const wasHome = ref(route.path === "/");
+
+watch(
+    () => route.path,
+    (newPath, oldPath) => {
+        if (oldPath === "/") {
+            wasHome.value = true;
+        }
+    },
+);
+
+const isHome = computed(() => {
+    return route.path === "/" || (route.path === "/login" && wasHome.value);
+});
 </script>
 
 <style lang="scss">
