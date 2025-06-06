@@ -12,20 +12,9 @@
             <span v-else-if="type === 'person'" class="i-ph-user-thin size-18 text-muted" />
         </div>
     </div>
-    <Teleport v-if="posterPath" to="body">
-        <Transition name="modal">
-            <div v-if="modal && posterPath" class="fixed left-0 top-0 z-100 h-screen w-screen flex items-center justify-center bg-primary/20 backdrop-blur-md" @click.self="closeModal">
-                <div class="modal relative h-fit w-fit">
-                    <div class="aspect-2/3 h-80vh overflow-hidden card">
-                        <img :src="$getImageUrl(posterPath, 'poster', 'w780')" alt="Poster" class="h-full w-full object-cover" />
-                    </div>
-                    <div class="absolute top-0 translate-x-full transform -right-3 button" @click="closeModal">
-                        <span class="i-ph-x-bold size-6" />
-                    </div>
-                </div>
-            </div>
-        </Transition>
-    </Teleport>
+    <Modal v-if="posterPath" v-model="modal" class="aspect-2/3 h-80vh">
+        <img :src="$getImageUrl(posterPath, 'poster', 'w780')" alt="Poster" class="h-full w-full object-cover" />
+    </Modal>
 </template>
 
 <script lang="ts" setup>
@@ -41,10 +30,6 @@ const _props = defineProps<{
 }>();
 
 const modal = ref(false);
-
-function closeModal() {
-    modal.value = false;
-}
 
 function openModal() {
     modal.value = true;
