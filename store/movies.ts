@@ -1,4 +1,5 @@
 import { defineStore } from "pinia";
+import { useAccountStore } from "./account";
 import type { TMDBImagesResponse, TMDBVideosResponse } from "~/types/general";
 import type { TMDBPopularMoviesResponse, TMDBTrendingMoviesResponse, TMDBMovieDetailsResponse, TMDBSimilarMoviesResponse } from "~/types/movieDetails";
 import type { TMDBMovieCreditsResponse } from "~/types/person";
@@ -13,10 +14,13 @@ export const useMoviesStore = defineStore("moviesStore", {
         movieCredits: {} as TMDBMovieCreditsResponse,
         similarMovies: {} as TMDBSimilarMoviesResponse,
         movieProviders: {} as TMDBProviders,
+        // accountStatesCache: {} as Record<number, any>, // Cache for account states
     }),
     actions: {
         async fetchPopularMovies(page = 1) {
             try {
+                console.time("fetchPopularMovies"); // Start timer for the entire method
+
                 const response = await $fetch<TMDBPopularMoviesResponse>("/api/movie/popular", {
                     query: { page },
                 });
@@ -29,8 +33,31 @@ export const useMoviesStore = defineStore("moviesStore", {
                         results: [...this.popularMovies.results, ...response.results],
                     };
                 }
+
+                // Initialize cache if not already present
+                /*   if (!this.accountStatesCache) {
+                    this.accountStatesCache = {};
+                }
+
+                console.time("fetchAccountStates"); // Start timer for fetching account states
+                // Fetch account states for each movie in the response
+                 for (const movie of response.results) {
+                    if (!this.accountStatesCache[movie.id]) {
+                        try {
+                            const accountState = await $fetch(`/api/movie/${movie.id}/account_states`);
+                            this.accountStatesCache[movie.id] = accountState; // Cache the result
+                        } catch (error) {
+                            console.error(`Error fetching account states for movie ${movie.id}:`, error);
+                        }
+                    }
+                }
+                console.timeEnd("fetchAccountStates"); // End timer for fetching account states
+
+                console.log(this.accountStatesCache);
+                console.timeEnd("fetchPopularMovies"); // End timer for the entire method */
             } catch (error) {
-                console.error("Error fetching movies:", error);
+                console.error("Error fetching popular movies:", error);
+                console.timeEnd("fetchPopularMovies"); // Ensure timer ends even if an error occurs
             }
         },
         async fetchTrendingMovies(timeWindow: string = "day") {
@@ -47,12 +74,19 @@ export const useMoviesStore = defineStore("moviesStore", {
             this.movieProviders = await $fetch<TMDBProvidersResponse>(`/api/movie/${movieId}/watch/providers`);
         },
         async fetchMovieDetails(movieId: number) {
+            const accountStore = useAccountStore(); // Access accountStore
+            const sessionId = accountStore.sessionId; // Directly get sessionId
+
             if (this.movieDetails.id === movieId) {
                 console.log(`✅ Successfully loaded movie details ${movieId} from store.`);
             } else {
                 try {
                     this.movieDetails = await $fetch<TMDBMovieDetailsResponse>(`/api/movie/${movieId}`, {
-                        query: { append_to_response: "translations" },
+                        query: { append_to_response: "translations,account_states" },
+                        headers: {
+                            "Content-Type": "application/json",
+                            "x-tmdb-session-id": sessionId, // Use sessionId from accountStore
+                        },
                     });
                     console.log(`✅ Fetched movie details ${movieId}`);
                 } catch (error) {
