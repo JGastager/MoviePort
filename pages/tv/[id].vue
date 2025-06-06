@@ -8,7 +8,7 @@
                             <span class="i-ph-play-bold size-6" />
                             <span>{{ $t("tvShowDetails.watchNow") }}</span>
                         </div>
-                        <WatchlistButton :tmdb-id="showId" type="tv" />
+                        <WatchlistButton :tmdb-id="showId" type="tv" :status="tvShowDetails?.account_states?.watchlist" />
                     </div>
                     <Poster :poster-path="tvShowDetails?.poster_path" type="tv" />
                 </div>
@@ -55,7 +55,7 @@
                 <div class="sticky top-12">
                     <div class="mb-10 flex flex-wrap gap-2.5">
                         <RatingButton :rating="tvShowDetails.vote_average" :tmdb-id="showId" type="tv" />
-                        <FavoriteButton :tmdb-id="showId" type="tv" />
+                        <FavoriteButton :tmdb-id="showId" type="tv" :status="tvShowDetails?.account_states?.favorite" />
                     </div>
                     <div class="mb-10">
                         <div class="flex items-center justify-between gap-3">
