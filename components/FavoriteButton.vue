@@ -1,35 +1,46 @@
 <template>
-    <div class="button" @click="isLoggedIn ? writeFavorite() : $router.push('/login')">
-        <span class="size-6 bg-gradient-to-br" :class="favoriteToggle ? 'i-ph-heart-fill from-rose-500 to-pink-500 animate-fly-in' : 'i-ph-heart-bold'" />
+    <div v-if="isLoggedIn" class="button" @click="toggleFavorite()">
+        <span class="size-6 bg-gradient-to-br" :class="favoriteState ? 'i-ph-heart-fill from-rose-500 to-pink-500 animate-fly-in' : 'i-ph-heart-bold'" />
     </div>
+    <PlusModalLink v-else to="/login" class="button">
+        <span class="i-ph-heart-bold size-6 bg-gradient-to-br" />
+    </PlusModalLink>
 </template>
 
 <script lang="ts" setup>
-import { storeToRefs } from "pinia";
 import { useAccountStore } from "~/store/account";
 
 const props = defineProps<{
-    type: "movie" | "tv" | "person";
+    type: "movie" | "tv";
     tmdbId: number;
+    status: boolean;
 }>();
 
 const accountStore = useAccountStore();
-const { favoriteMovies, favoriteTVShows } = storeToRefs(accountStore);
-const { addFavorite, isLoggedIn } = accountStore;
+const { isLoggedIn } = accountStore;
 
-const inFavorite = computed(() => {
-    const favoriteItems = props.type === "movie" ? favoriteMovies.value?.results : favoriteTVShows.value?.results;
-    return favoriteItems?.some((item) => Number(item.id) === Number(props.tmdbId));
-});
+// Use a local ref to manage the favorite state
+const favoriteState = ref(props.status || false);
 
-const favoriteToggle = ref(inFavorite.value);
+watch(
+    () => props.status,
+    (newVal) => {
+        favoriteState.value = newVal;
+    },
+);
 
-function writeFavorite() {
-    favoriteToggle.value = !favoriteToggle.value;
+async function toggleFavorite() {
+    const newState = !favoriteState.value;
+
+    // Optimistically update the UI state
+    favoriteState.value = newState;
+
     try {
-        addFavorite(props.type, props.tmdbId, favoriteToggle.value);
-    } catch {
-        favoriteToggle.value = !favoriteToggle.value;
+        await accountStore.addFavorite(props.type, props.tmdbId, newState);
+        console.log(`✅ Favorite status updated successfully for ${props.tmdbId}`);
+    } catch (error) {
+        favoriteState.value = !newState;
+        console.error(`❌ Failed to update favorite status for ${props.tmdbId}:`, error);
     }
 }
 </script>

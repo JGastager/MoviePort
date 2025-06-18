@@ -1,4 +1,5 @@
 import { defineStore } from "pinia";
+import { useAccountStore } from "./account";
 import type { TMDBImagesResponse, TMDBVideosResponse } from "~/types/general";
 import type { TVSeasonDetailsResponse } from "~/types/season";
 import type { TMDBPopularTvShowsResponse, TMDBSimilarTvShowsResponse, TMDBTVCreditsResponse, TMDBTVShowDetails } from "~/types/tvshowDetails";
@@ -47,12 +48,19 @@ export const useShowsStore = defineStore("showsStore", {
             this.tvShowProviders = await $fetch<TMDBProvidersResponse>(`/api/tv/${showId}/watch/providers`);
         },
         async fetchTvShowDetails(showId: number) {
+            const accountStore = useAccountStore(); // Access accountStore
+            const sessionId = accountStore.sessionId; // Directly get sessionId
+
             if (this.tvShowDetails.id === showId) {
                 console.log(`✅ Successfully loaded TV show details ${showId} from store.`);
             } else {
                 try {
                     this.tvShowDetails = await $fetch<TMDBTVShowDetails>(`/api/tv/${showId}`, {
-                        query: { append_to_response: "translations" },
+                        query: { append_to_response: "translations,account_states" },
+                        headers: {
+                            "Content-Type": "application/json",
+                            "x-tmdb-session-id": sessionId, // Use sessionId from accountStore
+                        },
                     });
                     console.log(`✅ Fetched TV show details ${showId}`);
                 } catch (error) {
