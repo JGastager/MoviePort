@@ -25,6 +25,7 @@ export const useAccountStore = defineStore("accountStore", {
         watchlistMovies: {} as MovieWatchlistResponse,
         watchlistTVShows: {} as TvShowWatchlistResponse,
         preferredLanguage: "en" as string,
+        allProviders: [],
     }),
     getters: {
         isLoggedIn(): boolean {
@@ -118,6 +119,11 @@ export const useAccountStore = defineStore("accountStore", {
                 console.error(error);
                 throw new Error("Failed to fetch account details");
             }
+        },
+
+        async fetchAllProviders() {
+            const allMovieProviders = await $fetch<FavoriteMoviesResponse>(`/api/watch/providers/movie?watch_region=AT`);
+            this.allProviders = allMovieProviders.results;
         },
 
         async fetchFavoriteMovies() {

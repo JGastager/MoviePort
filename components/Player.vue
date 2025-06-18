@@ -11,16 +11,15 @@ defineOptions({
 const props = defineProps<{
     type: "movie" | "tv";
     tmdbId: number;
+    domain: string;
     season?: number;
     episode?: number;
 }>();
 
-const config = useRuntimeConfig(); // Access server-side config
-
 const playerUrl = computed(() => {
     let url;
     if (props.type === "tv") {
-        url = `https://${config.public.streamProviderDomain}/embed/${props.type}?tmdb=${props.tmdbId}`;
+        url = `https://${props.domain}/embed/${props.type}?tmdb=${props.tmdbId}`;
         if (props.season) {
             url += `&season=${props.season}`;
         }
@@ -28,7 +27,7 @@ const playerUrl = computed(() => {
             url += `&episode=${props.episode}`;
         }
     } else {
-        url = `https://${config.public.streamProviderDomain}/embed/${props.type}?tmdb=${props.tmdbId}`;
+        url = `https://${props.domain}/embed/${props.type}?tmdb=${props.tmdbId}`;
     }
     console.log("Player type:", props.type, " url:", url);
     return url;

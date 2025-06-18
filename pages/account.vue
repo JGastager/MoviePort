@@ -17,6 +17,7 @@
                 <h2 class="mb-5">{{ $t("account.yourLanguagePreference") }}</h2>
                 <SelectBox v-model="selectedLanguage" :deselect="false" :options="locales" label-field="name" value-field="code" :placeholder="$t('account.yourLanguagePreferencePlaceholder')" class="relative w-max !z-100" />
             </div>
+            <ProviderSelector class="mb-10" />
             <Tabs :tabs="tabTitles" :active-tab="currentTab" @update:active-tab="currentTab = $event">
                 <template #content-0>
                     <div v-if="favoriteMovies?.results?.length" class="favoriteMovies">

@@ -4,10 +4,7 @@
             <section class="col-span-2 h-full">
                 <div class="sticky top-12">
                     <div class="mb-10 flex flex-wrap gap-3">
-                        <div class="button" @click="triggerPlay()">
-                            <span class="i-ph-play-bold size-6" />
-                            <span>{{ $t("movieDetails.watchNow") }}</span>
-                        </div>
+                        <WatchButton :tmdb-id="movieId" type="movie" :providers="movieProviders.results" />
                         <WatchlistButton :tmdb-id="movieId" type="movie" :status="movieDetails?.account_states?.watchlist" />
                     </div>
                     <Poster :poster-path="movieDetails?.poster_path" type="movie" />
@@ -24,13 +21,6 @@
                     {{ translatedContent.overview }}
                 </p>
                 <Genres :genres="movieDetails.genres" class="mb-10" />
-                <!-- <h3>Where to Rent</h3>
-                <div class="flex flex-wrap gap-2.5">
-                    <div v-for="provider in providers?.rent" :key="provider.provider_id" class="button">
-                        <img :src="$getImageUrl(provider.logo_path, 'poster', 'w92')" alt="provider logo" class="size-7 rounded" />
-                        <span>{{ provider.provider_name }}</span>
-                    </div>
-                </div> -->
                 <PersonSlider v-if="movieCredits?.cast && movieCredits?.cast.length" :cast="movieCredits.cast" title="Cast" class="mb-10" />
                 <ImageSlider v-if="movieId" :tmdb-id="movieId" type="movie" class="mb-10" />
                 <Providers v-if="movieProviders?.results" :providers="movieProviders.results" />
@@ -97,13 +87,7 @@
                 </div>
             </section>
         </div>
-        <!-- <pre>{{ details }}</pre> -->
         <MediaListing v-if="similarMovies?.results" :title="$t('movieDetails.relatedMovies')" :media="similarMovies.results" :more="true" type="movie" @load-more="loadMoreSimilarMovies" />
-        <Teleport v-if="play" to="#backdrop">
-            <TransitionFade>
-                <Player v-if="play && movieDetails?.id" :tmdb-id="movieDetails.id" type="movie" />
-            </TransitionFade>
-        </Teleport>
     </div>
 </template>
 
@@ -114,8 +98,6 @@ import { storeToRefs } from "pinia";
 import { useMoviesStore } from "~/store/movies";
 import { useAccountStore } from "~/store/account";
 import type { TMDBCredit } from "~/types/person";
-
-const play = ref(false);
 
 const directors = computed(() => {
     return movieCredits.value?.crew?.filter((crewmember: TMDBCredit) => crewmember.job === "Director");
@@ -181,15 +163,6 @@ await fetchMovieProviders(movieId);
 async function loadMoreSimilarMovies() {
     currentPage.value++;
     await fetchSimilarMovies(movieId, currentPage.value);
-}
-
-function triggerPlay() {
-    play.value = true;
-    if (play.value) {
-        window.scrollTo({ top: 0, behavior: "smooth" });
-    }
-    localStorage.removeItem("lastWatchedMovie");
-    localStorage.setItem("lastWatchedMovie", JSON.stringify(movieDetails.value));
 }
 </script>
 

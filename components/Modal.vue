@@ -20,6 +20,10 @@
 <script lang="ts" setup>
 import { defineProps, defineEmits } from "vue";
 
+defineComponent({
+    name: "ModalComponent",
+});
+
 const _props = defineProps<{
     modelValue: boolean;
 }>();

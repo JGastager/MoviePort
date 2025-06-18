@@ -21,6 +21,10 @@
 import { storeToRefs } from "pinia"; // ✅ Import storeToRefs
 import { useAccountStore } from "~/store/account";
 
+defineComponent({
+    name: "LoginComponent",
+});
+
 const accountStore = useAccountStore();
 
 const { isLoggedIn, getUserInfo } = storeToRefs(accountStore);
