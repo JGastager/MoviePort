@@ -4,10 +4,7 @@
             <section class="col-span-2 h-full">
                 <div class="sticky top-12">
                     <div class="mb-10 flex flex-wrap gap-3">
-                        <div class="button" @click="triggerPlay()">
-                            <span class="i-ph-play-bold size-6" />
-                            <span>{{ $t("tvShowDetails.watchNow") }}</span>
-                        </div>
+                        <WatchButton :tmdb-id="showId" type="tv" :providers="tvShowProviders.results" :season="activeSeason" :episode="1" @play="handlePlay(1)" />
                         <WatchlistButton :tmdb-id="showId" type="tv" :status="tvShowDetails?.account_states?.watchlist" />
                     </div>
                     <Poster :poster-path="tvShowDetails?.poster_path" type="tv" />
@@ -41,10 +38,21 @@
                     </div>
                 </div>
                 <TransitionScale group tag="div" class="episodes mb-10 flex flex-wrap gap-3">
-                    <div v-for="episode in tvShowSeasonDetails.episodes" :key="episode.id" class="episode button" @click="((activeEpisode = episode.episode_number), triggerPlay())">
+                    <WatchButton
+                        v-for="episode in tvShowSeasonDetails.episodes"
+                        :key="episode.id"
+                        :tmdb-id="showId"
+                        type="tv"
+                        :providers="tvShowProviders.results"
+                        :season="activeSeason"
+                        :episode="episode.episode_number"
+                        class="episode"
+                        @play="handlePlay(episode.episode_number)"
+                    >
+                        <span v-if="activeEpisode === episode.episode_number" class="i-ph-play-bold size-6" />
                         <span>Ep. {{ episode.episode_number }}</span>
                         <span class="text-14px text-muted">{{ episode.name }}</span>
-                    </div>
+                    </WatchButton>
                 </TransitionScale>
                 <!-- <pre>{{tvShowSeasonDetails}}</pre> -->
                 <PersonSlider v-if="tvShowCredits?.cast && tvShowCredits?.cast.length" :cast="tvShowCredits.cast" class="mb-10" />
@@ -97,13 +105,7 @@
                 </div>
             </section>
         </div>
-        <!-- <pre>{{ details }}</pre> -->
         <MediaListing v-if="similarTvShows?.results" :title="$t('tvShowDetails.relatedTvShows')" :media="similarTvShows.results" :more="true" type="tv" @load-more="loadMoreSimilarTvShows" />
-        <Teleport v-if="play" to="#backdrop">
-            <TransitionFade>
-                <Player v-if="play && tvShowDetails?.id" :tmdb-id="tvShowDetails.id" :season="activeSeason" :episode="activeEpisode" type="tv" />
-            </TransitionFade>
-        </Teleport>
     </div>
 </template>
 
@@ -115,10 +117,8 @@ import { storeToRefs } from "pinia";
 import { useShowsStore } from "~/store/shows";
 import { useAccountStore } from "~/store/account";
 
-const play = ref(false);
-
 const activeSeason = ref(1);
-const activeEpisode = ref(1);
+const activeEpisode = ref(0);
 
 const route = useRoute();
 
@@ -182,11 +182,8 @@ async function loadMoreSimilarTvShows() {
     await fetchSimilarTvShows(showId, currentPage.value);
 }
 
-function triggerPlay() {
-    play.value = true;
-    if (play.value) {
-        window.scrollTo({ top: 0, behavior: "smooth" });
-    }
+function handlePlay(episode_number) {
+    activeEpisode.value = episode_number;
     localStorage.removeItem("lastWatchedTVShow");
     localStorage.setItem("lastWatchedTVShow", JSON.stringify(tvShowDetails.value));
 }

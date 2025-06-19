@@ -11,7 +11,7 @@
 
             <button class="button" @click="openModal"><span class="i-ph-plus-square-bold size-6" /></button>
         </TransitionScale>
-        <Modal v-model="modal" class="w-260 bg-secondary p-20">
+        <Modal v-model="modal" class="w-280 bg-secondary p-20">
             <TransitionExpand>
                 <div v-if="!addCustom">
                     <h2 class="mb-6 text-center">Add Favorites</h2>
@@ -61,7 +61,10 @@
                             <span class="i-ph-link-bold size-6" />
                         </div>
                     </div>
-                    <button class="mt-3 button" @click="addCustomProvider">Done</button>
+                    <div class="w-full flex items-center justify-center gap-2.5">
+                        <button class="mt-3 button" @click.prevent="[(addCustom = false), (name = ''), (domain = '')]">Cancel</button>
+                        <button class="mt-3 button" @click="addCustomProvider">Done</button>
+                    </div>
                 </form>
             </TransitionExpand>
         </Modal>

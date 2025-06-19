@@ -4,7 +4,7 @@
             <section class="col-span-2 h-full">
                 <div class="sticky top-12">
                     <div class="mb-10 flex flex-wrap gap-3">
-                        <WatchButton :tmdb-id="movieId" type="movie" :providers="movieProviders.results" />
+                        <WatchButton :tmdb-id="movieId" type="movie" :providers="movieProviders.results" @play="handlePlay" />
                         <WatchlistButton :tmdb-id="movieId" type="movie" :status="movieDetails?.account_states?.watchlist" />
                     </div>
                     <Poster :poster-path="movieDetails?.poster_path" type="movie" />
@@ -163,6 +163,11 @@ await fetchMovieProviders(movieId);
 async function loadMoreSimilarMovies() {
     currentPage.value++;
     await fetchSimilarMovies(movieId, currentPage.value);
+}
+
+function handlePlay() {
+    localStorage.removeItem("lastWatchedMovie");
+    localStorage.setItem("lastWatchedMovie", JSON.stringify(movieDetails.value));
 }
 </script>
 

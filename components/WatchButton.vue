@@ -1,7 +1,9 @@
 <template>
-    <div class="button" @click="watchNow()">
-        <span class="i-ph-play-bold size-6" />
-        <span>{{ $t("movieDetails.watchNow") }}</span>
+    <div class="button" :class="[$attrs.class, $attrs.staticClass]" @click="watchNow()">
+        <slot>
+            <span class="i-ph-play-bold size-6" />
+            <span>{{ $t("movieDetails.watchNow") }}</span>
+        </slot>
     </div>
     <Modal v-if="favoriteProviders.length > 1" v-model="modal" class="max-w-260 min-h-80 min-w-150 flex flex-col justify-center bg-secondary p-20">
         <h2 class="mb-6 text-center">Where to watch</h2>
@@ -13,9 +15,10 @@
             </button>
         </div>
     </Modal>
+    <!-- FIXME Player gets mounted multiple times if WatchButton component is used more than one time on a page -->
     <Teleport v-if="play" to="#backdrop">
         <TransitionFade>
-            <Player v-if="tmdbId && type && selectedProvider" :tmdb-id="tmdbId" :type="type" :domain="selectedProvider.provider_link" />
+            <Player v-if="tmdbId && type && selectedProvider" :tmdb-id="tmdbId" :type="type" :season="season" :episode="episode" :domain="selectedProvider.provider_link" />
         </TransitionFade>
     </Teleport>
 </template>
@@ -37,7 +40,11 @@ const _props = defineProps<{
     providers: Record<string, ProvidersByCategory>;
     type: "movie" | "tv";
     tmdbId: number;
+    season?: number;
+    episode?: number;
 }>();
+
+const emit = defineEmits(["play"]);
 
 const modal = ref(false);
 const play = ref(false);
@@ -61,6 +68,7 @@ function watchNow() {
 function triggerPlay(provider) {
     if (provider && provider.provider_link && !/^https?:\/\//i.test(provider.provider_link) && !/^www\./i.test(provider.provider_link)) {
         modal.value = false;
+        emit("play", provider);
         selectedProvider.value = provider;
         play.value = true;
         if (play.value) {
@@ -68,12 +76,11 @@ function triggerPlay(provider) {
         }
     } else if (provider && provider.provider_link) {
         modal.value = false;
+        emit("play", provider);
         window.open(/^https?:\/\//i.test(provider.provider_link) ? provider.provider_link : `https://${provider.provider_link}`, "_blank");
     } else {
         console.error("Invalid provider link:", provider);
     }
-    // localStorage.removeItem("lastWatchedMovie");
-    // localStorage.setItem("lastWatchedMovie", JSON.stringify(movieDetails.value));
 }
 </script>
 
