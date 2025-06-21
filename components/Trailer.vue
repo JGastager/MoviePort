@@ -1,5 +1,5 @@
 <template>
-    <div v-if="trailer" class="button" @click="openModal">
+    <div v-if="trailer" class="button" :class="[$attrs.class, $attrs.staticClass]" @click="openModal">
         <span class="i-ph-monitor-play-bold size-6" />
         <span>Trailer</span>
     </div>

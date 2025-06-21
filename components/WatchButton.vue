@@ -15,15 +15,11 @@
             </button>
         </div>
     </Modal>
-    <!-- FIXME Player gets mounted multiple times if WatchButton component is used more than one time on a page -->
-    <Teleport v-if="play" to="#backdrop">
-        <TransitionFade>
-            <Player v-if="tmdbId && type && selectedProvider" :tmdb-id="tmdbId" :type="type" :season="season" :episode="episode" :domain="selectedProvider.provider_link" />
-        </TransitionFade>
-    </Teleport>
 </template>
 
 <script lang="ts" setup>
+import { usePlayerStore } from "~/store/player";
+
 interface Provider {
     provider_id: number;
     logo_path: string;
@@ -45,6 +41,8 @@ const _props = defineProps<{
 }>();
 
 const emit = defineEmits(["play"]);
+
+const player = usePlayerStore();
 
 const modal = ref(false);
 const play = ref(false);
@@ -70,10 +68,14 @@ function triggerPlay(provider) {
         modal.value = false;
         emit("play", provider);
         selectedProvider.value = provider;
-        play.value = true;
-        if (play.value) {
-            window.scrollTo({ top: 0, behavior: "smooth" });
-        }
+        player.openPlayer({
+            tmdbId: _props.tmdbId,
+            type: _props.type,
+            season: _props.season,
+            episode: _props.episode,
+            selectedProvider: provider,
+        });
+        window.scrollTo({ top: 0, behavior: "smooth" });
     } else if (provider && provider.provider_link) {
         modal.value = false;
         emit("play", provider);

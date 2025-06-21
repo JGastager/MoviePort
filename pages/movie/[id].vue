@@ -88,6 +88,11 @@
             </section>
         </div>
         <MediaListing v-if="similarMovies?.results" :title="$t('movieDetails.relatedMovies')" :media="similarMovies.results" :more="true" type="movie" @load-more="loadMoreSimilarMovies" />
+        <Teleport to="#backdrop">
+            <TransitionFade>
+                <Player v-if="player.play && player.tmdbId && player.type && player.selectedProvider" :tmdb-id="player.tmdbId" :type="player.type" :season="player.season" :episode="player.episode" :domain="player.selectedProvider.provider_link" />
+            </TransitionFade>
+        </Teleport>
     </div>
 </template>
 
@@ -98,6 +103,7 @@ import { storeToRefs } from "pinia";
 import { useMoviesStore } from "~/store/movies";
 import { useAccountStore } from "~/store/account";
 import type { TMDBCredit } from "~/types/person";
+import { usePlayerStore } from "~/store/player";
 
 const directors = computed(() => {
     return movieCredits.value?.crew?.filter((crewmember: TMDBCredit) => crewmember.job === "Director");
@@ -110,6 +116,7 @@ const writers = computed(() => {
 });
 
 const route = useRoute();
+const player = usePlayerStore();
 
 const movieId = Number(route.params.id);
 const selectedDetailsLanguage = ref<string | null>(null);

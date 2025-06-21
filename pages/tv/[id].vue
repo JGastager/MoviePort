@@ -106,6 +106,11 @@
             </section>
         </div>
         <MediaListing v-if="similarTvShows?.results" :title="$t('tvShowDetails.relatedTvShows')" :media="similarTvShows.results" :more="true" type="tv" @load-more="loadMoreSimilarTvShows" />
+        <Teleport to="#backdrop">
+            <TransitionFade>
+                <Player v-if="player.play && player.tmdbId && player.type && player.selectedProvider" :tmdb-id="player.tmdbId" :type="player.type" :season="player.season" :episode="player.episode" :domain="player.selectedProvider.provider_link" />
+            </TransitionFade>
+        </Teleport>
     </div>
 </template>
 
@@ -116,11 +121,13 @@ import { useRoute } from "vue-router";
 import { storeToRefs } from "pinia";
 import { useShowsStore } from "~/store/shows";
 import { useAccountStore } from "~/store/account";
+import { usePlayerStore } from "~/store/player";
 
 const activeSeason = ref(1);
 const activeEpisode = ref(0);
 
 const route = useRoute();
+const player = usePlayerStore();
 
 const showId = Number(route.params.id);
 const selectedDetailsLanguage = ref<string | null>(null);
