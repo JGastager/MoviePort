@@ -5,15 +5,19 @@
             <span>{{ $t("movieDetails.watchNow") }}</span>
         </slot>
     </div>
-    <Modal v-if="favoriteProviders.length > 1" v-model="modal" class="max-w-260 min-h-80 min-w-150 flex flex-col justify-center bg-secondary p-20">
+    <Modal v-if="favoriteProviders.length > 1 || availableProviders.length === 0" v-model="modal" class="max-w-260 min-h-80 min-w-150 flex flex-col justify-center bg-secondary p-20">
         <h2 class="mb-6 text-center">Where to watch</h2>
         <div class="flex flex-wrap justify-center gap-4">
-            <button v-for="provider in favoriteProviders" :key="provider.provider_id" :title="provider.provider_link" class="button !pl-3" @click="triggerPlay(provider)">
+            <button v-for="provider in availableProviders" :key="provider.provider_id" :title="provider.provider_link" class="button !pl-3" @click="triggerPlay(provider)">
                 <img v-if="provider.logo_path" :src="$getImageUrl(provider.logo_path, 'poster', 'w92')" alt="provider logo" class="size-7 rounded" />
                 <span v-else class="i-ph-check-square-offset-bold size-6 flex items-center justify-center rounded" />
                 <span>{{ provider.provider_name }}</span>
             </button>
         </div>
+        <p v-if="!availableProviders.length" class="mb-3 flex items-center justify-center gap-2.5 text-muted">
+            <span class="i-ph-seal-warning-bold size-6 text-muted" />
+            <span>No Providers found</span>
+        </p>
     </Modal>
 </template>
 
@@ -24,6 +28,8 @@ interface Provider {
     provider_id: number;
     logo_path: string;
     provider_name: string;
+    provider_link?: string;
+    custom?: boolean; // Optional field to mark custom providers
 }
 
 interface ProvidersByCategory {
@@ -45,7 +51,6 @@ const emit = defineEmits(["play"]);
 const player = usePlayerStore();
 
 const modal = ref(false);
-const play = ref(false);
 const favoriteProviders = ref([]);
 const selectedProvider = ref<Provider | null>(null);
 
@@ -55,6 +60,24 @@ if (localProviders) {
     favoriteProviders.value = JSON.parse(localProviders);
 }
 
+const storedCountry = localStorage.getItem("userCountry");
+
+const availableProviders = computed<Provider[]>(() => {
+    if (storedCountry && _props.providers) {
+        const countryProviders = _props.providers[storedCountry] as ProvidersByCategory | undefined;
+        if (!countryProviders) return [];
+        // Flatten all providers from the given categories into a single array
+        const allProviders: Provider[] = [];
+        Object.values(countryProviders).forEach((providersArr) => {
+            if (Array.isArray(providersArr)) {
+                allProviders.push(...providersArr);
+            }
+        });
+        return favoriteProviders.value.filter((fav: any) => fav.custom === true || allProviders.some((provider: Provider) => provider.provider_id === fav.provider_id));
+    }
+    return [];
+});
+
 function watchNow() {
     if (favoriteProviders.value.length > 1) {
         modal.value = true;
@@ -63,7 +86,7 @@ function watchNow() {
     }
 }
 
-function triggerPlay(provider) {
+function triggerPlay(provider: Provider) {
     if (provider && provider.provider_link && !/^https?:\/\//i.test(provider.provider_link) && !/^www\./i.test(provider.provider_link)) {
         modal.value = false;
         emit("play", provider);

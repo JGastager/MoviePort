@@ -116,6 +116,7 @@ function addCustomProvider() {
             provider_name: name.value || domain.value,
             logo_path: "", // Placeholder for logo path
             provider_link: domain.value,
+            custom: true, // Mark as custom provider
         };
         favoriteProviders.value.push(customProvider);
         localStorage.setItem("favoriteStreamingProviders", JSON.stringify(favoriteProviders.value));
