@@ -1,6 +1,6 @@
 <template>
     <div class="provider-selector">
-        <h2 class="mb-6">Favorite Streaming Provider</h2>
+        <h2 class="mb-6">Favorite Streaming Providers</h2>
         <TransitionScale group tag="div" class="flex flex-wrap gap-4">
             <button v-for="provider in favoriteProviders" :key="provider.provider_id" :title="provider.provider_link" class="group gap-0 button !pl-3" @click="toggleProvider(provider.provider_id)">
                 <img v-if="provider.logo_path" :src="$getImageUrl(provider.logo_path, 'poster', 'w92')" alt="provider logo" class="mr-2.5 size-7 rounded" />
@@ -9,7 +9,10 @@
                 <span class="i-ph-minus-square-bold size-0 opacity-0 transition-all duration-300 group-hover:ml-3 group-hover:size-6 group-hover:opacity-100 group-hover:-mr-1" />
             </button>
 
-            <button class="button" @click="openModal"><span class="i-ph-plus-square-bold size-6" /></button>
+            <button class="group h-11 flex cursor-pointer items-center overflow-hidden card px-0 transition-all transition-colors duration-300 !gap-0 focus:bg-primary/50 hover:bg-primary/50" @click="openModal">
+                <span class="i-ph-plus-square-bold mx-2.5 size-6 flex-shrink-0 transition-all duration-500 group-hover:ml-4" />
+                <span class="max-w-0 transform whitespace-nowrap opacity-0 transition-all duration-500 group-hover:max-w-50 group-hover:pr-4 group-hover:opacity-100">Add Provider</span>
+            </button>
         </TransitionScale>
         <Modal v-model="modal" class="w-280 bg-secondary p-20">
             <TransitionExpand>

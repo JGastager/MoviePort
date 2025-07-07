@@ -37,7 +37,7 @@
                 <Navigation />
                 <div class="flex gap-3">
                     <OptionsButton />
-                    <Login />
+                    <LoginButton />
                     <SearchBar />
                 </div>
             </div>
