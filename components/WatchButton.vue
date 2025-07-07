@@ -1,11 +1,17 @@
 <template>
-    <div class="button" :class="[$attrs.class, $attrs.staticClass]" @click="watchNow()">
+    <div class="button" :class="[$attrs.class, $attrs.staticClass, availableProviders.length ? null : 'disabled']" @click="watchNow()">
         <slot>
-            <span class="i-ph-play-bold size-6" />
-            <span>{{ $t("movieDetails.watchNow") }}</span>
+            <template v-if="availableProviders.length">
+                <span class="i-ph-play-bold size-6" />
+                <span>{{ $t("movieDetails.watchNow") }}</span>
+            </template>
+            <template v-else>
+                <span class="i-ph-seal-warning-bold size-6" />
+                <span>No Providers</span>
+            </template>
         </slot>
     </div>
-    <Modal v-if="favoriteProviders.length > 1 || availableProviders.length === 0" v-model="modal" class="max-w-260 min-h-80 min-w-150 flex flex-col justify-center bg-secondary p-20">
+    <Modal v-if="availableProviders.length > 1" v-model="modal" class="max-w-260 min-h-80 min-w-150 flex flex-col justify-center bg-secondary p-20">
         <h2 class="mb-6 text-center">Where to watch</h2>
         <div class="flex flex-wrap justify-center gap-4">
             <button v-for="provider in availableProviders" :key="provider.provider_id" :title="provider.provider_link" class="button !pl-3" @click="triggerPlay(provider)">
@@ -14,10 +20,6 @@
                 <span>{{ provider.provider_name }}</span>
             </button>
         </div>
-        <p v-if="!availableProviders.length" class="mb-3 flex items-center justify-center gap-2.5 text-muted">
-            <span class="i-ph-seal-warning-bold size-6 text-muted" />
-            <span>No Providers found</span>
-        </p>
     </Modal>
 </template>
 
@@ -63,26 +65,34 @@ if (localProviders) {
 const storedCountry = localStorage.getItem("userCountry");
 
 const availableProviders = computed<Provider[]>(() => {
+    const result: Provider[] = [];
+
+    const allProviders: Provider[] = [];
     if (storedCountry && _props.providers) {
         const countryProviders = _props.providers[storedCountry] as ProvidersByCategory | undefined;
-        if (!countryProviders) return [];
-        // Flatten all providers from the given categories into a single array
-        const allProviders: Provider[] = [];
-        Object.values(countryProviders).forEach((providersArr) => {
-            if (Array.isArray(providersArr)) {
-                allProviders.push(...providersArr);
-            }
-        });
-        return favoriteProviders.value.filter((fav: any) => fav.custom === true || allProviders.some((provider: Provider) => provider.provider_id === fav.provider_id));
+        if (countryProviders) {
+            Object.values(countryProviders).forEach((providersArr) => {
+                if (Array.isArray(providersArr)) {
+                    allProviders.push(...providersArr);
+                }
+            });
+        }
     }
-    return [];
+
+    // Include all custom favorites directly
+    result.push(...favoriteProviders.value.filter((fav: Provider) => fav.custom === true || allProviders.some((p) => p.provider_id === fav.provider_id)));
+
+    return result;
 });
 
 function watchNow() {
-    if (favoriteProviders.value.length > 1) {
+    if (availableProviders.value.length === 0) {
+        console.warn("No available providers to watch.");
+        return;
+    } else if (availableProviders.value.length > 1) {
         modal.value = true;
     } else {
-        triggerPlay(favoriteProviders.value[0]);
+        triggerPlay(availableProviders.value[0]);
     }
 }
 

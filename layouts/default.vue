@@ -30,6 +30,7 @@
                     <img src="~assets/images/spotlight.svg" alt="spotlight" class="spotlight -bottom-0 absolute left-30 h-160% w-auto origin-bottom object-cover blur-xl" />
                 </div>
             </TransitionFade>
+            <Player v-if="player.play && player.tmdbId && player.type && player.selectedProvider" :tmdb-id="player.tmdbId" :type="player.type" :season="player.season" :episode="player.episode" :domain="player.selectedProvider.provider_link" />
         </div>
         <header class="pointer-events-none relative z-1 h-95 min-h-35 transition-all duration-800">
             <div class="sticky top-0 flex items-start justify-between px-margin py-12">
@@ -105,12 +106,14 @@ import { storeToRefs } from "pinia";
 import { useRoute } from "vue-router";
 import { useMoviesStore } from "~/store/movies";
 import { useShowsStore } from "~/store/shows";
+import { usePlayerStore } from "~/store/player";
 
 const movieStore = useMoviesStore();
 const showsStore = useShowsStore();
 
 const { movieDetails, popularMovies } = storeToRefs(movieStore);
 const { tvShowDetails } = storeToRefs(showsStore);
+const player = usePlayerStore();
 
 const route = useRoute();
 let lastRouteType: string | null = null;

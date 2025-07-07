@@ -49,7 +49,7 @@
                         class="episode"
                         @play="handlePlay(episode.episode_number)"
                     >
-                        <span v-if="activeEpisode === episode.episode_number" class="i-ph-play-bold size-6" />
+                        <span v-if="player.episode === episode.episode_number && player.season === activeSeason" class="i-ph-play-bold size-6" />
                         <span>Ep. {{ episode.episode_number }}</span>
                         <span class="text-14px text-muted">{{ episode.name }}</span>
                     </WatchButton>
@@ -106,11 +106,6 @@
             </section>
         </div>
         <MediaListing v-if="similarTvShows?.results" :title="$t('tvShowDetails.relatedTvShows')" :media="similarTvShows.results" :more="true" type="tv" @load-more="loadMoreSimilarTvShows" />
-        <Teleport to="#backdrop">
-            <TransitionFade>
-                <Player v-if="player.play && player.tmdbId && player.type && player.selectedProvider" :tmdb-id="player.tmdbId" :type="player.type" :season="player.season" :episode="player.episode" :domain="player.selectedProvider.provider_link" />
-            </TransitionFade>
-        </Teleport>
     </div>
 </template>
 

@@ -63,6 +63,7 @@ export default defineConfig({
         "grid-media-cards": "3xl:grid-cols-8 4xl:grid-cols-9 grid grid-cols-2 2xl:grid-cols-7 lg:grid-cols-5 md:grid-cols-4 sm:grid-cols-3 xl:grid-cols-6 gap-7",
         "w-media-card":
             "w-[calc((100vw-(var(--grid-margin)*2)-var(--grid-gutter))/2)] sm:w-[calc((100vw-(var(--grid-margin)*2)-(var(--grid-gutter)*2))/3)] md:w-[calc((100vw-(var(--grid-margin)*2)-(var(--grid-gutter)*3))/4)] lg:w-[calc((100vw-(var(--grid-margin)*2)-(var(--grid-gutter)*4))/5)] xl:w-[calc((100vw-(var(--grid-margin)*2)-(var(--grid-gutter)*5))/6)] 2xl:w-[calc((100vw-(var(--grid-margin)*2)-(var(--grid-gutter)*6))/7)] 3xl:w-[calc((100vw-(var(--grid-margin)*2)-(var(--grid-gutter)*7))/8)] 4xl:w-[calc((100vw-(var(--grid-margin)*2)-(var(--grid-gutter)*8))/9)]",
+        disabled: "cursor-default text-muted !hover:bg-primary/30 !focus:bg-primary/30",
     },
     variants: [
         (matcher) => {

@@ -1,6 +1,6 @@
 {
   "name": "movieport",
-  "version": "0.0.1-beta",
+  "version": "0.0.1-beta.2",
   "private": true,
   "type": "module",
   "main": "dist-electron/main.js",

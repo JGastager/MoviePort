@@ -30,7 +30,7 @@
                             />
                             <span v-else class="i-ph-plus-square-bold size-0 opacity-0 transition-all duration-300 group-hover:ml-3 group-hover:size-6 group-hover:opacity-100 group-hover:-mr-1" />
                         </button>
-                        <button v-for="provider in favoriteProviders.filter((p) => p.provider_link)" :key="provider.provider_id" :title="provider.provider_link" class="group gap-0 button !pl-3" @click="toggleProvider(provider.provider_id)">
+                        <button v-for="provider in favoriteProviders.filter((p) => p.custom)" :key="provider.provider_id" :title="provider.provider_link" class="group gap-0 button !pl-3" @click="toggleProvider(provider.provider_id)">
                             <span class="i-ph-check-square-offset-bold mr-2.5 size-6 flex items-center justify-center rounded" />
                             <span>{{ provider.provider_name }}</span>
                             <span
@@ -85,8 +85,16 @@ const addCustom = ref(false);
 const domain = ref("");
 const name = ref("");
 
-const favoriteProviders = ref([]);
-const providers = ref([]);
+interface Provider {
+    provider_id: number;
+    provider_name: string;
+    logo_path: string;
+    provider_link: string;
+    custom: boolean;
+}
+
+const favoriteProviders = ref<Provider[]>([]);
+const providers = ref<Provider[]>([]);
 
 function openModal() {
     modal.value = true;
@@ -101,7 +109,14 @@ if (localProviders) {
 function addProvider(providerId) {
     const provider = allProviders.value.find((p) => p.provider_id === providerId);
     if (provider && !favoriteProviders.value.some((p) => p.provider_id === providerId)) {
-        favoriteProviders.value.push(provider);
+        const preselected = preselectedProviders.find((p) => p.provider_id === providerId);
+        favoriteProviders.value.push({
+            provider_id: provider.provider_id,
+            provider_name: provider.provider_name,
+            logo_path: provider.logo_path,
+            provider_link: preselected?.provider_link || provider.provider_link,
+            custom: false,
+        });
         localStorage.setItem("favoriteStreamingProviders", JSON.stringify(favoriteProviders.value));
     }
 }
@@ -134,9 +149,23 @@ function toggleProvider(providerId) {
     }
 }
 
-const preselectedProviders = [8, 9, 15, 20, 29, 30, 35, 283, 337, 350, 384, 531, 538];
+const preselectedProviders = [
+    { provider_id: 8, provider_link: "https://www.netflix.com/" },
+    { provider_id: 9, provider_link: "https://www.primevideo.com/" },
+    { provider_id: 15, provider_link: "https://www.hulu.com/" },
+    { provider_id: 20, provider_link: "https://www.maxdome.com/" },
+    { provider_id: 29, provider_link: "https://www.sky.com/" },
+    { provider_id: 30, provider_link: "https://www.paramountplus.com/" },
+    { provider_id: 35, provider_link: "https://rakuten.tv/" },
+    { provider_id: 283, provider_link: "https://www.crunchyroll.com/" },
+    { provider_id: 337, provider_link: "https://www.disneyplus.com/" },
+    { provider_id: 350, provider_link: "https://tv.apple.com/" },
+    { provider_id: 384, provider_link: "https://www.hbomax.com/" },
+    { provider_id: 531, provider_link: "https://www.paramountplus.com/" },
+    { provider_id: 538, provider_link: "https://www.plex.tv/" },
+];
 
-const filteredProviders = computed(() => allProviders.value.filter((provider) => preselectedProviders.includes(provider.provider_id)));
+const filteredProviders = computed<Provider[]>(() => (allProviders.value as Provider[]).filter((provider) => preselectedProviders.some((p) => p.provider_id === provider.provider_id)));
 
 watch(modal, async (newVal, oldVal) => {
     if (newVal && !oldVal && providers.value.length === 0) {
