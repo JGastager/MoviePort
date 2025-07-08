@@ -89,37 +89,52 @@ body {
     margin: unset;
     color: white;
     font-family: Poppins, Arial, Helvetica, sans-serif;
-    font-size: 1rem;
+    font-size: 14px;
     font-weight: normal;
+    @screen lg {
+        font-size: 16px;
+    }
 }
 
 p {
     margin: 0;
     padding: 0;
-    font-size: 16px;
+    font-size: 14px;
     font-weight: normal;
+    @screen lg {
+        font-size: 16px;
+    }
 }
 
 h1 {
     margin: 0;
     padding: 0;
-    font-size: 40px;
+    font-size: 32px;
     font-weight: normal;
-    line-height: 40px;
+    line-height: 1em;
+    @screen lg {
+        font-size: 40px;
+    }
 }
 
 h2 {
     margin: 0;
     padding: 0;
-    font-size: 28px;
+    font-size: 24px;
     font-weight: normal;
+    @screen lg {
+        font-size: 28px;
+    }
 }
 
 h3 {
     margin: 0;
     padding: 0;
-    font-size: 18px;
+    font-size: 16px;
     font-weight: normal;
+    @screen lg {
+        font-size: 18px;
+    }
 }
 
 .button:has(span:only-child) {

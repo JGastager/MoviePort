@@ -39,10 +39,22 @@ const props = defineProps<{
 }>();
 
 const emit = defineEmits(["loadMore"]); // Emit event to parent
+const viewport = useViewport();
 
 const sortedMedia = computed(() => {
     if (props.more && !loadMore.value) {
-        return props.media?.slice(0, 6);
+        if (viewport.match("lg")) {
+            return props.media?.slice(0, 4);
+        } else if (viewport.match("xl")) {
+            return props.media?.slice(0, 5);
+        } else if (viewport.match("2xl")) {
+            return props.media?.slice(0, 6);
+        } else if (viewport.match("3xl")) {
+            return props.media?.slice(0, 7);
+        } else if (viewport.match("4xl")) {
+            return props.media?.slice(0, 8);
+        }
+        return props.media?.slice(0, 11); // Default case for very small screens
     } else {
         return props.media;
     }

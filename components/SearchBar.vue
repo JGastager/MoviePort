@@ -2,13 +2,13 @@
     <div class="relative">
         <div
             ref="searchBar"
-            class="search-bar pointer-events-auto z-10 w-103 cursor-text card transition-colors duration-300 focus:bg-primary/50 hover:bg-primary/50"
+            class="search-bar pointer-events-auto z-10 w-103 cursor-text card transition-colors duration-300 <lg:w-11 focus:bg-primary/50 hover:bg-primary/50"
             :class="{ 'is-open': showResults && searchMultiResults?.results }"
             @click.stop="showResults = true"
             @focusout="onFocusOut"
         >
             <div class="h-11 flex items-center">
-                <input v-model="searchString" type="text" class="h-full w-full rounded b-none bg-transparent px-4 py-0 text-1rem text-white font-sans outline-none" @focus="handleFocus" @input="handleInput" />
+                <input v-model="searchString" type="text" class="h-full w-full rounded b-none bg-transparent px-4 py-0 text-1rem text-white font-sans outline-none <lg:w-0 <lg:px-1" @focus="handleFocus" @input="handleInput" />
                 <div class="h-full w-13 flex items-center justify-center pr-2">
                     <span class="i-ph-magnifying-glass-bold size-6" />
                 </div>
