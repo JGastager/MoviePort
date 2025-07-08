@@ -1,6 +1,6 @@
 // https://nuxt.com/docs/api/configuration/nuxt-config
 export default defineNuxtConfig({
-    modules: ["nuxt-pages-plus", "nuxt-electron", "@unocss/nuxt", "@nuxt/eslint", "@nuxt/fonts", "@morev/vue-transitions/nuxt", "@pinia/nuxt", "@nuxtjs/i18n"],
+    modules: ["nuxt-pages-plus", "nuxt-electron", "@unocss/nuxt", "@nuxt/eslint", "@nuxt/fonts", "@morev/vue-transitions/nuxt", "@pinia/nuxt", "@nuxtjs/i18n", "nuxt-viewport"],
     ssr: false,
     devtools: { enabled: true },
     app: {
@@ -66,6 +66,17 @@ export default defineNuxtConfig({
             cookieKey: "i18n_redirected",
             alwaysRedirect: false,
             fallbackLocale: "en",
+        },
+    },
+    viewport: {
+        breakpoints: {
+            sm: 640,
+            md: 768,
+            lg: 1024,
+            xl: 1280,
+            "2xl": 1536,
+            "3xl": 2080,
+            "4xl": 2440,
         },
     },
 });
