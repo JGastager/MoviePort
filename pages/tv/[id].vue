@@ -27,7 +27,7 @@
                         v-for="season in tvShowDetails.seasons"
                         :key="season.id"
                         class="season gap-0 overflow-hidden button !pl-1"
-                        :class="[activeSeason === season.season_number ? 'active' : null, season.season_number == 0 ? 'order-last' : null]"
+                        :class="[activeSeason === season.season_number ? 'active !bg-primary/50' : null, season.season_number == 0 ? 'order-last' : null]"
                         @click="activeSeason = season.season_number"
                     >
                         <div v-if="season.season_number == 0" class="ml-3">{{ $t("tvShowDetails.specials") }}</div>
@@ -47,9 +47,12 @@
                         :season="activeSeason"
                         :episode="episode.episode_number"
                         class="episode"
+                        :class="{ '!bg-primary/50': player.episode === episode.episode_number && player.season === activeSeason }"
                         @play="handlePlay(episode.episode_number)"
                     >
-                        <span v-if="player.episode === episode.episode_number && player.season === activeSeason" class="i-ph-play-bold size-6" />
+                        <TransitionScale>
+                            <span v-if="player.episode === episode.episode_number && player.season === activeSeason" class="i-ph-play-fill size-6 from-green-400 to-emerald-400 bg-gradient-to-br" />
+                        </TransitionScale>
                         <span>Ep. {{ episode.episode_number }}</span>
                         <span class="text-14px text-muted">{{ episode.name }}</span>
                     </WatchButton>
