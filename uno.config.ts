@@ -58,7 +58,7 @@ export default defineConfig({
         button: "rounded bg-primary/30 px-4 h-11 min-w-11 inline-flex items-center justify-center gap-2.5 cursor-pointer hover:bg-primary/50 focus:bg-primary/50 transition-colors duration-300",
         tag: "rounded bg-primary/30 px-3 py-1 cursor-default inline-block",
         "text-muted": "text-white/50",
-        gap: "gap-7",
+        gap: "gap-3 sm:gap-5 lg:gap-7",
         "absolute-center": "absolute left-1/2 top-1/2 transform -translate-x-1/2 -translate-y-1/2",
         "grid-media-cards": "3xl:grid-cols-8 4xl:grid-cols-9 grid grid-cols-2 2xl:grid-cols-7 lg:grid-cols-5 md:grid-cols-4 sm:grid-cols-3 xl:grid-cols-6 gap-7",
         "w-media-card":
