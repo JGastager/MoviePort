@@ -1,6 +1,6 @@
 <template>
     <div class="min-h-screen flex flex-col">
-        <div id="backdrop" class="pointer-events-none fixed top-0 h-screen w-full">
+        <div id="backdrop" class="pointer-events-none fixed top-0 h-screen w-screen">
             <TransitionFade :duration="{ enter: 1200, leave: 600 }" :delay="{ enter: 600, leave: 0 }">
                 <img
                     v-if="currentRouteType === 'movie' && movieDetails?.backdrop_path"
@@ -21,9 +21,9 @@
                     v-parallax
                     :src="$getImageUrl(lastWatchedMovie ? lastWatchedMovie?.backdrop_path : popularMovie?.backdrop_path, 'backdrop', 'original')"
                     alt="Backdrop"
-                    class="custom-clip-gradient-home ml-auto mr-0 block h-230 max-h-full w-auto object-cover"
+                    class="custom-clip-gradient-home ml-auto mr-0 block h-125vw max-h-230 max-w-screen w-auto object-cover"
                 />
-                <div v-else class="fixed top-0 h-screen w-full">
+                <div v-else>
                     <img src="~assets/images/spotlight.svg" alt="spotlight" class="spotlight absolute h-190% w-auto origin-bottom object-cover blur-2xl -bottom-2/3 -right-30" />
                     <img src="~assets/images/spotlight.svg" alt="spotlight" class="spotlight-2 absolute h-185% w-auto origin-bottom object-cover blur-2xl -bottom-2/3 -left-30" />
                     <img src="~assets/images/spotlight.svg" alt="spotlight" class="spotlight-2 -bottom-0 absolute right-30 h-165% w-auto origin-bottom object-cover blur-xl" />
@@ -42,7 +42,7 @@
                 </div>
             </div>
             <TransitionFade :duration="{ enter: 1800, leave: 600 }" :delay="{ enter: 1200, leave: 0 }">
-                <div v-if="currentRouteType === 'home'" class="pointer-events-auto absolute bottom-0 left-0 h-full flex flex-col items-start justify-end gap-10 py-12 pl-margin">
+                <div v-if="currentRouteType === 'home'" class="pointer-events-auto absolute bottom-0 left-0 h-full flex flex-col items-start justify-end gap-10 px-margin py-12">
                     <div class="pointer-events-none flex-grow pb-10">
                         <Brand class="sticky top-12" />
                     </div>
@@ -50,13 +50,12 @@
                         <NuxtLink :to="'/movie/' + lastWatchedMovie?.id" group="group">
                             <h1 class="relative mb-6 inline-block">
                                 {{ lastWatchedMovie?.title }}
-                                <span class="i-ph-arrow-square-in-bold text absolute bottom-2 block size-6 opacity-0 transition-opacity duration-300 -right-13 group-hover:opacity-100" />
                             </h1>
                             <p class="line-clamp-3 max-w-150 text-muted">
                                 {{ lastWatchedMovie?.overview }}
                             </p>
                         </NuxtLink>
-                        <div class="flex items-center gap-2.5">
+                        <div class="flex flex-wrap items-center gap-2.5 gap-y-5">
                             <NuxtLink :to="'/movie/' + lastWatchedMovie?.id" class="button">
                                 <span class="i-ph-play-bold size-6" />
                                 <span>Continue watching</span>
@@ -72,13 +71,12 @@
                         <NuxtLink :to="'/movie/' + popularMovie?.id" class="group">
                             <h1 class="relative mb-6 inline-block">
                                 {{ popularMovie?.title }}
-                                <span class="i-ph-arrow-square-in-bold text absolute bottom-2 block size-6 opacity-0 transition-opacity duration-300 -right-13 group-hover:opacity-100" />
                             </h1>
                             <p class="line-clamp-3 max-w-150 text-muted">
                                 {{ popularMovie?.overview }}
                             </p>
                         </NuxtLink>
-                        <div class="flex items-center gap-2.5">
+                        <div class="flex flex-wrap items-center gap-2.5 gap-y-5">
                             <NuxtLink :to="'/movie/' + popularMovie?.id" class="button">
                                 <span class="i-ph-play-bold size-6" />
                                 <span>{{ $t("movieDetails.watchNow") }}</span>
@@ -181,7 +179,8 @@ html:has(.favorites-page) header,
 html:has(.ratings-page) header,
 html:has(.account-page) header,
 html:has(.watchlist-page) header,
-html:has(.person-page) header {
+html:has(.person-page) header,
+html:has(.search-page) header {
     height: 140px;
 }
 html:has(.movies-page):has(.search-bar.is-open) header,
@@ -200,7 +199,10 @@ html:has(.person-page):has(.search-bar.is-open) header {
     mask-image: radial-gradient(closest-side, black, transparent);
     mask-size: 200% 175%;
     mask-repeat: no-repeat;
-    mask-position: bottom left;
+    mask-position: bottom left 25%;
+    @screen sm {
+        mask-position: bottom left;
+    }
 }
 
 .custom-clip-gradient {

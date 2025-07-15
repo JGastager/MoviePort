@@ -2,20 +2,27 @@
     <div class="relative">
         <div
             ref="searchBar"
-            class="search-bar pointer-events-auto z-10 w-103 cursor-text card transition-colors duration-300 <lg:w-11 focus:bg-primary/50 hover:bg-primary/50"
-            :class="{ 'is-open': showResults && searchMultiResults?.results }"
+            class="search-bar pointer-events-auto w-103 cursor-text card transition-colors duration-300 <lg:w-11 focus:bg-primary/50 hover:bg-primary/50"
+            :class="{ 'is-open': showResults && searchMultiResults?.results && !isSearchPage }"
             @click.stop="showResults = true"
             @focusout="onFocusOut"
         >
             <div class="h-11 flex items-center">
-                <input v-model="searchString" type="text" class="h-full w-full rounded b-none bg-transparent px-4 py-0 text-1rem text-white font-sans outline-none <lg:w-0 <lg:px-1" @focus="handleFocus" @input="handleInput" />
-                <div class="h-full w-13 flex items-center justify-center pr-2">
+                <input
+                    v-model="searchString"
+                    type="text"
+                    class="h-full w-full rounded b-none bg-transparent px-4 py-0 text-1rem text-white font-sans outline-none <lg:w-0 <lg:px-1"
+                    @focus="handleFocus"
+                    @input="handleInput"
+                    @keydown.enter="loadSearchPage"
+                />
+                <div class="h-full w-13 flex cursor-pointer items-center justify-center pr-2" @click="loadSearchPage">
                     <span class="i-ph-magnifying-glass-bold size-6" />
                 </div>
             </div>
             <TransitionExpand>
-                <ul v-if="showResults" class="m-0 p-0">
-                    <li v-for="(result, index) in searchMultiResults?.results.slice(0, 7)" :key="result.id || index" class="h-10 flex cursor-pointer items-center rounded transition-colors duration-300 hover:z-1 -my-1.5 last:mb-0 hover:bg-primary/20">
+                <ul v-if="showResults && searchMultiResults?.results && !isSearchPage" class="m-0 max-h-61 overflow-y-auto p-0 -mt-1.5">
+                    <li v-for="(result, index) in searchMultiResults?.results" :key="result.id || index" class="h-10 flex cursor-pointer items-center rounded transition-colors duration-300 hover:z-1 -my-1.5 first:mt-0 last:mb-0 hover:bg-primary/20">
                         <NuxtLink v-if="result.media_type === 'movie'" :to="`/movie/${result.id}`" class="w-full px-4" @click.self="handleResultClick">
                             <span class="line-clamp-1 line-height-7">
                                 {{ result.title || result.name }}
@@ -62,10 +69,11 @@
 import { debounce } from "lodash";
 import { ref, watch } from "vue";
 import { storeToRefs } from "pinia";
-import { useRoute } from "vue-router";
+import { useRoute, useRouter } from "vue-router";
 import { useSearchStore } from "~/store/search";
 
 const route = useRoute();
+const router = useRouter();
 const searchStore = useSearchStore();
 
 const { searchMulti } = searchStore;
@@ -75,6 +83,8 @@ const searchString = ref("");
 const showResults = ref(false);
 
 const searchBar = ref<HTMLElement | null>(null);
+
+const isSearchPage = computed(() => route.path === "/search");
 
 watch(
     () => route.fullPath,
@@ -123,5 +133,8 @@ function onFocusOut() {
             showResults.value = false;
         }
     });
+}
+function loadSearchPage() {
+    router.push(`/search?query=${encodeURIComponent(searchString.value)}`);
 }
 </script>

@@ -1,5 +1,5 @@
 <template>
-    <div id="brand" class="h-16 w-100 bg-primary/30 backdrop-blur <lg:h-10" />
+    <div id="brand" class="h-16 w-100 bg-primary/30 backdrop-blur <lg:h-10 <sm:w-12" />
 </template>
 
 <script lang="ts" setup>
