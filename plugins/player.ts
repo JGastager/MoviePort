@@ -1,6 +1,6 @@
 import { usePlayerStore } from "~/store/player";
 
-export default defineNuxtPlugin((nuxtApp) => {
+export default defineNuxtPlugin(() => {
     const player = usePlayerStore();
     const router = useRouter();
 

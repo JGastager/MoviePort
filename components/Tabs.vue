@@ -14,7 +14,7 @@
 </template>
 
 <script lang="ts" setup>
-import { defineProps, defineEmits, defineComponent } from "vue";
+import { defineComponent } from "vue";
 
 defineComponent({
     name: "TabsComponent",

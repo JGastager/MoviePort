@@ -4,7 +4,8 @@
             {{ title }}
         </h2>
         <TransitionScale appear group tag="div" class="items-start grid-media-cards">
-            <MediaCard v-for="mediaItem in sortedMedia" :key="mediaItem.id" :media="mediaItem" :type="type" />
+            <MediaCard v-for="mediaItem in sortedMedia" :key="mediaItem.id" :media="mediaItem" :type="type || mediaItem.media_type" />
+
             <div
                 v-if="media && more && !loadMore"
                 class="relative flex flex-shrink-0 flex-col cursor-pointer items-center justify-center gap-2.5 card transition-colors duration-300 !aspect-2/3 w-media-card focus:bg-primary/50 hover:bg-primary/50"
@@ -32,7 +33,7 @@ import type { TMDBMovieBase } from "~/types/movieDetails";
 import type { TMDBTvShowBase } from "~/types/tvshowDetails";
 
 const props = defineProps<{
-    type: "movie" | "tv";
+    type?: "movie" | "tv" | undefined;
     title?: string;
     media: TMDBMovieBase[] | TMDBTvShowBase[];
     more?: boolean;
@@ -43,15 +44,15 @@ const viewport = useViewport();
 
 const sortedMedia = computed(() => {
     if (props.more && !loadMore.value) {
-        if (viewport.match("lg")) {
+        if (viewport.breakpoint.value === "lg") {
             return props.media?.slice(0, 4);
-        } else if (viewport.match("xl")) {
+        } else if (viewport.breakpoint.value === "xl") {
             return props.media?.slice(0, 5);
-        } else if (viewport.match("2xl")) {
+        } else if (viewport.breakpoint.value === "2xl") {
             return props.media?.slice(0, 6);
-        } else if (viewport.match("3xl")) {
+        } else if (viewport.breakpoint.value === "3xl") {
             return props.media?.slice(0, 7);
-        } else if (viewport.match("4xl")) {
+        } else if (viewport.breakpoint.value === "4xl") {
             return props.media?.slice(0, 8);
         }
         return props.media?.slice(0, 11); // Default case for very small screens

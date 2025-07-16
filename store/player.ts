@@ -7,10 +7,10 @@ export const usePlayerStore = defineStore("player", {
         type: null as string | null,
         season: null as number | null,
         episode: null as number | null,
-        selectedProvider: null as any,
+        selectedProvider: null as unknown,
     }),
     actions: {
-        openPlayer(payload: { tmdbId: number; type: string; season?: number; episode?: number; selectedProvider: any }) {
+        openPlayer(payload: { tmdbId: number; type: string; season?: number; episode?: number; selectedProvider: unknown }) {
             this.play = true;
             this.tmdbId = payload.tmdbId;
             this.type = payload.type;
