@@ -15,7 +15,7 @@
                     <div v-else class="absolute inset-0 h-full w-full flex items-center justify-center transition-all duration-300 group-hover:scale-102 group-hover:blur-sm">
                         <span class="i-ph-film-strip-thin size-18 text-muted" />
                     </div>
-                    <div class="durtation-300 absolute inset-0 flex items-center justify-center bg-primary/20 opacity-0 transition-opacity group-hover:opacity-100">
+                    <div class="absolute inset-0 flex items-center justify-center bg-primary/20 opacity-0 transition-opacity duration-300 group-hover:opacity-100">
                         <div class="i-ph-arrow-square-in-bold size-6" />
                     </div>
                 </div>
