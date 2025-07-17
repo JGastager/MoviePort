@@ -1,13 +1,13 @@
 <template>
     <div class="providers">
-        <h2 class="mb-3">Providers</h2>
-        <p v-if="!mappedProviders?.flatrate?.length && !buyOrRentProviders.length" class="mb-3 flex items-center gap-2.5 text-muted">
+        <h2 v-if="title" class="mb-3" :class="{ 'text-center': layout === 'center' }">{{ title }}</h2>
+        <p v-if="!mappedProviders?.flatrate?.length && !buyOrRentProviders.length" class="mb-3 flex items-center gap-2.5 text-muted" :class="{ 'text-center justify-center': layout === 'center' }">
             <span class="i-ph-seal-warning-bold size-6 text-muted" />
             <span>No Providers found</span>
         </p>
         <div v-if="mappedProviders?.flatrate">
-            <h3 class="mb-3">Stream</h3>
-            <div class="flex flex-wrap gap-2.5" :class="{ 'mb-6': buyOrRentProviders.length }">
+            <h3 class="mb-3" :class="{ 'text-center': layout === 'center' }">Stream</h3>
+            <div class="flex flex-wrap gap-2.5" :class="{ 'mb-6': buyOrRentProviders.length, 'justify-center': layout === 'center' }">
                 <template v-for="provider in mappedProviders?.flatrate">
                     <a v-if="provider.provider_link" :key="provider.provider_id" :href="provider.provider_link" target="_blank" class="button !pl-3">
                         <img :src="$getImageUrl(provider.logo_path, 'poster', 'w92')" alt="provider logo" class="size-7 rounded" />
@@ -21,8 +21,8 @@
             </div>
         </div>
         <div v-if="buyOrRentProviders.length">
-            <h3 class="mb-3">Buy or Rent</h3>
-            <div class="flex flex-wrap gap-2.5">
+            <h3 class="mb-3" :class="{ 'text-center': layout === 'center' }">Buy or Rent</h3>
+            <div class="flex flex-wrap gap-2.5" :class="{ 'justify-center': layout === 'center' }">
                 <template v-for="provider in buyOrRentProviders">
                     <a v-if="provider.provider_link" :key="provider.provider_id" :href="provider.provider_link" target="_blank" class="button !pl-3">
                         <img :src="$getImageUrl(provider.logo_path, 'poster', 'w92')" alt="provider logo" class="size-7 rounded" />
@@ -58,6 +58,8 @@ interface ProvidersByCategory {
 }
 
 const props = defineProps<{
+    layout?: "center" | "left";
+    title?: string;
     providers: Record<string, ProvidersByCategory>;
 }>();
 

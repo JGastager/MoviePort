@@ -1,7 +1,7 @@
 <template>
     <div class="provider-selector">
         <h2 class="mb-6">Favorite Streaming Providers</h2>
-        <TransitionScale group tag="div" class="flex flex-wrap gap-4">
+        <TransitionScale group tag="div" class="flex flex-wrap gap-3">
             <button v-for="provider in favoriteProviders" :key="provider.provider_id" :title="provider.provider_link" class="group gap-0 button !pl-3" @click="toggleProvider(provider.provider_id)">
                 <img v-if="provider.logo_path" :src="$getImageUrl(provider.logo_path, 'poster', 'w92')" alt="provider logo" class="mr-2.5 size-7 rounded" />
                 <span v-else class="i-ph-check-square-offset-bold mr-2.5 size-6 flex items-center justify-center rounded" />
@@ -18,7 +18,7 @@
             <TransitionExpand>
                 <div v-if="!addCustom">
                     <h2 class="mb-6 text-center">Add Favorites</h2>
-                    <TransitionScale group tag="div" class="flex flex-wrap justify-center gap-4">
+                    <TransitionScale group tag="div" class="flex flex-wrap justify-center gap-3">
                         <button v-for="provider in filteredProviders" :key="provider.provider_id" :title="provider.provider_link" class="group gap-0 button !pl-3" @click="toggleProvider(provider.provider_id)">
                             <div class="relative mr-2.5 size-7">
                                 <img :src="$getImageUrl(provider.logo_path, 'poster', 'w92')" alt="provider logo" class="size-7 rounded" :class="{ 'opacity-40': favoriteProviders.some((p) => p.provider_id === provider.provider_id) }" />

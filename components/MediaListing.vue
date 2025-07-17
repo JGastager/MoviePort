@@ -28,7 +28,7 @@
 </template>
 
 <script lang="ts" setup>
-import { ref, onMounted, onUnmounted, defineEmits } from "vue";
+import { ref, onMounted, onUnmounted } from "vue";
 import type { TMDBMovieBase } from "~/types/movieDetails";
 import type { TMDBTvShowBase } from "~/types/tvshowDetails";
 

@@ -102,7 +102,7 @@ const selectedStyle = computed(() => ({
     lineHeight: `${props.height}px`,
 }));
 
-const caretStyle = computed(() => (dropdownOpen.value ? { transform: "rotate(-180deg)" } : {}));
+const caretStyle = computed(() => (dropdownOpen.value ? { transform: "rotate(180deg)" } : {}));
 
 const optionsStyle = computed(() => ({
     height: dropdownOpen.value ? `${Math.min(props.options.length * 34 + 3, props.maxHeight)}px` : "0",

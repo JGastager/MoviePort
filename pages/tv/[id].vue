@@ -60,7 +60,7 @@
                 <!-- <pre>{{tvShowSeasonDetails}}</pre> -->
                 <PersonSlider v-if="tvShowCredits?.cast && tvShowCredits?.cast.length" :cast="tvShowCredits.cast" class="mb-10" />
                 <ImageSlider v-if="showId" :tmdb-id="showId" type="tv" class="mb-10" />
-                <Providers v-if="tvShowProviders?.results" :providers="tvShowProviders.results" />
+                <Providers v-if="tvShowProviders?.results" title="Providers" :providers="tvShowProviders.results" />
             </section>
             <section class="col-span-2 h-full">
                 <div class="sticky top-12">

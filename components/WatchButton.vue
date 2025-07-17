@@ -1,7 +1,7 @@
 <template>
-    <div class="button" :class="[$attrs.class, $attrs.staticClass, availableProviders.length ? null : 'disabled']" @click="watchNow()">
+    <div class="button" :class="[$attrs.class, $attrs.staticClass, filteredProviders.length ? null : 'disabled']" @click="watchNow()">
         <slot>
-            <template v-if="availableProviders.length">
+            <template v-if="filteredProviders.length">
                 <span class="i-ph-play-bold size-6" />
                 <span>{{ $t("movieDetails.watchNow") }}</span>
             </template>
@@ -11,15 +11,16 @@
             </template>
         </slot>
     </div>
-    <Modal v-if="availableProviders.length > 1" v-model="modal" class="max-w-260 min-h-80 min-w-150 flex flex-col justify-center bg-secondary p-20">
+    <Modal v-if="filteredProviders.length > 1 || (favoriteProviders.length === 0 && filteredProviders.length)" v-model="modal" class="max-w-260 min-h-80 min-w-150 flex flex-col justify-center bg-secondary p-20">
         <h2 class="mb-6 text-center">Where to watch</h2>
-        <div class="flex flex-wrap justify-center gap-4">
-            <button v-for="provider in availableProviders" :key="provider.provider_id" :title="provider.provider_link" class="button !pl-3" @click="triggerPlay(provider)">
+        <div v-if="favoriteProviders.length > 0" class="flex flex-wrap justify-center gap-3">
+            <button v-for="provider in filteredProviders" :key="provider.provider_id" :title="provider.provider_link" class="button !pl-3" @click="triggerPlay(provider)">
                 <img v-if="provider.logo_path" :src="$getImageUrl(provider.logo_path, 'poster', 'w92')" alt="provider logo" class="size-7 rounded" />
                 <span v-else class="i-ph-check-square-offset-bold size-6 flex items-center justify-center rounded" />
                 <span>{{ provider.provider_name }}</span>
             </button>
         </div>
+        <Providers v-else :providers="providers" layout="center" />
     </Modal>
 </template>
 
@@ -57,42 +58,46 @@ const favoriteProviders = ref([]);
 const selectedProvider = ref<Provider | null>(null);
 
 // Load providers from local storage if available
-const localProviders = localStorage.getItem("favoriteStreamingProviders");
-if (localProviders) {
-    favoriteProviders.value = JSON.parse(localProviders);
-}
+favoriteProviders.value = JSON.parse(localStorage.getItem("favoriteStreamingProviders") || "[]");
 
 const storedCountry = localStorage.getItem("userCountry");
 
-const availableProviders = computed<Provider[]>(() => {
-    const result: Provider[] = [];
-
-    const allProviders: Provider[] = [];
+const availableProviders = computed(() => {
+    const allCombinedProviders: Provider[] = [];
     if (storedCountry && _props.providers) {
         const countryProviders = _props.providers[storedCountry] as ProvidersByCategory | undefined;
         if (countryProviders) {
             Object.values(countryProviders).forEach((providersArr) => {
                 if (Array.isArray(providersArr)) {
-                    allProviders.push(...providersArr);
+                    allCombinedProviders.push(...providersArr);
                 }
             });
         }
     }
+    return allCombinedProviders;
+});
 
-    // Include all custom favorites directly
-    result.push(...favoriteProviders.value.filter((fav: Provider) => fav.custom === true || allProviders.some((p) => p.provider_id === fav.provider_id)));
-
-    return result;
+const filteredProviders = computed<Provider[]>(() => {
+    if (favoriteProviders.value.length) {
+        const result: Provider[] = [];
+        // Include only favorite providers that are available
+        result.push(...favoriteProviders.value.filter((fav: Provider) => fav.custom === true || availableProviders.value.some((p) => p.provider_id === fav.provider_id)));
+        console.log("Filtered Providers:", result);
+        return result;
+    } else {
+        // Include all available providers if no favorites or no available
+        return availableProviders.value;
+    }
 });
 
 function watchNow() {
-    if (availableProviders.value.length === 0) {
+    if (filteredProviders.value.length === 0) {
         console.warn("No available providers to watch.");
         return;
-    } else if (availableProviders.value.length > 1) {
+    } else if (filteredProviders.value.length > 1 || (favoriteProviders.value.length === 0 && filteredProviders.value.length)) {
         modal.value = true;
     } else {
-        triggerPlay(availableProviders.value[0]);
+        triggerPlay(filteredProviders.value[0]);
     }
 }
 

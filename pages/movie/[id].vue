@@ -23,7 +23,7 @@
                 <Genres :genres="movieDetails.genres" class="mb-10" />
                 <PersonSlider v-if="movieCredits?.cast && movieCredits?.cast.length" :cast="movieCredits.cast" title="Cast" class="mb-10" />
                 <ImageSlider v-if="movieId" :tmdb-id="movieId" type="movie" class="mb-10" />
-                <Providers v-if="movieProviders?.results" :providers="movieProviders.results" />
+                <Providers v-if="movieProviders?.results" title="Providers" :providers="movieProviders.results" />
             </section>
             <section class="col-span-2 h-full">
                 <div class="sticky top-12">
