@@ -7,11 +7,22 @@ export const usePersonsStore = defineStore("personsStore", {
         personImages: {},
     }),
     actions: {
-        async fetchPopularPersons() {
+        async fetchPopularPersons(page = 1) {
             try {
-                this.popularPersons = await $fetch("/api/person/popular");
+                const response = await $fetch("/api/person/popular", {
+                    query: { page },
+                });
+                if (page === 1) {
+                    this.popularPersons = response;
+                } else {
+                    this.popularPersons = {
+                        ...response,
+                        results: [...this.popularPersons.results, ...response.results],
+                    };
+                }
             } catch (error) {
-                console.error("Error fetching movies:", error);
+                console.error("Error fetching popular persons:", error);
+                console.timeEnd("fetchPopularPersons"); // Ensure timer ends even if an error occurs
             }
         },
         async fetchPersonDetails(personId: number) {

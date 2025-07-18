@@ -1,15 +1,27 @@
 <template>
-    <div class="persons-page"></div>
+    <div class="persons-page">
+        <MediaListing v-if="popularPersons" title="Popular people" :media="popularPersons.results" type="person" :more="true" @load-more="loadMorePersons" />
+    </div>
 </template>
 
 <script lang="ts" setup>
-import { useRouter } from "vue-router";
+import { storeToRefs } from "pinia";
+import { usePersonsStore } from "~/store/persons";
 
-const router = useRouter();
-
-onMounted(() => {
-    router.push("/");
+useHead({
+    title: `People | MoviePort`,
 });
-</script>
 
-<style></style>
+const personsStore = usePersonsStore();
+const { fetchPopularPersons } = personsStore;
+const { popularPersons } = storeToRefs(personsStore);
+
+const currentPage = ref(1);
+
+await fetchPopularPersons(currentPage.value);
+
+async function loadMorePersons() {
+    currentPage.value++;
+    await fetchPopularPersons(currentPage.value);
+}
+</script>
