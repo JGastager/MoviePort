@@ -3,9 +3,14 @@
         <h2 v-if="title" class="mb-6">
             {{ title }}
         </h2>
+        <!-- <pre><code>{{ sortedMedia }}</code></pre> -->
         <TransitionScale appear group tag="div" class="items-start grid-media-cards">
-            <MediaCard v-for="mediaItem in sortedMedia" :key="mediaItem.id" :media="mediaItem" :type="type || mediaItem.media_type" />
-
+            <template v-for="mediaItem in sortedMedia" :key="mediaItem.id">
+                <div v-if="mediaItem?.media_type === 'person' || type === 'person'" class="flex items-center justify-center pt-12">
+                    <PersonCard :person="mediaItem" />
+                </div>
+                <MediaCard v-else :media="mediaItem" :type="type || mediaItem.media_type" />
+            </template>
             <div
                 v-if="media && more && !loadMore"
                 class="relative flex flex-shrink-0 flex-col cursor-pointer items-center justify-center gap-2.5 card transition-colors duration-300 !aspect-2/3 w-media-card focus:bg-primary/50 hover:bg-primary/50"
@@ -33,7 +38,7 @@ import type { TMDBMovieBase } from "~/types/movieDetails";
 import type { TMDBTvShowBase } from "~/types/tvshowDetails";
 
 const props = defineProps<{
-    type?: "movie" | "tv" | undefined;
+    type?: "movie" | "tv" | "person" | undefined;
     title?: string;
     media: TMDBMovieBase[] | TMDBTvShowBase[];
     more?: boolean;

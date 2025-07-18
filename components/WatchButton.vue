@@ -10,18 +10,18 @@
                 <span>No Providers</span>
             </template>
         </slot>
+        <Modal v-if="filteredProviders.length > 1 || (favoriteProviders.length === 0 && filteredProviders.length)" v-model="modal" class="max-w-260 min-h-80 min-w-150 flex flex-col justify-center bg-secondary p-20">
+            <h2 class="mb-6 text-center">Where to watch</h2>
+            <div v-if="favoriteProviders.length > 0" class="flex flex-wrap justify-center gap-3">
+                <button v-for="provider in filteredProviders" :key="provider.provider_id" :title="provider.provider_link" class="button !pl-3" @click="triggerPlay(provider)">
+                    <img v-if="provider.logo_path" :src="$getImageUrl(provider.logo_path, 'poster', 'w92')" alt="provider logo" class="size-7 rounded" />
+                    <span v-else class="i-ph-check-square-offset-bold size-6 flex items-center justify-center rounded" />
+                    <span>{{ provider.provider_name }}</span>
+                </button>
+            </div>
+            <Providers v-else :providers="providers" layout="center" />
+        </Modal>
     </div>
-    <Modal v-if="filteredProviders.length > 1 || (favoriteProviders.length === 0 && filteredProviders.length)" v-model="modal" class="max-w-260 min-h-80 min-w-150 flex flex-col justify-center bg-secondary p-20">
-        <h2 class="mb-6 text-center">Where to watch</h2>
-        <div v-if="favoriteProviders.length > 0" class="flex flex-wrap justify-center gap-3">
-            <button v-for="provider in filteredProviders" :key="provider.provider_id" :title="provider.provider_link" class="button !pl-3" @click="triggerPlay(provider)">
-                <img v-if="provider.logo_path" :src="$getImageUrl(provider.logo_path, 'poster', 'w92')" alt="provider logo" class="size-7 rounded" />
-                <span v-else class="i-ph-check-square-offset-bold size-6 flex items-center justify-center rounded" />
-                <span>{{ provider.provider_name }}</span>
-            </button>
-        </div>
-        <Providers v-else :providers="providers" layout="center" />
-    </Modal>
 </template>
 
 <script lang="ts" setup>

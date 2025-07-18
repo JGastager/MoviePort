@@ -77,7 +77,10 @@
                             </p>
                         </NuxtLink>
                         <div class="flex flex-wrap items-center gap-2.5 gap-y-5">
-                            <NuxtLink :to="'/movie/' + popularMovie?.id" class="button"> More details </NuxtLink>
+                            <NuxtLink :to="'/movie/' + popularMovie?.id" class="button">
+                                <span class="i-ph-film-strip-bold size-6" />
+                                <span>More details</span>
+                            </NuxtLink>
                             <WatchlistButton :tmdb-id="popularMovie?.id" type="movie" />
                             <Rating :tmdb-id="popularMovie?.id" type="movie" :rating="popularMovie?.vote_average" size="large" class="mx-3" />
                         </div>
