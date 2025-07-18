@@ -8,7 +8,15 @@
             @focusout="onFocusOut"
         >
             <div class="h-11 flex items-center">
-                <input v-model="query" type="text" class="h-full w-full rounded b-none bg-transparent py-0 pl-4 text-1rem text-white font-sans outline-none <lg:w-0 <lg:px-1" @focus="handleFocus" @input="handleInput" @keydown.enter="loadSearchPage" />
+                <input
+                    ref="input"
+                    v-model="query"
+                    type="text"
+                    class="h-full w-full rounded b-none bg-transparent py-0 pl-4 text-1rem text-white font-sans outline-none <lg:w-0 <lg:px-1"
+                    @focus="handleFocus"
+                    @input="handleInput"
+                    @keydown.enter="loadSearchPage"
+                />
                 <button v-if="query" class="h-full w-10 flex flex-shrink-0 cursor-pointer items-center justify-center bg-transparent" @click="query = ''">
                     <span class="i-ph-x-bold size-6" />
                 </button>
@@ -72,7 +80,7 @@
 import { ref, watch } from "vue";
 import { storeToRefs } from "pinia";
 import { useRoute, useRouter } from "vue-router";
-import { watchDebounced } from "@vueuse/core";
+import { watchDebounced, onStartTyping } from "@vueuse/core";
 import { useSearchStore } from "~/store/search";
 
 const route = useRoute();
@@ -84,10 +92,15 @@ const { searchResults, loading } = storeToRefs(searchStore);
 const showResults = ref(false);
 
 const searchBar = ref<HTMLElement | null>(null);
+const input = ref(null);
 
 const isSearchPage = computed(() => route.path === "/search");
 
 const query = ref("");
+
+onStartTyping(() => {
+    if (!input.value.active) input.value.focus();
+});
 
 watchDebounced(
     query,
