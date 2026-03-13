@@ -1,6 +1,6 @@
 <template>
     <h2 v-if="images?.length" class="mb-6">Portraits</h2>
-    <div v-if="images?.length" v-drag-scroll class="relative w-full flex gap-7 overflow-x-auto rounded scrollbar-none">
+    <div v-if="images?.length" v-drag-scroll class="slider relative w-full flex gap-7 overflow-x-auto rounded scrollbar-none">
         <template v-for="(image, index) in images" :key="index">
             <div v-if="image.iso_639_1 == 'en' || image.iso_639_1 == null">
                 <div class="h-75 w-fit overflow-hidden card">
@@ -8,9 +8,6 @@
                 </div>
             </div>
         </template>
-        <div class="absolute right-0 top-0 h-full w-19 flex cursor-pointer items-center justify-center card opacity-0 transition-opacity duration-300 hover:opacity-100">
-            <span class="i-ph-arrow-right-bold size-6" />
-        </div>
     </div>
 </template>
 

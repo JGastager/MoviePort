@@ -1,7 +1,7 @@
 <template>
-    <div v-if="isLoggedIn" class="button" @click="toggleFavorite()">
+    <button v-if="isLoggedIn" class="button" @click="toggleFavorite()">
         <span class="size-6 bg-gradient-to-br" :class="favoriteState ? 'i-ph-heart-fill from-rose-500 to-pink-500 animate-fly-in' : 'i-ph-heart-bold'" />
-    </div>
+    </button>
     <PlusModalLink v-else to="/login" class="button">
         <span class="i-ph-heart-bold size-6 bg-gradient-to-br" />
     </PlusModalLink>

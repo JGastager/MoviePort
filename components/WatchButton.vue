@@ -1,5 +1,5 @@
 <template>
-    <div class="button" :class="[$attrs.class, $attrs.staticClass, filteredProviders.length ? null : 'disabled']" @click="watchNow()">
+    <button class="button" :class="[$attrs.class, $attrs.staticClass, filteredProviders.length ? null : 'disabled']" @click="watchNow()">
         <slot>
             <template v-if="filteredProviders.length">
                 <span class="i-ph-play-bold size-6" />
@@ -21,7 +21,7 @@
             </div>
             <Providers v-else :providers="providers" layout="center" />
         </Modal>
-    </div>
+    </button>
 </template>
 
 <script lang="ts" setup>

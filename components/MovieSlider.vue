@@ -3,7 +3,7 @@
         <h2 v-if="title" class="mb-6">
             {{ title }}
         </h2>
-        <TransitionScale v-drag-scroll appear group gap tag="div" class="flex items-start overflow-x-auto pb-1 scrollbar-none gap" :class="overflow ? 'px-margin -mx-margin' : 'rounded'">
+        <TransitionScale v-drag-scroll appear group tag="div" class="slider flex items-start overflow-x-auto pb-1 scrollbar-none gap" :class="overflow ? 'overflow px-margin -mx-margin' : 'rounded'">
             <div v-if="before" class="relative flex flex-shrink-0 flex-col cursor-pointer items-center justify-center gap-2.5 card transition-colors duration-300 !aspect-2/3 w-media-card focus:bg-primary/50 hover:bg-primary/50">
                 <span class="size-6" :class="before.icon ? before.icon : 'i-ph-plus-square-bold'" />
                 <h3>{{ before.text }}</h3>
@@ -54,20 +54,3 @@ const _props = defineProps<{
     overflow?: boolean;
 }>();
 </script>
-
-<style lang="scss">
-// :root {
-//     --container-padding: 90px;
-//     --container-width: calc(100vw - (var(--container-padding) * 2));
-//     --min-width: 220px;
-//     --gap: 28px;
-//     /* Approximate number of items per row */
-//     --items-per-row: calc(var(--container-width) / (var(--min-width) + var(--gap)));
-
-//     /* Calculate card width */
-//     --card-width: calc((var(--container-width) / var(--items-per-row)) - var(--gap));
-// }
-// .w-custom {
-//     width: var(--items-per-row) !important;
-// }
-</style>

@@ -77,6 +77,8 @@ onMounted(() => {
 
 * {
     box-sizing: border-box;
+    padding: unset;
+    margin: unset;
 }
 
 html {
@@ -97,8 +99,6 @@ body {
 }
 
 p {
-    margin: 0;
-    padding: 0;
     font-size: 14px;
     font-weight: normal;
     @screen lg {
@@ -107,8 +107,6 @@ p {
 }
 
 h1 {
-    margin: 0;
-    padding: 0;
     font-size: 32px;
     font-weight: normal;
     line-height: 1em;
@@ -118,8 +116,6 @@ h1 {
 }
 
 h2 {
-    margin: 0;
-    padding: 0;
     font-size: 24px;
     font-weight: normal;
     @screen lg {
@@ -128,8 +124,6 @@ h2 {
 }
 
 h3 {
-    margin: 0;
-    padding: 0;
     font-size: 16px;
     font-weight: normal;
     @screen lg {
@@ -157,6 +151,82 @@ button {
     color: unset;
     font-family: unset;
     font-size: unset;
+}
+
+.slider {
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    overscroll-behavior-x: contain;
+
+    scroll-behavior: smooth;
+    position: relative;
+    anchor-name: --slider;
+    anchor-scope: --slider;
+
+    > * {
+        scroll-snap-align: center;
+    }
+
+    &::scroll-button(*) {
+        width: 44px;
+        height: 44px;
+        border-radius: 8px;
+        background-color: rgb(112 112 112 / 0.3);
+        border: none;
+        opacity: 0;
+        display: flex;
+        align-items: center;
+        position: absolute;
+        justify-content: center;
+        z-index: 20;
+        transition:
+            background-color 0.3s,
+            opacity 0.3s;
+        backdrop-filter: blur(40px);
+        cursor: pointer;
+        outline: none;
+        position-anchor: --slider;
+
+        &:disabled {
+            opacity: 0 !important;
+            pointer-events: none;
+        }
+    }
+
+    &:hover::scroll-button(*) {
+        opacity: 1;
+
+        &:is(:hover, :active) {
+            background-color: rgb(112 112 112 / 0.5);
+        }
+    }
+
+    &::scroll-button(left) {
+        content: url(data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyNCIgaGVpZ2h0PSIyNCIgZmlsbD0iI2ZmZjVmNSIgdmlld0JveD0iMCAwIDI1NiAyNTYiPjxwYXRoIGQ9Ik0yMjgsMTI4YTEyLDEyLDAsMCwxLTEyLDEySDY5bDUxLjUyLDUxLjUxYTEyLDEyLDAsMCwxLTE3LDE3bC03Mi03MmExMiwxMiwwLDAsMSwwLTE3bDcyLTcyYTEyLDEyLDAsMCwxLDE3LDE3TDY5LDExNkgyMTZBMTIsMTIsMCwwLDEsMjI4LDEyOFoiPjwvcGF0aD48L3N2Zz4=) /
+            "Scroll Left";
+        position-area: left;
+        transform: translateX(calc(100% + var(--grid-gutter)));
+    }
+
+    &::scroll-button(right) {
+        content: url(data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyNCIgaGVpZ2h0PSIyNCIgZmlsbD0iI2ZmZjVmNSIgdmlld0JveD0iMCAwIDI1NiAyNTYiPjxwYXRoIGQ9Ik0yMjQuNDksMTM2LjQ5bC03Miw3MmExMiwxMiwwLDAsMS0xNy0xN0wxODcsMTQwSDQwYTEyLDEyLDAsMCwxLDAtMjRIMTg3TDEzNS41MSw2NC40OGExMiwxMiwwLDAsMSwxNy0xN2w3Miw3MkExMiwxMiwwLDAsMSwyMjQuNDksMTM2LjQ5WiI+PC9wYXRoPjwvc3ZnPg==) /
+            "Scroll Right";
+        position-area: right;
+        transform: translateX(calc(-100% - var(--grid-gutter)));
+    }
+
+    &.overflow {
+        scroll-padding: 0 var(--grid-margin);
+
+        &::scroll-button(left) {
+            transform: translateX(-50%);
+            margin: calc(var(--grid-margin) - var(--grid-gutter) / 2);
+        }
+        &::scroll-button(right) {
+            transform: translateX(50%);
+            margin: calc(var(--grid-margin) - var(--grid-gutter) / 2);
+        }
+    }
 }
 
 .modal-enter-active,

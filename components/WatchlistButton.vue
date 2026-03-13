@@ -1,7 +1,7 @@
 <template>
-    <div v-if="isLoggedIn" class="button" @click="toggleWatchlist()">
+    <button v-if="isLoggedIn" class="button" @click="toggleWatchlist()">
         <span class="size-6 bg-gradient-to-br" :class="watchlistState ? 'i-ph-bookmark-simple-fill from-indigo-400 to-blue-400 animate-fly-in' : 'i-ph-bookmark-simple-bold'" />
-    </div>
+    </button>
     <PlusModalLink v-else to="/login" class="button">
         <span class="i-ph-bookmark-simple-bold size-6 bg-gradient-to-br" />
     </PlusModalLink>
