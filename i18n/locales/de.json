@@ -36,23 +36,23 @@
         "watchlistTvShows": "Merkliste Serien"
     },
     "movieDetails": {
-        "watchNow": "jetzt ansehen",   
+        "watchNow": "jetzt ansehen",
         "duration": "Dauer",
         "release": "Veröffentlichung",
         "trailer": "Trailer",
         "director": "Regisseur",
         "script": "Drehbuch",
-        "composers" : "Komponisten",
+        "composers": "Komponisten",
         "production": "Produktion",
         "relatedMovies": "Ähnliche Filme"
     },
     "tvShowDetails": {
-        "watchNow": "jetzt ansehen",   
+        "watchNow": "jetzt ansehen",
         "duration": "Dauer",
         "firstAirDate": "Erstausstrahlung",
-        "status": "Status", 
+        "status": "Status",
         "trailer": "Trailer",
-        "creator" : "Schöpfer",
+        "creator": "Schöpfer",
         "production": "Produktion",
         "relatedTvShows": "Ähnliche Serien",
         "seasons": "Staffeln",

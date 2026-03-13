@@ -1,59 +1,61 @@
 {
-  "name": "movieport",
-  "version": "1.0.0-alpha.1",
-  "private": true,
-  "type": "module",
-  "main": "dist-electron/main.js",
-  "scripts": {
-    "build": "nuxt build",
-    "dev": "nuxt dev --open",
-    "generate": "nuxt generate",
-    "preview": "nuxt preview",
-    "postinstall": "nuxt prepare",
-    "lint": "eslint . && prettier . --check",
-    "lint:eslint": "eslint .",
-    "lint:prettier": "prettier . --check",
-    "lintfix": "eslint . --fix"
-  },
-  "dependencies": {
-    "@morev/vue-transitions": "^3.0.5",
-    "@nuxt/eslint": "^1.0.1",
-    "@nuxt/fonts": "^0.7.2",
-    "@nuxtjs/i18n": "^9.5.4",
-    "@pinia/nuxt": "^0.9.0",
-    "@stylistic/eslint-plugin": "^3.1.0",
-    "@vueuse/core": "^13.5.0",
-    "dayjs": "^1.11.13",
-    "eslint": "^9.20.1",
-    "eslint-config-prettier": "^10.0.1",
-    "eslint-plugin-prettier": "^5.2.3",
-    "nuxt": "^3.13.0",
-    "nuxt-pages-plus": "^0.8.0-beta.1",
-    "nuxt-viewport": "^2.3.1",
-    "pinia": "^2.3.1",
-    "prettier": "^3.5.1",
-    "vue": "latest"
-  },
-  "devDependencies": {
-    "@iconify-json/ph": "^1.1.14",
-    "@iconify/tools": "^4.0.4",
-    "@typescript-eslint/parser": "^8.24.0",
-    "@unocss/eslint-config": "^0.62.3",
-    "@unocss/nuxt": "^0.62.3",
-    "@unocss/preset-icons": "^0.62.3",
-    "@unocss/transformer-directives": "^66.1.0-beta.7",
-    "electron": "^33.2.1",
-    "electron-builder": "^25.1.8",
-    "eslint-config-prettier": "^10.0.1",
-    "nuxt-electron": "^0.7.0",
-    "sass": "^1.77.4",
-    "typescript": "^5.7.3",
-    "unocss": "^0.62.3",
-    "vite-plugin-electron": "^0.29.0",
-    "vite-plugin-electron-renderer": "^0.14.6",
-    "vite-plugin-eslint2": "^5.0.3"
-  },
-  "overrides": {
-    "vue": "latest"
-  }
+    "name": "movieport",
+    "version": "1.0.0-alpha.1",
+    "private": true,
+    "type": "module",
+    "main": "dist-electron/main.js",
+    "scripts": {
+        "build": "nuxt build",
+        "dev": "nuxt dev --open",
+        "generate": "nuxt generate",
+        "preview": "nuxt preview",
+        "postinstall": "nuxt prepare",
+        "lint": "eslint . && prettier . --check",
+        "lint:eslint": "eslint .",
+        "lint:prettier": "prettier . --check",
+        "lintfix": "eslint . --fix && prettier . --write"
+    },
+    "lint-staged": {
+        "*.{js,mjs,ts,vue}": "eslint --fix",
+        "*.{json,jsonc,scss,css,svg,md,yaml,yml}": "prettier --write"
+    },
+    "dependencies": {
+        "nuxt": "^3.13.0",
+        "vue": "latest",
+        "@nuxtjs/i18n": "^9.5.4",
+        "@pinia/nuxt": "^0.9.0",
+        "pinia": "^2.3.1",
+        "@vueuse/core": "^13.5.0",
+        "@nuxt/fonts": "^0.7.2",
+        "dayjs": "^1.11.13",
+        "nuxt-viewport": "^2.3.1",
+        "nuxt-pages-plus": "^0.8.0-beta.1",
+        "@morev/vue-transitions": "^3.0.5"
+    },
+    "devDependencies": {
+        "eslint": "^9.20.1",
+        "@nuxt/eslint": "^1.0.1",
+        "prettier": "^3.5.1",
+        "eslint-config-prettier": "^10.0.1",
+        "@stylistic/eslint-plugin": "^3.1.0",
+        "husky": "^9.1.7",
+        "lint-staged": "^16.3.3",
+        "unocss": "^0.62.3",
+        "@unocss/nuxt": "^0.62.3",
+        "@unocss/preset-icons": "^0.62.3",
+        "@unocss/eslint-config": "^0.62.3",
+        "@unocss/transformer-directives": "^66.1.0-beta.7",
+        "sass": "^1.77.4",
+        "electron": "^33.2.1",
+        "electron-builder": "^25.1.8",
+        "nuxt-electron": "^0.7.0",
+        "vite-plugin-electron": "^0.29.0",
+        "vite-plugin-electron-renderer": "^0.14.6",
+        "@iconify-json/ph": "^1.1.14",
+        "@iconify/tools": "^4.0.4",
+        "typescript": "^5.7.3"
+    },
+    "overrides": {
+        "vue": "latest"
+    }
 }

@@ -131,26 +131,26 @@ export const useAccountStore = defineStore("accountStore", {
             if (!sessionId || !this.accountDetails?.id) return;
 
             const firstPage = await $fetch<FavoriteMoviesResponse>(`/api/account/${this.accountDetails.id}/favorite/movies`, {
-            headers: { "x-tmdb-session-id": sessionId },
+                headers: { "x-tmdb-session-id": sessionId },
             });
 
             if (firstPage.total_pages <= 1) {
-            this.favoriteMovies = firstPage;
-            return;
+                this.favoriteMovies = firstPage;
+                return;
             }
 
             const allResults = [...firstPage.results];
 
             for (let page = 2; page <= firstPage.total_pages; page++) {
-            const pageResponse = await $fetch<FavoriteMoviesResponse>(`/api/account/${this.accountDetails.id}/favorite/movies?page=${page}`, {
-                headers: { "x-tmdb-session-id": sessionId },
-            });
-            allResults.push(...pageResponse.results);
+                const pageResponse = await $fetch<FavoriteMoviesResponse>(`/api/account/${this.accountDetails.id}/favorite/movies?page=${page}`, {
+                    headers: { "x-tmdb-session-id": sessionId },
+                });
+                allResults.push(...pageResponse.results);
             }
 
             this.favoriteMovies = {
-            ...firstPage,
-            results: allResults,
+                ...firstPage,
+                results: allResults,
             };
         },
 
@@ -159,26 +159,26 @@ export const useAccountStore = defineStore("accountStore", {
             if (!sessionId || !this.accountDetails?.id) return;
 
             const firstPage = await $fetch<FavoriteTVShowsResponse>(`/api/account/${this.accountDetails.id}/favorite/tv`, {
-            headers: { "x-tmdb-session-id": sessionId },
+                headers: { "x-tmdb-session-id": sessionId },
             });
 
             if (firstPage.total_pages <= 1) {
-            this.favoriteTVShows = firstPage;
-            return;
+                this.favoriteTVShows = firstPage;
+                return;
             }
 
             const allResults = [...firstPage.results];
 
             for (let page = 2; page <= firstPage.total_pages; page++) {
-            const pageResponse = await $fetch<FavoriteTVShowsResponse>(`/api/account/${this.accountDetails.id}/favorite/tv?page=${page}`, {
-                headers: { "x-tmdb-session-id": sessionId },
-            });
-            allResults.push(...pageResponse.results);
+                const pageResponse = await $fetch<FavoriteTVShowsResponse>(`/api/account/${this.accountDetails.id}/favorite/tv?page=${page}`, {
+                    headers: { "x-tmdb-session-id": sessionId },
+                });
+                allResults.push(...pageResponse.results);
             }
 
             this.favoriteTVShows = {
-            ...firstPage,
-            results: allResults,
+                ...firstPage,
+                results: allResults,
             };
         },
 
@@ -187,26 +187,26 @@ export const useAccountStore = defineStore("accountStore", {
             if (!sessionId || !this.accountDetails?.id) return;
 
             const firstPage = await $fetch<RatedMovieResponse>(`/api/account/${this.accountDetails.id}/rated/movies`, {
-            headers: { "x-tmdb-session-id": sessionId },
+                headers: { "x-tmdb-session-id": sessionId },
             });
 
             if (firstPage.total_pages <= 1) {
-            this.ratedMovies = firstPage;
-            return;
+                this.ratedMovies = firstPage;
+                return;
             }
 
             const allResults = [...firstPage.results];
 
             for (let page = 2; page <= firstPage.total_pages; page++) {
-            const pageResponse = await $fetch<RatedMovieResponse>(`/api/account/${this.accountDetails.id}/rated/movies?page=${page}`, {
-                headers: { "x-tmdb-session-id": sessionId },
-            });
-            allResults.push(...pageResponse.results);
+                const pageResponse = await $fetch<RatedMovieResponse>(`/api/account/${this.accountDetails.id}/rated/movies?page=${page}`, {
+                    headers: { "x-tmdb-session-id": sessionId },
+                });
+                allResults.push(...pageResponse.results);
             }
 
             this.ratedMovies = {
-            ...firstPage,
-            results: allResults,
+                ...firstPage,
+                results: allResults,
             };
         },
 
@@ -215,26 +215,26 @@ export const useAccountStore = defineStore("accountStore", {
             if (!sessionId || !this.accountDetails?.id) return;
 
             const firstPage = await $fetch<RatedTvShowResponse>(`/api/account/${this.accountDetails.id}/rated/tv`, {
-            headers: { "x-tmdb-session-id": sessionId },
+                headers: { "x-tmdb-session-id": sessionId },
             });
 
             if (firstPage.total_pages <= 1) {
-            this.ratedTVShows = firstPage;
-            return;
+                this.ratedTVShows = firstPage;
+                return;
             }
 
             const allResults = [...firstPage.results];
 
             for (let page = 2; page <= firstPage.total_pages; page++) {
-            const pageResponse = await $fetch<RatedTvShowResponse>(`/api/account/${this.accountDetails.id}/rated/tv?page=${page}`, {
-                headers: { "x-tmdb-session-id": sessionId },
-            });
-            allResults.push(...pageResponse.results);
+                const pageResponse = await $fetch<RatedTvShowResponse>(`/api/account/${this.accountDetails.id}/rated/tv?page=${page}`, {
+                    headers: { "x-tmdb-session-id": sessionId },
+                });
+                allResults.push(...pageResponse.results);
             }
 
             this.ratedTVShows = {
-            ...firstPage,
-            results: allResults,
+                ...firstPage,
+                results: allResults,
             };
         },
 
@@ -271,26 +271,26 @@ export const useAccountStore = defineStore("accountStore", {
             if (!sessionId || !this.accountDetails?.id) return;
 
             const firstPage = await $fetch<TvShowWatchlistResponse>(`/api/account/${this.accountDetails.id}/watchlist/tv`, {
-            headers: { "x-tmdb-session-id": sessionId },
+                headers: { "x-tmdb-session-id": sessionId },
             });
 
             if (firstPage.total_pages <= 1) {
-            this.watchlistTVShows = firstPage;
-            return;
+                this.watchlistTVShows = firstPage;
+                return;
             }
 
             const allResults = [...firstPage.results];
 
             for (let page = 2; page <= firstPage.total_pages; page++) {
-            const pageResponse = await $fetch<TvShowWatchlistResponse>(`/api/account/${this.accountDetails.id}/watchlist/tv?page=${page}`, {
-                headers: { "x-tmdb-session-id": sessionId },
-            });
-            allResults.push(...pageResponse.results);
+                const pageResponse = await $fetch<TvShowWatchlistResponse>(`/api/account/${this.accountDetails.id}/watchlist/tv?page=${page}`, {
+                    headers: { "x-tmdb-session-id": sessionId },
+                });
+                allResults.push(...pageResponse.results);
             }
 
             this.watchlistTVShows = {
-            ...firstPage,
-            results: allResults,
+                ...firstPage,
+                results: allResults,
             };
         },
 

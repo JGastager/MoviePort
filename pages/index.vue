@@ -1,6 +1,6 @@
 <template>
     <div class="home-page">
-        <div class="mb-15 gap grid-media-cards">
+        <div class="mb-15 grid-media-cards gap">
             <SectionCard :image="popularMovies.results[0].backdrop_path" :title="$t('global.movies')" link="/movie" icon="i-ph-film-strip-bold" />
             <SectionCard :image="popularShows.results[0].backdrop_path" :title="$t('global.tvShows')" link="/tv" icon="i-ph-television-simple-bold" />
             <SectionCard v-if="isLoggedIn" :image="watchlistMovies.results[watchlistMovies.results.length - 1].backdrop_path" :title="$t('global.watchlist')" link="/watchlist" icon="i-ph-bookmark-simple-bold" />

@@ -1,15 +1,24 @@
 {
-  "editor.codeActionsOnSave": {
-    "source.fixAll": "explicit",
-    "source.fixAll.eslint": "explicit"
-  },
-  "editor.defaultFormatter": "esbenp.prettier-vscode", // Ensure Prettier is used
-  "prettier.enable": true, // Ensure Prettier runs
-  "prettier.configPath": ".prettierrc",
-  "eslint.lintTask.enable": false, // Prevent unnecessary background linting
-  "editor.formatOnSave": true,
-  "i18n-ally.localesPaths": [
-    "i18n/locales"
-  ],
-  "i18n-ally.keystyle": "nested" // Use your Prettier config
+    "editor.defaultFormatter": "esbenp.prettier-vscode",
+    "editor.formatOnSave": true,
+    "editor.codeActionsOnSave": {
+        "source.fixAll.eslint": "explicit"
+    },
+    "editor.tabSize": 4,
+    "editor.insertSpaces": true,
+    "editor.detectIndentation": false,
+
+    "files.associations": {
+        "*.svg": "html"
+    },
+
+    "eslint.useFlatConfig": true,
+    "eslint.validate": ["javascript", "typescript", "vue", "javascriptreact", "typescriptreact"],
+    "eslint.run": "onType",
+    "eslint.format.enable": false,
+
+    "search.followSymlinks": false,
+
+    "i18n-ally.localesPaths": ["i18n/locales"],
+    "i18n-ally.keystyle": "nested"
 }

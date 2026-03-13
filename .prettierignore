@@ -1,0 +1,23 @@
+# Build and Output
+.nuxt
+.output
+dist
+node_modules
+
+# Lockfiles (Never format these, it can break them!)
+package-lock.json
+yarn.lock
+pnpm-lock.yaml
+
+# Ignore the public folder...
+public/*
+
+# ...but DON'T ignore SVGs inside it
+!public/**/*.svg
+
+# Environment and Secrets
+.env
+.env.*
+
+# Logs
+*.log

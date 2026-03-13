@@ -4,7 +4,7 @@
             {{ title }}
         </h2>
         <!-- <pre><code>{{ sortedMedia }}</code></pre> -->
-        <TransitionScale appear group tag="div" class="items-start grid-media-cards">
+        <TransitionScale group appear tag="div" class="items-start grid-media-cards">
             <template v-for="mediaItem in sortedMedia" :key="mediaItem.id">
                 <div v-if="mediaItem?.media_type === 'person' || type === 'person'" class="flex items-center justify-center pt-12">
                     <PersonCard :person="mediaItem" />
