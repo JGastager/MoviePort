@@ -24,10 +24,10 @@
                     class="custom-clip-gradient-home ml-auto mr-0 block h-125vw max-h-230 max-w-screen w-auto object-cover"
                 />
                 <div v-else>
-                    <img src="~assets/images/spotlight.svg" alt="spotlight" class="spotlight absolute h-190% w-auto origin-bottom object-cover blur-2xl -bottom-2/3 -right-30" />
-                    <img src="~assets/images/spotlight.svg" alt="spotlight" class="spotlight-2 absolute h-185% w-auto origin-bottom object-cover blur-2xl -bottom-2/3 -left-30" />
-                    <img src="~assets/images/spotlight.svg" alt="spotlight" class="spotlight-2 -bottom-0 absolute right-30 h-165% w-auto origin-bottom object-cover blur-xl" />
-                    <img src="~assets/images/spotlight.svg" alt="spotlight" class="spotlight -bottom-0 absolute left-30 h-160% w-auto origin-bottom object-cover blur-xl" />
+                    <img src="~assets/images/spotlight.svg" loading="lazy" alt="spotlight" class="spotlight absolute h-190% w-auto origin-bottom object-cover blur-2xl -bottom-2/3 -right-30" />
+                    <img src="~assets/images/spotlight.svg" loading="lazy" alt="spotlight" class="spotlight-2 absolute h-185% w-auto origin-bottom object-cover blur-2xl -bottom-2/3 -left-30" />
+                    <img src="~assets/images/spotlight.svg" loading="lazy" alt="spotlight" class="spotlight-2 -bottom-0 absolute right-30 h-165% w-auto origin-bottom object-cover blur-xl" />
+                    <img src="~assets/images/spotlight.svg" loading="lazy" alt="spotlight" class="spotlight -bottom-0 absolute left-30 h-160% w-auto origin-bottom object-cover blur-xl" />
                 </div>
             </TransitionFade>
             <Player v-if="player.play && player.tmdbId && player.type && player.selectedProvider" :tmdb-id="player.tmdbId" :type="player.type" :season="player.season" :episode="player.episode" :domain="player.selectedProvider.provider_link" />

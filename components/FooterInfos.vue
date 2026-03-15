@@ -2,7 +2,7 @@
     <footer class="relative mt-30 flex flex-grow items-end justify-between <lg:flex-col <lg:items-center gap">
         <div class="flex items-center gap-4 <lg:flex-col <lg:items-center">
             <NuxtLink to="https://www.themoviedb.org/" target="_blank">
-                <img src="~assets/images/TMDB/alt-short.svg" alt="TMDB Logo" class="block h-4" />
+                <img src="~assets/images/TMDB/alt-short.svg" loading="lazy" alt="TMDB Logo" class="block h-4" />
             </NuxtLink>
             <p class="text-muted <lg:text-center">This application uses TMDB and the TMDB APIs but is not endorsed, certified, or otherwise approved by TMDB.</p>
         </div>

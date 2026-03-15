@@ -2,7 +2,7 @@
     <div class="h-full flex flex-col items-center justify-center">
         <h2 class="mb-2.5">Login to</h2>
         <NuxtLink to="https://www.themoviedb.org/" target="_blank" class="mb-10">
-            <img src="~assets/images/TMDB/primary-long.svg" alt="TMDB Logo" class="block h-4" />
+            <img src="~assets/images/TMDB/primary-long.svg" loading="lazy" alt="TMDB Logo" class="block h-4" />
         </NuxtLink>
         <form class="login-form relative max-w-100 w-full" @submit.prevent="handleLogin">
             <div class="flex flex-col items-center gap-2.5 transition-opacity duration-300" :class="{ 'opacity-0 pointer-events-0': isAuthenticated && loginSuccess }">

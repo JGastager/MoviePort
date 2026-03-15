@@ -1,7 +1,13 @@
 <template>
     <div class="group relative cursor-pointer rounded w-media-card">
         <div class="relative mb-3 aspect-2/3 overflow-hidden card">
-            <img v-if="media.poster_path" :src="$getImageUrl(media.poster_path, 'poster', 'w342')" :alt="media.title || media.name" class="h-full w-full object-cover transition-all duration-300 group-hover:scale-102 group-hover:blur-sm" />
+            <img
+                v-if="media.poster_path"
+                loading="lazy"
+                :src="$getImageUrl(media.poster_path, 'poster', 'w342')"
+                :alt="media.title || media.name"
+                class="h-full w-full object-cover transition-all duration-300 group-hover:scale-102 group-hover:blur-sm"
+            />
             <div v-else class="absolute inset-0 h-full w-full flex items-center justify-center transition-all duration-300 group-hover:scale-102 group-hover:blur-sm">
                 <span v-if="type === 'tv'" class="i-ph-television-simple-thin size-18 text-muted" />
                 <span v-else class="i-ph-film-strip-thin size-18 text-muted" />

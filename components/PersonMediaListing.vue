@@ -6,14 +6,14 @@
         <TransitionScale appear group tag="div" class="grid grid-cols-7 items-start gap">
             <div v-for="elem in sortedMedia" :key="elem.id" ref="movieRefs" class="group relative cursor-pointer rounded">
                 <div class="relative mb-3 aspect-2/3 overflow-hidden card">
-                    <img v-if="elem.poster_path" :src="$getImageUrl(elem.poster_path, 'poster', 'w342')" :alt="elem.title" class="h-full w-full object-cover transition-all duration-300 group-hover:scale-102 group-hover:blur-sm" />
+                    <img v-if="elem.poster_path" :src="$getImageUrl(elem.poster_path, 'poster', 'w342')" loading="lazy" :alt="elem.title" class="h-full w-full object-cover transition-all duration-300 group-hover:scale-102 group-hover:blur-sm" />
                     <div v-else class="absolute inset-0 h-full w-full flex items-center justify-center transition-all duration-300 group-hover:scale-102 group-hover:blur-sm">
                         <span class="i-ph-film-strip-thin size-18 text-muted" />
                     </div>
                 </div>
                 <h3 class="mb-0.5">{{ elem.title || elem.name }}</h3>
-                <small v-if="elem.character" class="block text-muted italic">{{ elem.character }}</small>
-                <small v-if="elem.department || elem.job" class="block text-muted italic">{{ elem?.department }} | {{ elem.job }}</small>
+                <!-- <span v-if="elem.character" class="block text-muted">{{ elem.character }}</span> -->
+                <span v-if="elem.job" class="block text-muted">{{ elem.job }}</span>
                 <span v-if="elem.release_date" class="text-muted">{{ $dayjs(elem.release_date).get("year") }}</span>
                 <Rating :tmdb-id="elem.id" :type="elem.media_type" :rating="elem.vote_average" />
                 <NuxtLink :to="'/' + elem.media_type + '/' + elem.id" class="absolute inset-0 z-10" />

@@ -1,7 +1,7 @@
 <template>
     <div class="group relative aspect-9/5 min-h-25 w-full cursor-pointer overflow-hidden rounded" @click="$emit('click')">
         <Transition name="fade-image" appear>
-            <img v-if="image" :src="$getImageUrl(image, 'backdrop', 'w300')" :alt="title" class="absolute inset-0 h-full w-full object-cover saturate-120 transition duration-300 group-hover:scale-120" />
+            <img v-if="image" :src="$getImageUrl(image, 'backdrop', 'w300')" loading="lazy" :alt="title" class="absolute inset-0 h-full w-full object-cover saturate-120 transition duration-300 group-hover:scale-120" />
         </Transition>
         <div class="relative h-full w-full flex flex-col items-center justify-center gap-2.5 bg-primary/30 backdrop-blur-xl transition-colors duration-300 group-hover:bg-primary/50">
             <span class="size-6" :class="icon ? icon : 'i-ph-plus-square-bold'" />

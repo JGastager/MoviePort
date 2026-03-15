@@ -10,11 +10,11 @@
             <div class="flex flex-wrap gap-2.5" :class="{ 'mb-6': buyOrRentProviders.length, 'justify-center': layout === 'center' }">
                 <template v-for="provider in mappedProviders?.flatrate">
                     <a v-if="provider.provider_link" :key="provider.provider_id" :href="provider.provider_link" target="_blank" class="button !pl-3">
-                        <img :src="$getImageUrl(provider.logo_path, 'poster', 'w92')" alt="provider logo" class="size-7 rounded" />
+                        <img :src="$getImageUrl(provider.logo_path, 'poster', 'w92')" loading="lazy" alt="provider logo" class="size-7 rounded" />
                         <span>{{ provider.provider_name }}</span>
                     </a>
                     <div v-else :key="provider.provider_id + '-no-link'" class="h-11 inline-flex cursor-default items-center gap-2.5 card pl-3 pr-4">
-                        <img :src="$getImageUrl(provider.logo_path, 'poster', 'w92')" alt="provider logo" class="size-7 rounded" />
+                        <img :src="$getImageUrl(provider.logo_path, 'poster', 'w92')" loading="lazy" alt="provider logo" class="size-7 rounded" />
                         <span>{{ provider.provider_name }}</span>
                     </div>
                 </template>
@@ -25,11 +25,11 @@
             <div class="flex flex-wrap gap-2.5" :class="{ 'justify-center': layout === 'center' }">
                 <template v-for="provider in buyOrRentProviders">
                     <a v-if="provider.provider_link" :key="provider.provider_id" :href="provider.provider_link" target="_blank" class="button !pl-3">
-                        <img :src="$getImageUrl(provider.logo_path, 'poster', 'w92')" alt="provider logo" class="size-7 rounded" />
+                        <img :src="$getImageUrl(provider.logo_path, 'poster', 'w92')" loading="lazy" alt="provider logo" class="size-7 rounded" />
                         <span>{{ provider.provider_name }}</span>
                     </a>
                     <div v-else :key="provider.provider_id + '-no-link'" class="h-11 inline-flex cursor-default items-center gap-2.5 card pl-3 pr-4">
-                        <img :src="$getImageUrl(provider.logo_path, 'poster', 'w92')" alt="provider logo" class="size-7 rounded" />
+                        <img :src="$getImageUrl(provider.logo_path, 'poster', 'w92')" loading="lazy" alt="provider logo" class="size-7 rounded" />
                         <span>{{ provider.provider_name }}</span>
                     </div>
                 </template>

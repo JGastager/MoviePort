@@ -11,7 +11,7 @@
             </div>
             <div v-for="(movie, index) in movies" :key="index" class="group relative cursor-pointer rounded">
                 <div class="relative mb-3 aspect-2/3 overflow-hidden card w-media-card">
-                    <img v-if="movie.poster_path" :src="$getImageUrl(movie.poster_path, 'poster', 'w342')" :alt="movie.title" class="h-full w-full object-cover transition-all duration-300 group-hover:scale-102 group-hover:blur-sm" />
+                    <img v-if="movie.poster_path" :src="$getImageUrl(movie.poster_path, 'poster', 'w342')" loading="lazy" :alt="movie.title" class="h-full w-full object-cover transition-all duration-300 group-hover:scale-102 group-hover:blur-sm" />
                     <div v-else class="absolute inset-0 h-full w-full flex items-center justify-center transition-all duration-300 group-hover:scale-102 group-hover:blur-sm">
                         <span class="i-ph-film-strip-thin size-18 text-muted" />
                     </div>

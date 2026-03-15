@@ -14,7 +14,7 @@
                 <h1 class="mb-10">
                     {{ translatedContent.name }}
                 </h1>
-                <h3 class="mb-10">
+                <h3 class="mb-3">
                     {{ translatedContent.tagline }}
                 </h3>
                 <p class="mb-10">

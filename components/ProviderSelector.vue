@@ -3,7 +3,7 @@
         <h2 class="mb-6">Favorite Streaming Providers</h2>
         <TransitionScale group tag="div" class="flex flex-wrap gap-3">
             <button v-for="provider in favoriteProviders" :key="provider.provider_id" :title="provider.provider_link" class="group gap-0 button !pl-3" @click="toggleProvider(provider.provider_id)">
-                <img v-if="provider.logo_path" :src="$getImageUrl(provider.logo_path, 'poster', 'w92')" alt="provider logo" class="mr-2.5 size-7 rounded" />
+                <img v-if="provider.logo_path" :src="$getImageUrl(provider.logo_path, 'poster', 'w92')" loading="lazy" alt="provider logo" class="mr-2.5 size-7 rounded" />
                 <span v-else class="i-ph-check-square-offset-bold mr-2.5 size-6 flex items-center justify-center rounded" />
                 <span>{{ provider.provider_name }}</span>
                 <span class="i-ph-minus-square-bold size-0 opacity-0 transition-all duration-300 group-hover:ml-3 group-hover:size-6 group-hover:opacity-100 group-hover:-mr-1" />
@@ -21,7 +21,13 @@
                     <TransitionScale group tag="div" class="flex flex-wrap justify-center gap-3">
                         <button v-for="provider in filteredProviders" :key="provider.provider_id" :title="provider.provider_link" class="group gap-0 button !pl-3" @click="toggleProvider(provider.provider_id)">
                             <div class="relative mr-2.5 size-7">
-                                <img :src="$getImageUrl(provider.logo_path, 'poster', 'w92')" alt="provider logo" class="size-7 rounded" :class="{ 'opacity-40': favoriteProviders.some((p) => p.provider_id === provider.provider_id) }" />
+                                <img
+                                    :src="$getImageUrl(provider.logo_path, 'poster', 'w92')"
+                                    loading="lazy"
+                                    alt="provider logo"
+                                    class="size-7 rounded"
+                                    :class="{ 'opacity-40': favoriteProviders.some((p) => p.provider_id === provider.provider_id) }"
+                                />
                                 <TransitionScale>
                                     <span v-if="favoriteProviders.some((p) => p.provider_id === provider.provider_id)" class="i-ph-check-bold absolute left-1/2 top-1/2 block size-6 transform -translate-x-1/2 -translate-y-1/2" />
                                 </TransitionScale>

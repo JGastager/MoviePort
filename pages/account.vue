@@ -2,7 +2,7 @@
     <div class="account-page">
         <div v-if="accountDetails">
             <div class="mb-10 flex items-center gap-8">
-                <img v-if="gravatarUrl" class="rounded-full" alt="Avatar" :src="gravatarUrl" />
+                <img v-if="gravatarUrl" loading="lazy" class="rounded-full" alt="Avatar" :src="gravatarUrl" />
                 <div>
                     <h1 v-if="accountDetails.username" class="mb-3">{{ $t("account.hello") }}, {{ accountDetails.username }}</h1>
                     <span v-if="accountDetails.id">

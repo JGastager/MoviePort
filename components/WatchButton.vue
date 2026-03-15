@@ -14,7 +14,7 @@
             <h2 class="mb-6 text-center">Where to watch</h2>
             <div v-if="favoriteProviders.length > 0" class="flex flex-wrap justify-center gap-3">
                 <button v-for="provider in filteredProviders" :key="provider.provider_id" :title="provider.provider_link" class="button !pl-3" @click="triggerPlay(provider)">
-                    <img v-if="provider.logo_path" :src="$getImageUrl(provider.logo_path, 'poster', 'w92')" alt="provider logo" class="size-7 rounded" />
+                    <img v-if="provider.logo_path" :src="$getImageUrl(provider.logo_path, 'poster', 'w92')" loading="lazy" alt="provider logo" class="size-7 rounded" />
                     <span v-else class="i-ph-check-square-offset-bold size-6 flex items-center justify-center rounded" />
                     <span>{{ provider.provider_name }}</span>
                 </button>
