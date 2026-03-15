@@ -8,7 +8,11 @@
                 <div class="relative mb-3 aspect-2/3 overflow-hidden card">
                     <img v-if="elem.poster_path" :src="$getImageUrl(elem.poster_path, 'poster', 'w342')" loading="lazy" :alt="elem.title" class="h-full w-full object-cover transition-all duration-300 group-hover:scale-102 group-hover:blur-sm" />
                     <div v-else class="absolute inset-0 h-full w-full flex items-center justify-center transition-all duration-300 group-hover:scale-102 group-hover:blur-sm">
-                        <span class="i-ph-film-strip-thin size-18 text-muted" />
+                        <span v-if="elem.media_type === 'tv'" class="i-ph-television-simple-thin size-18 text-muted" />
+                        <span v-else class="i-ph-film-strip-thin size-18 text-muted" />
+                    </div>
+                    <div class="absolute inset-0 flex items-center justify-center bg-primary/20 opacity-0 transition-opacity duration-300 group-hover:opacity-100">
+                        <div class="i-ph-arrow-square-in-bold size-6" />
                     </div>
                 </div>
                 <h3 class="mb-0.5">{{ elem.title || elem.name }}</h3>
