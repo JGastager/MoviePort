@@ -21,6 +21,11 @@ export default defineNuxtConfig({
         },
     },
     compatibilityDate: "2024-04-03",
+    vite: {
+        optimizeDeps: {
+            include: ["@vue/devtools-core", "@vue/devtools-kit", "dayjs", "@vueuse/core"],
+        },
+    },
     electron: {
         disableDefaultOptions: true,
         build: [
