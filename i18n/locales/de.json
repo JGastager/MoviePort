@@ -59,5 +59,50 @@
         "season": "Staffel",
         "specials": "Specials"
     },
-    "personDetails": {}
+    "department": {
+        "Acting": {
+            "1": "Schauspielerin",
+            "2": "Schauspieler"
+        },
+        "Directing": {
+            "1": "Regisseurin",
+            "2": "Regisseur"
+        },
+        "Writing": {
+            "1": "Drehbuchautorin",
+            "2": "Drehbuchautor"
+        },
+        "Production": {
+            "1": "Produzentin",
+            "2": "Produzent"
+        },
+        "Camera": {
+            "1": "Kamerafrau",
+            "2": "Kameramann"
+        },
+        "Editing": {
+            "1": "Editorin",
+            "2": "Editor"
+        },
+        "Sound": {
+            "1": "Sound Designerin",
+            "2": "Sound Designer"
+        },
+        "Art": {
+            "1": "Art Directorin",
+            "2": "Art Director"
+        },
+        "Costume & Make-Up": {
+            "1": "Costume & Make-Up Artistin",
+            "2": "Costume & Make-Up Artist"
+        },
+        "Visual Effects": {
+            "1": "Visual Effects Artistin",
+            "2": "Visual Effects Artist"
+        },
+        "Crew": {
+            "1": "Crew Mitglied",
+            "2": "Crew Mitglied"
+        }
+    }
 }

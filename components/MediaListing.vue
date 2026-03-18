@@ -20,7 +20,7 @@
                 <h3>{{ $t("global.loadMore") }}</h3>
             </div>
         </TransitionScale>
-        <div v-show="more" ref="scrollTrigger" class="pointer-events-none h-10 opacity-0"></div>
+        <div ref="scrollTrigger" class="pointer-events-none h-10 opacity-0"></div>
         <!-- Invisible trigger div for infinite scroll -->
         <Transition name="to-top">
             <div v-if="media?.length > 28 && showToTop" class="pointer-events-none sticky bottom-0 z-10 w-full flex items-center justify-center px-margin py-12">
@@ -81,9 +81,7 @@ const observer = new IntersectionObserver(
 );
 
 const scrollToTop = () => {
-    if (MediaListing.value) {
-        MediaListing.value.scrollIntoView({ behavior: "smooth" });
-    }
+    window.scrollTo({ top: 0, behavior: "smooth" });
 };
 
 onMounted(() => {

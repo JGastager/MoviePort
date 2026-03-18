@@ -1,6 +1,6 @@
 <template>
     <div class="persons-page">
-        <MediaListing v-if="popularPersons" title="Popular people" :media="popularPersons.results" type="person" :more="true" @load-more="loadMorePersons" />
+        <MediaListing v-if="popularPersons" title="Popular people" :media="popularPersons.results" type="person" @load-more="loadMorePersons" />
     </div>
 </template>
 
@@ -16,12 +16,11 @@ const personsStore = usePersonsStore();
 const { fetchPopularPersons } = personsStore;
 const { popularPersons } = storeToRefs(personsStore);
 
-const currentPage = ref(1);
+const currentPage = computed(() => popularPersons.value.page || 1);
 
 await fetchPopularPersons(currentPage.value);
 
 async function loadMorePersons() {
-    currentPage.value++;
-    await fetchPopularPersons(currentPage.value);
+    await fetchPopularPersons(currentPage.value + 1);
 }
 </script>
