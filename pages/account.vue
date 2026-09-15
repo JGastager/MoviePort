@@ -61,6 +61,10 @@ import { useI18n } from "vue-i18n";
 import { useAccountStore } from "~/store/account";
 import Tabs from "~/components/Tabs.vue";
 
+definePageMeta({
+    middleware: "auth",
+});
+
 const accountStore = useAccountStore();
 const { accountDetails, favoriteMovies, favoriteTVShows, ratedMovies, ratedTVShows, watchlistMovies, watchlistTVShows, preferredLanguage } = storeToRefs(accountStore);
 

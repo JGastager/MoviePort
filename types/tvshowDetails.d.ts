@@ -172,3 +172,11 @@ export interface TMDBTVShowDetails {
     vote_count: number;
     translations: { translations: TMDBTranslation[] };
 }
+
+// Persisted "continue watching" record for the last-played TV show
+export interface LastWatchedTVShow {
+    show: TMDBTVShowDetails;
+    season: number;
+    episode: number;
+    watchedAt: number;
+}

@@ -163,6 +163,12 @@ button {
     anchor-name: --slider;
     anchor-scope: --slider;
 
+    // BlossomCarousel sets a fixed inline-size, which breaks the negative-margin
+    // bleed trick on `.overflow` (that trick relies on width:auto to expand past
+    // the container on both sides).
+    width: auto;
+    max-width: none;
+
     > * {
         scroll-snap-align: center;
     }

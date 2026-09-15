@@ -17,9 +17,9 @@
                     class="custom-clip-gradient mx-auto block h-230 max-h-full w-auto object-cover"
                 />
                 <img
-                    v-else-if="currentRouteType === 'home' && (lastWatchedMovie?.backdrop_path || popularMovie?.backdrop_path)"
+                    v-else-if="currentRouteType === 'home' && (continueWatching?.backdropPath || popularMovie?.backdrop_path)"
                     v-parallax
-                    :src="$getImageUrl(lastWatchedMovie ? lastWatchedMovie?.backdrop_path : popularMovie?.backdrop_path, 'backdrop', 'original')"
+                    :src="$getImageUrl(continueWatching ? continueWatching.backdropPath : popularMovie?.backdrop_path, 'backdrop', 'original')"
                     alt="Backdrop"
                     class="custom-clip-gradient-home ml-auto mr-0 block h-125vw max-h-230 max-w-screen w-auto object-cover"
                 />
@@ -46,25 +46,25 @@
                     <div class="pointer-events-none flex-grow pb-10">
                         <Brand class="sticky top-12" />
                     </div>
-                    <template v-if="lastWatchedMovie">
-                        <NuxtLink :to="'/movie/' + lastWatchedMovie?.id" group="group">
+                    <template v-if="continueWatching">
+                        <NuxtLink :to="continueWatching.link" group="group">
                             <h1 class="relative mb-6 inline-block">
-                                {{ lastWatchedMovie?.title }}
+                                {{ continueWatching.title }}
                             </h1>
                             <p class="line-clamp-3 max-w-150 text-muted">
-                                {{ lastWatchedMovie?.overview }}
+                                {{ continueWatching.overview }}
                             </p>
                         </NuxtLink>
                         <div class="flex flex-wrap items-center gap-2.5 gap-y-5">
-                            <NuxtLink :to="'/movie/' + lastWatchedMovie?.id" class="button">
+                            <NuxtLink :to="continueWatching.link" class="button">
                                 <span class="i-ph-play-bold size-6" />
                                 <span>Continue watching</span>
                             </NuxtLink>
                             <div class="button" @click="deleteFromLastWatched()">
                                 <span class="i-ph-minus-square-bold size-6" />
                             </div>
-                            <WatchlistButton :tmdb-id="lastWatchedMovie?.id" type="movie" />
-                            <Rating :tmdb-id="lastWatchedMovie?.id" type="movie" :rating="lastWatchedMovie?.vote_average" size="large" class="mx-3" />
+                            <WatchlistButton :tmdb-id="continueWatching.id" :type="continueWatching.type" />
+                            <Rating :tmdb-id="continueWatching.id" :type="continueWatching.type" :rating="continueWatching.voteAverage" size="large" class="mx-3" />
                         </div>
                     </template>
                     <template v-else-if="popularMovie">
@@ -105,6 +105,8 @@ import { useRoute } from "vue-router";
 import { useMoviesStore } from "~/store/movies";
 import { useShowsStore } from "~/store/shows";
 import { usePlayerStore } from "~/store/player";
+import type { LastWatchedMovie } from "~/types/movieDetails";
+import type { LastWatchedTVShow } from "~/types/tvshowDetails";
 
 const movieStore = useMoviesStore();
 const showsStore = useShowsStore();
@@ -133,11 +135,39 @@ const currentRouteType = computed(() => {
     }
 });
 
-const lastWatchedTVShow = ref(null);
-const lastWatchedMovie = ref(null);
+const lastWatchedTVShow = ref<LastWatchedTVShow | null>(null);
+const lastWatchedMovie = ref<LastWatchedMovie | null>(null);
 
 const popularMovie = computed(() => {
     return popularMovies.value.results?.length ? popularMovies.value.results[0] : null;
+});
+
+const continueWatching = computed(() => {
+    if (lastWatchedMovie.value && (!lastWatchedTVShow.value || lastWatchedMovie.value.watchedAt >= lastWatchedTVShow.value.watchedAt)) {
+        const movie = lastWatchedMovie.value.movie;
+        return {
+            type: "movie" as const,
+            id: movie.id,
+            title: movie.title,
+            overview: movie.overview,
+            backdropPath: movie.backdrop_path,
+            voteAverage: movie.vote_average,
+            link: `/movie/${movie.id}`,
+        };
+    }
+    if (lastWatchedTVShow.value) {
+        const { show, season } = lastWatchedTVShow.value;
+        return {
+            type: "tv" as const,
+            id: show.id,
+            title: show.name,
+            overview: show.overview,
+            backdropPath: show.backdrop_path,
+            voteAverage: show.vote_average,
+            link: `/tv/${show.id}?season=${season}`,
+        };
+    }
+    return null;
 });
 
 const storedCountry = localStorage.getItem("userCountry");
@@ -148,19 +178,36 @@ if (!storedCountry) {
 }
 
 function deleteFromLastWatched() {
-    lastWatchedMovie.value = null;
-    localStorage.removeItem("lastWatchedMovie");
+    if (continueWatching.value?.type === "tv") {
+        lastWatchedTVShow.value = null;
+        localStorage.removeItem("lastWatchedTVShow");
+    } else {
+        lastWatchedMovie.value = null;
+        localStorage.removeItem("lastWatchedMovie");
+    }
 }
 
 onMounted(() => {
+    // Guard against a pre-existing raw show/movie object from an older app version
+    // (stored before this "continue watching" record shape existed).
     const storedShow = localStorage.getItem("lastWatchedTVShow");
     if (storedShow) {
-        lastWatchedTVShow.value = JSON.parse(storedShow);
+        const parsedShow = JSON.parse(storedShow);
+        if (parsedShow?.show?.id) {
+            lastWatchedTVShow.value = parsedShow;
+        } else {
+            localStorage.removeItem("lastWatchedTVShow");
+        }
     }
 
     const storedMovie = localStorage.getItem("lastWatchedMovie");
     if (storedMovie) {
-        lastWatchedMovie.value = JSON.parse(storedMovie);
+        const parsedMovie = JSON.parse(storedMovie);
+        if (parsedMovie?.movie?.id) {
+            lastWatchedMovie.value = parsedMovie;
+        } else {
+            localStorage.removeItem("lastWatchedMovie");
+        }
     }
 });
 </script>

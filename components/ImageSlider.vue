@@ -1,7 +1,7 @@
 <template>
     <div class="image-slider">
         <h2 v-if="images?.backdrops?.length" class="mb-6">{{ $t("global.images") }}</h2>
-        <div v-if="images?.backdrops?.length" v-drag-scroll class="slider relative w-full flex gap-7 overflow-x-auto rounded scrollbar-none">
+        <BlossomCarousel v-if="images?.backdrops?.length" class="slider relative w-full flex gap-7 overflow-x-auto rounded scrollbar-none">
             <template v-for="(image, index) in images?.backdrops" :key="index">
                 <div v-if="image.iso_639_1 == 'en' || image.iso_639_1 == null">
                     <div class="h-120 w-fit overflow-hidden card">
@@ -9,7 +9,7 @@
                     </div>
                 </div>
             </template>
-        </div>
+        </BlossomCarousel>
     </div>
 </template>
 
@@ -46,19 +46,9 @@ onMounted(async () => {
 });
 </script>
 
-<!-- <style lang="scss">
-.image-slider {
-    > div {
-        scroll-snap-type: x proximity;
-        > div {
-            &:first-child {
-                scroll-snap-align: start;
-            }
-            scroll-snap-align: center;
-            &:last-child {
-                scroll-snap-align: end;
-            }
-        }
-    }
+<style lang="scss">
+// Override app.vue's `.slider > *` scroll-snap-align:center - this slider scrolls freely, no snapping.
+.image-slider .slider > * {
+    scroll-snap-align: none;
 }
-</style> -->
+</style>

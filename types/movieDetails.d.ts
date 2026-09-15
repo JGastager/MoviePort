@@ -72,6 +72,12 @@ export interface TMDBMovieDetailsResponse extends TMDBMovieBase {
     translations: { translations: TMDBTranslation[] };
 }
 
+// Persisted "continue watching" record for the last-played movie
+export interface LastWatchedMovie {
+    movie: TMDBMovieDetailsResponse;
+    watchedAt: number;
+}
+
 export interface TMDBPaginatedResponse<T> {
     page: number;
     results: T[];

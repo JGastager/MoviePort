@@ -98,6 +98,7 @@ import { storeToRefs } from "pinia";
 import { useMoviesStore } from "~/store/movies";
 import { useAccountStore } from "~/store/account";
 import type { TMDBCredit } from "~/types/person";
+import type { LastWatchedMovie } from "~/types/movieDetails";
 
 const directors = computed(() => {
     return movieCredits.value?.crew?.filter((crewmember: TMDBCredit) => crewmember.job === "Director");
@@ -166,8 +167,8 @@ async function loadMoreSimilarMovies() {
 }
 
 function handlePlay() {
-    localStorage.removeItem("lastWatchedMovie");
-    localStorage.setItem("lastWatchedMovie", JSON.stringify(movieDetails.value));
+    const lastWatchedMovie: LastWatchedMovie = { movie: movieDetails.value, watchedAt: Date.now() };
+    localStorage.setItem("lastWatchedMovie", JSON.stringify(lastWatchedMovie));
 }
 </script>
 

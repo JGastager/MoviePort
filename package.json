@@ -20,6 +20,7 @@
         "*.{json,jsonc,scss,css,svg,md,yaml,yml}": "prettier --write"
     },
     "dependencies": {
+        "@blossom-carousel/vue": "^1.6.1",
         "@morev/vue-transitions": "^3.0.5",
         "@nuxt/fonts": "^0.14.0",
         "@nuxtjs/i18n": "^10.2.3",

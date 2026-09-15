@@ -12,6 +12,7 @@ export default defineNuxtConfig({
             ],
         },
     },
+    css: ["@blossom-carousel/vue/style.css"],
     spaLoadingTemplate: "spa-loading-template.html",
     runtimeConfig: {
         public: {

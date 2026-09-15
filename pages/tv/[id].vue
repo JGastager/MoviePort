@@ -120,12 +120,13 @@ import { storeToRefs } from "pinia";
 import { useShowsStore } from "~/store/shows";
 import { useAccountStore } from "~/store/account";
 import { usePlayerStore } from "~/store/player";
-
-const activeSeason = ref(1);
-const activeEpisode = ref(0);
+import type { LastWatchedTVShow } from "~/types/tvshowDetails";
 
 const route = useRoute();
 const player = usePlayerStore();
+
+const activeSeason = ref(Number(route.query.season) || 1);
+const activeEpisode = ref(0);
 
 const showId = Number(route.params.id);
 const selectedDetailsLanguage = ref<string | null>(null);
@@ -187,10 +188,15 @@ async function loadMoreSimilarTvShows() {
     await fetchSimilarTvShows(showId, currentPage.value);
 }
 
-function handlePlay(episode_number) {
+function handlePlay(episode_number: number) {
     activeEpisode.value = episode_number;
-    localStorage.removeItem("lastWatchedTVShow");
-    localStorage.setItem("lastWatchedTVShow", JSON.stringify(tvShowDetails.value));
+    const lastWatchedTVShow: LastWatchedTVShow = {
+        show: tvShowDetails.value,
+        season: activeSeason.value,
+        episode: episode_number,
+        watchedAt: Date.now(),
+    };
+    localStorage.setItem("lastWatchedTVShow", JSON.stringify(lastWatchedTVShow));
 }
 </script>
 
